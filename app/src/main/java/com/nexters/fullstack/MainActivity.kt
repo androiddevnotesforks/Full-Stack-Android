@@ -1,11 +1,14 @@
 package com.nexters.fullstack
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.nexters.fullstack.base.BaseActivity
+import com.nexters.fullstack.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    override val layoutRes: Int = R.layout.activity_main
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        bind {  }
     }
 }
