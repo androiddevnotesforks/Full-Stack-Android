@@ -48,6 +48,12 @@ dependencies {
     //image
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
+    //card stack view
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
+
+    //slide drawer layout
+    implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
