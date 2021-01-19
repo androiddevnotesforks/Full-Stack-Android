@@ -30,4 +30,5 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment() {
     fun bind(body: VB.() -> Unit) {
         binding.run(body)
     }
+
 }

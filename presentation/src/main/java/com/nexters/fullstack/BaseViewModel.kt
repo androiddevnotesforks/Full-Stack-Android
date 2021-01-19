@@ -1,3 +1,7 @@
 package com.nexters.fullstack
 
-abstract class BaseViewModel {}
+import androidx.lifecycle.ViewModel
+
+abstract class BaseViewModel : ViewModel() {
+
+}
