@@ -5,4 +5,8 @@
     <string name="label">라벨링</string>
     <string name="search">탐색</string>
     <string name="album">앨범</string>
+
+
+    <!--    LabelManagerFragment    -->
+    <string name="label_title">지금 라벨링 할까요?</string>
 </resources>

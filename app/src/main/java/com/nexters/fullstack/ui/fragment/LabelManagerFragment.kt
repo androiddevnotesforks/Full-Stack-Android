@@ -1,16 +1,22 @@
 package com.nexters.fullstack.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelManagerBinding
+import com.nexters.fullstack.ui.activity.LabelingActivity
 
 class LabelManagerFragment() : BaseFragment<FragmentLabelManagerBinding>() {
     override val layoutRes: Int = R.layout.fragment_label_manager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.labeledButton.setOnClickListener {
+            startActivity(Intent(activity, LabelingActivity::class.java))
+        }
     }
 
     companion object {
