@@ -8,9 +8,12 @@ import com.nexters.fullstack.ext.loadFragment
 import com.nexters.fullstack.ui.fragment.LabelManagerFragment
 import com.nexters.fullstack.ui.fragment.MyAlbumFragment
 import com.nexters.fullstack.ui.fragment.PictureSearchFragment
+import com.nexters.fullstack.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override val layoutRes: Int = R.layout.activity_main
+    override val viewModel: MainViewModel by viewModel()
 
     private val labelManagerFragment = LabelManagerFragment.getInstance()
     private val pictureSearchFragment = PictureSearchFragment.getInstance()

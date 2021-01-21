@@ -8,4 +8,8 @@
     
     <!-- Titles -->
     <string name="do_labelling">라벨링 하기</string>
+
+    <!-- Buttons -->
+    <string name="done">완료</string>
+    
 </resources>
