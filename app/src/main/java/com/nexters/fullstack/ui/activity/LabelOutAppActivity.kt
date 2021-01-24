@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
@@ -23,7 +24,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         super.onCreate(savedInstanceState)
         when{
             intent?.action == Intent.ACTION_SEND
-                && intent.type?.startsWith("image/") == true -> {
+                && intent.type?.startsWith(Constants.IMAGE_PREFIX) == true -> {
                     handleImage(intent)
                 }
         }
@@ -40,10 +41,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     }
 
     private fun handleImage(intent : Intent){
-        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
+        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let { uri : Uri ->
             labelOutAppFragment.apply {
                 arguments = Bundle().apply {
-                    putString("screenshot", it.toString())
+                    putString(Constants.SS_BUNDLE_KEY, uri.toString())
                 }
             }
         }
