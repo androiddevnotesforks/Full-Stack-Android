@@ -5,7 +5,6 @@ import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabellingBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.viewmodel.LabelingViewModel
-import com.nexters.fullstack.widget.CustomDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ext.loadFragment
 import com.nexters.fullstack.ui.fragment.LabelCreateFragment
