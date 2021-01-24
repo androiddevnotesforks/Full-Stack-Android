@@ -5,15 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 import com.nexters.fullstack.helper.PermissionHelper
 import org.koin.android.ext.android.inject
-import org.koin.core.KoinComponent
 
-abstract class BaseActivity<VB : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
     protected lateinit var binding: VB
         private set
 
     abstract val layoutRes: Int
+    abstract val viewModel : VM
 
     internal val permissionHelper by inject<PermissionHelper>()
 
