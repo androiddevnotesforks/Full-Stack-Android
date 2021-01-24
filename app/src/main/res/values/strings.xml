@@ -5,7 +5,12 @@
     <string name="label">라벨링</string>
     <string name="search">탐색</string>
     <string name="album">앨범</string>
+    
+    <!-- Titles -->
+    <string name="do_labelling">라벨링 하기</string>
 
+    <!-- Buttons -->
+    <string name="done">완료</string>
 
     <!--    LabelManagerFragment    -->
     <string name="label_title">지금 라벨링 할까요?</string>

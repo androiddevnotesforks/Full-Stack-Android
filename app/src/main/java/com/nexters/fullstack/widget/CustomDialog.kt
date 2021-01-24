@@ -2,13 +2,10 @@ package com.nexters.fullstack.widget
 
 import android.app.Dialog
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.UiThread
-import androidx.databinding.DataBindingUtil
 import com.nexters.fullstack.R
-import com.nexters.fullstack.databinding.DialogInterfaceLayoutBinding
 
 class CustomDialog(private val builder: Builder) : Dialog(builder.context, builder.themeLayoutId) {
 

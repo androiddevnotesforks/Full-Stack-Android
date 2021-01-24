@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- components -->
+    <dimen name="toolbar_height">60dp</dimen>
+
+    <dimen name="icon_size">24dp</dimen>
+
+    <dimen name="ss_small_width">90dp</dimen>
+    <dimen name="ss_small_height">195dp</dimen>
+
 
     <!--    SPACING_MINUS   -->
     <dimen name="spacing_minus_micro">-2dp</dimen>
