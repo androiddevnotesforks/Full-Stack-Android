@@ -46,9 +46,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_percent=".85" />
+                        app:layout_constraintGuide_percent=".8" />
 
                     <LinearLayout
+                        android:id="@+id/add_label"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_small"
@@ -67,7 +68,7 @@
                             android:src="@drawable/ic_baseline_add_24" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="@string/label"

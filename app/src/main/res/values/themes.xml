@@ -35,11 +35,10 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-<!--    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">-->
-<!--        <item name="android:windowBackground">@android:color/transparent</item>-->
-<!--        <item name="android:windowFullscreen">true</item>-->
-<!--        <item name="android:windowOverscan">true</item>-->
-<!--        <item name="android:windowNoTitle">true</item>-->
-<!--        <item name="android:windowIsFloating">true</item>-->
-<!--    </style>-->
+
+    <style name="BottomSheetDefaultStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
 </resources>

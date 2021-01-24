@@ -5,12 +5,17 @@ import android.view.View
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.widget.CreateAlbumBottomSheet
 
 class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding>() {
     override val layoutRes: Int = R.layout.fragment_myalbum
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.addLabel.setOnClickListener {
+            CreateAlbumBottomSheet(requireContext()).show()
+        }
     }
 
     companion object {
