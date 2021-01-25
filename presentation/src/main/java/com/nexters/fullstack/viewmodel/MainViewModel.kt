@@ -18,7 +18,7 @@ class MainViewModel(private val flipUseCase: FlipUseCase) : BaseViewModel() {
         _labellingState.value = labelState
     }
 
-    fun isLabelling(labelState: LabellingState): Boolean {
+    fun isLabellingStart(labelState: LabellingState): Boolean {
         return flipUseCase.buildUseCase(labelState)
     }
 
