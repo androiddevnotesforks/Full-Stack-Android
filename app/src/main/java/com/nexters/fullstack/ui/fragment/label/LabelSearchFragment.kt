@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LabelSearchFragment : BaseFragment<FragmentLabelSearchBinding, ViewModel>() {
 
+    override val viewModel: ViewModel by viewModel()
     override val layoutRes: Int = R.layout.fragment_label_search
 
     override val viewModel: ViewModel by viewModel()

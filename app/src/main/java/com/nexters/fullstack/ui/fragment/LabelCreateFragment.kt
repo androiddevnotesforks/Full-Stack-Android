@@ -9,9 +9,10 @@ import com.nexters.fullstack.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, ViewModel>() {
-    override val layoutRes: Int = R.layout.fragment_label_create
 
     override val viewModel: ViewModel by viewModel()
+
+    override val layoutRes: Int = R.layout.fragment_label_create
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
