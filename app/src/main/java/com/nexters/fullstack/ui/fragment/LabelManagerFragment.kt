@@ -12,7 +12,7 @@ import com.nexters.fullstack.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ui.activity.LabelingActivity
 
-class LabelManagerFragment() : BaseFragment<FragmentLabelManagerBinding, MainViewModel>() {
+class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewModel>() {
     override val layoutRes: Int = R.layout.fragment_label_manager
     override val viewModel: MainViewModel by viewModel()
 
@@ -33,13 +33,20 @@ class LabelManagerFragment() : BaseFragment<FragmentLabelManagerBinding, MainVie
     }
 
     private fun observer() {
-        viewModel.labellingState.observe(this, Observer { state ->
-            if (viewModel.isLabellingStart(state)) {
-                startActivity(Intent(this@LabelManagerFragment, LabelingActivity::class.java))
-            } else {
-
-            }
-        })
+        viewModel.labellingState.observe(
+            this@LabelManagerFragment.viewLifecycleOwner,
+            Observer { state ->
+                if (viewModel.isLabellingStart(state)) {
+                    startActivity(
+                        Intent(
+                            this@LabelManagerFragment.context,
+                            LabelingActivity::class.java
+                        )
+                    )
+                } else {
+                    //todo 맨 뒤로 이동.
+                }
+            })
     }
 
     companion object {

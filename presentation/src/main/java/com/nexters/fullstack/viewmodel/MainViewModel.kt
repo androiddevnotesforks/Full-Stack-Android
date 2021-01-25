@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.source.LabellingState
+import com.nexters.fullstack.usecase.BaseFlipUseCase
 import com.nexters.fullstack.usecase.FlipUseCase
 
-class MainViewModel(private val flipUseCase: FlipUseCase) : BaseViewModel() {
+class MainViewModel(private val flipUseCase: BaseFlipUseCase<LabellingState>) : BaseViewModel() {
 
     private val _labellingState = MutableLiveData<LabellingState>(LabellingState.Pending)
 
@@ -19,7 +20,7 @@ class MainViewModel(private val flipUseCase: FlipUseCase) : BaseViewModel() {
     }
 
     fun isLabellingStart(labelState: LabellingState): Boolean {
-        return flipUseCase.buildUseCase(labelState)
+        return flipUseCase(labelState)
     }
 
 }
