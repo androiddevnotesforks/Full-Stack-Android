@@ -1,12 +1,15 @@
 package com.nexters.fullstack.ui.activity
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabellingBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ext.loadFragment
+import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.fragment.LabelCreateFragment
 import com.nexters.fullstack.widget.RequestExitDialog
 import com.nexters.fullstack.ui.fragment.LabelSelectFragment
@@ -19,11 +22,15 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
     private val labelSelectFragment: LabelSelectFragment = LabelSelectFragment.getInstance()
     private val labelCreateFragment: LabelCreateFragment = LabelCreateFragment.getInstance()
     private val labelSearchFragment: LabelSearchFragment = LabelSearchFragment.getInstance()
+    private var activeFragment: Fragment = labelSelectFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setOnClickListener()
         initToolbar()
         initView()
+        observe()
 //        bind {  }
     }
 
@@ -33,6 +40,11 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24)
+    }
+
+    private fun setOnClickListener() {
+        binding.addLabel.setOnClickListener { viewModel.setViewState(ViewState.Add) }
+        binding.searchLabel.setOnClickListener { viewModel.setViewState(ViewState.Search) }
     }
 
     private fun initView() {
@@ -56,8 +68,28 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
         supportFragmentManager.beginTransaction().show(labelSelectFragment).commit()
     }
 
+    private fun observe() {
+        viewModel.viewState.observe(this, Observer { viewState ->
+            when(viewState) {
+                is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
+                is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
+                is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
+            }
+        })
+    }
+
+    private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {
+        supportFragmentManager.beginTransaction().hide(oldFragment).show(newFragment).commit()
+        activeFragment = newFragment
+    }
+
     override fun onSupportNavigateUp(): Boolean {
-        RequestExitDialog().show(supportFragmentManager, "")
-        return true
+        return if(viewModel.viewState.value != ViewState.Selected) {
+            viewModel.setViewState(ViewState.Selected)
+            false
+        } else {
+            RequestExitDialog().show(supportFragmentManager, "")
+             true
+        }
     }
 }
