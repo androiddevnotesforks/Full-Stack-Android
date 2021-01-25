@@ -1,6 +1,6 @@
 package com.nexters.fullstack
 
-object ViewType : RecyclerViewType {
+object ViewTypes  {
     //main stack view
     const val STACK_VIEW = 5000
 

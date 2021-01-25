@@ -1,19 +1,24 @@
 package com.nexters.fullstack.base
 
 import android.view.ViewGroup
-import android.view.ViewParent
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.Constants
-import com.nexters.fullstack.Constants.ViewType.STACK_VIEW
+import com.nexters.fullstack.ViewTypes
+import com.nexters.fullstack.source.RecyclerSource
 import com.nexters.fullstack.source.RecyclerViewSource
 
-abstract class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+abstract class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    abstract fun createView(parent: ViewGroup, viewSource: RecyclerViewSource)
+    abstract fun createView(
+        parent: ViewGroup,
+        viewSource: RecyclerViewSource
+    ): RecyclerView.ViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when(viewType) {
-            is Constants.ViewType.STACK_VIEW -> {}
+        return when (viewType) {
+            ViewTypes.STACK_VIEW -> {
+                createView(parent, viewSource = RecyclerSource.CardStack)
+            }
+            else -> throw IllegalAccessError("unknown viewtype")
         }
     }
 }
