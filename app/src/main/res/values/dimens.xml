@@ -9,6 +9,8 @@
     <dimen name="ss_small_height">195dp</dimen>
     
     <dimen name="input_search_height">40dp</dimen>
+    
+    <dimen name="label_small_height">36dp</dimen>
 
 
     <!--    SPACING_MINUS   -->
@@ -43,6 +45,7 @@
 
     <!-- 20이 없어서 만들었는데.. 나중에 디자인 정리되면 dimen 정리 한 번 해요 ! -->
     <dimen name="spacing_20">20dp</dimen>
+
 
     <!--    Text Size   -->
     <dimen name="text_micro">10sp</dimen>

@@ -22,3 +22,8 @@ object SearchViewType {
 
     const val MY_LABEL_VIEW = 5004
 }
+
+object SelectedLabelViewType {
+    const val SELECTED_LABEL_VIEW = 5005
+}
+
