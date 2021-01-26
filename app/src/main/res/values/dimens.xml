@@ -38,6 +38,8 @@
     <dimen name="spacing_huge">64dp</dimen>
     <dimen name="spacing_x_huge">70dp</dimen>
     <dimen name="spacing_super_huge">75dp</dimen>
+    <dimen name="spacing_extra_huge">90dp</dimen>
+    <dimen name="spacing_super_extra_huge">100dp</dimen>
 
     <!-- 20이 없어서 만들었는데.. 나중에 디자인 정리되면 dimen 정리 한 번 해요 ! -->
     <dimen name="spacing_20">20dp</dimen>
