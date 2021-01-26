@@ -36,6 +36,8 @@
     <dimen name="spacing_huge">64dp</dimen>
     <dimen name="spacing_x_huge">70dp</dimen>
     <dimen name="spacing_super_huge">75dp</dimen>
+    <dimen name="spacing_extra_huge">90dp</dimen>
+    <dimen name="spacing_super_extra_huge">100dp</dimen>
 
     <!--    Text Size   -->
     <dimen name="text_micro">10sp</dimen>

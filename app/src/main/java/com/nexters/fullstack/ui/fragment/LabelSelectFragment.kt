@@ -11,9 +11,8 @@ import com.nexters.fullstack.widget.RequestExitDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, ViewModel>() {
-
-    override val viewModel: ViewModel by viewModel()
     override val layoutRes: Int = R.layout.fragment_label_select
+    override val viewModel: ViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
