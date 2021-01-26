@@ -24,6 +24,7 @@
     <string name="request_finish">라벨링을 취소하고 나가시겠어요?</string>
     <string name="all_exit">나가기</string>
     <string name="all_continue">계속하기</string>
+    <string name="selected_label">선택된 라벨</string>
 
     <string name="new_label_hint">새 라벨 이름 입력</string>
 </resources>

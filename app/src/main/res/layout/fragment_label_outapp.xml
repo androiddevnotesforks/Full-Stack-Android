@@ -9,9 +9,12 @@
             type="com.nexters.fullstack.viewmodel.LabelOutAppViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/spacing_20"
+        android:paddingRight="@dimen/spacing_20"
+        app:layoutDescription="@xml/fragment_label_outapp_scene">
         
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_upper"
@@ -28,18 +31,54 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             </ImageView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/iv_screenshot"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_selected_label_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent">
+
+                </TextView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_selected_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_selected_label_title"
+                    android:layout_marginTop="@dimen/spacing_normal">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_input_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_search_height"
+            app:layout_constraintTop_toBottomOf="@id/container_upper"
+            app:layout_constraintBottom_toTopOf="@id/rv_label"
+            >
+
         </androidx.constraintlayout.widget.ConstraintLayout>
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_label"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/container_upper"
+            app:layout_constraintTop_toBottomOf="@id/container_input_search"
             app:layout_constraintBottom_toBottomOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>
