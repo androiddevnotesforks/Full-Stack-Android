@@ -24,7 +24,8 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
         super.onCreate(savedInstanceState)
         initToolbar()
         initView()
-//        bind {  }
+        observe()
+        bind { }
     }
 
     private fun initToolbar() {
@@ -56,8 +57,30 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
         supportFragmentManager.beginTransaction().show(labelSelectFragment).commit()
     }
 
+    private fun observe() {
+        with(viewModel.output) {
+            viewState().observe(this@LabelingActivity, Observer { viewState ->
+                when (viewState) {
+                    is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
+                    is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
+                    is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
+                }
+            })
+        }
+    }
+
+    private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {
+        supportFragmentManager.beginTransaction().hide(oldFragment).show(newFragment).commit()
+        activeFragment = newFragment
+    }
+
     override fun onSupportNavigateUp(): Boolean {
-        RequestExitDialog().show(supportFragmentManager, "")
-        return true
+        return if (viewModel.viewState.value != ViewState.Selected) {
+            viewModel.setViewState(ViewState.Selected)
+            false
+        } else {
+            RequestExitDialog().show(supportFragmentManager, "")
+            true
+        }
     }
 }
