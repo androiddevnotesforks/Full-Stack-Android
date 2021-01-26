@@ -31,7 +31,7 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
         initToolbar()
         initView()
         observe()
-//        bind {  }
+        bind { }
     }
 
     private fun initToolbar() {
@@ -43,8 +43,10 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
     }
 
     private fun setOnClickListener() {
-        binding.addLabel.setOnClickListener { viewModel.setViewState(ViewState.Add) }
-        binding.searchLabel.setOnClickListener { viewModel.setViewState(ViewState.Search) }
+        with(viewModel.input) {
+            binding.addLabel.setOnClickListener { setViewState(ViewState.Add) }
+            binding.searchLabel.setOnClickListener { setViewState(ViewState.Search) }
+        }
     }
 
     private fun initView() {
@@ -69,13 +71,15 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
     }
 
     private fun observe() {
-        viewModel.viewState.observe(this, Observer { viewState ->
-            when(viewState) {
-                is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
-                is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
-                is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
-            }
-        })
+        with(viewModel.output) {
+            viewState().observe(this@LabelingActivity, Observer { viewState ->
+                when (viewState) {
+                    is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
+                    is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
+                    is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
+                }
+            })
+        }
     }
 
     private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {
@@ -84,12 +88,12 @@ class LabelingActivity : BaseActivity<ActivityLabellingBinding, LabelingViewMode
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return if(viewModel.viewState.value != ViewState.Selected) {
+        return if (viewModel.viewState.value != ViewState.Selected) {
             viewModel.setViewState(ViewState.Selected)
             false
         } else {
             RequestExitDialog().show(supportFragmentManager, "")
-             true
+            true
         }
     }
 }

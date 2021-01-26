@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.nexters.fullstack.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,12 +23,39 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
+
+            <RelativeLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/spacing_x_large"
+                    android:gravity="center"
+                    android:text="@string/label_title"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_x_large" />
+            </RelativeLayout>
+
+            <com.yuyakaido.android.cardstackview.CardStackView
+                android:id="@+id/stack_view"
+                setStackItems="@{vm.screenItems}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/title"
+                android:clipToPadding="false" />
+
             <RelativeLayout
                 android:id="@+id/fab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_marginBottom="@dimen/spacing_large"
-                android:layout_alignParentBottom="true">
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/spacing_micro">
 
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="@dimen/spacing_x_huge"
+                    android:layout_marginStart="@dimen/spacing_extra_huge"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:src="@drawable/ic_baseline_close_24"
                     app:backgroundTint="@color/gray"
@@ -50,7 +80,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="@dimen/spacing_x_huge"
+                    android:layout_marginEnd="@dimen/spacing_extra_huge"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:foregroundGravity="center"
                     android:src="@drawable/ic_baseline_check_24"
@@ -60,29 +90,6 @@
                     app:maxImageSize="@dimen/spacing_xxx_large"
                     app:tint="@color/white" />
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/label_title"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="@dimen/spacing_x_large"
-                    android:layout_alignParentTop="true"
-                    android:textSize="@dimen/text_x_large" />
-            </RelativeLayout>
-
-            <com.yuyakaido.android.cardstackview.CardStackView
-                android:id="@+id/stack_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/fab_layout"
-                android:clipToPadding="false" />
-
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
