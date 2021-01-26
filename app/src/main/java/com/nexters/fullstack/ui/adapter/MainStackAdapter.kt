@@ -3,8 +3,8 @@ package com.nexters.fullstack.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nexters.fullstack.LabelViewType
 import com.nexters.fullstack.R
-import com.nexters.fullstack.ViewTypes
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.RecyclerSource
@@ -49,6 +49,6 @@ class MainStackAdapter : BaseAdapter() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return ViewTypes.STACK_VIEW
+        return LabelViewType.LABEL_VIEW
     }
 }
