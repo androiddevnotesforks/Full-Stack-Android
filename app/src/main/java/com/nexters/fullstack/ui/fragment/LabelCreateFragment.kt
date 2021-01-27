@@ -23,6 +23,8 @@ class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, ViewModel>(
         super.onViewCreated(view, savedInstanceState)
 
         viewInit()
+
+        binding.selectColor.setOnClickListener {  }
     }
 
     private fun viewInit() {
