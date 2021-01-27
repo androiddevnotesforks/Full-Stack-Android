@@ -20,9 +20,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         super.onCreate(savedInstanceState)
         when{
             intent?.action == Intent.ACTION_SEND
-                && intent.type?.startsWith(Constants.IMAGE_PREFIX) == true -> {
-                    setImage(intent)
-                }
+                    && intent.type?.startsWith(Constants.IMAGE_PREFIX) == true -> {
+                setImage(intent)
+            }
         }
     }
 
