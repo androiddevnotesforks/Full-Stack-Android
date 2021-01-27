@@ -1,3 +1,4 @@
+
 package com.nexters.fullstack.ui.adapter
 
 import android.view.LayoutInflater

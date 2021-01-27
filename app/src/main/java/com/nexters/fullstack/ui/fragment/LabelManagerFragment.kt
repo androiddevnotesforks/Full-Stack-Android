@@ -44,6 +44,8 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
 
     private fun setOnClickListener() {
         binding.labeledButton.setOnClickListener {
+            stackAdapter.isSwipe = false
+            binding.stackView.swipe()
             viewModel.setButtonState(LabellingState.Approve)
         }
         binding.skipButton.setOnClickListener {
@@ -74,7 +76,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     private fun observer() {
         viewModel.labellingState.observe(
             this@LabelManagerFragment.viewLifecycleOwner,
-            Observer { state ->
+            { state ->
                 if (viewModel.isLabellingStart(state)) {
                     startActivity(
                         Intent(
@@ -85,7 +87,8 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
                 } else {
                     //todo 맨 뒤로 이동.
                 }
-            })
+            }
+        )
     }
 
     companion object {
@@ -105,7 +108,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     override fun onCardSwiped(direction: Direction?) {
         // left -> reject
         // right -> approve
-        if (direction == Direction.Right) {
+        if (direction == Direction.Right && stackAdapter.isSwipe) {
             val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java)
             intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
             startActivity(intent)
@@ -121,7 +124,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     override fun onCardAppeared(view: View?, position: Int) {
-
+        stackAdapter.isSwipe = true
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {

@@ -24,7 +24,6 @@ abstract class BaseBottomSheet<VB: ViewBinding>(
         binding = viewBinding(layoutInflater)
 
         setContentView(viewBinding(layoutInflater).root)
-
         initView()
     }
 
