@@ -6,27 +6,34 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_huge"
-            android:layout_marginEnd="@dimen/spacing_huge"
-            android:background="@drawable/bg_new_label"
-            android:hint="@string/new_label_hint"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="@dimen/spacing_huge"
-            android:paddingTop="@dimen/spacing_normal"
-            android:paddingEnd="@dimen/spacing_huge"
-            android:paddingBottom="@dimen/spacing_normal"
-            android:textColorHint="@color/light_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_huge"
+                android:layout_marginEnd="@dimen/spacing_huge"
+                android:layout_marginBottom="@dimen/spacing_xxx_large"
+                android:background="@drawable/bg_new_label"
+                android:hint="@string/new_label_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="@dimen/spacing_xxx_large"
+                android:paddingTop="@dimen/spacing_large"
+                android:paddingEnd="@dimen/spacing_xxx_large"
+                android:paddingBottom="@dimen/spacing_large"
+                android:textColorHint="@color/light_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

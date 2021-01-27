@@ -48,6 +48,10 @@ class MainStackAdapter : BaseAdapter() {
         return items.size
     }
 
+    fun getItem(position: Int): LocalFile {
+        return items[position]
+    }
+
     override fun getItemViewType(position: Int): Int {
         return LabelViewType.LABEL_VIEW
     }
