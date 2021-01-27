@@ -1,3 +1,7 @@
 package com.nexters.fullstack.source
 
-data class LocalFile(val url: String)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class LocalFile(val url: String) : Parcelable
