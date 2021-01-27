@@ -5,17 +5,17 @@ import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.nexters.fullstack.R
-import com.nexters.fullstack.databinding.DialogCreateLabelBinding
+import com.nexters.fullstack.databinding.BsLayoutColorSelectBinding
 
-class CreateAlbumBottomSheet(context: Context) :
+class LabelColorBottomSheet(context: Context) :
     BottomSheetDialog(context, R.style.BottomSheetDefaultStyle) {
 
-    lateinit var binding: DialogCreateLabelBinding
+    lateinit var binding: BsLayoutColorSelectBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DialogCreateLabelBinding.inflate(layoutInflater)
+        binding = BsLayoutColorSelectBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         initView()
@@ -30,6 +30,6 @@ class CreateAlbumBottomSheet(context: Context) :
     }
 
     private fun initView() {
-        binding.close.setOnClickListener { dismiss() }
+
     }
 }

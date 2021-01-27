@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelCreateBinding
+import com.nexters.fullstack.widget.LabelColorBottomSheet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, ViewModel>() {
@@ -24,7 +25,9 @@ class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, ViewModel>(
 
         viewInit()
 
-        binding.selectColor.setOnClickListener {  }
+        binding.selectColor.setOnClickListener {
+            LabelColorBottomSheet(requireContext()).show()
+        }
     }
 
     private fun viewInit() {

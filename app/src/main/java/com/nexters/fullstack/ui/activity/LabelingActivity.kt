@@ -22,6 +22,10 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     override val layoutRes: Int = R.layout.activity_labeling
     override val viewModel: LabelingViewModel by viewModel()
 
+    private val dialog: RequestExitDialog by lazy {
+        RequestExitDialog()
+    }
+
     private val labelSelectFragment: LabelSelectFragment = LabelSelectFragment.getInstance()
     private val labelCreateFragment: LabelCreateFragment = LabelCreateFragment.getInstance()
     private val labelSearchFragment: LabelSearchFragment = LabelSearchFragment.getInstance()
@@ -96,7 +100,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
             viewModel.setViewState(ViewState.Selected)
             false
         } else {
-            RequestExitDialog().show(supportFragmentManager, "")
+            dialog.show(supportFragmentManager, "")
             true
         }
     }
