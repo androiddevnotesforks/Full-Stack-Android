@@ -5,4 +5,6 @@ object Constants {
     const val SS_BUNDLE_KEY = "screenshot"
 
     const val IMAGE_PREFIX = "image/"
+
+    const val LABEL_BUNDLE_KEY = "labelingImage"
 }

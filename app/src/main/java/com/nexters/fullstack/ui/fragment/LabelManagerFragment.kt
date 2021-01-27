@@ -2,9 +2,13 @@ package com.nexters.fullstack.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.animation.LinearInterpolator
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import com.nexters.fullstack.BR
+import com.nexters.fullstack.Constants.LABEL_BUNDLE_KEY
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelManagerBinding
@@ -13,9 +17,7 @@ import com.nexters.fullstack.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
-import com.yuyakaido.android.cardstackview.CardStackLayoutManager
-import com.yuyakaido.android.cardstackview.CardStackListener
-import com.yuyakaido.android.cardstackview.Direction
+import com.yuyakaido.android.cardstackview.*
 
 class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewModel>(),
     CardStackListener {
@@ -50,6 +52,20 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     private fun viewInit() {
+        with(manager) {
+            setStackFrom(StackFrom.None)
+            setStackFrom(StackFrom.Right)
+            setVisibleCount(4)
+            setTranslationInterval(11.0f)
+            setScaleInterval(0.9f)
+            setSwipeThreshold(0.3f)
+            setMaxDegree(20.0f)
+            setDirections(Direction.HORIZONTAL)
+            setCanScrollHorizontal(true)
+            setCanScrollVertical(true)
+            setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
+            setOverlayInterpolator(LinearInterpolator())
+        }
         binding.stackView.adapter = stackAdapter
         binding.stackView.layoutManager = manager
     }
@@ -83,10 +99,17 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {
+        //no-op
     }
 
     override fun onCardSwiped(direction: Direction?) {
-
+        // left -> reject
+        // right -> approve
+        if (direction == Direction.Right) {
+            val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java)
+            intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
+            startActivity(intent)
+        }
     }
 
     override fun onCardRewound() {
