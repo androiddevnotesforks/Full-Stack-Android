@@ -50,15 +50,11 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 .into(binding.ivScreenshot)
         })
 
-        val spaceDecoration = VerticalSpaceItemDecoration(RV_SPACING)
-        binding.rvLabel.adapter = MyLabelAdapter(this, viewModel.myLabels.value!!)
-        binding.rvLabel.addItemDecoration(spaceDecoration)
-        binding.rvLabel.layoutManager = FlowLayoutManager()
-
         viewModel.myLabels.observe(this, {
-            it.let {
-                // update
-            }
+            val spaceDecoration = VerticalSpaceItemDecoration(RV_SPACING)
+            binding.rvLabel.adapter = MyLabelAdapter(this, viewModel.myLabels.value!!)
+            binding.rvLabel.addItemDecoration(spaceDecoration)
+            binding.rvLabel.layoutManager = FlowLayoutManager()
         })
     }
 
