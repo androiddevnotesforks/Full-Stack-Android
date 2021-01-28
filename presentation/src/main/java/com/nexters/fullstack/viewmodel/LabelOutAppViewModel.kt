@@ -9,39 +9,43 @@ import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.source.Label
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class LabelOutAppViewModel : BaseViewModel(){
 
-    interface LabelOutAppInput : Input {
-        fun clickCancel()
-        fun clickDone(labels : List<Label>)
-        fun selectLabel(label : Label)
-        fun unSelectLabel(label : Label)
-        fun enableSearch()
-        fun disableSearch()
-        fun searchKeyword(keyword : String)
-        // TODO search는 타이핑 할 때마다 ?
-        fun search()
+    private val _imageUri : MutableLiveData<Uri> = MutableLiveData()
+    val imageUri : LiveData<Uri> get() = _imageUri
+
+    private val _myLabels : MutableLiveData<ArrayList<Label>> = MutableLiveData()
+    val myLabels : LiveData<ArrayList<Label>> get() = _myLabels
+
+
+    val input = object : LabelOutAppInput{
+        override fun setImageUri(uri: Uri) {
+            _imageUri.value = uri
+        }
     }
 
-    interface LabelOutAppOutput : Output {
-        fun state() : LiveData<LabelOutAppState>
-        fun cancelLabeling()
-        // TODO 보기 클릭시에 어떤 화면으로 진입되는지 ?
-        fun successLabeling()
-        fun selectLabel() : LiveData<Pair<List<Label>, List<Label>>>
-        fun showSuccessToast() : LiveData<String>
-        fun showSearchList() : LiveData<Label>?
-        fun goAddLabelActivity() : LiveData<String>
+    val output = object : LabelOutAppOutput {
     }
 
-    data class LabelOutAppState (
-        val imageUri : Uri,
-        val selectedLabels : List<Label>,
-        val myLabels : List<Label>,
-        val enableSearch : Boolean,
-        val searchKeyword : String,
-        val searchResult : Label?
-    )
+    interface LabelOutAppInput : Input{
+        fun setImageUri(uri: Uri)
+    }
+
+    interface LabelOutAppOutput : Output{
+    }
+
+    init {
+        val array = ArrayList<Label>()
+        array.add(Label(Label.RECOMMEND, "test1"))
+        array.add(Label(Label.DEFAULT,"test21111111"))
+        array.add(Label(Label.DEFAULT,"test3"))
+        array.add(Label(Label.DEFAULT,"te3"))
+        array.add(Label(Label.DEFAULT,"test3"))
+        array.add(Label(Label.DEFAULT,"test11111113"))
+        array.add(Label(Label.DEFAULT,"test3"))
+        _myLabels.value = array
+    }
 }

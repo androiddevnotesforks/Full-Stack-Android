@@ -10,9 +10,13 @@
     <string name="do_labelling">라벨링 하기</string>
 
     <string name="label">라벨</string>
+    <string name="my_label">내 라벨</string>
 
     <!-- Buttons -->
     <string name="done">완료</string>
+
+    <!-- Label -->
+    <string name="recommnd">추천</string>
 
     <!--    LabelManagerFragment    -->
     <string name="label_title">지금 라벨링 할까요?</string>
