@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="CaptureBox.app" target="1.8" />
+      <module name="CaptureBox.data" target="1.8" />
+      <module name="CaptureBox.helper" target="1.8" />
       <module name="CaptureBox.presentation" target="1.8" />
     </bytecodeTargetLevel>
   </component>

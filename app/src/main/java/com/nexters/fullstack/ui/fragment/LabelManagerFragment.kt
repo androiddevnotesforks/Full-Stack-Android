@@ -95,7 +95,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         viewModel.labellingState.observe(
             this@LabelManagerFragment.viewLifecycleOwner,
             { state ->
-                if (viewModel.isLabellingStart(state)) {
+                if (viewModel.isLabellingStart(state) == true) {
                     startActivityWithData()
                 } else {
                     //todo 맨 뒤로 이동.

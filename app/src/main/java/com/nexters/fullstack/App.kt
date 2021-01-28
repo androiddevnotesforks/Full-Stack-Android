@@ -1,6 +1,7 @@
 package com.nexters.fullstack
 
 import android.app.Application
+import com.nexters.data.di.albumListModule
 import com.nexters.fullstack.di.viewModelModule
 import com.nexters.fullstack.di.permissionModule
 import com.nexters.fullstack.di.useCaseModule
@@ -22,7 +23,8 @@ class App : Application() {
                 listOf(
                     useCaseModule,
                     viewModelModule,
-                    permissionModule
+                    permissionModule,
+                    albumListModule
                 )
             )
         }
