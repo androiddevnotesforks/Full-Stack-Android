@@ -1,11 +1,14 @@
 package com.nexters.fullstack.ui.activity
 
 import android.content.Intent
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
@@ -49,7 +52,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 .into(binding.ivScreenshot)
         })
 
+        val spaceDecoration = VerticalSpaceItemDecoration(RV_SPACING)
         binding.rvLabel.adapter = MyLabelAdapter(this, viewModel.myLabels.value!!)
+        binding.rvLabel.addItemDecoration(spaceDecoration)
         binding.rvLabel.layoutManager = FlowLayoutManager()
 
         viewModel.myLabels.observe(this, {
@@ -66,5 +71,15 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     }
 
     private fun observe(){
+    }
+
+    inner class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+            outRect.bottom = verticalSpaceHeight
+            outRect.right = verticalSpaceHeight
+        }
+    }
+    companion object{
+        const val RV_SPACING = 10
     }
 }
