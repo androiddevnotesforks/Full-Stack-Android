@@ -7,9 +7,9 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 internal class AlbumLoadUseCase(private val albumRepository: AlbumRepository) :
-    BaseUseCase<LocalLabelDomain, Single<List<LocalLabelDomain>?>>() {
-    override fun buildUseCase(params: LocalLabelDomain): Single<List<LocalLabelDomain>?> {
-        return Single.just(albumRepository.getUnLabeling())
+    BaseUseCase<String, Single<List<LocalLabelDomain>?>> {
+    override fun buildUseCase(params: String): Single<List<LocalLabelDomain>?> {
+        return Single.just(albumRepository.getUnLabeling(params))
             .subscribeOn(Schedulers.computation())
     }
 }

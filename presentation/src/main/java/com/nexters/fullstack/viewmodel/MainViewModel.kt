@@ -5,9 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.source.LabellingState
 import com.nexters.fullstack.source.PresentLocalFile
+import com.nexters.fullstack.source.data.LocalLabelDomain
 import com.nexters.fullstack.usecase.base.BaseUseCase
+import io.reactivex.Single
 
-class MainViewModel(private val flipUseCase: BaseUseCase<LabellingState, Boolean>) : BaseViewModel() {
+class MainViewModel(
+    private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
+    private val albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>?>>
+) : BaseViewModel() {
 
     private val _labellingState = MutableLiveData<LabellingState>(LabellingState.Pending)
 
@@ -46,7 +51,11 @@ class MainViewModel(private val flipUseCase: BaseUseCase<LabellingState, Boolean
     }
 
     fun isLabellingStart(labelState: LabellingState): Boolean? {
-        return flipUseCase(labelState)
+        return flipUseCase.buildUseCase(labelState)
+    }
+
+    fun loadAlbumScreenShots(pathFilter: String): Single<List<LocalLabelDomain>?> {
+        return albumLoadUseCase.buildUseCase(pathFilter)
     }
 
 }

@@ -2,10 +2,13 @@ package com.nexters.fullstack.ui.fragment
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.BusImpl
@@ -46,8 +49,10 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
                     binding.stackView.rewind()
                 }
             })
+
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -58,6 +63,10 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         bind {
             setVariable(BR.vm, viewModel)
         }
+
+        disposable.add(viewModel.loadAlbumScreenShots("Screenshots").subscribe({
+            Log.e("files", it.toString())
+        }, {}))
     }
 
     private fun setOnClickListener() {

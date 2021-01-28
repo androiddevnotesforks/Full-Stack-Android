@@ -9,6 +9,6 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { LabelOutAppViewModel() }
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get(named("label"))) }
     viewModel { LabelingViewModel() }
 }
