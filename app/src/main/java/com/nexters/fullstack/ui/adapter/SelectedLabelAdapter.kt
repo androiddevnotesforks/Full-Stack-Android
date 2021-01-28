@@ -4,15 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.Exceptions
 import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.SelectedLabelViewType
-import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
 import com.nexters.fullstack.source.Label
-import com.nexters.fullstack.source.RecyclerViewSource
 import com.nexters.fullstack.ui.holder.SelectedLabelViewHolder
-import java.lang.IllegalStateException
 
 class SelectedLabelAdapter(private val context: Context, private val labels : List<Label>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

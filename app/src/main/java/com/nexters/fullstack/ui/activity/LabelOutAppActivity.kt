@@ -7,14 +7,12 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
-import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager

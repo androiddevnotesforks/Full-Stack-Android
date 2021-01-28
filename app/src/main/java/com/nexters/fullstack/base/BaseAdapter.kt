@@ -3,7 +3,6 @@ package com.nexters.fullstack.base
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.LabelViewType
-import com.nexters.fullstack.ViewTypes
 import com.nexters.fullstack.source.RecyclerSource
 import com.nexters.fullstack.source.RecyclerViewSource
 

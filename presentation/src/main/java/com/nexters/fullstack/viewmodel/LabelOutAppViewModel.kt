@@ -1,16 +1,12 @@
 package com.nexters.fullstack.viewmodel
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.source.Label
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class LabelOutAppViewModel : BaseViewModel(){
 

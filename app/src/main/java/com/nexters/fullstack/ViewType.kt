@@ -27,8 +27,3 @@ object SelectedLabelViewType {
     const val SELECTED_LABEL_VIEW = 5005
 }
 
-object MyLabelViewType{
-    const val MY_LABEL = 5006
-    const val RECOMMENDED_LABEL = 5007
-}
-

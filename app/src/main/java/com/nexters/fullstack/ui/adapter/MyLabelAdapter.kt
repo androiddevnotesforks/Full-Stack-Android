@@ -1,14 +1,10 @@
 package com.nexters.fullstack.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.Exceptions
-import com.nexters.fullstack.MyLabelViewType
 import com.nexters.fullstack.NotFoundViewType
-import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
