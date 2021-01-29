@@ -13,6 +13,7 @@ import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
+import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
@@ -51,7 +52,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         })
 
         viewModel.myLabels.observe(this, {
-            val spaceDecoration = VerticalSpaceItemDecoration(RV_SPACING)
+            val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
             binding.rvLabel.adapter = MyLabelAdapter(this, viewModel.myLabels.value!!)
             binding.rvLabel.addItemDecoration(spaceDecoration)
             binding.rvLabel.layoutManager = FlowLayoutManager()
@@ -67,13 +68,13 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun observe(){
     }
 
-    inner class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) : RecyclerView.ItemDecoration() {
+    inner class SpaceItemDecoration(private val space_dp: Int) : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-            outRect.bottom = verticalSpaceHeight
-            outRect.right = verticalSpaceHeight
+            outRect.bottom = space_dp.toPx
+            outRect.right = space_dp.toPx
         }
     }
     companion object{
-        const val RV_SPACING = 10
+        const val RV_SPACING_DP = 10
     }
 }
