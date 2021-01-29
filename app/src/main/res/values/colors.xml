@@ -17,4 +17,6 @@
 
     <color name="transparent">#1A000000</color>
     <color name="neumorphism">#575D66</color>
+    
+    <color name="bg_depth3">#292C33</color>
 </resources>

@@ -7,6 +7,11 @@
 
     <dimen name="ss_small_width">90dp</dimen>
     <dimen name="ss_small_height">195dp</dimen>
+    
+    <dimen name="input_search_height">40dp</dimen>
+    
+    <dimen name="label_small_height">36dp</dimen>
+    <dimen name="label_middle_height">40dp</dimen>
 
 
     <!--    SPACING_MINUS   -->
@@ -38,6 +43,10 @@
     <dimen name="spacing_super_huge">75dp</dimen>
     <dimen name="spacing_extra_huge">90dp</dimen>
     <dimen name="spacing_super_extra_huge">100dp</dimen>
+
+    <!-- 20이 없어서 만들었는데.. 나중에 디자인 정리되면 dimen 정리 한 번 해요 ! -->
+    <dimen name="spacing_20">20dp</dimen>
+
 
     <!--    Text Size   -->
     <dimen name="text_micro">10sp</dimen>
