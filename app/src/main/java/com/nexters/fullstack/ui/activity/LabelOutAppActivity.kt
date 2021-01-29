@@ -53,7 +53,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
         viewModel.myLabels.observe(this, {
             val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
-            binding.rvLabel.adapter = MyLabelAdapter(this, viewModel.myLabels.value!!)
+            binding.rvLabel.adapter = MyLabelAdapter(viewModel.myLabels.value!!)
             binding.rvLabel.addItemDecoration(spaceDecoration)
             binding.rvLabel.layoutManager = FlowLayoutManager()
         })

@@ -10,19 +10,19 @@ import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.RecommendLabelViewHolder
 
-class MyLabelAdapter(private val context: Context, private val labels : ArrayList<Label>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyLabelAdapter(private val labels : ArrayList<Label>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when(viewType){
             Label.DEFAULT -> MyLabelViewHolder(
                 ItemLabelBinding.inflate(
                     LayoutInflater.from(
-                        context
+                        parent.context
                     )
                 ))
             Label.RECOMMEND -> RecommendLabelViewHolder(
                 ItemLabelBinding.inflate(
                     LayoutInflater.from(
-                        context
+                        parent.context
                     )
                 ))
             else -> throw NotFoundViewType
