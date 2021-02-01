@@ -4,6 +4,7 @@ import android.app.Application
 import com.nexters.data.di.albumListModule
 import com.nexters.fullstack.di.viewModelModule
 import com.nexters.fullstack.di.permissionModule
+import com.nexters.fullstack.di.presentationMapper
 import com.nexters.fullstack.di.useCaseModule
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
@@ -24,7 +25,8 @@ class App : Application() {
                     useCaseModule,
                     viewModelModule,
                     permissionModule,
-                    albumListModule
+                    albumListModule,
+                    presentationMapper
                 )
             )
         }

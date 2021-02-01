@@ -3,54 +3,67 @@ package com.nexters.fullstack.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.Input
+import com.nexters.fullstack.Output
+import com.nexters.fullstack.mapper.Mapper
 import com.nexters.fullstack.source.LabellingState
 import com.nexters.fullstack.source.PresentLocalFile
 import com.nexters.fullstack.source.data.LocalLabelDomain
 import com.nexters.fullstack.usecase.base.BaseUseCase
+import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(
     private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
-    private val albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>?>>
+    private val albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>?>>,
+    mapper: Mapper<LocalLabelDomain, PresentLocalFile>
 ) : BaseViewModel() {
 
+    private val disposable = CompositeDisposable()
+
+    init {
+        disposable.add(albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map {
+                it.map { localLabel ->
+                    mapper.toData(localLabel)
+                }
+            }
+            .subscribe({ pathList ->
+                input.setImages(pathList)
+            }, {
+                it.printStackTrace()
+            })
+        )
+    }
+
+    val input = object : MainInput {
+        override fun setImages(images: List<PresentLocalFile>) {
+            _images.value = images
+        }
+    }
+
+    val output = object : MainOutput {
+        override fun images(): LiveData<List<PresentLocalFile>> {
+            return _images
+        }
+    }
+
+    private val _images = MutableLiveData<List<PresentLocalFile>>()
     private val _labellingState = MutableLiveData<LabellingState>(LabellingState.Pending)
 
     val labellingState: LiveData<LabellingState>
         get() = _labellingState
 
-    private val _screenItems = MutableLiveData<List<PresentLocalFile>>(
-        listOf(
-            PresentLocalFile("https://source.unsplash.com/Xq1ntWruZQI/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/NYyCqdBOKwc/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/buF62ewDLcQ/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/THozNzxEP3g/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/USrZRcRS2Lw/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/PeFk7fzxTdk/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/LrMWHKqilUw/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/HN-5Z6AmxrM/600x800"),
-            PresentLocalFile("https://source.unsplash.com/CdVAUADdqEc/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/AWh9C-QjhE4/600x800")
-        )
-    )
-
-    val screenItems: LiveData<List<PresentLocalFile>>
-        get() = _screenItems
-
-
     fun setButtonState(labelState: LabellingState) {
         _labellingState.value = labelState
     }
 
-    fun isLabellingStart(labelState: LabellingState): Boolean? {
+    fun isLabellingStarted(labelState: LabellingState): Boolean {
         return flipUseCase.buildUseCase(labelState)
     }
 
@@ -58,4 +71,15 @@ class MainViewModel(
         return albumLoadUseCase.buildUseCase(pathFilter)
     }
 
+    interface MainInput : Input {
+        fun setImages(images: List<PresentLocalFile>)
+    }
+
+    interface MainOutput : Output {
+        fun images(): LiveData<List<PresentLocalFile>>
+    }
+
+    companion object {
+        private const val SCREEN_SHOT_PRIFIX = "Screenshots"
+    }
 }
