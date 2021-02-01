@@ -21,7 +21,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/text_mini"
+            android:textSize="@dimen/b3"
             >
 
         </TextView>

@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/do_labelling"
-                android:textSize="@dimen/text_normal"
+                android:textSize="@dimen/b1"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/done"
-                android:textSize="@dimen/text_normal"
+                android:textSize="@dimen/b2"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -144,7 +144,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/rv_label"
                     android:text="@string/my_label"
-                    android:textSize="@dimen/text_small"
+                    android:textSize="@dimen/b2"
                     android:textColor="@color/white"
                     android:layout_marginBottom="@dimen/spacing_normal">
 

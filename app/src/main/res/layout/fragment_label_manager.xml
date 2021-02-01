@@ -38,7 +38,7 @@
                     android:gravity="center"
                     android:text="@string/label_title"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_x_large" />
+                    android:textSize="@dimen/h1" />
             </RelativeLayout>
 
             <com.yuyakaido.android.cardstackview.CardStackView

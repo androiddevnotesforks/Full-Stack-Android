@@ -42,7 +42,7 @@
             android:padding="@dimen/spacing_normal"
             android:text="@string/all_selected_finish"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_large"
+            android:textSize="@dimen/h2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/select_button_guide_line" />
