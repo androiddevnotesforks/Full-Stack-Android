@@ -15,8 +15,57 @@
     <color name="indigo">#3F51B5</color>
 
 
+    <!--    active color    -->
+    <color name="red_active">#C76761</color>
+    <color name="orange_active">#EC9147</color>
+    <color name="yellow_active">#E8C15D</color>
+    <color name="green_active">#3EA87A</color>
+    <color name="peacock_green_active">#52CCCC</color>
+    <color name="blue_active">#4CA6FF</color>
+    <color name="cobalt_blue_active">#6565E5</color>
+    <color name="violet_active">#A06EE5</color>
+    <color name="pink_active">#E089B5</color>
+    <color name="gray_active">#7B8399</color>
+
+    <!--    inactive color  -->
+    <color name="red_inactive">#26C76761</color>
+    <color name="orange_inactive">#26EC9147</color>
+    <color name="yellow_inactive">#26E8C15D</color>
+    <color name="green_inactive">#263EA87A</color>
+    <color name="peacock_green_inactive">#2652CCCC</color>
+    <color name="blue_inactive">#264CA6FF</color>
+    <color name="cobalt_blue_inactive">#266565E5</color>
+    <color name="violet_inactive">#26A06EE5</color>
+    <color name="pink_inactive">#26E089B5</color>
+    <color name="gray_inactive">#267B8399</color>
+
+
+    <!--    dark color  -->
+    <color name="red_dark">#2E1817</color>
+    <color name="orange_dark">#2D2015</color>
+    <color name="yellow_dark">#28241A</color>
+    <color name="green_dark">#14251E</color>
+    <color name="peacock_green_dark">#122828</color>
+    <color name="blue_dark">#0A1E31</color>
+    <color name="cobalt_blue_dark">#1D1D35</color>
+    <color name="violet_dark">#261A37</color>
+    <color name="pink_dark">#301924</color>
+    <color name="gray_dark">#242528</color>
+
+    <!--    text color  -->
+    <color name="red_text">#FFA799</color>
+    <color name="orange_text">#FFCBA1</color>
+    <color name="yellow_text">#FFE299</color>
+    <color name="green_text">#B1E5CF</color>
+    <color name="peacock_green_text">#A1E5E5</color>
+    <color name="blue_text">#B2D9FF</color>
+    <color name="cobalt_blue_text">#BFBFFF</color>
+    <color name="violet_text">#D9C2FF</color>
+    <color name="pink_text">#FFC7E3</color>
+    <color name="gray_text">#CCDAFF</color>
+
     <color name="transparent">#1A000000</color>
     <color name="neumorphism">#575D66</color>
-    
+
     <color name="bg_depth3">#292C33</color>
 </resources>
