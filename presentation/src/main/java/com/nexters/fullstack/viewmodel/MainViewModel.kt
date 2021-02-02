@@ -34,7 +34,7 @@ class MainViewModel(
                 }
             }
             .subscribe({ pathList ->
-                input.setImages(pathList)
+                input.loadImages(pathList)
             }, {
                 it.printStackTrace()
             })
@@ -42,7 +42,7 @@ class MainViewModel(
     }
 
     val input = object : MainInput {
-        override fun setImages(images: List<PresentLocalFile>) {
+        override fun loadImages(images: List<PresentLocalFile>) {
             _images.value = images
         }
     }
@@ -72,7 +72,7 @@ class MainViewModel(
     }
 
     interface MainInput : Input {
-        fun setImages(images: List<PresentLocalFile>)
+        fun loadImages(images: List<PresentLocalFile>)
     }
 
     interface MainOutput : Output {

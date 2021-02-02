@@ -6,6 +6,7 @@ import com.nexters.fullstack.di.viewModelModule
 import com.nexters.fullstack.di.permissionModule
 import com.nexters.fullstack.di.presentationMapper
 import com.nexters.fullstack.di.useCaseModule
+import com.tsdev.feature.di.localImageModule
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,8 @@ class App : Application() {
                     viewModelModule,
                     permissionModule,
                     albumListModule,
-                    presentationMapper
+                    presentationMapper,
+                    localImageModule
                 )
             )
         }

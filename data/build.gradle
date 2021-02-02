@@ -46,4 +46,6 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:2.2.0-alpha-1"
 
     implementation(project(":domain"))
+
+    implementation(project(":feature"))
 }
