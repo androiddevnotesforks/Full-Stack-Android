@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -30,11 +31,15 @@ class MyLabelAdapter : BaseAdapter<Label>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is MyLabelViewHolder -> holder.bind(items[position])
+            is MyLabelViewHolder -> {
+                holder.bind(items[position])
+                holder.itemView.setOnClickListener {
+                    getItemClickListener()?.invoke(it, position, items[position])
+                }
+            }
             is RecommendLabelViewHolder -> holder.bind(items[position])
         }
     }
 
     override fun getItemViewType(position: Int) = items[position].type
-
 }

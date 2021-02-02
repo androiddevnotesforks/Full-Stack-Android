@@ -1,17 +1,21 @@
 package com.nexters.fullstack.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
+import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.source.Label
@@ -69,6 +73,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun initOnClickListener(){
        binding.ivCancel.setOnClickListener {
             onBackPressed()
+        }
+        adapter.setItemClickListener { _, i, label ->
+
         }
     }
 
