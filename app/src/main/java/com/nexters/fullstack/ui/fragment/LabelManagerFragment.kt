@@ -57,34 +57,27 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         bind {
             setVariable(BR.vm, viewModel)
         }
 
-        viewInit()
+        onViewInit()
         setOnClickListener()
         observer()
-
-//        disposable.add(viewModel.loadAlbumScreenShots("Screenshots")
-//            .subscribe({
-//            Log.e("files", it.toString())
-//        }, {}))
     }
 
     private fun setOnClickListener() {
         binding.labeledButton.setOnClickListener {
             stackAdapter.isSwipe = false
             binding.stackView.swipe()
-            viewModel.setButtonState(LabellingState.Approve)
+            viewModel.input.emitLabellingState(LabellingState.Approve)
         }
         binding.skipButton.setOnClickListener {
             viewModel.setButtonState(LabellingState.Rejected)
         }
     }
 
-    private fun viewInit() {
+    private fun onViewInit() {
         with(manager) {
             setStackFrom(StackFrom.None)
             setStackFrom(StackFrom.Right)
@@ -105,31 +98,13 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
 
 
     private fun observer() {
-        viewModel.labellingState.observe(
-            this@LabelManagerFragment.viewLifecycleOwner,
-            { state ->
-                when(state) {
-                    is LabellingState.Pending -> {}
-                    is LabellingState.Approve -> {
-                        startActivityWithData()
-                    }
-                    is LabellingState.Rejected -> {
-                        stackAdapter.moveItemAtLastIndex(
-                            manager.topPosition - 1,
-                            stackAdapter.itemCount
-                        )
-                    }
+        with(viewModel.output) {
+            startLabelling().observe(this@LabelManagerFragment.viewLifecycleOwner, {
+                if (it != null) {
+                    startActivityWithData()
                 }
-//                if (viewModel.isLabellingStarted(state)) {
-//                    startActivityWithData()
-//                } else {
-//                    //todo 맨 뒤로 이동.
-////                    if (stackAdapter.itemCount > 0) {
-//
-////                    }
-//                }
-            }
-        )
+            })
+        }
     }
 
     companion object {
@@ -172,7 +147,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
 
     private fun startActivityWithData() {
         val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java)
-        intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition - 1)))
+        intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
         startActivityForResult(intent, 2000)
     }
 

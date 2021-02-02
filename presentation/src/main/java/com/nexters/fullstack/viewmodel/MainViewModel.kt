@@ -10,19 +10,20 @@ import com.nexters.fullstack.source.LabellingState
 import com.nexters.fullstack.source.PresentLocalFile
 import com.nexters.fullstack.source.data.LocalLabelDomain
 import com.nexters.fullstack.usecase.base.BaseUseCase
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 
 class MainViewModel(
     private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
-    private val albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>?>>,
+    albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>?>>,
     mapper: Mapper<LocalLabelDomain, PresentLocalFile>
 ) : BaseViewModel() {
 
     private val disposable = CompositeDisposable()
+    private val flipStateSubject = PublishSubject.create<LabellingState>()
 
     init {
         disposable.add(albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
@@ -39,22 +40,43 @@ class MainViewModel(
                 it.printStackTrace()
             })
         )
+
+        disposable.add(
+            flipStateSubject
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter { state -> state != LabellingState.Pending }
+                .subscribe { state ->
+                    val didStartLabelling = flipUseCase.buildUseCase(state)
+
+                    if (didStartLabelling) {
+                        startLabeling.value = Unit
+                    } else {
+                        //todo 첫 화면 맨 뒤로 이동.
+                    }
+                }
+        )
     }
 
     val input = object : MainInput {
         override fun loadImages(images: List<PresentLocalFile>) {
             _images.value = images
         }
+
+        override fun emitLabellingState(state: LabellingState) = flipStateSubject.onNext(state)
     }
 
     val output = object : MainOutput {
         override fun images(): LiveData<List<PresentLocalFile>> {
             return _images
         }
+
+        override fun startLabelling() = startLabeling
     }
 
     private val _images = MutableLiveData<List<PresentLocalFile>>()
     private val _labellingState = MutableLiveData<LabellingState>(LabellingState.Pending)
+    private val startLabeling = MutableLiveData<Unit>()
 
     val labellingState: LiveData<LabellingState>
         get() = _labellingState
@@ -63,20 +85,14 @@ class MainViewModel(
         _labellingState.value = labelState
     }
 
-    fun isLabellingStarted(labelState: LabellingState): Boolean {
-        return flipUseCase.buildUseCase(labelState)
-    }
-
-    fun loadAlbumScreenShots(pathFilter: String): Single<List<LocalLabelDomain>?> {
-        return albumLoadUseCase.buildUseCase(pathFilter)
-    }
-
     interface MainInput : Input {
         fun loadImages(images: List<PresentLocalFile>)
+        fun emitLabellingState(state: LabellingState)
     }
 
     interface MainOutput : Output {
         fun images(): LiveData<List<PresentLocalFile>>
+        fun startLabelling(): LiveData<Unit>
     }
 
     companion object {
