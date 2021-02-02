@@ -14,9 +14,14 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.toPx
+import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutAppViewModel>() {
@@ -45,20 +50,19 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     }
 
     private fun initView(){
-        // TODO viewmodel.output.state()
-
-        viewModel.imageUri.observe(this, Observer {
+        viewModel.imageUri.observe(this, {
             Glide.with(this)
                 .load(it)
                 .into(binding.ivScreenshot)
         })
 
+        val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
+        adapter.addItems(viewModel.myLabels.value?: ArrayList())
+        binding.rvLabel.adapter = adapter
+        binding.rvLabel.addItemDecoration(spaceDecoration)
+        binding.rvLabel.layoutManager = FlowLayoutManager()
         viewModel.myLabels.observe(this, {
-            val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
-            binding.rvLabel.adapter = adapter
-            adapter.addItems(it)
-            binding.rvLabel.addItemDecoration(spaceDecoration)
-            binding.rvLabel.layoutManager = FlowLayoutManager()
+            adapter.calDiff(it)
         })
     }
 

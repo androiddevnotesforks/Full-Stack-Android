@@ -35,6 +35,23 @@ class LabelOutAppViewModel : BaseViewModel(){
                 array.add(Label(Label.DEFAULT,"test3"))
                 array.add(Label(Label.DEFAULT,"test11111113"))
                 array.add(Label(Label.DEFAULT,"test3"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
+                array.add(Label(Label.DEFAULT,"test11111113"))
             }
             _myLabels.value = array
         }
