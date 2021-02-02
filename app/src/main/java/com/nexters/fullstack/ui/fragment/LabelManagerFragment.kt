@@ -73,7 +73,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
             viewModel.input.emitLabellingState(LabellingState.Approve)
         }
         binding.skipButton.setOnClickListener {
-            viewModel.setButtonState(LabellingState.Rejected)
+            viewModel.input.emitLabellingState(LabellingState.Rejected)
         }
     }
 

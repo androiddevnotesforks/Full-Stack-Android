@@ -75,15 +75,7 @@ class MainViewModel(
     }
 
     private val _images = MutableLiveData<List<PresentLocalFile>>()
-    private val _labellingState = MutableLiveData<LabellingState>(LabellingState.Pending)
     private val startLabeling = MutableLiveData<Unit>()
-
-    val labellingState: LiveData<LabellingState>
-        get() = _labellingState
-
-    fun setButtonState(labelState: LabellingState) {
-        _labellingState.value = labelState
-    }
 
     interface MainInput : Input {
         fun loadImages(images: List<PresentLocalFile>)
