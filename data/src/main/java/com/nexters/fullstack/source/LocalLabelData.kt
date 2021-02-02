@@ -1,4 +1,4 @@
-package com.nexters.data.source
+package com.nexters.fullstack.source
 
 import java.util.*
 

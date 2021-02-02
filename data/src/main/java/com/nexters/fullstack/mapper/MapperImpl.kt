@@ -1,6 +1,6 @@
-package com.nexters.data.mapper
+package com.nexters.fullstack.mapper
 
-import com.nexters.data.source.LocalLabelData
+import com.nexters.fullstack.source.LocalLabelData
 import com.nexters.fullstack.source.data.LocalLabelDomain
 
 object MapperImpl : Mapper<LocalLabelDomain, LocalLabelData> {

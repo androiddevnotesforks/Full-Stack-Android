@@ -1,8 +1,7 @@
-package com.nexters.data.repository
+package com.nexters.fullstack.repository
 
-import com.nexters.data.mapper.MapperImpl
-import com.nexters.data.source.LocalLabelData
-import com.nexters.fullstack.repository.AlbumRepository
+import com.nexters.fullstack.mapper.MapperImpl
+import com.nexters.fullstack.source.LocalLabelData
 import com.nexters.fullstack.source.data.LocalLabelDomain
 import com.tsdev.feature.LocalImages
 

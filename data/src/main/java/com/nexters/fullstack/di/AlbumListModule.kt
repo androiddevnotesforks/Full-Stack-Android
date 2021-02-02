@@ -1,7 +1,7 @@
-package com.nexters.data.di
+package com.nexters.fullstack.di
 
 import com.nexters.fullstack.repository.AlbumRepository
-import com.nexters.data.repository.AlbumRepositoryImpl
+import com.nexters.fullstack.repository.AlbumRepositoryImpl
 import org.koin.dsl.module
 
 val albumListModule = module {
