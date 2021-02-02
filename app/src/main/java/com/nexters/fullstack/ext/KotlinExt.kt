@@ -5,6 +5,6 @@ import com.nexters.fullstack.App
 
 val Int.toPx: Int
     get() {
-        val metrics = App().applicationContext.resources.displayMetrics
+        val metrics = App.app.resources.displayMetrics
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), metrics).toInt()
     }

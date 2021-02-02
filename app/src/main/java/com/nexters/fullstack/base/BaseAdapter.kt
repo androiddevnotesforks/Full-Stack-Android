@@ -1,24 +1,32 @@
 package com.nexters.fullstack.base
 
-import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.LabelViewType
-import com.nexters.fullstack.source.RecyclerSource
-import com.nexters.fullstack.source.RecyclerViewSource
+import com.nexters.fullstack.util.DiffUtilCallback
 
-abstract class BaseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    abstract fun createView(
-        parent: ViewGroup,
-        viewSource: RecyclerViewSource
-    ): RecyclerView.ViewHolder
+    protected val items = mutableListOf<ITEM>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            LabelViewType.STACK_VIEW -> {
-                createView(parent, viewSource = RecyclerSource.CardStack)
-            }
-            else -> throw IllegalAccessError("unknown viewtype")
-        }
+    override fun getItemCount(): Int {
+        return items.size
+    }
+
+    fun addItem(item: ITEM) {
+        items.add(item)
+    }
+
+    fun addItems(items: List<ITEM>) {
+        this.items.addAll(items)
+    }
+
+    fun getItem(position: Int): ITEM {
+        return items[position]
+    }
+
+    fun calDiff(newItems : MutableList<ITEM>){
+        val diffUtilCallback = DiffUtilCallback(items, newItems)
+        val diffResult : DiffUtil.DiffResult = DiffUtil.calculateDiff(diffUtilCallback)
+        diffResult.dispatchUpdatesTo(this)
     }
 }

@@ -23,6 +23,8 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     override val layoutRes: Int = R.layout.activity_label_outapp
     override val viewModel: LabelOutAppViewModel by viewModel()
 
+    private val adapter : MyLabelAdapter = MyLabelAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initData()
@@ -53,7 +55,8 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
         viewModel.myLabels.observe(this, {
             val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
-            binding.rvLabel.adapter = MyLabelAdapter(viewModel.myLabels.value!!)
+            binding.rvLabel.adapter = adapter
+            adapter.addItems(it)
             binding.rvLabel.addItemDecoration(spaceDecoration)
             binding.rvLabel.layoutManager = FlowLayoutManager()
         })
