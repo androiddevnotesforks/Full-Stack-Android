@@ -19,10 +19,10 @@ class App : Application() {
             modules(
                 listOf(
                     useCaseModule,
+                    presentationMapper,
                     viewModelModule,
                     permissionModule,
                     albumListModule,
-                    presentationMapper,
                     localImageModule
                 )
             )

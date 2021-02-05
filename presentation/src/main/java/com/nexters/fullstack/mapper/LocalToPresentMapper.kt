@@ -3,7 +3,7 @@ package com.nexters.fullstack.mapper
 import com.nexters.fullstack.source.PresentLocalFile
 import com.nexters.fullstack.source.data.LocalLabelDomain
 
-object MapperImpl : Mapper<LocalLabelDomain, PresentLocalFile> {
+class LocalToPresentMapper : Mapper<LocalLabelDomain, PresentLocalFile> {
     override fun toData(data: LocalLabelDomain): PresentLocalFile {
         return PresentLocalFile(data.originUrl)
     }

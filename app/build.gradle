@@ -5,14 +5,13 @@ plugins {
     id 'kotlin-parcelize'
 }
 
-//apply plugin: 'kotlin-parcelize'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
 
     defaultConfig {
         applicationId "com.nexters.fullstack"
-        minSdkVersion 29
+        minSdkVersion 28
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

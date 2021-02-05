@@ -29,6 +29,6 @@ class MainStackAdapter : BaseAdapter<LocalFile>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return LabelViewType.LABEL_VIEW
+        return LabelViewType.STACK_VIEW
     }
 }

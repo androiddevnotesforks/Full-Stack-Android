@@ -6,10 +6,10 @@ import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.mapper.Mapper
-import com.nexters.fullstack.source.LabellingState
-import com.nexters.fullstack.source.PresentLocalFile
+import com.nexters.fullstack.source.*
 import com.nexters.fullstack.source.data.LocalLabelDomain
 import com.nexters.fullstack.usecase.base.BaseUseCase
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,72 +18,117 @@ import io.reactivex.subjects.PublishSubject
 
 class MainViewModel(
     private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
-    albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>?>>,
+    albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>>>,
     mapper: Mapper<LocalLabelDomain, PresentLocalFile>
 ) : BaseViewModel() {
 
     private val disposable = CompositeDisposable()
     private val flipStateSubject = PublishSubject.create<LabellingState>()
+    private val onClickButton = PublishSubject.create<State>()
 
-    init {
-        disposable.add(albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map {
-                it.map { localLabel ->
-                    mapper.toData(localLabel)
-                }
-            }
-            .subscribe({ pathList ->
-                input.loadImages(pathList)
-            }, {
-                it.printStackTrace()
-            })
-        )
+    private val mainLabel = MutableLiveData<MainLabel>()
 
-        disposable.add(
-            flipStateSubject
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter { state -> state != LabellingState.Pending }
-                .subscribe { state ->
-                    val didStartLabelling = flipUseCase.buildUseCase(state)
-
-                    if (didStartLabelling) {
-                        startLabeling.value = Unit
-                    } else {
-                        //todo 첫 화면 맨 뒤로 이동.
-                    }
-                }
-        )
-    }
 
     val input = object : MainInput {
-        override fun loadImages(images: List<PresentLocalFile>) {
-            _images.value = images
-        }
+        override fun onClickedButton(state: State) = onClickButton.onNext(state)
 
         override fun emitLabellingState(state: LabellingState) = flipStateSubject.onNext(state)
     }
 
     val output = object : MainOutput {
-        override fun images(): LiveData<List<PresentLocalFile>> {
-            return _images
+        override fun state(): LiveData<MainLabel> {
+            return mainLabel
         }
 
         override fun startLabelling() = startLabeling
     }
 
+    init {
+        val images: Single<List<PresentLocalFile>> =
+            albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
+                .map {
+                    it.map { localLabel ->
+                        mapper.toData(localLabel)
+                    }
+                }.cache()
+
+        val state = onClickButton.cache()
+
+        disposable.addAll(
+            Observable.combineLatest(
+                images.toObservable(),
+                state,
+                ::MainLabel
+            ).subscribe({ response ->
+                if (response.state == State.Approve) {
+                    startLabeling.value = Unit
+                }
+                mainLabel.value = response
+            }, {
+
+            })
+        )
+
+//        disposable.add(
+//            Observable.combineLatest(
+//                images.toObservable(),
+//                Observable.just(true),
+//                ::State
+//            ).subscribe(state::setValue)
+//        )
+
+//        disposable.add(
+//            onClickImage.flatMapSingle {
+//                images
+//            }.subscribe()
+//        )
+
+//        disposable.add(albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
+//            .map {
+//                it.map { localLabel ->
+//                    mapper.toData(localLabel)
+//                }
+//            }
+//            .subscribeOn(Schedulers.computation())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ pathList ->
+//                input.loadImages(pathList)
+//            }, {
+//                it.printStackTrace()
+//            })
+//        )
+
+//        disposable.add(
+//            flipStateSubject
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .filter { state -> state != LabellingState.Pending }
+//                .subscribe { state ->
+//                    val didStartLabelling = flipUseCase.buildUseCase(state)
+//
+//                    if (didStartLabelling) {
+//                        startLabeling.value = Unit
+//                    } else {
+//                        //todo 첫 화면 맨 뒤로 이동.
+//                    }
+//                }
+//        )
+    }
+
+
     private val _images = MutableLiveData<List<PresentLocalFile>>()
     private val startLabeling = MutableLiveData<Unit>()
 
     interface MainInput : Input {
-        fun loadImages(images: List<PresentLocalFile>)
+        //        fun loadImages(images: List<PresentLocalFile>)
+        fun onClickedButton(state: State)
         fun emitLabellingState(state: LabellingState)
     }
 
     interface MainOutput : Output {
-        fun images(): LiveData<List<PresentLocalFile>>
+        fun state(): LiveData<MainLabel>
+
+        //Router
         fun startLabelling(): LiveData<Unit>
     }
 

@@ -48,7 +48,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
             }
             .subscribe { result ->
                 if (result == Activity.RESULT_CANCELED) {
-                    binding.stackView.rewind()
+                    binding.cardStackView.rewind()
                 }
             })
 
@@ -62,19 +62,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         }
 
         onViewInit()
-        setOnClickListener()
-        observer()
-    }
-
-    private fun setOnClickListener() {
-        binding.labeledButton.setOnClickListener {
-            stackAdapter.isSwipe = false
-            binding.stackView.swipe()
-            viewModel.input.emitLabellingState(LabellingState.Approve)
-        }
-        binding.skipButton.setOnClickListener {
-            viewModel.input.emitLabellingState(LabellingState.Rejected)
-        }
+        setObserver()
     }
 
     private fun onViewInit() {
@@ -92,12 +80,12 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
             setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
             setOverlayInterpolator(LinearInterpolator())
         }
-        binding.stackView.adapter = stackAdapter
-        binding.stackView.layoutManager = manager
+        binding.cardStackView.adapter = stackAdapter
+        binding.cardStackView.layoutManager = manager
     }
 
 
-    private fun observer() {
+    private fun setObserver() {
         with(viewModel.output) {
             startLabelling().observe(this@LabelManagerFragment.viewLifecycleOwner, {
                 if (it != null) {
@@ -152,7 +140,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     override fun onDestroy() {
-        disposable.dispose()
+        disposable.clear()
         super.onDestroy()
     }
 }
