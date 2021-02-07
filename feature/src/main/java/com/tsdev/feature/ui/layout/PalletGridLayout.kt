@@ -59,7 +59,7 @@ class PalletGridLayout @JvmOverloads constructor(
                     item.isSelected = !item.isSelected
 
                     if (item.isSelected) {
-                        textView.setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
+                        setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
                     } else {
                         setBackgroundColor(Color.parseColor(item.backgroundColor))
                     }
