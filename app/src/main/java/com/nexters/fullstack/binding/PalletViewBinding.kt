@@ -9,4 +9,6 @@ fun PalletGridLayout.setOnDataToLabelWithColor(data: List<PalletItem>?) {
     data?.let {
         setItems = it
     }
+
+    setOnInitView()
 }

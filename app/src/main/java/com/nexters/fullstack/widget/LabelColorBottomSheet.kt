@@ -1,6 +1,7 @@
 package com.nexters.fullstack.widget
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,10 +31,13 @@ class LabelColorBottomSheet(private val vm: LabelingViewModel) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        onInitView()
     }
 
-    private fun initView() {
+    private fun onInitView() {
 
+        binding.palletLayout.setOnLabelClickListener = {
+            it.copy(backgroundColor = "#2D2015")
+        }
     }
 }

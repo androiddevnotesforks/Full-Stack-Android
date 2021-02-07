@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.view.marginLeft
@@ -21,6 +22,8 @@ class PalletGridLayout @JvmOverloads constructor(
 
     private val _items = mutableListOf<PalletItem>()
 
+    lateinit var setOnLabelClickListener: (PalletItem) -> Unit
+
     var setItems: List<PalletItem>
         set(value) {
             if (value.isNotEmpty()) {
@@ -29,45 +32,44 @@ class PalletGridLayout @JvmOverloads constructor(
         }
         get() = _items
 
-    //이것도 따로 data class 를 만드는게 좋을지 ?
-
-    private val PADDING_START = 10
-    private val PADDING_END = 10
-
     init {
         columnCount = 2
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-
-        rootView.setPadding(PADDING_START, 0, PADDING_END, 0)
-    }
-
-    private fun setOnInitView() {
-        _items.forEach { item ->
+    fun setOnInitView() {
+        _items.forEachIndexed { index, item ->
             val childView =
                 LayoutInflater.from(context).inflate(R.layout.item_pallet_view, this, false)
 
             val textView = childView.findViewById<TextView>(R.id.label)
 
-            textView.width = (this.measuredWidth / 2) - textView.marginLeft - textView.marginRight
+            if (index % 2 == 0) {
+                textView.width =
+                    (resources.displayMetrics.widthPixels / 2) - textView.marginRight - (textView.marginLeft * 2)
+            } else {
+                textView.width =
+                    (resources.displayMetrics.widthPixels / 2) - textView.marginRight - textView.marginLeft
+            }
 
             textView.run {
                 text = item.name
-                setBackgroundColor(Color.parseColor(item.hexColor))
+                setBackgroundColor(Color.parseColor(item.backgroundColor))
+                setTextColor(Color.parseColor(item.textColor))
+                setOnClickListener {
+                    item.isSelected = !item.isSelected
+
+                    if (item.isSelected) {
+                        textView.setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
+                    } else {
+                        setBackgroundColor(Color.parseColor(item.backgroundColor))
+                    }
+                    setOnLabelClickListener(item)
+
+                    invalidate()
+                }
             }
 
             addView(childView)
         }
-    }
-
-
-    override fun onMeasure(widthSpec: Int, heightSpec: Int) {
-        super.onMeasure(widthSpec, heightSpec)
-        Log.e("onMeasure", "Called")
-//        if (childCount > 0) {
-        setOnInitView()
-//        }
     }
 }

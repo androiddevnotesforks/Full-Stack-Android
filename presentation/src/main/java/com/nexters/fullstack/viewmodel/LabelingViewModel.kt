@@ -13,7 +13,16 @@ class LabelingViewModel : BaseViewModel() {
     private val _viewState = MutableLiveData<ViewState>(ViewState.Selected)
     private val _colors = MutableLiveData(
         listOf(
-            PalletItem("Yellow", "#E8C15D")
+            PalletItem("Yellow", "#28241A", "#E8C15D","#FFE299"),
+            PalletItem("Orange", "#2D2015", "#EC9147","#FFCBA1"),
+            PalletItem("Red", "#2E1817", "#C76761","#FFA799"),
+            PalletItem("Pink", "#301924", "#E089B5","#FFC7E3"),
+            PalletItem("Violet", "#261A37", "#A06EE5","#D9C2FF"),
+            PalletItem("Cobalt Blue", "#1D1D35", "#6565E5","#BFBFFF"),
+            PalletItem("Blue", "#0A1E31", "#4CA6FF","#B2D9FF"),
+            PalletItem("Peacock Green", "#122828", "#52CCCC","#A1E5E5"),
+            PalletItem("Green", "#14251E","#3EA87A" ,"#B1E5CF"),
+            PalletItem("Gray", "#242528", "#7B8399","#CCDAFF")
         )
     )
 

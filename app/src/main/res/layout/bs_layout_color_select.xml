@@ -31,13 +31,23 @@
 
 
         <com.tsdev.feature.ui.layout.PalletGridLayout
+            android:id="@+id/pallet_layout"
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:setItems="@{vm.output.labels}" />
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="라벨 추가 완료"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pallet_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
