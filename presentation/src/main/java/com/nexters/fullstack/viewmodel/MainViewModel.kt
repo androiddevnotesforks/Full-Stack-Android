@@ -7,19 +7,17 @@ import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.mapper.Mapper
 import com.nexters.fullstack.source.*
-import com.nexters.fullstack.source.data.LocalLabelDomain
+import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.usecase.base.BaseUseCase
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 class MainViewModel(
     private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
-    albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>>>,
-    mapper: Mapper<LocalLabelDomain, PresentLocalFile>
+    albumLoadUseCase: BaseUseCase<String, Single<List<LocalImageDomain>>>,
+    mapper: Mapper<LocalImageDomain, PresentLocalFile>
 ) : BaseViewModel() {
 
     private val disposable = CompositeDisposable()
