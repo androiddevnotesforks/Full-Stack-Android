@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.LabelViewType
+import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemStackViewBinding
 import com.nexters.fullstack.source.LocalFile
@@ -16,7 +17,7 @@ class MainStackAdapter : BaseAdapter<LocalFile>() {
             LabelViewType.STACK_VIEW -> {
                 MainStackItemHolder(ItemStackViewBinding.inflate(LayoutInflater.from(parent.context)))
             }
-            else -> throw IllegalAccessError("unknown viewtype")
+            else -> throw NotFoundViewType
         }
     }
 

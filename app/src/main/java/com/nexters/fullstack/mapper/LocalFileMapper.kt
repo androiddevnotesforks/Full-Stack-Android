@@ -3,7 +3,7 @@ package com.nexters.fullstack.mapper
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.PresentLocalFile
 
-object UiMapper : Mapper<PresentLocalFile, LocalFile> {
+object LocalFileMapper : Mapper<PresentLocalFile, LocalFile> {
     override fun toData(item: LocalFile): PresentLocalFile {
         return PresentLocalFile(item.url)
     }

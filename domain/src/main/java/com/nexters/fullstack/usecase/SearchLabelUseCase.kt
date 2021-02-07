@@ -1,13 +1,14 @@
 package com.nexters.fullstack.usecase
 
+import com.nexters.fullstack.source.DomainLabel
 import com.nexters.fullstack.usecase.base.BaseUseCase
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class SearchLabelUseCase : BaseUseCase<Label, Single<MutableList<Label>>> {
-    private val labels = mutableListOf<Label>()
+class SearchLabelUseCase : BaseUseCase<DomainLabel, Single<MutableList<DomainLabel>>> {
+    private val labels = mutableListOf<DomainLabel>()
 
-    override fun buildUseCase(params: Label): Single<MutableList<Label>> {
+    override fun buildUseCase(params: DomainLabel): Single<MutableList<DomainLabel>> {
         if (labels.contains(params)) {
             labels.remove(params)
         } else {

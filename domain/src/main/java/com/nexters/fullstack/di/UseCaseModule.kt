@@ -1,5 +1,6 @@
 package com.nexters.fullstack.di
 
+import com.nexters.fullstack.constants.KoinNamed
 import com.nexters.fullstack.source.LabellingState
 import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.usecase.AlbumLoadUseCase
@@ -13,6 +14,10 @@ import org.koin.dsl.module
 val useCaseModule = module {
     single<BaseUseCase<LabellingState, Boolean>> { FlippingUseCase() }
 
-    single<BaseUseCase<String, Single<List<LocalImageDomain>?>>>(named("label")) { AlbumLoadUseCase(get()) }
-    single { LabelingUseCase() }
+    single<BaseUseCase<String, Single<List<LocalImageDomain>?>>>(named(KoinNamed.LABEL)) {
+        AlbumLoadUseCase(
+            get()
+        )
+    }
+    single { LabelingUseCase(get()) }
 }

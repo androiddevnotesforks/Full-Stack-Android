@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
+import com.nexters.fullstack.source.DomainLabel
 import com.nexters.fullstack.source.Label
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

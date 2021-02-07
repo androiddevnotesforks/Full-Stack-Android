@@ -6,4 +6,6 @@ import org.koin.dsl.module
 
 val albumListModule = module {
     factory<AlbumRepository> { AlbumRepositoryImpl(get()) }
+
+    factory {  }
 }
