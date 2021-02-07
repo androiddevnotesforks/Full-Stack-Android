@@ -11,11 +11,20 @@ class LabelRepositoryImpl(
     private val labelaryRemoteDataSource: LabelaryRemoteDataSource,
     private val labelaryLocalDataSource: LabelaryLocalDataSource
 ) : LabelRepository {
-    override fun load(): Single<List<DomainLabel>> {
+
+    override fun remoteLoad(): Single<List<DomainLabel>> {
         return labelaryRemoteDataSource.load()
     }
 
-    override fun save(labels: Pair<List<DomainLabel>, LocalImageDomain>): Completable {
+    override fun remoteSave(labels: Pair<List<DomainLabel>, LocalImageDomain>): Completable {
         return labelaryRemoteDataSource.save(labels)
+    }
+
+    override fun localLoad(): Single<List<DomainLabel>> {
+        return labelaryLocalDataSource.localLoad()
+    }
+
+    override fun localSave(labels: Pair<List<DomainLabel>, LocalImageDomain>): Completable {
+        return labelaryLocalDataSource.localSave(labels)
     }
 }
