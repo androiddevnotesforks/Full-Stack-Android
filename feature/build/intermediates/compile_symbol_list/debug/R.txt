@@ -1506,6 +1506,7 @@ int id image 0x0
 int id info 0x0
 int id italic 0x0
 int id item_touch_helper_previous_elevation 0x0
+int id label 0x0
 int id labeled 0x0
 int id largeLabel 0x0
 int id left 0x0
@@ -1723,6 +1724,7 @@ int layout design_navigation_menu 0x0
 int layout design_navigation_menu_item 0x0
 int layout design_text_input_end_icon 0x0
 int layout design_text_input_start_icon 0x0
+int layout item_pallet_view 0x0
 int layout mtrl_alert_dialog 0x0
 int layout mtrl_alert_dialog_actions 0x0
 int layout mtrl_alert_dialog_title 0x0

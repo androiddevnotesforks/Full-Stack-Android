@@ -1,32 +1,36 @@
 package com.nexters.fullstack.widget
 
-import android.content.Context
 import android.os.Bundle
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.nexters.fullstack.R
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nexters.fullstack.BR
 import com.nexters.fullstack.databinding.BsLayoutColorSelectBinding
+import com.nexters.fullstack.viewmodel.LabelingViewModel
 
-class LabelColorBottomSheet(context: Context) :
-    BottomSheetDialog(context, R.style.BottomSheetDefaultStyle) {
+class LabelColorBottomSheet(private val vm: LabelingViewModel) :
+    BottomSheetDialogFragment() {
 
     lateinit var binding: BsLayoutColorSelectBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = BsLayoutColorSelectBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
-        initView()
+        binding.lifecycleOwner = this@LabelColorBottomSheet.viewLifecycleOwner
+        binding.setVariable(BR.vm, vm)
+
+        return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        if (behavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
+        initView()
     }
 
     private fun initView() {
