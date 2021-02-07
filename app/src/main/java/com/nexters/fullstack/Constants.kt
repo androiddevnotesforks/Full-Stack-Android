@@ -7,4 +7,6 @@ object Constants {
     const val IMAGE_PREFIX = "image/"
 
     const val LABEL_BUNDLE_KEY = "labelingImage"
+
+    const val SS_SCREENSHOT_PREFIX = "Screenshots"
 }

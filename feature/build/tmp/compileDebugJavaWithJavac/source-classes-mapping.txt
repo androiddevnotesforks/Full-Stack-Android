@@ -1,0 +1,2 @@
+com/tsdev/feature/BuildConfig.java
+ com.tsdev.feature.BuildConfig

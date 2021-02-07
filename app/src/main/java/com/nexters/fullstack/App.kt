@@ -1,9 +1,9 @@
 package com.nexters.fullstack
 
 import android.app.Application
-import com.nexters.fullstack.di.viewModelModule
-import com.nexters.fullstack.di.permissionModule
-import com.nexters.fullstack.di.useCaseModule
+import com.nexters.fullstack.di.*
+import com.tsdev.feature.di.localImageModule
+import io.reactivex.plugins.RxJavaPlugins
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,10 +19,17 @@ class App : Application() {
             modules(
                 listOf(
                     useCaseModule,
+                    presentationMapper,
                     viewModelModule,
-                    permissionModule
+                    permissionModule,
+                    albumListModule,
+                    localImageModule
                 )
             )
+        }
+
+        RxJavaPlugins.setErrorHandler {
+            it.printStackTrace()
         }
         super.onCreate()
         app = this

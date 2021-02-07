@@ -1,0 +1,36 @@
+package com.nexters.fullstack.binding
+
+import androidx.databinding.BindingAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.nexters.fullstack.source.State
+import com.nexters.fullstack.viewmodel.MainViewModel
+import com.yuyakaido.android.cardstackview.CardStackView
+
+@BindingAdapter(
+    "app:approve",
+    "app:targetView",
+    "app:onApproveButtonClickListener",
+    requireAll = true
+)
+fun FloatingActionButton.setOnApproveButtonClickListener(
+    isSwipe: Boolean?,
+    cardStackView: CardStackView?,
+    emit: MainViewModel.MainInput?
+) {
+    var data = isSwipe
+    setOnClickListener {
+        data = false
+        if (data != false) {
+            return@setOnClickListener
+        }
+        cardStackView?.swipe()
+        emit?.onClickedButton(State.Approve)
+    }
+}
+
+@BindingAdapter("app:onRejectButtonClickListener")
+fun FloatingActionButton.setOnRejectButtonClickListener(emit: MainViewModel.MainInput?) {
+    setOnClickListener {
+        emit?.onClickedButton(State.Reject)
+    }
+}

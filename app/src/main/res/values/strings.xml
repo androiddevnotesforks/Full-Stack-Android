@@ -31,4 +31,6 @@
     <string name="selected_label">선택된 라벨</string>
 
     <string name="new_label_hint">새 라벨 이름 입력</string>
+
+    <string name="label_select_title">라벨 색 선택하기</string>
 </resources>

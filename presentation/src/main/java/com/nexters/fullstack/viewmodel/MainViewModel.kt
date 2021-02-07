@@ -3,51 +3,86 @@ package com.nexters.fullstack.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.source.LabellingState
-import com.nexters.fullstack.source.PresentLocalFile
-import com.nexters.fullstack.usecase.BaseFlipUseCase
-import com.nexters.fullstack.usecase.FlipUseCase
+import com.nexters.fullstack.Input
+import com.nexters.fullstack.Output
+import com.nexters.fullstack.mapper.Mapper
+import com.nexters.fullstack.source.*
+import com.nexters.fullstack.source.data.LocalLabelDomain
+import com.nexters.fullstack.usecase.base.BaseUseCase
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 
-class MainViewModel(private val flipUseCase: BaseFlipUseCase<LabellingState>) : BaseViewModel() {
+class MainViewModel(
+    private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
+    albumLoadUseCase: BaseUseCase<String, Single<List<LocalLabelDomain>>>,
+    mapper: Mapper<LocalLabelDomain, PresentLocalFile>
+) : BaseViewModel() {
 
-    private val _labellingState = MutableLiveData<LabellingState>(LabellingState.Pending)
+    private val disposable = CompositeDisposable()
+    private val flipStateSubject = PublishSubject.create<LabellingState>()
+    private val onClickButton = PublishSubject.create<State>()
 
-    val labellingState: LiveData<LabellingState>
-        get() = _labellingState
+    private val mainLabel = MutableLiveData<MainLabel>()
+    private val startLabeling = MutableLiveData<Unit>()
 
-    private val _screenItems = MutableLiveData<List<PresentLocalFile>>(
-        listOf(
-            PresentLocalFile("https://source.unsplash.com/Xq1ntWruZQI/600x800"),
+    val input = object : MainInput {
+        override fun onClickedButton(state: State) = onClickButton.onNext(state)
 
-            PresentLocalFile("https://source.unsplash.com/NYyCqdBOKwc/600x800"),
+        override fun emitLabellingState(state: LabellingState) = flipStateSubject.onNext(state)
+    }
 
-            PresentLocalFile("https://source.unsplash.com/buF62ewDLcQ/600x800"),
+    val output = object : MainOutput {
+        override fun state(): LiveData<MainLabel> {
+            return mainLabel
+        }
 
-            PresentLocalFile("https://source.unsplash.com/THozNzxEP3g/600x800"),
+        override fun startLabelling() = startLabeling
+    }
 
-            PresentLocalFile("https://source.unsplash.com/USrZRcRS2Lw/600x800"),
+    init {
+        val images: Single<List<PresentLocalFile>> =
+            albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
+                .map {
+                    it.map { localLabel ->
+                        mapper.toData(localLabel)
+                    }
+                }.cache()
 
-            PresentLocalFile("https://source.unsplash.com/PeFk7fzxTdk/600x800"),
+        val state = onClickButton.cache()
 
-            PresentLocalFile("https://source.unsplash.com/LrMWHKqilUw/600x800"),
+        disposable.addAll(
+            Observable.combineLatest(
+                images.toObservable(),
+                state,
+                ::MainLabel
+            ).subscribe({ response ->
+                if (response.state == State.Approve) {
+                    startLabeling.value = Unit
+                }
+                mainLabel.value = response
+            }, {
 
-            PresentLocalFile("https://source.unsplash.com/HN-5Z6AmxrM/600x800"),
-            PresentLocalFile("https://source.unsplash.com/CdVAUADdqEc/600x800"),
-
-            PresentLocalFile("https://source.unsplash.com/AWh9C-QjhE4/600x800")
+            })
         )
-    )
-
-    val screenItems: LiveData<List<PresentLocalFile>>
-        get() = _screenItems
-
-
-    fun setButtonState(labelState: LabellingState) {
-        _labellingState.value = labelState
     }
 
-    fun isLabellingStart(labelState: LabellingState): Boolean {
-        return flipUseCase(labelState)
+    interface MainInput : Input {
+        fun onClickedButton(state: State)
+        fun emitLabellingState(state: LabellingState)
     }
 
+    interface MainOutput : Output {
+        fun state(): LiveData<MainLabel>
+
+        //Router
+        fun startLabelling(): LiveData<Unit>
+    }
+
+    companion object {
+        private const val SCREEN_SHOT_PRIFIX = "Screenshots"
+    }
 }
