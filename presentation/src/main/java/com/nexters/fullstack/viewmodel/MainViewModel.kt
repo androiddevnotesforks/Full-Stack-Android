@@ -25,7 +25,7 @@ class MainViewModel(
     private val onClickButton = PublishSubject.create<State>()
 
     private val mainLabel = MutableLiveData<MainLabel>()
-
+    private val startLabeling = MutableLiveData<Unit>()
 
     val input = object : MainInput {
         override fun onClickedButton(state: State) = onClickButton.onNext(state)
@@ -66,59 +66,9 @@ class MainViewModel(
 
             })
         )
-
-//        disposable.add(
-//            Observable.combineLatest(
-//                images.toObservable(),
-//                Observable.just(true),
-//                ::State
-//            ).subscribe(state::setValue)
-//        )
-
-//        disposable.add(
-//            onClickImage.flatMapSingle {
-//                images
-//            }.subscribe()
-//        )
-
-//        disposable.add(albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
-//            .map {
-//                it.map { localLabel ->
-//                    mapper.toData(localLabel)
-//                }
-//            }
-//            .subscribeOn(Schedulers.computation())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ pathList ->
-//                input.loadImages(pathList)
-//            }, {
-//                it.printStackTrace()
-//            })
-//        )
-
-//        disposable.add(
-//            flipStateSubject
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .filter { state -> state != LabellingState.Pending }
-//                .subscribe { state ->
-//                    val didStartLabelling = flipUseCase.buildUseCase(state)
-//
-//                    if (didStartLabelling) {
-//                        startLabeling.value = Unit
-//                    } else {
-//                        //todo 첫 화면 맨 뒤로 이동.
-//                    }
-//                }
-//        )
     }
 
-
-    private val _images = MutableLiveData<List<PresentLocalFile>>()
-    private val startLabeling = MutableLiveData<Unit>()
-
     interface MainInput : Input {
-        //        fun loadImages(images: List<PresentLocalFile>)
         fun onClickedButton(state: State)
         fun emitLabellingState(state: LabellingState)
     }
