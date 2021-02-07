@@ -23,6 +23,5 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start">
-        <OnClick app:targetId="@id/container_input_search" />
     </Transition>
 </MotionScene>

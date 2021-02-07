@@ -6,6 +6,9 @@
         <variable
             name="vm"
             type="com.nexters.fullstack.viewmodel.LabelOutAppViewModel" />
+        <variable
+            name="view"
+            type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,18 +90,19 @@
 
                 </ImageView>
 
+                <!--visibility="@{vm.selectedLabels.size() > 0 ? view.VISIBLE : view.GONE}"-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/iv_screenshot"
-                    android:visibility="gone">
+                    app:layout_constraintTop_toBottomOf="@id/iv_screenshot">
 
                     <TextView
                         android:id="@+id/tv_selected_label_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent">
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:text="선택된 라벨">
 
                     </TextView>
 
@@ -121,9 +125,33 @@
                 android:layout_height="@dimen/input_search_height"
                 app:layout_constraintTop_toBottomOf="@id/container_upper"
                 app:layout_constraintBottom_toTopOf="@id/rv_label"
-                android:background="@color/black"
+                android:background="@color/bg_depth2"
                 android:layout_marginBottom="@dimen/spacing_normal"
                 >
+
+                <ImageView
+                    android:id="@+id/iv_search_icon"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="@dimen/spacing_elevation"
+                    android:background="@color/white">
+                </ImageView>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintLeft_toRightOf="@id/iv_search_icon"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginLeft="@dimen/spacing_small"
+                    android:background="@color/bg_depth2"
+                    android:hint="@string/placeholder_label_search"
+                    android:textSize="@dimen/b1"
+                    >
+
+                </EditText>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
