@@ -8,6 +8,6 @@ import io.reactivex.Single
 class LoadLabelUseCase(private val labelRepository: LabelRepository) :
     BaseUseCase<Unit, Single<List<DomainLabel>>> {
     override fun buildUseCase(params: Unit): Single<List<DomainLabel>> {
-        return labelRepository.load()
+        return labelRepository.remoteLoad()
     }
 }
