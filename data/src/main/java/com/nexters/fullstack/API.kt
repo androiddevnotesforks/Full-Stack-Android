@@ -1,3 +1,4 @@
 package com.nexters.fullstack
 
-interface UseCase
+interface API {
+}

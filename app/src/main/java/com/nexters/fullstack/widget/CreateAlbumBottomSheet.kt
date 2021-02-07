@@ -7,18 +7,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.DialogCreateLabelBinding
 
-class CreateAlbumBottomSheet(
-    context: Context
-) : BottomSheetDialog(context, R.style.BottomSheetDefaultStyle) {
+class CreateAlbumBottomSheet(context: Context) :
+    BottomSheetDialog(context, R.style.BottomSheetDefaultStyle) {
 
     lateinit var binding: DialogCreateLabelBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DialogCreateLabelBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
         initView()
     }
 

@@ -7,6 +7,8 @@
         <variable
             name="vm"
             type="com.nexters.fullstack.viewmodel.MainViewModel" />
+
+        <import type="com.nexters.fullstack.source.State" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +24,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
 
             <RelativeLayout
@@ -42,13 +43,13 @@
             </RelativeLayout>
 
             <com.yuyakaido.android.cardstackview.CardStackView
-                android:id="@+id/stack_view"
-                setStackItems="@{vm.screenItems}"
+                android:id="@+id/cardStackView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
                 android:layout_below="@+id/title"
-                android:clipToPadding="false" />
+                android:layout_alignParentBottom="true"
+                android:clipToPadding="false"
+                app:setStackItems="@{vm.output.state()}" />
 
             <RelativeLayout
                 android:id="@+id/fab_layout"
@@ -71,6 +72,7 @@
                     app:fabCustomSize="@dimen/spacing_huge"
                     app:fabSize="normal"
                     app:maxImageSize="@dimen/spacing_xxx_large"
+                    app:onRejectButtonClickListener="@{vm.input}"
                     app:tint="@color/white" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -84,10 +86,13 @@
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:foregroundGravity="center"
                     android:src="@drawable/ic_baseline_check_24"
+                    app:approve="@{true}"
                     app:backgroundTint="@color/indigo"
                     app:fabCustomSize="@dimen/spacing_huge"
                     app:fabSize="normal"
                     app:maxImageSize="@dimen/spacing_xxx_large"
+                    app:onApproveButtonClickListener="@{vm.input}"
+                    app:targetView="@{cardStackView}"
                     app:tint="@color/white" />
             </RelativeLayout>
         </RelativeLayout>

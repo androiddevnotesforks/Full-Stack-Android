@@ -10,7 +10,7 @@ import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.ui.holder.MainStackItemHolder
 
 class MainStackAdapter : BaseAdapter<LocalFile>() {
-
+    var isSwipe = true
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             LabelViewType.STACK_VIEW -> {
@@ -29,6 +29,6 @@ class MainStackAdapter : BaseAdapter<LocalFile>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return LabelViewType.LABEL_VIEW
+        return LabelViewType.STACK_VIEW
     }
 }

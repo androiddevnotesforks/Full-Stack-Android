@@ -1,5 +1,6 @@
 package com.nexters.fullstack.widget
 
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,7 +14,6 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.DialogInterfaceLayoutBinding
 
 class RequestExitDialog : DialogFragment() {
-
 
     internal lateinit var binding: DialogInterfaceLayoutBinding
 
@@ -54,6 +54,7 @@ class RequestExitDialog : DialogFragment() {
 
     private fun initSetOnClickListener() {
         binding.tvExit.setOnClickListener {
+            activity?.setResult(Activity.RESULT_CANCELED)
             activity?.finish()
         }
 
