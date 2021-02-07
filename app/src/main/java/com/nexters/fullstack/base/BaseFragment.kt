@@ -8,11 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
     protected lateinit var binding: VB
         private set
 
+    internal val disposable = CompositeDisposable()
     //layout
     abstract val layoutRes: Int
 
@@ -33,4 +35,8 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
         binding.run(body)
     }
 
+    override fun onDestroy() {
+        disposable.clear()
+        super.onDestroy()
+    }
 }
