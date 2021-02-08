@@ -12,16 +12,17 @@ import com.nexters.fullstack.ui.holder.SelectedLabelViewHolder
 
 class SelectedLabelAdapter() : BaseAdapter<Label>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when(viewType){
-            SelectedLabelViewType.SELECTED_LABEL_VIEW -> SelectedLabelViewHolder(ItemSelectedLabelBinding.inflate(
-                LayoutInflater.from(parent.context)))
-            else -> throw NotFoundViewType
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+    = SelectedLabelViewHolder(ItemSelectedLabelBinding.inflate(LayoutInflater.from(parent.context)))
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is SelectedLabelViewHolder -> holder.bind(items[position])
+            is SelectedLabelViewHolder -> {
+                holder.bind(items[position])
+                holder.itemView.setOnClickListener {
+                    getItemClickListener()?.invoke(it, holder.adapterPosition, items[holder.adapterPosition])
+                }
+            }
         }
     }
 }

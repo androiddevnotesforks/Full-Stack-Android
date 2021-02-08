@@ -2,6 +2,7 @@ package com.nexters.fullstack.ui.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.NotFoundViewType
@@ -34,7 +35,7 @@ class MyLabelAdapter : BaseAdapter<Label>() {
             is MyLabelViewHolder -> {
                 holder.bind(items[position])
                 holder.itemView.setOnClickListener {
-                    getItemClickListener()?.invoke(it, position, items[position])
+                    getItemClickListener()?.invoke(it, holder.adapterPosition, items[holder.adapterPosition])
                 }
             }
             is RecommendLabelViewHolder -> holder.bind(items[position])

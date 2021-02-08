@@ -29,6 +29,8 @@ abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewH
     fun calDiff(newItems : MutableList<ITEM>){
         val diffUtilCallback = DiffUtilCallback(items, newItems)
         val diffResult : DiffUtil.DiffResult = DiffUtil.calculateDiff(diffUtilCallback)
+        items.clear()
+        items.addAll(newItems)
         diffResult.dispatchUpdatesTo(this)
     }
 

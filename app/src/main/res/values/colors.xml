@@ -64,9 +64,26 @@
     <color name="pink_text">#FFC7E3</color>
     <color name="gray_text">#CCDAFF</color>
 
+
+    <!--    font / icon    -->
+    <color name="primary">#EDFFFFFF</color>
+    <color name="secondary">#8CFFFFFF</color>
+    <color name="inactive3">#4DFFFFFF</color>
+
+    <color name="text_white">#FFFEFE</color>
+
+    <!--    key     -->
+    <color name="key">#6B9EFF</color>
+    <color name="key_active">#387CFF</color>
+    <color name="key_inactive">#66387CFF</color>
+
+    <!--    layer    -->
+    <color name="depth1">#525866</color>
+    <color name="depth2">#3D414C</color>
+    <color name="depth3">#292C33</color>
+    <color name="depth4">#1B1D21</color>
+    <color name="depth5">#000000</color>
+
     <color name="transparent">#1A000000</color>
     <color name="neumorphism">#575D66</color>
-
-    <color name="bg_depth2">#3D414C</color>
-    <color name="bg_depth3">#292C33</color>
 </resources>

@@ -2,9 +2,8 @@
 <resources>
     <!-- components -->
     <dimen name="toolbar_height">60dp</dimen>
-
-    <dimen name="icon_size">24dp</dimen>
-    <dimen name="icon_small">20dp</dimen>
+    <dimen name="icon_size">48dp</dimen>
+    <dimen name="icon_mini">20dp</dimen>
 
     <dimen name="ss_small_width">90dp</dimen>
     <dimen name="ss_small_height">195dp</dimen>
@@ -46,7 +45,11 @@
     <dimen name="spacing_super_extra_huge">100dp</dimen>
 
     <!-- 20이 없어서 만들었는데.. 나중에 디자인 정리되면 dimen 정리 한 번 해요 ! -->
+    <dimen name="spacing_10">10dp</dimen>
     <dimen name="spacing_20">20dp</dimen>
+    <dimen name="spacing_40">40dp</dimen>
+
+    <dimen name="radius_4">4dp</dimen>
 
 
     <!--    Text Size   -->
