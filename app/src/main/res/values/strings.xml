@@ -14,6 +14,10 @@
 
     <!-- Buttons -->
     <string name="done">완료</string>
+    <string name="labeling_done">라벨 추가 완료</string>
+
+    <!--    Hints   -->
+    <string name="labeling_hint">라벨을 추가하면 라벨 앨범이 생성됩니다.</string>
 
     <!-- Label -->
     <string name="recommnd">추천</string>

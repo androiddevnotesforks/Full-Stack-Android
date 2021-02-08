@@ -123,7 +123,7 @@
                     android:layout_marginLeft="@dimen/spacing_10"
                     android:layout_marginRight="@dimen/spacing_10"
                     android:background="@android:color/transparent"
-                    android:textColorHint="@color/inactive3"
+                    android:textColorHint="@color/def_inactive"
                     android:hint="@string/placeholder_label_search"
                     android:textSize="@dimen/b1">
 
@@ -169,7 +169,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="@dimen/b2"
-                android:textColor="@color/secondary"
+                android:textColor="@color/def_secondary"
                 android:text="@string/selected_label"
                 >
             </TextView>

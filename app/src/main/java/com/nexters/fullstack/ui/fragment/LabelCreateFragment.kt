@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.ViewModel
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelCreateBinding
+import com.nexters.fullstack.viewmodel.LabelingViewModel
 import com.nexters.fullstack.widget.LabelColorBottomSheet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, ViewModel>() {
+class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, LabelingViewModel>() {
 
-    override val viewModel: ViewModel by viewModel()
+    override val viewModel: LabelingViewModel by viewModel()
 
     override val layoutRes: Int = R.layout.fragment_label_create
 
@@ -26,7 +28,10 @@ class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, ViewModel>(
         viewInit()
 
         binding.selectColor.setOnClickListener {
-            LabelColorBottomSheet(requireContext()).show()
+            LabelColorBottomSheet(viewModel).show(
+                activity?.supportFragmentManager ?: this@LabelCreateFragment.parentFragmentManager,
+                Constants.BOTTOM_SHEET_TAG
+            )
         }
     }
 

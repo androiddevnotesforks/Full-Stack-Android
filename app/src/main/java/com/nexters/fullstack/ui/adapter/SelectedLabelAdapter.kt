@@ -7,6 +7,7 @@ import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.SelectedLabelViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
+import com.nexters.fullstack.source.DomainLabel
 import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.ui.holder.SelectedLabelViewHolder
 

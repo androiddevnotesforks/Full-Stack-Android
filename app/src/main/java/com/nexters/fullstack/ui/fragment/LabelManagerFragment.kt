@@ -38,7 +38,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     private val manager by lazy { CardStackLayoutManager(requireContext(), this) }
-    private val disposable = CompositeDisposable()
+
 
     init {
         disposable.add(BusImpl.publish()
@@ -137,10 +137,5 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java)
 //        intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
         startActivityForResult(intent, 2000)
-    }
-
-    override fun onDestroy() {
-        disposable.clear()
-        super.onDestroy()
     }
 }
