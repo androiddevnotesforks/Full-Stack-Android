@@ -19,6 +19,11 @@
     <color name="red_alert">#de1738</color>
     <color name="indigo">#3F51B5</color>
 
+    <!--    key     -->
+    <color name="key">#6B9EFF</color>
+    <color name="key_active">#387CFF</color>
+    <color name="key_inactive">#4D387CFF</color>
+
     <!--    active color    -->
     <color name="red_active">#C76761</color>
     <color name="orange_active">#EC9147</color>

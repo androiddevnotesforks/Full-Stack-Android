@@ -29,20 +29,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.6" />
+            app:layout_constraintGuide_percent="0.7" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal"
-            android:layout_marginEnd="@dimen/spacing_normal"
+            android:layout_marginEnd="@dimen/spacing_x_large"
             android:layout_marginBottom="@dimen/spacing_xxx_large"
             android:background="@drawable/btn_select_mini"
             android:gravity="center"
             android:padding="@dimen/spacing_normal"
             android:text="@string/all_selected_finish"
             android:textColor="@color/white"
-            android:textSize="@dimen/h2"
+            android:textSize="@dimen/b1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/select_button_guide_line" />
