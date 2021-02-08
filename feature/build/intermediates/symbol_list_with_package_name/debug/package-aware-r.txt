@@ -1507,6 +1507,7 @@ id image
 id info
 id italic
 id item_touch_helper_previous_elevation
+id label
 id labeled
 id largeLabel
 id left
@@ -1724,6 +1725,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout item_pallet_view
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title

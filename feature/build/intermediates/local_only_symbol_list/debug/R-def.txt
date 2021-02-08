@@ -1,2 +1,4 @@
 R_DEF: Internal format may change without notice
 local
+id label
+layout item_pallet_view
