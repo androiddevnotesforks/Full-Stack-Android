@@ -148,6 +148,7 @@
                 app:layout_constraintTop_toBottomOf="@id/container_input_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:padding="@dimen/spacing_20"
+                app:layoutManager="com.xiaofeng.flowlayoutmanager.FlowLayoutManager"
                 >
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -190,6 +191,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_selected_label_title"
                 android:layout_marginTop="@dimen/spacing_small"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
                 >
 
             </androidx.recyclerview.widget.RecyclerView>

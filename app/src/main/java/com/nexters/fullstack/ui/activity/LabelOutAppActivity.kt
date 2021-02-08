@@ -61,12 +61,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
         binding.rvLabel.adapter = myLabelAdapter
         binding.rvLabel.addItemDecoration(spaceDecoration)
-        binding.rvLabel.layoutManager = FlowLayoutManager()
 
         selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
         binding.rvSelectedLabel.adapter = selectedLabelAdapter
         binding.rvSelectedLabel.addItemDecoration(spaceDecoration)
-        binding.rvSelectedLabel.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun initOnClickListener(){
