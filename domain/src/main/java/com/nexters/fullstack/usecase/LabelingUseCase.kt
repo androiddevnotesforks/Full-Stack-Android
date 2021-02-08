@@ -12,7 +12,7 @@ class LabelingUseCase(private val labelRepository: LabelRepository) :
     BaseUseCase<Pair<List<DomainLabel>, LocalImageDomain>, Completable> {
     override fun buildUseCase(params: Pair<List<DomainLabel>, LocalImageDomain>): Completable {
         //subscribeOn BaseUseCase 로 옮기는건 고민 중.
-        return labelRepository.remoteSave(params)
+        return labelRepository.localSave(params)
     }
 }
 

@@ -31,7 +31,11 @@ class LabelingSelectAdapter : BaseAdapter<LabelSource>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+        when (holder) {
+            is LabelListViewHolder -> {
+                holder.bind(items[position])
+            }
+        }
     }
 
     override fun getItemCount(): Int {
