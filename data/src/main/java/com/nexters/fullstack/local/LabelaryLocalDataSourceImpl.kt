@@ -4,6 +4,7 @@ import com.nexters.fullstack.db.dao.LabelDAO
 import com.nexters.fullstack.mapper.local.LocalLabelMapper
 import com.nexters.fullstack.source.local.DomainUserLabel
 import io.reactivex.Completable
+import io.reactivex.Maybe
 
 class LabelaryLocalDataSourceImpl(private val labelDAO: LabelDAO) :
     LabelaryLocalDataSource {
@@ -19,4 +20,9 @@ class LabelaryLocalDataSourceImpl(private val labelDAO: LabelDAO) :
         return labelDAO.delete(LocalLabelMapper.toDomain(label))
     }
 
+    override fun load(): Maybe<List<DomainUserLabel>> {
+        return labelDAO.load().map { labels ->
+            labels.map(LocalLabelMapper::fromDomain)
+        }
+    }
 }

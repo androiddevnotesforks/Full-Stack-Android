@@ -1,3 +1,5 @@
 package com.nexters.fullstack.source
 
-data class LocalLabel(val items: List<DomainLabel>)
+import com.nexters.fullstack.source.local.DomainUserLabel
+
+data class LocalLabel(val items: List<DomainUserLabel>)
