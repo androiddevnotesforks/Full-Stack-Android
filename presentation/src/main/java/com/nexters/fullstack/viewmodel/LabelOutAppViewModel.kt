@@ -10,6 +10,7 @@ import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.source.DomainLabel
 import com.nexters.fullstack.source.Label
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -41,11 +42,18 @@ class LabelOutAppViewModel : BaseViewModel() {
         state.selectedLabels.value = selectedLabelList
     }
 
+    fun completeLabeling(){
+        // TODO usecase 연결 > image selectLabels
+        viewModelScope.launch {
+
+        }
+    }
+
     init {
         state = State()
 
         // TODO replace to usecase
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch{
             myLabelList.add(Label(Label.DEFAULT, "label1"))
             myLabelList.add(Label(Label.DEFAULT, "label2"))
             myLabelList.add(Label(Label.DEFAULT, "label3"))

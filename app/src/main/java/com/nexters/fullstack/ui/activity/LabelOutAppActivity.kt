@@ -73,6 +73,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
        binding.ivCancel.setOnClickListener {
             onBackPressed()
         }
+        binding.ivCancel.setOnClickListener {
+            viewModel.completeLabeling()
+            // TODO finish activity and show toast
+        }
         myLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.selectLabel(i)
         }
