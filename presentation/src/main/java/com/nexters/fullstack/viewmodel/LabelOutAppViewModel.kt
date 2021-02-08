@@ -35,7 +35,7 @@ class LabelOutAppViewModel : BaseViewModel() {
     }
 
     fun deselectLabel(position: Int) {
-        val selectedLabel = myLabelList[position]
+        val selectedLabel = selectedLabelList[position]
         selectedLabelList.removeAt(position)
         myLabelList.add(selectedLabel)
         state.myLabels.value = myLabelList
