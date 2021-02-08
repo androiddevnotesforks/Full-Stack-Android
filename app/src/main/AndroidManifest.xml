@@ -15,8 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CaptureBox">
-        <activity android:name=".ui.activity.RecentlyActivity" />
-        <activity android:name=".ui.activity.LabelSearchActivity" />
         <activity
             android:name=".ui.activity.LabelingActivity"
             android:theme="@style/Transparent" />

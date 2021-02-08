@@ -5,8 +5,9 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.fullstack.Constants
@@ -14,7 +15,9 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.toPx
+import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
+import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,14 +26,15 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     override val layoutRes: Int = R.layout.activity_label_outapp
     override val viewModel: LabelOutAppViewModel by viewModel()
 
-    private val adapter : MyLabelAdapter = MyLabelAdapter()
+    private val myLabelAdapter : MyLabelAdapter = MyLabelAdapter()
+    private val selectedLabelAdapter : SelectedLabelAdapter = SelectedLabelAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initData()
         initView()
         initOnClickListener()
-        observe()
+        initObserver()
     }
 
     private fun initData(){
@@ -38,37 +42,57 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             intent?.action == Intent.ACTION_SEND
                     && intent.type?.startsWith(Constants.IMAGE_PREFIX) == true -> {
                 (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let { uri : Uri ->
-                    viewModel.input.setImageUri(uri)
+                    viewModel.loadImage(uri)
                 }
             }
         }
     }
 
-    private fun initView(){
-        // TODO viewmodel.output.state()
+    private fun initView() {
+        with(viewModel.state()) {
+            imageUri.observe(this@LabelOutAppActivity, {
+                Glide.with(this@LabelOutAppActivity)
+                    .load(it)
+                    .into(binding.ivScreenshot)
+            })
+        }
 
-        viewModel.imageUri.observe(this, Observer {
-            Glide.with(this)
-                .load(it)
-                .into(binding.ivScreenshot)
-        })
+        val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
+        myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
+        binding.rvLabel.adapter = myLabelAdapter
+        binding.rvLabel.addItemDecoration(spaceDecoration)
 
-        viewModel.myLabels.observe(this, {
-            val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
-            binding.rvLabel.adapter = adapter
-            adapter.addItems(it)
-            binding.rvLabel.addItemDecoration(spaceDecoration)
-            binding.rvLabel.layoutManager = FlowLayoutManager()
-        })
+        selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
+        binding.rvSelectedLabel.adapter = selectedLabelAdapter
+        binding.rvSelectedLabel.addItemDecoration(spaceDecoration)
     }
 
     private fun initOnClickListener(){
        binding.ivCancel.setOnClickListener {
             onBackPressed()
         }
+        binding.ivCancel.setOnClickListener {
+            viewModel.completeLabeling()
+            // TODO finish activity and show toast
+        }
+        myLabelAdapter.setItemClickListener { _, i, _ ->
+            viewModel.selectLabel(i)
+        }
+        selectedLabelAdapter.setItemClickListener { _, i, _ ->
+            viewModel.deselectLabel(i)
+        }
     }
 
-    private fun observe(){
+    private fun initObserver(){
+        with(viewModel.state()){
+            myLabels.observe(this@LabelOutAppActivity, {
+                myLabelAdapter.calDiff(it as MutableList<Label>)
+            })
+            selectedLabels.observe(this@LabelOutAppActivity, {
+                selectedLabelAdapter.calDiff(it as MutableList<Label>)
+                binding.rvSelectedLabel.scrollToPosition(0)
+            })
+        }
     }
 
     inner class SpaceItemDecoration(private val space_dp: Int) : RecyclerView.ItemDecoration() {
@@ -77,6 +101,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             outRect.right = space_dp.toPx
         }
     }
+
     companion object{
         const val RV_SPACING_DP = 10
     }
