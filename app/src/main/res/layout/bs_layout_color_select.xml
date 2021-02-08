@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:setItems="@{vm.output.labels}" />
+            app:setItems="@{vm.output.getBottomSheetLabels()}" />
 
         <TextView
             android:id="@+id/textView7"

@@ -9,6 +9,7 @@ import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.source.LabelSource
+import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.adapter.LabelingSelectAdapter
 import com.nexters.fullstack.ui.decoration.LabelRecyclerDecoration
 import com.nexters.fullstack.viewmodel.LabelingViewModel
@@ -31,6 +32,10 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
         binding.rvLabel.adapter = labelAdapter
         binding.rvLabel.addItemDecoration(LabelRecyclerDecoration())
+
+        binding.tvAddLabel.setOnClickListener {
+            viewModel.input.clickAppbar(ViewState.Add)
+        }
     }
 
     companion object {

@@ -12,11 +12,11 @@ import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
+import com.tsdev.feature.ui.data.PalletItem
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-
 
 class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
@@ -30,11 +30,27 @@ class LabelingViewModel(
 
     private val disposable = CompositeDisposable()
 
+    private val _colors = MutableLiveData(
+        listOf(
+            PalletItem("Yellow", "#353125", "#E8C15D", "#FFE299"),
+            PalletItem("Orange", "#2E2218", "#EC9147", "#FFCBA1"),
+            PalletItem("Red", "#2C1922", "#C76761", "#FFA799"),
+            PalletItem("Pink", "#2D1D25", "#E089B5", "#FFC7E3"),
+            PalletItem("Violet", "#2A1F38", "#A06EE5", "#D9C2FF"),
+            PalletItem("Cobalt Blue", "#2B2B4D", "#6565E5", "#BFBFFF"),
+            PalletItem("Blue", "#132334", "#4CA6FF", "#B2D9FF"),
+            PalletItem("Peacock Green", "#182424", "#52CCCC", "#A1E5E5"),
+            PalletItem("Green", "#1D2A24", "#3EA87A", "#B1E5CF"),
+            PalletItem("Gray", "#282A2F", "#7B8399", "#CCDAFF")
+        )
+    )
 
     val output = object : LabelingOutput {
         override fun viewState(): LiveData<ViewState> = _viewState
         override fun finish(): LiveData<Unit> = _finish
         override fun isEmptyLocalLabel(): LiveData<Boolean> = _isEmptyLabel
+        override fun labels(): LiveData<LocalLabel> = _labels
+        override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
     }
 
     val input = object : LabelingInput {
@@ -87,6 +103,10 @@ class LabelingViewModel(
         fun finish(): LiveData<Unit>
 
         fun isEmptyLocalLabel(): LiveData<Boolean>
+
+        fun labels(): LiveData<LocalLabel>
+
+        fun getBottomSheetLabels(): LiveData<List<PalletItem>>
     }
 
     interface LabelingInput : Input {
