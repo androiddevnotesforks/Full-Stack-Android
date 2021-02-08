@@ -27,7 +27,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             setVariable(BR.vm, viewModel)
         }
 
-        labelAdapter.addItems(listOf(LabelSource(LabelSource.LIST, "#EC9147", "테스트")))
+//        labelAdapter.addItems(listOf(LabelSource(LabelSource.LIST, "#EC9147", "테스트")))
 
         binding.rvLabel.adapter = labelAdapter
         binding.rvLabel.addItemDecoration(LabelRecyclerDecoration())

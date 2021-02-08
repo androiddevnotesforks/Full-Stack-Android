@@ -39,4 +39,10 @@
     <string name="placeholder_label_search">라벨을 검색하거나 추가해보세요.</string>
 
     <string name="label_select_title">라벨 색 선택하기</string>
+
+
+    <!--    라벨이 없을 때    -->
+    <string name="non_label_title">라벨 앨범이 없습니다.</string>
+    <string name="non_label_message">"라벨 앨범을 추가해서 \n스크린샷에 라벨 추가를 할 수 있습니다."</string>
+    <string name="add_label">라벨 앨범 추가하기</string>
 </resources>
