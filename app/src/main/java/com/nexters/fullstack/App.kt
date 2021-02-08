@@ -23,7 +23,9 @@ class App : Application() {
                     viewModelModule,
                     permissionModule,
                     albumListModule,
-                    localImageModule
+                    localImageModule,
+                    databaseModule,
+                    localDataSourceModule
                 )
             )
         }
