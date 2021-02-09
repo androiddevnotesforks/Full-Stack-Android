@@ -38,10 +38,6 @@ class LabelingSelectAdapter : BaseAdapter<LabelSource>() {
         }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
     override fun getItemViewType(position: Int): Int {
         return items[position].type
     }
