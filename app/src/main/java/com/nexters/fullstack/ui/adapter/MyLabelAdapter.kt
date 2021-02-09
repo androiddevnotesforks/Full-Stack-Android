@@ -1,27 +1,25 @@
 package com.nexters.fullstack.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemLabelBinding
-import com.nexters.fullstack.source.Label
+import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.RecommendLabelViewHolder
 
-class MyLabelAdapter : BaseAdapter<Label>() {
+class MyLabelAdapter : BaseAdapter<LabelSource>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when(viewType){
-            Label.DEFAULT -> MyLabelViewHolder(
+            LabelSource.DEFAULT -> MyLabelViewHolder(
                 ItemLabelBinding.inflate(
                     LayoutInflater.from(
                         parent.context
                     )
                 ))
-            Label.RECOMMEND -> RecommendLabelViewHolder(
+            LabelSource.RECOMMEND -> RecommendLabelViewHolder(
                 ItemLabelBinding.inflate(
                     LayoutInflater.from(
                         parent.context

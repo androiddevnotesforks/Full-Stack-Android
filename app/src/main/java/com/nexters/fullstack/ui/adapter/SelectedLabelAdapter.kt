@@ -9,9 +9,10 @@ import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
 import com.nexters.fullstack.source.DomainLabel
 import com.nexters.fullstack.source.Label
+import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.holder.SelectedLabelViewHolder
 
-class SelectedLabelAdapter() : BaseAdapter<Label>() {
+class SelectedLabelAdapter() : BaseAdapter<LabelSource>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
     = SelectedLabelViewHolder(ItemSelectedLabelBinding.inflate(LayoutInflater.from(parent.context)))
