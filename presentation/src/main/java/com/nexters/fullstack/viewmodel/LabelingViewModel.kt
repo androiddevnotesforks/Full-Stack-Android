@@ -1,5 +1,6 @@
 package com.nexters.fullstack.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
@@ -73,6 +74,11 @@ class LabelingViewModel(
                     })
             )
         }
+
+        override fun clickLabelAddButton() {
+            Log.e("Error", "Click")
+            _viewState.value = ViewState.Add
+        }
     }
 
     init {
@@ -115,6 +121,8 @@ class LabelingViewModel(
         fun clickLabel()
 
         fun clickSaveButton(label: DomainUserLabel)
+
+        fun clickLabelAddButton()
     }
 
     override fun onCleared() {

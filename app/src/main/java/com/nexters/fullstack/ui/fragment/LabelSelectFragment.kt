@@ -2,24 +2,20 @@ package com.nexters.fullstack.ui.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.ViewState
-import com.nexters.fullstack.ui.adapter.LabelingSelectAdapter
+import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.viewmodel.LabelingViewModel
-import com.nexters.fullstack.widget.RequestExitDialog
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingViewModel>() {
     override val layoutRes: Int = R.layout.fragment_label_select
-    override val viewModel: LabelingViewModel by viewModel()
-    private val labelAdapter = LabelingSelectAdapter()
+    override val viewModel: LabelingViewModel by sharedViewModel()
+    private val labelAdapter = MyLabelAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,13 +24,24 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             setVariable(BR.vm, viewModel)
         }
 
-//        labelAdapter.addItems(listOf(LabelSource(LabelSource.LIST, "#EC9147", "테스트")))
+        setOnInitView()
+        setInitOnClickListener()
+    }
 
+    private fun setOnInitView() {
         binding.rvLabel.adapter = labelAdapter
         binding.rvLabel.addItemDecoration(SpaceBetweenRecyclerDecoration(vertical = 10))
+    }
 
-        binding.tvAddLabel.setOnClickListener {
-            viewModel.input.clickAppbar(ViewState.Add)
+    private fun setInitOnClickListener() {
+        with(viewModel.input) {
+            binding.tvAddLabel.setOnClickListener {
+                clickAppbar(ViewState.Add)
+            }
+
+//            binding.addLabel.setOnClickListener {
+//                clickAppbar(ViewState.Add)
+//            }
         }
     }
 
@@ -45,9 +52,4 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             return instance ?: LabelSelectFragment().also { instance = it }
         }
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        RequestExitDialog().show(supportFragmentManager, "")
-//        return true
-//    }
 }

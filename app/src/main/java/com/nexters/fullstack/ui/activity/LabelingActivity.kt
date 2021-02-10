@@ -80,7 +80,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
 
     private fun observe() {
         with(viewModel.output) {
-            viewState().observe(this@LabelingActivity, Observer { viewState ->
+            viewState().observe(this@LabelingActivity, { viewState ->
                 when (viewState) {
                     is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
                     is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
