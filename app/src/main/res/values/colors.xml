@@ -19,6 +19,16 @@
     <color name="red_alert">#de1738</color>
     <color name="indigo">#3F51B5</color>
 
+    <!--    Layer   -->
+    <color name="depth_5">#000000</color>
+    <color name="depth_4">#1B1D21</color>
+    <color name="depth_3">#292C33</color>
+    <color name="depth_2">#3D414C</color>
+    <color name="depth_1">#525866</color>
+
+    <!--    Label Text Color    -->
+    <color name="label_title">#C5C5C5</color>
+
     <!--    active color    -->
     <color name="red_active">#C76761</color>
     <color name="orange_active">#EC9147</color>

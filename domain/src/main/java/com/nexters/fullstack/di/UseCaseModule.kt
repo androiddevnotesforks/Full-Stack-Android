@@ -6,6 +6,7 @@ import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.usecase.AlbumLoadUseCase
 import com.nexters.fullstack.usecase.FlippingUseCase
 import com.nexters.fullstack.usecase.LabelingUseCase
+import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.nexters.fullstack.usecase.base.BaseUseCase
 import io.reactivex.Single
 import org.koin.core.qualifier.named
@@ -20,4 +21,7 @@ val useCaseModule = module {
         )
     }
     single { LabelingUseCase(get()) }
+
+    single { LoadLabelUseCase(get()) }
+
 }
