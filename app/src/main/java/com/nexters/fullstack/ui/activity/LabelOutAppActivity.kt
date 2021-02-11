@@ -17,6 +17,7 @@ import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.source.Label
+import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
@@ -96,10 +97,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun initObserver(){
         with(viewModel.state()){
             myLabels.observe(this@LabelOutAppActivity, {
-                myLabelAdapter.calDiff(it as MutableList<Label>)
+                myLabelAdapter.calDiff(it as MutableList<LabelSource>)
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
-                selectedLabelAdapter.calDiff(it as MutableList<Label>)
+                selectedLabelAdapter.calDiff(it as MutableList<LabelSource>)
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
         }

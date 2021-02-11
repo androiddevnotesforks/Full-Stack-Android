@@ -52,8 +52,8 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
 
     private fun setOnClickListener() {
         with(viewModel.input) {
-            binding.addLabel.setOnClickListener { setViewState(ViewState.Add) }
-            binding.searchLabel.setOnClickListener { setViewState(ViewState.Search) }
+            binding.addLabel.setOnClickListener { clickAppbar(ViewState.Add) }
+            binding.searchLabel.setOnClickListener { clickAppbar(ViewState.Search) }
         }
     }
 
@@ -80,7 +80,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
 
     private fun observe() {
         with(viewModel.output) {
-            viewState().observe(this@LabelingActivity, Observer { viewState ->
+            viewState().observe(this@LabelingActivity, { viewState ->
                 when (viewState) {
                     is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
                     is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
@@ -96,7 +96,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return if (viewModel.viewState.value != ViewState.Selected) {
+        return if (viewModel.output.viewState().value != ViewState.Selected) {
             viewModel.setViewState(ViewState.Selected)
             false
         } else {
