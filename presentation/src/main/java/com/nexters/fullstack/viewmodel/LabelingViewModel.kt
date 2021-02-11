@@ -23,7 +23,7 @@ class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
     loadLabelUseCase: LoadLabelUseCase
 ) : BaseViewModel() {
-    private val _viewState = MutableLiveData<ViewState>(ViewState.Selected)
+    private val _viewState = MutableLiveData<ViewState>()
     private val _finish = MutableLiveData<Unit>()
     private val _isEmptyLabel = MutableLiveData(true)
 
@@ -97,6 +97,7 @@ class LabelingViewModel(
                     }
                 }, {})
         )
+        _viewState.value = ViewState.Selected
     }
 
     fun setViewState(viewState: ViewState) {
