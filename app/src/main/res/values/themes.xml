@@ -41,4 +41,10 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
+
+    <!-- TODO cursor highlight 등등 -->
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+
+
+    </style>
 </resources>

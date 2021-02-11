@@ -5,11 +5,12 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -19,6 +20,7 @@ import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
+import com.xiaofeng.flowlayoutmanager.Alignment
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +33,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.vm = viewModel
         initData()
         initView()
         initOnClickListener()
@@ -41,7 +44,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         when{
             intent?.action == Intent.ACTION_SEND
                     && intent.type?.startsWith(Constants.IMAGE_PREFIX) == true -> {
-                (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let { uri : Uri ->
+                (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let { uri: Uri ->
                     viewModel.loadImage(uri)
                 }
             }
@@ -57,14 +60,23 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             })
         }
 
-        val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
-        myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
-        binding.rvLabel.adapter = myLabelAdapter
-        binding.rvLabel.addItemDecoration(spaceDecoration)
+        with(binding){
+            val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
+            rvLabel.run {
+                myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
+                adapter = myLabelAdapter
+                rvLabel.addItemDecoration(spaceDecoration)
+                layoutManager = FlexboxLayoutManager(this@LabelOutAppActivity).apply {
+                    flexWrap = FlexWrap.WRAP
+                    flexDirection = FlexDirection.ROW
+                }
+                setHasFixedSize(true)
+            }
 
-        selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
-        binding.rvSelectedLabel.adapter = selectedLabelAdapter
-        binding.rvSelectedLabel.addItemDecoration(spaceDecoration)
+            selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
+            rvSelectedLabel.adapter = selectedLabelAdapter
+            rvSelectedLabel.addItemDecoration(spaceDecoration)
+        }
     }
 
     private fun initOnClickListener(){
@@ -96,7 +108,12 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     }
 
     inner class SpaceItemDecoration(private val space_dp: Int) : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
             outRect.bottom = space_dp.toPx
             outRect.right = space_dp.toPx
         }

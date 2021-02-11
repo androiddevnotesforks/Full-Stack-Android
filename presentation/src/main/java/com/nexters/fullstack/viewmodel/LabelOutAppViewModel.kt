@@ -72,6 +72,7 @@ class LabelOutAppViewModel : BaseViewModel() {
     data class State(
         val imageUri: MutableLiveData<Uri> = MutableLiveData(),
         val myLabels: MutableLiveData<List<Label>> = MutableLiveData(),
-        val selectedLabels: MutableLiveData<List<Label>> = MutableLiveData()
+        val selectedLabels: MutableLiveData<List<Label>> = MutableLiveData(),
+        val searchKeyword : MutableLiveData<String> = MutableLiveData()
     )
 }

@@ -30,6 +30,19 @@
             app:layout_constraintTop_toBottomOf="@id/container_input_search"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/spacing_20"/>
+
+        <Constraint android:id="@+id/container_selected_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/motion_layout"
+            android:background="@color/depth4"
+            android:padding="@dimen/spacing_20" />
+
+        <Constraint android:id="@+id/container_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/container_input_search"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/collapsed">
@@ -59,6 +72,20 @@
             app:layout_constraintTop_toBottomOf="@id/container_input_search"
             app:layout_constraintBottom_toBottomOf="parent"
             android:padding="@dimen/spacing_20"/>
+
+        <Constraint android:id="@+id/container_selected_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/motion_layout"
+            android:background="@color/depth4"
+            android:padding="@dimen/spacing_20" />
+
+        <Constraint android:id="@+id/container_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/container_input_search"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </ConstraintSet>
 
     <Transition
@@ -67,7 +94,7 @@
         <OnSwipe
             app:dragDirection="dragUp"
             app:onTouchUp="autoComplete"
-            app:touchAnchorId="@id/rv_label"
+            app:touchAnchorId="@id/container_bottom"
             app:touchAnchorSide="top" />
     </Transition>
 </MotionScene>
