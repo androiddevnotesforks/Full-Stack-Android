@@ -26,8 +26,9 @@ class LabelingViewModel(
     private val _viewState = MutableLiveData<ViewState>()
     private val _finish = MutableLiveData<Unit>()
     private val _isEmptyLabel = MutableLiveData(true)
-
     private val _labels = MutableLiveData<LocalLabel>()
+    val labelText = MutableLiveData<String>()
+    private val _didWriteLabelInfo = MutableLiveData(false)
 
     private val disposable = CompositeDisposable()
 
@@ -52,6 +53,7 @@ class LabelingViewModel(
         override fun isEmptyLocalLabel(): LiveData<Boolean> = _isEmptyLabel
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
+        override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
     }
 
     val input = object : LabelingInput {
@@ -114,6 +116,8 @@ class LabelingViewModel(
         fun labels(): LiveData<LocalLabel>
 
         fun getBottomSheetLabels(): LiveData<List<PalletItem>>
+
+        fun didWriteCreateLabelForm(): LiveData<Boolean>
     }
 
     interface LabelingInput : Input {

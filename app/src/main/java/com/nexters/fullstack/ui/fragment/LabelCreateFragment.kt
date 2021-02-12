@@ -21,6 +21,10 @@ class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, LabelingVie
         bind {
             setVariable(BR.vm, viewModel)
         }
+
+        binding.palletLayout.setOnLabelClickListener = {
+
+        }
     }
 
     companion object {
