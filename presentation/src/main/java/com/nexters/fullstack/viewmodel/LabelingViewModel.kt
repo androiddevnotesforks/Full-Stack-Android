@@ -1,16 +1,21 @@
 package com.nexters.fullstack.viewmodel
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.source.LocalLabel
+import com.nexters.fullstack.source.MainMakeLabelSource
 import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.tsdev.feature.ui.data.PalletItem
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -24,11 +29,27 @@ class LabelingViewModel(
     private val _finish = MutableLiveData<Unit>()
     private val _isEmptyLabel = MutableLiveData(true)
     private val _labels = MutableLiveData<LocalLabel>()
-    val labelText = MutableLiveData<String>()
-    private val _didWriteLabelInfo = MutableLiveData(false)
+
+    //    val labelText = MutableLiveData<String>()
+    val _didWriteLabelInfo = MutableLiveData(false)
     private val _clickedLabel = PublishSubject.create<PalletItem>()
+    private val _labelText = PublishSubject.create<String>()
 
     private val disposable = CompositeDisposable()
+
+//    val textWatcher = object : TextWatcher {
+//        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) =
+//
+//
+//
+//        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//        override fun afterTextChanged(p0: Editable?) {
+//
+//        }
+//    }
+
+    fun onTextChanged(s: CharSequence) = _labelText.onNext(s.toString())
 
     private val _colors = MutableLiveData(
         listOf(
@@ -52,6 +73,7 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
+//        override fun getLabelText(): LiveData<String> = labelText
     }
 
     val input = object : LabelingInput {
@@ -81,6 +103,10 @@ class LabelingViewModel(
     init {
         val labels = loadLabelUseCase.buildUseCase(Unit).cache()
 
+        val labelTextCache = _labelText.cache()
+
+        val clickLabelCache = _clickedLabel.cache()
+
         disposable.addAll(
             labels
                 .subscribeOn(Schedulers.io())
@@ -93,11 +119,17 @@ class LabelingViewModel(
                         _isEmptyLabel.value = true
                     }
                 }, { it.printStackTrace() }),
-            _clickedLabel
-                .subscribeOn(Schedulers.computation())
+
+            Observable.combineLatest(
+                labelTextCache,
+                clickLabelCache,
+                ::MainMakeLabelSource
+            ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    _didWriteLabelInfo.value = !labelText.value.isNullOrEmpty()
+                .subscribe({ labelSource ->
+                    Log.e("text -> is Blank ? ", labelSource.labelText.isBlank().toString())
+                    _didWriteLabelInfo.value =
+                        !(labelSource.labelText.isBlank() && labelSource.palletItem == null)
                 }, { it.printStackTrace() })
         )
         _viewState.value = ViewState.Selected
@@ -119,6 +151,8 @@ class LabelingViewModel(
         fun getBottomSheetLabels(): LiveData<List<PalletItem>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
+
+//        fun getLabelText(): LiveData<String>
     }
 
     interface LabelingInput : Input {

@@ -67,7 +67,6 @@ class PalletGridLayout @JvmOverloads constructor(
 
                     selectedPalletItem = item
                     selectedView = itemView
-                    item.isSelected = !item.isSelected
 
 
                     itemView.isSelected = true

@@ -48,9 +48,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_10"
+                android:onTextChanged="@{(text, start, before, count) -> vm.onTextChanged(text)}"
                 android:background="@android:color/transparent"
                 android:hint="@string/add_label_hint"
-                android:text="@={vm.labelText}"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/left_guide_line"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />

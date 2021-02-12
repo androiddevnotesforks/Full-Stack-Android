@@ -25,7 +25,22 @@ class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, LabelingVie
         binding.palletLayout.setOnLabelClickListener = {
             viewModel.input.clickLabel(it)
         }
+//        setOnObserve()
     }
+
+//    private fun setOnObserve() {
+//        with(viewModel.output) {
+//            getLabelText().observe(this@LabelCreateFragment) { labelText ->
+//                if (labelText.isNotEmpty()) {
+//                    viewModel._didWriteLabelInfo.value = true
+//                } else {
+//                    labelText.ifEmpty {
+//                        viewModel._didWriteLabelInfo.value = false
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     companion object {
         private var instance: LabelCreateFragment? = null
