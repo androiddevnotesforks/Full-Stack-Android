@@ -32,6 +32,8 @@ class PalletGridLayout @JvmOverloads constructor(
 
     lateinit var selectedView: View
 
+    lateinit var selectedPalletItem: PalletItem
+
     init {
         columnCount = 2
     }
@@ -54,25 +56,23 @@ class PalletGridLayout @JvmOverloads constructor(
 
             textView.run {
                 text = item.name
+
                 setBackgroundColor(Color.parseColor(item.backgroundColor))
                 setTextColor(Color.parseColor(item.textColor))
                 setOnClickListener { itemView ->
                     if (::selectedView.isInitialized) {
                         selectedView.isSelected = false
-                        selectedView.setBackgroundColor(Color.parseColor(item.backgroundColor))
+                        selectedView.setBackgroundColor(Color.parseColor(selectedPalletItem.backgroundColor))
                     }
 
+                    selectedPalletItem = item
                     selectedView = itemView
                     item.isSelected = !item.isSelected
 
 
                     itemView.isSelected = true
 
-                    if (item.isSelected) {
-                        setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
-                    } else {
-                        setBackgroundColor(Color.parseColor(item.backgroundColor))
-                    }
+                    setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
                     setOnLabelClickListener(item)
 
                     invalidate()

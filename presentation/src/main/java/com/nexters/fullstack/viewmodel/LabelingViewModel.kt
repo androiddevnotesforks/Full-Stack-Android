@@ -1,23 +1,20 @@
 package com.nexters.fullstack.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
-import com.nexters.fullstack.source.DomainLabel
 import com.nexters.fullstack.source.LocalLabel
 import com.nexters.fullstack.source.ViewState
-import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.tsdev.feature.ui.data.PalletItem
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 
 class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
@@ -29,6 +26,7 @@ class LabelingViewModel(
     private val _labels = MutableLiveData<LocalLabel>()
     val labelText = MutableLiveData<String>()
     private val _didWriteLabelInfo = MutableLiveData(false)
+    private val _clickedLabel = PublishSubject.create<PalletItem>()
 
     private val disposable = CompositeDisposable()
 
@@ -61,9 +59,7 @@ class LabelingViewModel(
             _viewState.value = viewState
         }
 
-        override fun clickLabel() {
-
-        }
+        override fun clickLabel(palletItem: PalletItem) = _clickedLabel.onNext(palletItem)
 
         override fun clickSaveButton(label: DomainUserLabel) {
             disposable.add(
@@ -78,7 +74,6 @@ class LabelingViewModel(
         }
 
         override fun clickLabelAddButton() {
-            Log.e("Error", "Click")
             _viewState.value = ViewState.Add
         }
     }
@@ -97,7 +92,13 @@ class LabelingViewModel(
                     } else {
                         _isEmptyLabel.value = true
                     }
-                }, {})
+                }, { it.printStackTrace() }),
+            _clickedLabel
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _didWriteLabelInfo.value = !labelText.value.isNullOrEmpty()
+                }, { it.printStackTrace() })
         )
         _viewState.value = ViewState.Selected
     }
@@ -123,7 +124,7 @@ class LabelingViewModel(
     interface LabelingInput : Input {
         fun clickAppbar(viewState: ViewState)
 
-        fun clickLabel()
+        fun clickLabel(palletItem: PalletItem)
 
         fun clickSaveButton(label: DomainUserLabel)
 

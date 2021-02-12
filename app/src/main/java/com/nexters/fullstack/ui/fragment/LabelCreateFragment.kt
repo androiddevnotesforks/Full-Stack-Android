@@ -23,7 +23,7 @@ class LabelCreateFragment : BaseFragment<FragmentLabelCreateBinding, LabelingVie
         }
 
         binding.palletLayout.setOnLabelClickListener = {
-
+            viewModel.input.clickLabel(it)
         }
     }
 
