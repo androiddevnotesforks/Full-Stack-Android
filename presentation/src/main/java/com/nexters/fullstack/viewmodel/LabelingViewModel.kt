@@ -1,7 +1,5 @@
 package com.nexters.fullstack.viewmodel
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,24 +28,11 @@ class LabelingViewModel(
     private val _isEmptyLabel = MutableLiveData(true)
     private val _labels = MutableLiveData<LocalLabel>()
 
-    //    val labelText = MutableLiveData<String>()
     val _didWriteLabelInfo = MutableLiveData(false)
     private val _clickedLabel = PublishSubject.create<PalletItem>()
     private val _labelText = PublishSubject.create<String>()
 
     private val disposable = CompositeDisposable()
-
-//    val textWatcher = object : TextWatcher {
-//        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) =
-//
-//
-//
-//        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//
-//        override fun afterTextChanged(p0: Editable?) {
-//
-//        }
-//    }
 
     fun onTextChanged(s: CharSequence) = _labelText.onNext(s.toString())
 
@@ -73,7 +58,6 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
-//        override fun getLabelText(): LiveData<String> = labelText
     }
 
     val input = object : LabelingInput {
@@ -127,9 +111,8 @@ class LabelingViewModel(
             ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ labelSource ->
-                    Log.e("text -> is Blank ? ", labelSource.labelText.isBlank().toString())
-                    _didWriteLabelInfo.value =
-                        !(labelSource.labelText.isBlank() && labelSource.palletItem == null)
+                    val result = didWriteLabelInfo(labelSource)
+                    _didWriteLabelInfo.value = result
                 }, { it.printStackTrace() })
         )
         _viewState.value = ViewState.Selected
@@ -137,6 +120,16 @@ class LabelingViewModel(
 
     fun setViewState(viewState: ViewState) {
         _viewState.value = viewState
+    }
+
+    private fun didWriteLabelInfo(mainMakeLabelSource: MainMakeLabelSource): Boolean {
+        var result = false
+        return if (mainMakeLabelSource.labelText.isBlank()) {
+            result
+        } else {
+            result = true
+            result
+        }
     }
 
     interface LabelingOutput : Output {
