@@ -9,7 +9,6 @@ import com.nexters.fullstack.source.LabelSource
 
 class MyLabelViewHolder(private val binding: ItemLabelBinding): RecyclerView.ViewHolder(binding.root) {
     fun bind(item : LabelSource){
-        binding.tvRecommend.visibility = View.GONE
         binding.tvLabel.text = item.name
     }
 }

@@ -7,7 +7,7 @@
     <string name="album">앨범</string>
 
     <!-- Titles -->
-    <string name="do_labelling">라벨 추가</string>
+    <string name="do_labelling">스크린샷 라벨 추가</string>
 
     <string name="label">라벨</string>
     <string name="my_label">내 라벨</string>
