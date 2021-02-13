@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View"/>
+
         <variable
             name="vm"
             type="com.nexters.fullstack.viewmodel.LabelOutAppViewModel" />
@@ -53,8 +54,8 @@
                 android:gravity="center"
                 android:text="@string/done"
                 android:textSize="@dimen/b1"
-                android:textColor="@color/key_active"
-                >
+                android:textColor="@color/lebeling_complete_btn_color"
+                android:enabled="@{!(vm.state().selectedLabels == null || vm.state().selectedLabels.size() == 0)}">
             </TextView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -166,7 +167,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/depth4"
-            android:padding="@dimen/padding_default">
+            android:padding="@dimen/padding_default"
+            android:visibility="@{(vm.state().selectedLabels == null || vm.state().selectedLabels.size() == 0) ? View.GONE : View.VISIBLE}">
             
             <TextView
                 android:id="@+id/tv_selected_label"
@@ -187,7 +189,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginLeft="@dimen/spacing_8"
                 android:textColor="@color/key_active"
-                android:textSize="@dimen/b2">
+                android:textSize="@dimen/b2"
+                android:text="@{vm.state().selectedLabels == null ? null : String.valueOf(vm.state().selectedLabels.size())}">
 
             </TextView>
 
