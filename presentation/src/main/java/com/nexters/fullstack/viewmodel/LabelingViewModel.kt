@@ -1,11 +1,11 @@
 package com.nexters.fullstack.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
+import com.nexters.fullstack.mapper.LabelingMapper
 import com.nexters.fullstack.source.LocalLabel
 import com.nexters.fullstack.source.MainMakeLabelSource
 import com.nexters.fullstack.source.ViewState
@@ -67,9 +67,11 @@ class LabelingViewModel(
 
         override fun clickLabel(palletItem: PalletItem) = _clickedLabel.onNext(palletItem)
 
-        override fun clickSaveButton(label: DomainUserLabel) {
+        override fun clickSaveButton(label: MainMakeLabelSource) {
+            val mapper = LabelingMapper().fromData(label)
             disposable.add(
-                labelingUseCase.buildUseCase(label).subscribeOn(Schedulers.io())
+                labelingUseCase.buildUseCase(mapper)
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         _finish.value = Unit
@@ -153,7 +155,7 @@ class LabelingViewModel(
 
         fun clickLabel(palletItem: PalletItem)
 
-        fun clickSaveButton(label: DomainUserLabel)
+        fun clickSaveButton(label: MainMakeLabelSource)
 
         fun clickLabelAddButton()
     }
