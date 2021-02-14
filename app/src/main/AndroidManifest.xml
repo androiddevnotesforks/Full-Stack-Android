@@ -17,6 +17,7 @@
         android:theme="@style/Theme.CaptureBox">
         <activity
             android:name=".ui.activity.LabelingActivity"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Transparent" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,12 +1,10 @@
 package com.tsdev.feature.ui.layout
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.View
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.view.marginLeft
@@ -32,6 +30,10 @@ class PalletGridLayout @JvmOverloads constructor(
         }
         get() = _items
 
+    lateinit var selectedView: View
+
+    lateinit var selectedPalletItem: PalletItem
+
     init {
         columnCount = 2
     }
@@ -51,18 +53,25 @@ class PalletGridLayout @JvmOverloads constructor(
                     (resources.displayMetrics.widthPixels / 2) - textView.marginRight - textView.marginLeft
             }
 
+
             textView.run {
                 text = item.name
+
                 setBackgroundColor(Color.parseColor(item.backgroundColor))
                 setTextColor(Color.parseColor(item.textColor))
-                setOnClickListener {
-                    item.isSelected = !item.isSelected
-
-                    if (item.isSelected) {
-                        setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
-                    } else {
-                        setBackgroundColor(Color.parseColor(item.backgroundColor))
+                setOnClickListener { itemView ->
+                    if (::selectedView.isInitialized) {
+                        selectedView.isSelected = false
+                        selectedView.setBackgroundColor(Color.parseColor(selectedPalletItem.backgroundColor))
                     }
+
+                    selectedPalletItem = item
+                    selectedView = itemView
+
+
+                    itemView.isSelected = true
+
+                    setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
                     setOnLabelClickListener(item)
 
                     invalidate()

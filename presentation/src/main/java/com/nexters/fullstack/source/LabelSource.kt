@@ -7,7 +7,9 @@ data class LabelSource(
     var isSelected: Boolean = false
 ) {
     companion object {
-        const val SELECTED = 0
-        const val LIST = 1
+        const val DEFAULT = 0
+        const val RECOMMEND = 1
+        const val SELECTED = 2
+        const val LIST = 3
     }
 }

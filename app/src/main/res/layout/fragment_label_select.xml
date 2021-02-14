@@ -10,6 +10,8 @@
             type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
 
         <import type="android.view.View" />
+
+        <import type="com.nexters.fullstack.source.ViewState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,13 +67,14 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <TextView
+            android:id="@+id/tv_add_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xx_large"
             android:background="@drawable/btn_select_mini"
             android:gravity="center"
             android:padding="@dimen/spacing_normal"
             android:text="@string/add_label"
-            android:layout_marginTop="@dimen/spacing_xx_large"
             android:textColor="@color/white"
             android:visibility="@{vm.output.isEmptyLocalLabel() ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toStartOf="@+id/add_label"

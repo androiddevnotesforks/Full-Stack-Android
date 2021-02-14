@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.ext.toPx
 
-class LabelRecyclerDecoration : RecyclerView.ItemDecoration() {
+class SpaceBetweenRecyclerDecoration(private val vertical: Int = 0, private val horizontal: Int = 0) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
@@ -14,11 +14,7 @@ class LabelRecyclerDecoration : RecyclerView.ItemDecoration() {
     ) {
         super.getItemOffsets(outRect, view, parent, state)
 
-        outRect.bottom = SPACING_VERTICAL.toPx
-        outRect.top = SPACING_VERTICAL.toPx
-    }
-
-    companion object {
-        private const val SPACING_VERTICAL = 10
+        outRect.bottom = vertical.toPx
+        outRect.top = vertical.toPx
     }
 }
