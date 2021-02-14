@@ -6,7 +6,7 @@ import com.nexters.fullstack.source.local.DomainUserLabel
 
 object LocalLabelMapper : Mapper<DomainUserLabel, UserLabel> {
     override fun toDomain(data: DomainUserLabel): UserLabel {
-        return UserLabel(data.color, data.text)
+        return UserLabel(data.color ?: "", data.text)
     }
 
     override fun fromDomain(data: UserLabel): DomainUserLabel {

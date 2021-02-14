@@ -1,5 +1,6 @@
 package com.nexters.fullstack.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
@@ -29,6 +30,7 @@ class LabelingViewModel(
     private val _labels = MutableLiveData<LocalLabel>()
 
     val _didWriteLabelInfo = MutableLiveData(false)
+    private var makeMainLabelSource: MainMakeLabelSource? = null
     private val _clickedLabel = PublishSubject.create<PalletItem>()
     private val _labelText = PublishSubject.create<String>()
 
@@ -67,18 +69,21 @@ class LabelingViewModel(
 
         override fun clickLabel(palletItem: PalletItem) = _clickedLabel.onNext(palletItem)
 
-        override fun clickSaveButton(label: MainMakeLabelSource) {
-            val mapper = LabelingMapper().fromData(label)
-            disposable.add(
-                labelingUseCase.buildUseCase(mapper)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        _finish.value = Unit
-                    }, {
-                        it.printStackTrace()
-                    })
-            )
+        override fun clickSaveButton() {
+            makeMainLabelSource?.let { source ->
+                val mapper = LabelingMapper().fromData(source)
+
+                disposable.add(
+                    labelingUseCase.buildUseCase(mapper)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            _finish.value = Unit
+                        }, {
+                            it.printStackTrace()
+                        })
+                )
+            } ?: Log.e("labelSourceError", "makeMainLabelSource is Null")
         }
 
         override fun clickLabelAddButton() {
@@ -114,6 +119,7 @@ class LabelingViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ labelSource ->
                     val result = didWriteLabelInfo(labelSource)
+                    makeMainLabelSource = labelSource
                     _didWriteLabelInfo.value = result
                 }, { it.printStackTrace() })
         )
@@ -146,8 +152,6 @@ class LabelingViewModel(
         fun getBottomSheetLabels(): LiveData<List<PalletItem>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
-
-//        fun getLabelText(): LiveData<String>
     }
 
     interface LabelingInput : Input {
@@ -155,7 +159,7 @@ class LabelingViewModel(
 
         fun clickLabel(palletItem: PalletItem)
 
-        fun clickSaveButton(label: MainMakeLabelSource)
+        fun clickSaveButton()
 
         fun clickLabelAddButton()
     }
