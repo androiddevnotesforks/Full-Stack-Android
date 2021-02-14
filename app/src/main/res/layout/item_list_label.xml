@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_list_label"
             android:padding="@dimen/spacing_large"
-            android:textColor="@color/label_title"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="@dimen/b1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +28,8 @@
 
         <View
             android:id="@+id/hint_color"
-            android:layout_width="7dp"
-            android:layout_height="7dp"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
             android:layout_marginEnd="@dimen/spacing_large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -60,9 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xx_large"
             android:gravity="center"
-            android:visibility="@{vm.output.isEmptyLocalLabel() ? View.VISIBLE : View.GONE}"
             android:text="@string/non_label_message"
             android:textColor="@color/depth_1"
+            android:visibility="@{vm.output.isEmptyLocalLabel() ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -107,7 +107,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/select_button_guide_line"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:localLabels="@{vm.output.labels()}" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/select_button_guide_line"
