@@ -11,7 +11,7 @@
 
         <androidx.cardview.widget.CardView
             android:background="@color/transparent"
-            android:padding="@dimen/spacing_xx_large"
+            android:padding="@dimen/spacing_x_large"
             android:layout_margin="@dimen/spacing_normal"
             app:cardCornerRadius="@dimen/spacing_normal"
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                     android:gravity="center"
                     android:text="@string/request_finish"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/h3"
+                    android:textSize="@dimen/b1"
                     app:layout_constraintBottom_toTopOf="@+id/select_button_guide_line"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -52,7 +52,7 @@
                         android:gravity="center"
                         android:text="@string/all_exit"
                         android:textColor="@color/red_alert"
-                        android:textSize="@dimen/h3"
+                        android:textSize="@dimen/b1"
                         app:layout_constraintEnd_toStartOf="@+id/tv_continue"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                         android:gravity="center"
                         android:text="@string/all_continue"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/h3"
+                        android:textSize="@dimen/b1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/tv_exit"

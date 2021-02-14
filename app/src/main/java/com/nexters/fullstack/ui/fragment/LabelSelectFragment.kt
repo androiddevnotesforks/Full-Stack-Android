@@ -38,10 +38,6 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             binding.tvAddLabel.setOnClickListener {
                 clickAppbar(ViewState.Add)
             }
-
-//            binding.addLabel.setOnClickListener {
-//                clickAppbar(ViewState.Add)
-//            }
         }
     }
 

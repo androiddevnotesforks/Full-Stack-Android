@@ -4,57 +4,103 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
     </data>
+
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/left_guide_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/textView8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_huge"
-                android:layout_marginEnd="@dimen/spacing_huge"
-                android:background="@drawable/bg_new_label"
-                android:orientation="horizontal"
+                android:text="@string/label"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/left_guide_line"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_10"
+                android:background="@android:color/transparent"
+                android:hint="@string/add_label_hint"
+                android:onTextChanged="@{(text, start, before, count) -> vm.onTextChanged(text)}"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/left_guide_line"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+
+            <TextView
+                android:id="@+id/label_color_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_xxx_large"
+                android:text="@string/add_label_color"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/left_guide_line"
+                app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
+            <com.tsdev.feature.ui.layout.PalletGridLayout
+                android:id="@+id/pallet_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_x_large"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/left_guide_line"
+                app:layout_constraintTop_toBottomOf="@+id/label_color_title"
+                app:setItems="@{vm.output.bottomSheetLabels}" />
+
+            <TextView
+                android:id="@+id/add_label_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_xxx_large"
+                android:gravity="center"
+                android:text="@string/add_label_text"
+                app:layout_constraintBottom_toTopOf="@+id/textView9"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/left_guide_line" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@{vm.output.didWriteCreateLabelForm() ? @drawable/bg_add_label: @drawable/bg_default_add_label}"
+                android:enabled="@{vm.output.didWriteCreateLabelForm() ? true: false}"
+                android:gravity="center"
+                android:padding="@dimen/spacing_large"
+                android:text="@string/add_label_finish"
+                android:textColor="@color/white"
+                android:textSize="@dimen/b1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/select_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/spacing_normal"
-                    android:src="@drawable/bg_selected_box" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/bg_new_label"
-                    android:hint="@string/new_label_hint"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingStart="@dimen/spacing_x_large"
-                    android:paddingTop="@dimen/spacing_large"
-                    android:paddingEnd="@dimen/spacing_x_large"
-                    android:paddingBottom="@dimen/spacing_large"
-                    android:textColorHint="@color/light_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-
-
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/left_guide_line" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

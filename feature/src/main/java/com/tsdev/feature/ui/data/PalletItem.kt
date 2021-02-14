@@ -4,6 +4,5 @@ data class PalletItem(
     val name: String,
     val backgroundColor: String,
     val selectedBackgroundColor: String,
-    val textColor: String,
-    var isSelected: Boolean = false
+    val textColor: String
 )

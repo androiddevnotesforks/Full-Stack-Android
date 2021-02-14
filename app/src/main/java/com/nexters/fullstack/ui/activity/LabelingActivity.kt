@@ -11,6 +11,7 @@ import com.nexters.fullstack.databinding.ActivityLabelingBinding
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ext.loadFragment
+import com.nexters.fullstack.ext.removeFragment
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.fragment.LabelCreateFragment
@@ -80,14 +81,24 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
 
     private fun observe() {
         with(viewModel.output) {
-            viewState().observe(this@LabelingActivity, { viewState ->
+            viewState().observe(this@LabelingActivity) { viewState ->
+                Log.e("viewState", viewState.toString())
                 when (viewState) {
                     is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
                     is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
                     is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
                 }
-            })
+            }
         }
+    }
+
+    override fun onDestroy() {
+        supportFragmentManager.removeFragment(
+            labelSelectFragment,
+            labelCreateFragment,
+            labelSearchFragment
+        )
+        super.onDestroy()
     }
 
     private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {
@@ -98,7 +109,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     override fun onSupportNavigateUp(): Boolean {
         return if (viewModel.output.viewState().value != ViewState.Selected) {
             viewModel.setViewState(ViewState.Selected)
-            false
+            true
         } else {
             dialog.show(supportFragmentManager, "")
             true
