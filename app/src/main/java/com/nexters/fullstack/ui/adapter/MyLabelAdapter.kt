@@ -20,7 +20,7 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
 
     private val onLabelClickListener = { position: Int ->
         val getLabelSource = getItem(position)
-        if(selectedLabel.contains(getLabelSource)) {
+        if (selectedLabel.contains(getLabelSource)) {
             selectedLabel.remove(getLabelSource)
         } else {
             selectedLabel.add(getLabelSource)
@@ -83,4 +83,8 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
     }
 
     override fun getItemViewType(position: Int) = items[position].type
+
+    fun selectedLabelClear() {
+        selectedLabel.clear()
+    }
 }
