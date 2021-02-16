@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -28,7 +29,6 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     }
 
     private val labelSelectFragment: LabelSelectFragment = LabelSelectFragment.getInstance()
-    private val labelCreateFragment: LabelCreateFragment = LabelCreateFragment.getInstance()
     private val labelSearchFragment: LabelSearchFragment = LabelSearchFragment.getInstance()
     private var activeFragment: Fragment = labelSelectFragment
 
@@ -72,7 +72,6 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
         supportFragmentManager.loadFragment(
             binding.frame.id,
             labelSelectFragment,
-            labelCreateFragment,
             labelSearchFragment
         )
 
@@ -85,7 +84,12 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
                 Log.e("viewState", viewState.toString())
                 when (viewState) {
                     is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
-                    is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
+                    is ViewState.Add -> startActivity(
+                        Intent(
+                            this@LabelingActivity,
+                            CreateLabelActivity::class.java
+                        )
+                    )
                     is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
                 }
             }
@@ -95,7 +99,6 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     override fun onDestroy() {
         supportFragmentManager.removeFragment(
             labelSelectFragment,
-            labelCreateFragment,
             labelSearchFragment
         )
         super.onDestroy()
