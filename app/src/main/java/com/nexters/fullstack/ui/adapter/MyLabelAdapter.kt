@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,19 @@ import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.RecommendLabelViewHolder
 
 class MyLabelAdapter : BaseAdapter<LabelSource>() {
+    private val selectedLabel = mutableListOf<LabelSource>()
+
+    private val onLabelClickListener = { position: Int ->
+        val getLabelSource = getItem(position)
+        if(selectedLabel.contains(getLabelSource)) {
+            selectedLabel.remove(getLabelSource)
+        } else {
+            selectedLabel.add(getLabelSource)
+        }
+        Log.e("selectedLabel", selectedLabel.toString())
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             LabelSource.DEFAULT -> MyLabelViewHolder(
@@ -32,7 +46,10 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
                 )
             )
             LabelSource.LIST -> {
-                LabelListViewHolder(ItemListLabelBinding.inflate(LayoutInflater.from(parent.context)))
+                LabelListViewHolder(
+                    onLabelClickListener,
+                    ItemListLabelBinding.inflate(LayoutInflater.from(parent.context))
+                )
             }
             LabelSource.SELECTED -> {
                 LabelingSelectedViewHolder(
@@ -60,7 +77,7 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
             }
             is RecommendLabelViewHolder -> holder.bind(items[position])
             is LabelListViewHolder -> {
-                holder.bind(items[position])
+                holder.bind(selectedLabel, items[position])
             }
         }
     }

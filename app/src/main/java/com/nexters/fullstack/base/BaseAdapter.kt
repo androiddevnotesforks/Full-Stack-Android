@@ -19,6 +19,7 @@ abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     fun addItems(items: List<ITEM>) {
+        this.items.clear()
         this.items.addAll(items)
     }
 

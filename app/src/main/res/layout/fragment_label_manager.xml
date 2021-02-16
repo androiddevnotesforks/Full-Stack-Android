@@ -59,7 +59,7 @@
                 android:layout_marginBottom="@dimen/spacing_micro">
 
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageView
                     android:id="@+id/skip_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,15 +67,12 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/spacing_extra_huge"
                     android:layout_marginBottom="@dimen/spacing_large"
-                    android:src="@drawable/ic_baseline_close_24"
-                    app:backgroundTint="@color/gray"
-                    app:fabCustomSize="@dimen/spacing_huge"
+                    android:contentDescription="skip"
+                    android:src="@drawable/ic_group_473_3x"
                     app:fabSize="normal"
-                    app:maxImageSize="@dimen/spacing_xxx_large"
-                    app:onRejectButtonClickListener="@{vm.input}"
-                    app:tint="@color/white" />
+                    app:onRejectButtonClickListener="@{vm.input}" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageView
                     android:id="@+id/labeled_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,15 +82,14 @@
                     android:layout_marginEnd="@dimen/spacing_extra_huge"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:foregroundGravity="center"
-                    android:src="@drawable/ic_baseline_check_24"
+                    android:src="@drawable/ic_btn_labeling_2x"
                     app:approve="@{true}"
                     app:backgroundTint="@color/indigo"
                     app:fabCustomSize="@dimen/spacing_huge"
                     app:fabSize="normal"
                     app:maxImageSize="@dimen/spacing_xxx_large"
                     app:onApproveButtonClickListener="@{vm.input}"
-                    app:targetView="@{cardStackView}"
-                    app:tint="@color/white" />
+                    app:targetView="@{cardStackView}" />
             </RelativeLayout>
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

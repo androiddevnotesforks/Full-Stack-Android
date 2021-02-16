@@ -1,7 +1,7 @@
 package com.nexters.fullstack.source
 
 data class LabelSource(
-    var type: Int,
+    var type: Int = LIST,
     val color: String,
     val name: String,
     var isSelected: Boolean = false

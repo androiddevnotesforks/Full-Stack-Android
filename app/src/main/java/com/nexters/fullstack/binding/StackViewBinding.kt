@@ -1,5 +1,6 @@
 package com.nexters.fullstack.binding
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nexters.fullstack.source.State
@@ -12,7 +13,7 @@ import com.yuyakaido.android.cardstackview.CardStackView
     "app:onApproveButtonClickListener",
     requireAll = true
 )
-fun FloatingActionButton.setOnApproveButtonClickListener(
+fun ImageView.setOnApproveButtonClickListener(
     isSwipe: Boolean?,
     cardStackView: CardStackView?,
     emit: MainViewModel.MainInput?
@@ -29,7 +30,7 @@ fun FloatingActionButton.setOnApproveButtonClickListener(
 }
 
 @BindingAdapter("app:onRejectButtonClickListener")
-fun FloatingActionButton.setOnRejectButtonClickListener(emit: MainViewModel.MainInput?) {
+fun ImageView.setOnRejectButtonClickListener(emit: MainViewModel.MainInput?) {
     setOnClickListener {
         emit?.onClickedButton(State.Reject)
     }
