@@ -29,7 +29,6 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     }
 
     private val labelSelectFragment: LabelSelectFragment = LabelSelectFragment.getInstance()
-    private val labelSearchFragment: LabelSearchFragment = LabelSearchFragment.getInstance()
     private var activeFragment: Fragment = labelSelectFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,8 +70,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
          **/
         supportFragmentManager.loadFragment(
             binding.frame.id,
-            labelSelectFragment,
-            labelSearchFragment
+            labelSelectFragment
         )
 
         supportFragmentManager.beginTransaction().show(labelSelectFragment).commit()
@@ -81,7 +79,6 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     private fun observe() {
         with(viewModel.output) {
             viewState().observe(this@LabelingActivity) { viewState ->
-                Log.e("viewState", viewState.toString())
                 when (viewState) {
                     is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
                     is ViewState.Add -> startActivity(
@@ -90,7 +87,12 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
                             CreateLabelActivity::class.java
                         )
                     )
-                    is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
+                    is ViewState.Search -> startActivity(
+                        Intent(
+                            this@LabelingActivity,
+                            SearchLabelActivity::class.java
+                        )
+                    )
                 }
             }
         }
@@ -98,8 +100,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
 
     override fun onDestroy() {
         supportFragmentManager.removeFragment(
-            labelSelectFragment,
-            labelSearchFragment
+            labelSelectFragment
         )
         super.onDestroy()
     }
@@ -110,12 +111,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return if (viewModel.output.viewState().value != ViewState.Selected) {
-            viewModel.setViewState(ViewState.Selected)
-            true
-        } else {
-            dialog.show(supportFragmentManager, "")
-            true
-        }
+        dialog.show(supportFragmentManager, "")
+        return true
     }
 }

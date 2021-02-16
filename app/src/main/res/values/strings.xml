@@ -41,6 +41,9 @@
     <string name="label_select_title">라벨 색 선택하기</string>
 
 
+    <!--    SearchLabel Activity    -->
+    <string name="search_hint">라벨을 검색해보세요.</string>
+    <string name="cancel">취소</string>
     <!--    라벨이 없을 때    -->
     <string name="non_label_title">라벨 앨범이 없습니다.</string>
     <string name="non_label_message">"라벨 앨범을 추가해서 \n스크린샷에 라벨 추가를 할 수 있습니다."</string>
