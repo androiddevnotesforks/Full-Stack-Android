@@ -1,19 +1,21 @@
 package com.nexters.fullstack.db.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Update
+import androidx.room.*
+import com.nexters.fullstack.db.entity.UserLabelingImage
 import io.reactivex.Completable
+import io.reactivex.Maybe
 
 @Dao
 interface ImageDAO {
-    fun save(): Completable
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(image: UserLabelingImage): Completable
 
-    fun load()
+    @Query("select * from userImage")
+    fun load(): Maybe<List<UserLabelingImage>>
 
     @Delete
-    fun delete(): Completable
+    fun delete(image: UserLabelingImage): Completable
 
     @Update
-    fun update(): Completable
+    fun update(image: UserLabelingImage): Completable
 }
