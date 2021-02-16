@@ -10,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_whole"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/depth3">
@@ -74,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:paddingLeft="@dimen/padding_default"
-                android:paddingRight="@dimen/padding_default">
+                android:paddingRight="@dimen/padding_default"
+                android:stateListAnimator="@null">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/container_collapsing"
@@ -129,12 +131,15 @@
                                 app:layout_constraintLeft_toRightOf="@id/iv_search"
                                 app:layout_constraintRight_toRightOf="parent"
                                 android:layout_marginLeft="@dimen/spacing_8"
-                                android:background="@android:color/transparent"
-                                android:textColorHint="@color/def_inactive"
+                                android:textColorHint="@color/edittext_hint"
+                                android:textColor="@color/def_primary"
                                 android:hint="@string/placeholder_label_search"
                                 android:textSize="@dimen/b1"
+                                android:background="@android:color/transparent"
                                 android:inputType="text"
                                 android:imeOptions="actionDone"
+                                style="@style/EditTextStyle"
+                                android:theme="@style/EditTextStyle"
                                 android:text="@={vm.state().searchKeyword}">
 
                             </EditText>
@@ -168,7 +173,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/depth4"
             android:padding="@dimen/padding_default"
-            android:visibility="@{(vm.state().selectedLabels == null || vm.state().selectedLabels.size() == 0) ? View.GONE : View.VISIBLE}">
+            android:visibility="@{(vm.state().selectedLabels == null || vm.state().selectedLabels.size() == 0 || vm.state().isSearchMode()) ? View.GONE : View.VISIBLE}">
             
             <TextView
                 android:id="@+id/tv_selected_label"

@@ -1,12 +1,9 @@
 package com.nexters.fullstack.ui.activity
 
 import android.content.Intent
-import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -15,11 +12,10 @@ import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
-import com.nexters.fullstack.ext.toPx
-import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
+import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,13 +25,15 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
     private val myLabelAdapter : MyLabelAdapter = MyLabelAdapter()
     private val selectedLabelAdapter : SelectedLabelAdapter = SelectedLabelAdapter()
+    private val recentlySearchAdapter : MyLabelAdapter = MyLabelAdapter()
+    private val searchResultAdapter : MyLabelAdapter = MyLabelAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.vm = viewModel
         initData()
         initView()
-        initOnClickListener()
+        initListener()
         initObserver()
     }
 
@@ -60,7 +58,8 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
 
         with(binding){
-            val spaceDecoration = SpaceItemDecoration(RV_SPACING_DP)
+
+            val spaceDecoration = SpaceBetweenRecyclerDecoration(vertical = RV_SPACING_DP)
             rvLabel.run {
                 myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
                 adapter = myLabelAdapter
@@ -78,13 +77,23 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
     }
 
-    private fun initOnClickListener(){
-       binding.ivCancel.setOnClickListener {
-            onBackPressed()
-        }
-        binding.ivCancel.setOnClickListener {
-            viewModel.completeLabeling()
-            // TODO finish activity and show toast
+    private fun initListener(){
+        with(binding){
+            ivCancel.setOnClickListener {
+                onBackPressed()
+            }
+            tvDone.setOnClickListener {
+                viewModel.completeLabeling()
+                // TODO finish activity and show toast
+            }
+            etSearch.setOnClickListener {
+                containerAppbar.setExpanded(false)
+            }
+            etSearch.setOnFocusChangeListener { _, isFocused ->
+                if(isFocused){
+                    viewModel.state().isSearchMode.value = true
+                }
+            }
         }
         myLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.selectLabel(i)
@@ -103,18 +112,18 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 selectedLabelAdapter.calDiff(it as MutableList<LabelSource>)
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
-        }
-    }
+            searchKeyword.observe(this@LabelOutAppActivity, {
+                // TODO 검색 결과 recycler view list update
+            })
+            isSearchMode.observe(this@LabelOutAppActivity, {
+                // TODO adapter change
+                if(it){
+                    binding.containerAppbar.setExpanded(false)
+                }
+                else{
 
-    inner class SpaceItemDecoration(private val space_dp: Int) : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            outRect.bottom = space_dp.toPx
-            outRect.right = space_dp.toPx
+                }
+            })
         }
     }
 

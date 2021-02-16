@@ -1,18 +1,10 @@
 package com.nexters.fullstack.viewmodel
 
 import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.Input
-import com.nexters.fullstack.Output
-import com.nexters.fullstack.source.DomainLabel
-import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LabelOutAppViewModel : BaseViewModel() {
@@ -74,6 +66,9 @@ class LabelOutAppViewModel : BaseViewModel() {
         val imageUri: MutableLiveData<Uri> = MutableLiveData(),
         val myLabels: MutableLiveData<List<LabelSource>> = MutableLiveData(),
         val selectedLabels: MutableLiveData<List<LabelSource>> = MutableLiveData(),
-        val searchKeyword : MutableLiveData<String> = MutableLiveData()
+        val searchKeyword : MutableLiveData<String> = MutableLiveData(),
+        val searchResult : MutableLiveData<List<LabelSource>> = MutableLiveData(),
+        val recentlySearch : MutableLiveData<List<LabelSource>> = MutableLiveData(),
+        val isSearchMode : MutableLiveData<Boolean> = MutableLiveData(false)
     )
 }
