@@ -89,6 +89,10 @@ class LabelingViewModel(
         override fun clickLabelAddButton() {
             _viewState.value = ViewState.Add
         }
+
+        override fun clickCancelButton() {
+            _finish.value = Unit
+        }
     }
 
     init {
@@ -162,6 +166,8 @@ class LabelingViewModel(
         fun clickSaveButton()
 
         fun clickLabelAddButton()
+
+        fun clickCancelButton()
     }
 
     override fun onCleared() {

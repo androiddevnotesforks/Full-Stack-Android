@@ -16,8 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CaptureBox">
         <activity
+            android:name=".ui.activity.SearchLabelActivity"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.CreateLabelActivity"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.activity.LabelingActivity"
-            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Transparent" />
         <activity android:name=".MainActivity">
             <intent-filter>
