@@ -16,16 +16,18 @@ import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.RecommendLabelViewHolder
 
 class MyLabelAdapter : BaseAdapter<LabelSource>() {
-    private val selectedLabel = mutableListOf<LabelSource>()
+    private val _selectedLabel = mutableListOf<LabelSource>()
+    val selectedLabel: List<LabelSource>
+        get() = _selectedLabel
 
     private val onLabelClickListener = { position: Int ->
         val getLabelSource = getItem(position)
-        if (selectedLabel.contains(getLabelSource)) {
-            selectedLabel.remove(getLabelSource)
+        if (_selectedLabel.contains(getLabelSource)) {
+            _selectedLabel.remove(getLabelSource)
         } else {
-            selectedLabel.add(getLabelSource)
+            _selectedLabel.add(getLabelSource)
         }
-        Log.e("selectedLabel", selectedLabel.toString())
+        Log.e("selectedLabel", _selectedLabel.toString())
         notifyDataSetChanged()
     }
 
@@ -77,7 +79,7 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
             }
             is RecommendLabelViewHolder -> holder.bind(items[position])
             is LabelListViewHolder -> {
-                holder.bind(selectedLabel, items[position])
+                holder.bind(_selectedLabel, items[position])
             }
         }
     }
@@ -85,6 +87,6 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
     override fun getItemViewType(position: Int) = items[position].type
 
     fun selectedLabelClear() {
-        selectedLabel.clear()
+        _selectedLabel.clear()
     }
 }

@@ -93,6 +93,10 @@ class LabelingViewModel(
         override fun clickCancelButton() {
             _finish.value = Unit
         }
+
+        override fun clickLabelingButton() {
+            //todo url pallet
+        }
     }
 
     init {
@@ -168,6 +172,8 @@ class LabelingViewModel(
         fun clickLabelAddButton()
 
         fun clickCancelButton()
+
+        fun clickLabelingButton()
     }
 
     override fun onCleared() {

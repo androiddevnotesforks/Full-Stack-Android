@@ -39,6 +39,9 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                 clickAppbar(ViewState.Add)
             }
         }
+        binding.saveButton.setOnClickListener {
+
+        }
     }
 
     override fun onDestroyView() {
