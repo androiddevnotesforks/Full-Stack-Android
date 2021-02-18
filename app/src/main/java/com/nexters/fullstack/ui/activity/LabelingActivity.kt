@@ -28,12 +28,14 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
         RequestExitDialog()
     }
 
-    private val labelSelectFragment: LabelSelectFragment = LabelSelectFragment.getInstance()
-    private var activeFragment: Fragment = labelSelectFragment
+    private lateinit var  labelSelectFragment: LabelSelectFragment
+    private lateinit var activeFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        labelSelectFragment = LabelSelectFragment.getInstance(intent.getParcelableExtra(Constants.LABEL_BUNDLE_KEY))
+        activeFragment = labelSelectFragment
         setOnClickListener()
         initToolbar()
         initView()
