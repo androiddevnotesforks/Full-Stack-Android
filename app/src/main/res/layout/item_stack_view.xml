@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/spacing_huge"
         android:layout_marginEnd="@dimen/spacing_huge"
         android:layout_marginBottom="@dimen/spacing_super_extra_huge"
-        app:cardCornerRadius="@dimen/spacing_normal"
+        app:cardCornerRadius="@dimen/spacing_mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +45,7 @@
 
         <FrameLayout
             android:id="@+id/right_overlay"
+            android:background="@drawable/overlay_approve"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

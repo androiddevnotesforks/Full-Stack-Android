@@ -10,8 +10,11 @@ import com.nexters.fullstack.source.*
 import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.usecase.base.BaseUseCase
 import io.reactivex.Observable
+import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 class MainViewModel(
@@ -53,6 +56,13 @@ class MainViewModel(
         val state = onClickButton.cache()
 
         disposable.addAll(
+            images
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    mainLabel.value = MainLabel(images = response)
+                }, {}),
+
             Observable.combineLatest(
                 images.toObservable(),
                 state,
