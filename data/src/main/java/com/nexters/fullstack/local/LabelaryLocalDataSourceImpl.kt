@@ -8,7 +8,7 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 
 class LabelaryLocalDataSourceImpl(private val labelDAO: LabelDAO) :
-    LabelaryLocalDataSource.Label, LabelaryLocalDataSource.Image, LabelaryLocalDataSource {
+    LabelaryLocalDataSource.Label, LabelaryLocalDataSource.Image {
     override fun save(label: DomainUserLabel): Completable {
         return labelDAO.save(LocalLabelMapper.toDomain(label))
     }
