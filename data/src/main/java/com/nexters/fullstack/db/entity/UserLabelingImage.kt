@@ -10,7 +10,7 @@ import com.nexters.fullstack.source.LocalImageData
 data class UserLabelingImage(
     @PrimaryKey
     @ColumnInfo(name = "label")
-    val label: UserLabel,
+    val label: List<UserLabel>,
 
     @ColumnInfo(name = "image")
     val image: LocalImageData

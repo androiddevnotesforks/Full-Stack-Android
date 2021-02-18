@@ -7,14 +7,14 @@ import com.nexters.fullstack.db.entity.UserLabel
 
 class UserLabelConverter {
     @TypeConverter
-    fun jsonToUserLabel(value: String): UserLabel? {
-        val userLabelType = object : TypeToken<UserLabel>() {}.type
+    fun jsonToUserLabel(value: String): List<UserLabel>? {
+        val userLabelType = object : TypeToken<List<UserLabel>>() {}.type
 
-        return Gson().fromJson<UserLabel>(value, userLabelType)
+        return Gson().fromJson<List<UserLabel>>(value, userLabelType)
     }
 
     @TypeConverter
-    fun fromUserLabel(value: UserLabel): String {
+    fun fromUserLabel(value: List<UserLabel>): String {
         val gson = Gson()
 
         return gson.toJson(value)
