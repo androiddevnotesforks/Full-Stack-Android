@@ -9,6 +9,7 @@ import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
@@ -47,7 +48,12 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                 clickAppbar(ViewState.Add)
             }
             binding.saveButton.setOnClickListener {
-                clickLabelingButton()
+                clickLabelingButton(
+                    labelAdapter.selectedLabel,
+                    LocalFileMapper.toData(
+                        arguments?.getParcelable(Constants.LABEL_BUNDLE_KEY) ?: LocalFile("")
+                    )
+                )
             }
         }
     }
@@ -61,7 +67,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
         private var instance: LabelSelectFragment? = null
 
         fun getInstance(localFileData: LocalFile? = null): LabelSelectFragment {
-            if(localFileData == null) return LabelSelectFragment()
+            if (localFileData == null) return LabelSelectFragment()
             return instance ?: LabelSelectFragment().apply {
                 arguments =
                     Bundle().apply { putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData) }

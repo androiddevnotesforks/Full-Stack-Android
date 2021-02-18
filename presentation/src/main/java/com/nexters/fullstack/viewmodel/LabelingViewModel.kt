@@ -7,9 +7,7 @@ import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.mapper.LabelingMapper
-import com.nexters.fullstack.source.LocalLabel
-import com.nexters.fullstack.source.MainMakeLabelSource
-import com.nexters.fullstack.source.ViewState
+import com.nexters.fullstack.source.*
 import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
@@ -94,8 +92,11 @@ class LabelingViewModel(
             _finish.value = Unit
         }
 
-        override fun clickLabelingButton() {
-            //todo url pallet
+        override fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile) {
+            if (file.url.isEmpty()) {
+                return
+            }
+
         }
     }
 
@@ -173,7 +174,7 @@ class LabelingViewModel(
 
         fun clickCancelButton()
 
-        fun clickLabelingButton()
+        fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile)
     }
 
     override fun onCleared() {
