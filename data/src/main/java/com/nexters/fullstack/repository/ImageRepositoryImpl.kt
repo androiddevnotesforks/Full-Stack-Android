@@ -1,8 +1,9 @@
 package com.nexters.fullstack.repository
 
+import com.nexters.fullstack.local.LabelaryLocalDataSource
 import io.reactivex.Completable
 
-class ImageRepositoryImpl : ImageRepository {
+class ImageRepositoryImpl(private val labelaryLocalDataSource: LabelaryLocalDataSource.Image) : ImageRepository {
     override fun update(): Completable {
         TODO("Not yet implemented")
     }

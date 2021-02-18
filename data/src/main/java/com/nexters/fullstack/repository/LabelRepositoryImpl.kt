@@ -10,7 +10,7 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 
 class LabelRepositoryImpl(
-    private val labelaryLocalDataSource: LabelaryLocalDataSource
+    private val labelaryLocalDataSource: LabelaryLocalDataSource.Label
 ) : LabelRepository {
 
 //    override fun remoteLoad(): Single<List<DomainLabel>> {
@@ -34,6 +34,6 @@ class LabelRepositoryImpl(
     }
 
     override fun load(): Maybe<List<DomainUserLabel>> {
-        return labelaryLocalDataSource.load()
+        return labelaryLocalDataSource.labelLoad()
     }
 }
