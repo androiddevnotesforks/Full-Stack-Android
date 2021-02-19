@@ -1,65 +1,82 @@
 package com.nexters.fullstack.util
 
-class ColorUtil(val color : String) {
-    lateinit var activeColor : String
-    lateinit var inactiveColor : String
-    lateinit var textColor : String
+import androidx.core.content.ContextCompat
+import com.nexters.fullstack.App
+import com.nexters.fullstack.R
+
+class ColorUtil(color: String) {
+    private var activeColor : Int = 0
+    private var inactiveColor : Int = 0
+    private var darkColor : Int = 0
+    private var textColor : Int = 0
+
     init {
         when(color){
             "Yellow" -> {
-                activeColor = "#E8C15D"
-                inactiveColor = "#26E8C15D"
-                textColor = "#FFE299"
+                activeColor = R.color.yellow_active
+                inactiveColor = R.color.yellow_inactive
+                darkColor = R.color.yellow_dark
+                textColor = R.color.yellow_text
             }
             "Orange" -> {
-                activeColor = "#EC9147"
-                inactiveColor = "#26EC9147"
-                textColor = "#FFCBA1"
+                activeColor = R.color.orange_active
+                inactiveColor = R.color.orange_inactive
+                darkColor = R.color.orange_dark
+                textColor = R.color.orange_text
             }
             "Red" -> {
-                activeColor = "#C76761"
-                inactiveColor = "#30C76761"
-                textColor = "#FFA799"
+                activeColor = R.color.red_active
+                inactiveColor = R.color.red_inactive
+                darkColor = R.color.red_dark
+                textColor = R.color.red_text
             }
             "Pink" -> {
-                activeColor = "#E089B5"
-                inactiveColor = "#26E089B5"
-                textColor = "#FFC7E3"
+                activeColor = R.color.pink_active
+                inactiveColor = R.color.pink_inactive
+                darkColor = R.color.pink_dark
+                textColor = R.color.pink_text
             }
             "Violet" -> {
-                activeColor = "#A06EE5"
-                inactiveColor = "#26A06EE5"
-                textColor = "#D9C2FF"
+                activeColor = R.color.violet_active
+                inactiveColor = R.color.violet_inactive
+                darkColor = R.color.violet_dark
+                textColor = R.color.violet_text
             }
             "Purple Blue" -> {
-                activeColor = "#6565E5"
-                inactiveColor = "#266565E5"
-                textColor = "#BFBFFF"
+                activeColor = R.color.cobalt_blue_active
+                inactiveColor = R.color.cobalt_blue_inactive
+                darkColor = R.color.cobalt_blue_dark
+                textColor = R.color.cobalt_blue_text
             }
             "Blue" -> {
-                activeColor = "#4CA6FF"
-                inactiveColor = "#264CA6FF"
-                textColor = "#B3D9FF"
+                activeColor = R.color.blue_active
+                inactiveColor = R.color.blue_inactive
+                darkColor = R.color.blue_dark
+                textColor = R.color.blue_text
             }
             "Peacock Green" -> {
-                activeColor = "#52CCCC"
-                inactiveColor = "#2652CCCC"
-                textColor = "#A1E6E6"
+                activeColor = R.color.peacock_green_active
+                inactiveColor = R.color.peacock_green_inactive
+                darkColor = R.color.peacock_green_dark
+                textColor = R.color.peacock_green_text
             }
             "Green" -> {
-                activeColor = "#3EA87A"
-                inactiveColor = "#263EA87A"
-                textColor = "#B1E6CF"
+                activeColor = R.color.green_active
+                inactiveColor = R.color.green_inactive
+                darkColor = R.color.green_dark
+                textColor = R.color.green_text
             }
             "Gray" -> {
-                activeColor = "#7B8399"
-                inactiveColor = "#267B8399"
-                textColor = "#CCDAFF"
+                activeColor = R.color.gray_active
+                inactiveColor = R.color.gray_inactive
+                darkColor = R.color.gray_dark
+                textColor = R.color.gray_text
             }
         }
     }
 
-    fun getActive() : String = activeColor
-    fun getInactive() : String = inactiveColor
-    fun getText() : String = textColor
+    fun getActive() : Int = ContextCompat.getColor(App.app, activeColor)
+    fun getInactive() : Int = ContextCompat.getColor(App.app, inactiveColor)
+    fun getDark() : Int = ContextCompat.getColor(App.app, textColor)
+    fun getText() : Int = ContextCompat.getColor(App.app, textColor)
 }

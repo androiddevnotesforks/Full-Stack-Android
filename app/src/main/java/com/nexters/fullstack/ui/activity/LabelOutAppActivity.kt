@@ -20,7 +20,6 @@ import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
-import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutAppViewModel>() {
