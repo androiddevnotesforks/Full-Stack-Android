@@ -4,7 +4,7 @@
     <!--    Bottom Sheet    -->
     <string name="labelling">라벨링</string>
     <string name="search">탐색</string>
-    <string name="album">앨범</string>
+    <string name="album">라벨</string>
 
     <!-- Titles -->
     <string name="do_labelling">스크린샷 라벨 추가</string>

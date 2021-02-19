@@ -26,12 +26,4 @@ interface LabelaryLocalDataSource {
 
         fun imageLoad(): Maybe<List<DomainUserImage>>
     }
-
-//    fun save(label: DomainUserLabel): Completable
-//
-//    fun update(label: DomainUserLabel): Completable
-//
-//    fun delete(label: DomainUserLabel): Completable
-//
-//    fun load(): Maybe<List<DomainUserLabel>>
 }
