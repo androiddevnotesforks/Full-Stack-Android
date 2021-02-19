@@ -1,11 +1,15 @@
 package com.nexters.fullstack.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.nexters.fullstack.BR
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.mapper.LocalFileMapper
+import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -26,6 +30,10 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
         setOnInitView()
         setInitOnClickListener()
+        Log.e(
+            "fragment",
+            arguments?.getParcelable<LocalFile>(Constants.LABEL_BUNDLE_KEY).toString()
+        )
     }
 
     private fun setOnInitView() {
@@ -38,18 +46,31 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             binding.tvAddLabel.setOnClickListener {
                 clickAppbar(ViewState.Add)
             }
-
-//            binding.addLabel.setOnClickListener {
-//                clickAppbar(ViewState.Add)
-//            }
+            binding.saveButton.setOnClickListener {
+                clickLabelingButton(
+                    labelAdapter.selectedLabel,
+                    LocalFileMapper.toData(
+                        arguments?.getParcelable(Constants.LABEL_BUNDLE_KEY) ?: LocalFile("")
+                    )
+                )
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        labelAdapter.selectedLabelClear()
     }
 
     companion object {
         private var instance: LabelSelectFragment? = null
 
-        fun getInstance(): LabelSelectFragment {
-            return instance ?: LabelSelectFragment().also { instance = it }
+        fun getInstance(localFileData: LocalFile? = null): LabelSelectFragment {
+            if (localFileData == null) return LabelSelectFragment()
+            return instance ?: LabelSelectFragment().apply {
+                arguments =
+                    Bundle().apply { putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData) }
+            }.also { instance = it }
         }
     }
 }

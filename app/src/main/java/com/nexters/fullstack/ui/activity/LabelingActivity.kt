@@ -1,5 +1,7 @@
 package com.nexters.fullstack.ui.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +13,7 @@ import com.nexters.fullstack.databinding.ActivityLabelingBinding
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ext.loadFragment
+import com.nexters.fullstack.ext.removeFragment
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.fragment.LabelCreateFragment
@@ -26,20 +29,20 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
         RequestExitDialog()
     }
 
-    private val labelSelectFragment: LabelSelectFragment = LabelSelectFragment.getInstance()
-    private val labelCreateFragment: LabelCreateFragment = LabelCreateFragment.getInstance()
-    private val labelSearchFragment: LabelSearchFragment = LabelSearchFragment.getInstance()
-    private var activeFragment: Fragment = labelSelectFragment
+    private lateinit var labelSelectFragment: LabelSelectFragment
+    private lateinit var activeFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        labelSelectFragment =
+            LabelSelectFragment.getInstance(intent.getParcelableExtra(Constants.LABEL_BUNDLE_KEY))
+        activeFragment = labelSelectFragment
         setOnClickListener()
         initToolbar()
         initView()
         observe()
         bind { }
-        Log.e("hi", intent.getParcelableExtra<LocalFile>(Constants.LABEL_BUNDLE_KEY).toString())
     }
 
     private fun initToolbar() {
@@ -70,9 +73,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
          **/
         supportFragmentManager.loadFragment(
             binding.frame.id,
-            labelSelectFragment,
-            labelCreateFragment,
-            labelSearchFragment
+            labelSelectFragment
         )
 
         supportFragmentManager.beginTransaction().show(labelSelectFragment).commit()
@@ -80,14 +81,37 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
 
     private fun observe() {
         with(viewModel.output) {
-            viewState().observe(this@LabelingActivity, { viewState ->
+            viewState().observe(this@LabelingActivity) { viewState ->
                 when (viewState) {
                     is ViewState.Selected -> changeFragment(activeFragment, labelSelectFragment)
-                    is ViewState.Add -> changeFragment(activeFragment, labelCreateFragment)
-                    is ViewState.Search -> changeFragment(activeFragment, labelSearchFragment)
+                    is ViewState.Add -> startActivity(
+                        Intent(
+                            this@LabelingActivity,
+                            CreateLabelActivity::class.java
+                        )
+                    )
+                    is ViewState.Search -> startActivity(
+                        Intent(
+                            this@LabelingActivity,
+                            SearchLabelActivity::class.java
+                        )
+                    )
                 }
-            })
+            }
+            finish().observe(this@LabelingActivity) {
+                if (it != null) {
+                    setResult(Activity.RESULT_OK)
+                    this@LabelingActivity.finish()
+                }
+            }
         }
+    }
+
+    override fun onDestroy() {
+        supportFragmentManager.removeFragment(
+            labelSelectFragment
+        )
+        super.onDestroy()
     }
 
     private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {
@@ -96,12 +120,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return if (viewModel.output.viewState().value != ViewState.Selected) {
-            viewModel.setViewState(ViewState.Selected)
-            false
-        } else {
-            dialog.show(supportFragmentManager, "")
-            true
-        }
+        dialog.show(supportFragmentManager, "")
+        return true
     }
 }

@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSearchBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.viewmodel.LabelingViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LabelSearchFragment : BaseFragment<FragmentLabelSearchBinding, ViewModel>() {
+class LabelSearchFragment : BaseFragment<FragmentLabelSearchBinding, LabelingViewModel>() {
 
-    override val viewModel: ViewModel by viewModel()
+    override val viewModel: LabelingViewModel by sharedViewModel()
     override val layoutRes: Int = R.layout.fragment_label_search
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

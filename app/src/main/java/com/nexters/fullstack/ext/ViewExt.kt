@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager
 
 fun FragmentManager.loadFragment(fragmentId: Int, vararg fragments: Fragment) {
     fragments.forEachIndexed { index, fragment ->
-        if(index == fragments.size) {
+        if (index == fragments.size) {
             this.beginTransaction().add(fragmentId, fragment, fragment.tag).commit()
         } else {
             this.beginTransaction().add(fragmentId, fragment, fragment.tag).hide(fragment).commit()
@@ -16,7 +16,13 @@ fun FragmentManager.loadFragment(fragmentId: Int, vararg fragments: Fragment) {
     }
 }
 
-fun View.hideKeyboard(){
+fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun FragmentManager.removeFragment(vararg fragments: Fragment) {
+    fragments.forEach { fragment ->
+        this.beginTransaction().remove(fragment)
+    }
 }

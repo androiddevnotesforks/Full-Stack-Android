@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,21 @@ import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.RecommendLabelViewHolder
 
 class MyLabelAdapter : BaseAdapter<LabelSource>() {
+    private val _selectedLabel = mutableListOf<LabelSource>()
+    val selectedLabel: List<LabelSource>
+        get() = _selectedLabel
+
+    private val onLabelClickListener = { position: Int ->
+        val getLabelSource = getItem(position)
+        if (_selectedLabel.contains(getLabelSource)) {
+            _selectedLabel.remove(getLabelSource)
+        } else {
+            _selectedLabel.add(getLabelSource)
+        }
+        Log.e("selectedLabel", _selectedLabel.toString())
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             LabelSource.DEFAULT -> MyLabelViewHolder(
@@ -32,7 +48,10 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
                 )
             )
             LabelSource.LIST -> {
-                LabelListViewHolder(ItemListLabelBinding.inflate(LayoutInflater.from(parent.context)))
+                LabelListViewHolder(
+                    onLabelClickListener,
+                    ItemListLabelBinding.inflate(LayoutInflater.from(parent.context))
+                )
             }
             LabelSource.SELECTED -> {
                 LabelingSelectedViewHolder(
@@ -60,10 +79,14 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
             }
             is RecommendLabelViewHolder -> holder.bind(items[position])
             is LabelListViewHolder -> {
-                holder.bind(items[position])
+                holder.bind(_selectedLabel, items[position])
             }
         }
     }
 
     override fun getItemViewType(position: Int) = items[position].type
+
+    fun selectedLabelClear() {
+        _selectedLabel.clear()
+    }
 }

@@ -35,14 +35,21 @@
     <string name="selected_label">선택된 라벨</string>
 
     <string name="new_label_hint">새 라벨 이름 입력</string>
-    
+
     <string name="placeholder_label_search">라벨을 검색하거나 추가해보세요.</string>
 
     <string name="label_select_title">라벨 색 선택하기</string>
 
 
+    <!--    SearchLabel Activity    -->
+    <string name="search_hint">라벨을 검색해보세요.</string>
+    <string name="cancel">취소</string>
     <!--    라벨이 없을 때    -->
     <string name="non_label_title">라벨 앨범이 없습니다.</string>
     <string name="non_label_message">"라벨 앨범을 추가해서 \n스크린샷에 라벨 추가를 할 수 있습니다."</string>
     <string name="add_label">라벨 앨범 추가하기</string>
+    <string name="add_label_hint">새 라벨을 입력해주세요</string>
+    <string name="add_label_color">라벨 컬러 선택</string>
+    <string name="add_label_text">라벨을 추가하면 라벨 앨범이 생성됩니다.</string>
+    <string name="add_label_finish">라벨 추가 완료</string>
 </resources>
