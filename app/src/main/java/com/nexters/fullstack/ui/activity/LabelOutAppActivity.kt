@@ -4,14 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
+import android.view.inputmethod.EditorInfo
+import android.widget.BaseAdapter
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.nexters.fullstack.Constants
+import com.nexters.fullstack.NotFoundViewState
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
+import com.nexters.fullstack.ext.hideKeyboard
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
@@ -25,7 +32,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
     private val myLabelAdapter : MyLabelAdapter = MyLabelAdapter()
     private val selectedLabelAdapter : SelectedLabelAdapter = SelectedLabelAdapter()
-    private val recentlySearchAdapter : MyLabelAdapter = MyLabelAdapter()
+    private val recentlyLabelAdapter : MyLabelAdapter = MyLabelAdapter()
     private val searchResultAdapter : MyLabelAdapter = MyLabelAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +66,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
         with(binding){
 
-            val spaceDecoration = SpaceBetweenRecyclerDecoration(vertical = RV_SPACING_DP)
+            val spaceDecoration = SpaceBetweenRecyclerDecoration(RV_SPACING_DP, RV_SPACING_DP)
             rvLabel.run {
                 myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
                 adapter = myLabelAdapter
@@ -74,6 +81,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
             rvSelectedLabel.adapter = selectedLabelAdapter
             rvSelectedLabel.addItemDecoration(spaceDecoration)
+
+            recentlyLabelAdapter.addItems(viewModel.state().recentlySearch.value ?: ArrayList())
+            searchResultAdapter.addItems(viewModel.state().searchResult.value ?: ArrayList())
         }
     }
 
@@ -82,17 +92,34 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             ivCancel.setOnClickListener {
                 onBackPressed()
             }
+            ivBack.setOnClickListener {
+                viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
+            }
+            ivClear.setOnClickListener {
+                viewModel.clearSearchKeyword()
+            }
             tvDone.setOnClickListener {
                 viewModel.completeLabeling()
                 // TODO finish activity and show toast
             }
-            etSearch.setOnClickListener {
-                containerAppbar.setExpanded(false)
-            }
+//            etSearch.setOnClickListener {
+//                containerAppbar.setExpanded(false)
+//            }
             etSearch.setOnFocusChangeListener { _, isFocused ->
                 if(isFocused){
-                    viewModel.state().isSearchMode.value = true
+                    containerAppbar.setExpanded(false)
                 }
+                else{
+                    etSearch.hideKeyboard()
+                }
+            }
+            etSearch.setOnEditorActionListener { textView, action, keyEvent ->
+                var handled = false
+                if(action == EditorInfo.IME_ACTION_DONE){
+                    etSearch.clearFocus()
+                    handled = true
+                }
+                handled
             }
         }
         myLabelAdapter.setItemClickListener { _, i, _ ->
@@ -113,21 +140,38 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
             searchKeyword.observe(this@LabelOutAppActivity, {
-                // TODO 검색 결과 recycler view list update
-            })
-            isSearchMode.observe(this@LabelOutAppActivity, {
-                // TODO adapter change
-                if(it){
-                    binding.containerAppbar.setExpanded(false)
+                if(it == ""){
+                    viewModel.setViewState(LabelOutAppViewModel.ViewState.RECENT_LABEL)
                 }
                 else{
-
+                    viewModel.setViewState(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
+                    // TODO 검색 결과 recycler view list update
+                }
+            })
+            viewState.observe(this@LabelOutAppActivity, {
+                when(it){
+                    LabelOutAppViewModel.ViewState.MY_LABEL -> {
+                        binding.rvLabel.adapter = myLabelAdapter
+                        binding.containerAppbar.setExpanded(true)
+                        binding.etSearch.hideKeyboard()
+                        binding.etSearch.clearFocus()
+                        viewModel.clearSearchKeyword()
+                    }
+                    LabelOutAppViewModel.ViewState.RECENT_LABEL -> {
+                        binding.rvLabel.adapter = recentlyLabelAdapter
+                    }
+                    LabelOutAppViewModel.ViewState.SEARCH_RESULT -> {
+                        binding.rvLabel.adapter = searchResultAdapter
+                    }
+                    else -> throw NotFoundViewState
                 }
             })
         }
     }
 
+
+
     companion object{
-        const val RV_SPACING_DP = 10
+        const val RV_SPACING_DP = 5
     }
 }

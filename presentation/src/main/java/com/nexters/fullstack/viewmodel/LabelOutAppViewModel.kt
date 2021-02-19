@@ -11,7 +11,8 @@ class LabelOutAppViewModel : BaseViewModel() {
     private val state: State
     private val myLabelList = mutableListOf<LabelSource>()
     private val selectedLabelList = mutableListOf<LabelSource>()
-
+    private val recentlySearchList = mutableListOf<LabelSource>()
+    private val searchResultList = mutableListOf<LabelSource>()
 
     fun state(): State = state
 
@@ -42,12 +43,20 @@ class LabelOutAppViewModel : BaseViewModel() {
         }
     }
 
+    fun setViewState(viewState: ViewState){
+        state.viewState.value = viewState
+    }
+
+    fun clearSearchKeyword(){
+        state.searchKeyword.value = ""
+    }
+
     init {
         state = State()
 
-        // TODO replace to usecase
+        // TODO init my label list using usecase
         viewModelScope.launch {
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label1"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "my_label1"))
             myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label2"))
             myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label3"))
             myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label4"))
@@ -60,6 +69,21 @@ class LabelOutAppViewModel : BaseViewModel() {
         }
         state.myLabels.value = myLabelList
 
+        viewModelScope.launch {
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
+        }
+        state.recentlySearch.value = recentlySearchList
+
+        viewModelScope.launch {
+            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+        }
+        state.searchResult.value = searchResultList
     }
 
     data class State(
@@ -69,6 +93,13 @@ class LabelOutAppViewModel : BaseViewModel() {
         val searchKeyword : MutableLiveData<String> = MutableLiveData(),
         val searchResult : MutableLiveData<List<LabelSource>> = MutableLiveData(),
         val recentlySearch : MutableLiveData<List<LabelSource>> = MutableLiveData(),
-        val isSearchMode : MutableLiveData<Boolean> = MutableLiveData(false)
+        val viewState : MutableLiveData<ViewState> = MutableLiveData(ViewState.MY_LABEL)
     )
+
+    // TODO refactor : state가 list를 가지고 있어서 activity에서 분기 처리 안하고 일괄적으로 처리해줄 수 있도록 ?
+    enum class ViewState{
+        MY_LABEL,
+        RECENT_LABEL,
+        SEARCH_RESULT
+    }
 }
