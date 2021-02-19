@@ -20,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
 class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
@@ -35,6 +36,7 @@ class LabelingViewModel(
     private var makeMainLabelSource: MainMakeLabelSource? = null
     private val _clickedLabel = PublishSubject.create<PalletItem>()
     private val _labelText = PublishSubject.create<String>()
+    val labelQuery = MutableLiveData("")
 
     private val disposable = CompositeDisposable()
 
@@ -62,6 +64,7 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
+        override fun getLabelQuery(): LiveData<String> = labelQuery
     }
 
     val input = object : LabelingInput {
@@ -118,7 +121,7 @@ class LabelingViewModel(
     init {
         val labels = loadLabelUseCase.buildUseCase(Unit).cache()
 
-        val labelTextCache = _labelText.cache()
+        val labelTextCache = _labelText.debounce(1000L, TimeUnit.MILLISECONDS).cache()
 
         val clickLabelCache = _clickedLabel.cache()
 
@@ -134,6 +137,7 @@ class LabelingViewModel(
                         _isEmptyLabel.value = true
                     }
                 }, { it.printStackTrace() }),
+
 
             Observable.combineLatest(
                 labelTextCache,
@@ -176,6 +180,8 @@ class LabelingViewModel(
         fun getBottomSheetLabels(): LiveData<List<PalletItem>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
+
+        fun getLabelQuery(): LiveData<String>
     }
 
     interface LabelingInput : Input {
