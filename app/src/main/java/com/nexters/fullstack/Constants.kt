@@ -11,4 +11,6 @@ object Constants {
     const val SS_SCREENSHOT_PREFIX = "Screenshots"
 
     const val BOTTOM_SHEET_TAG = "bottomsheet"
+
+    const val SELECT_LABEL_ITEM = "label"
 }

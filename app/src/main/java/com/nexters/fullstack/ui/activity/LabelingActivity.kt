@@ -15,6 +15,7 @@ import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ext.loadFragment
 import com.nexters.fullstack.ext.removeFragment
+import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.fragment.LabelCreateFragment
@@ -39,9 +40,10 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
         labelSelectFragment =
             LabelSelectFragment.getInstance(intent.getParcelableExtra(Constants.LABEL_BUNDLE_KEY))
         activeFragment = labelSelectFragment
+
+        initView()
         setOnClickListener()
         initToolbar()
-        initView()
         observe()
         bind { }
     }
@@ -128,8 +130,9 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             BusImpl.sendData(resultCode)
         }
+
     }
 }

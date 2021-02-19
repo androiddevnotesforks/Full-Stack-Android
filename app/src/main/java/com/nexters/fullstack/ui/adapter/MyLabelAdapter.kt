@@ -16,7 +16,7 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
     private val _selectedLabel = mutableListOf<LabelSource>()
     val selectedLabel: List<LabelSource>
         get() = _selectedLabel
-
+    lateinit var finish: (LabelSource) -> Unit
     private val onLabelClickListener = { position: Int ->
         val getLabelSource = getItem(position)
         if (_selectedLabel.contains(getLabelSource)) {
@@ -25,6 +25,12 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
             _selectedLabel.add(getLabelSource)
         }
         notifyDataSetChanged()
+    }
+
+    private val onSearchLabelClickListener = { position: Int ->
+        val getLabelSource = getItem(position)
+        _selectedLabel.add(getLabelSource)
+        finish(_selectedLabel.first())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -46,6 +52,7 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
             LabelSource.LIST ->
                 if (isSearchViewHolder) {
                     SearchLocalListViewHolder(
+                        onSearchLabelClickListener,
                         ItemLocalSearchViewBinding.inflate(LayoutInflater.from(parent.context))
                     )
                 } else {
@@ -93,5 +100,13 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
 
     fun selectedLabelClear() {
         _selectedLabel.clear()
+    }
+
+    fun addSelectedItem(item: LabelSource) {
+        if (_selectedLabel.contains(item)) {
+            _selectedLabel.remove(item)
+        } else {
+            _selectedLabel.add(item)
+        }
     }
 }

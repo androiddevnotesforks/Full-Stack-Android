@@ -11,8 +11,10 @@ import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.mapper.LocalFileMapper
+import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
+import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.viewmodel.LabelingViewModel
@@ -33,6 +35,9 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                 .subscribe({ result ->
                     if (result == Activity.RESULT_OK) {
                         labelAdapter.notifyDataSetChanged()
+                    } else {
+                        labelAdapter.addSelectedItem(result as LabelSource)
+                        labelAdapter.notifyDataSetChanged()
                     }
                 }, {})
         )
@@ -47,10 +52,6 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
         setOnInitView()
         setInitOnClickListener()
-        Log.e(
-            "fragment",
-            arguments?.getParcelable<LocalFile>(Constants.LABEL_BUNDLE_KEY).toString()
-        )
     }
 
     private fun setOnInitView() {
@@ -86,7 +87,9 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             if (localFileData == null) return LabelSelectFragment()
             return instance ?: LabelSelectFragment().apply {
                 arguments =
-                    Bundle().apply { putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData) }
+                    Bundle().apply {
+                        putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData)
+                    }
             }.also { instance = it }
         }
     }
