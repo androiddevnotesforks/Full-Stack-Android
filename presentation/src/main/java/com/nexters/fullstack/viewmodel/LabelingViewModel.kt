@@ -110,7 +110,7 @@ class LabelingViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         _finish.value = Unit
-                    }, {})
+                    }, { it.printStackTrace() })
             )
         }
     }

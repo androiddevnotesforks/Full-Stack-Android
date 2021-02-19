@@ -44,7 +44,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         disposable.add(BusImpl.publish()
             .subscribeOn(Schedulers.computation())
             .onErrorReturn {
-                0
+                -9999
             }
             .subscribe { result ->
                 if (result == Activity.RESULT_CANCELED) {
@@ -137,6 +137,5 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java)
         intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
         startActivityForResult(intent, 2000)
-
     }
 }

@@ -1,13 +1,15 @@
 package com.nexters.fullstack.local
 
+import com.nexters.fullstack.db.dao.ImageDAO
 import com.nexters.fullstack.db.dao.LabelDAO
+import com.nexters.fullstack.mapper.UserLabelingImageMapper
 import com.nexters.fullstack.mapper.local.LocalLabelMapper
 import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.source.local.DomainUserLabel
 import io.reactivex.Completable
 import io.reactivex.Maybe
 
-class LabelaryLocalDataSourceImpl(private val labelDAO: LabelDAO) :
+class LabelaryLocalDataSourceImpl(private val labelDAO: LabelDAO, private val imageDAO: ImageDAO) :
     LabelaryLocalDataSource.Label, LabelaryLocalDataSource.Image {
     override fun save(label: DomainUserLabel): Completable {
         return labelDAO.save(LocalLabelMapper.toDomain(label))
@@ -28,7 +30,9 @@ class LabelaryLocalDataSourceImpl(private val labelDAO: LabelDAO) :
     }
 
     override fun save(label: DomainUserImage): Completable {
-        TODO("Not yet implemented")
+        return imageDAO.save(
+            UserLabelingImageMapper.toDomain(label)
+        )
     }
 
     override fun update(label: DomainUserImage): Completable {
@@ -40,6 +44,8 @@ class LabelaryLocalDataSourceImpl(private val labelDAO: LabelDAO) :
     }
 
     override fun imageLoad(): Maybe<List<DomainUserImage>> {
-        TODO("Not yet implemented")
+        return imageDAO.load().map { userImages ->
+            userImages.map { UserLabelingImageMapper.fromDomain(it) }
+        }
     }
 }
