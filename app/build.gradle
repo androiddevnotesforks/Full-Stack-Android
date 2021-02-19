@@ -56,8 +56,8 @@ dependencies {
     //slide drawer layout
     implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
 
-    // flow layout
-    implementation 'com.xiaofeng.android:flowlayoutmanager:1.2.3.2'
+    // flex layout
+    implementation "com.google.android:flexbox:2.0.1"
 
     //koin
     implementation "org.koin:koin-androidx-viewmodel:2.2.0-alpha-1"

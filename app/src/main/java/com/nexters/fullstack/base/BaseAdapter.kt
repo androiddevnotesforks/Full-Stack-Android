@@ -14,6 +14,10 @@ abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewH
         return items.size
     }
 
+    fun clearItems(){
+        items.clear()
+    }
+
     fun addItem(item: ITEM) {
         items.add(item)
     }

@@ -16,5 +16,7 @@ class SpaceBetweenRecyclerDecoration(private val vertical: Int = 0, private val 
 
         outRect.bottom = vertical.toPx
         outRect.top = vertical.toPx
+        outRect.right = horizontal.toPx
+        outRect.left = horizontal.toPx
     }
 }
