@@ -4,15 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
+
 import android.view.inputmethod.EditorInfo
-import android.widget.BaseAdapter
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.nexters.fullstack.BR
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.NotFoundViewState
 import com.nexters.fullstack.R
@@ -37,7 +35,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.vm = viewModel
+        bind {
+            setVariable(BR.vm, viewModel)
+        }
         initData()
         initView()
         initListener()
@@ -111,7 +111,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     etSearch.hideKeyboard()
                 }
             }
-            etSearch.setOnEditorActionListener { textView, action, keyEvent ->
+            etSearch.setOnEditorActionListener { _, action, _ ->
                 var handled = false
                 if(action == EditorInfo.IME_ACTION_DONE){
                     etSearch.clearFocus()
