@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.mapper.LabelSourceMapper
@@ -20,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
 class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
@@ -35,6 +37,7 @@ class LabelingViewModel(
     private var makeMainLabelSource: MainMakeLabelSource? = null
     private val _clickedLabel = PublishSubject.create<PalletItem>()
     private val _labelText = PublishSubject.create<String>()
+    val labelQuery = MutableLiveData("")
 
     private val disposable = CompositeDisposable()
 
@@ -42,16 +45,16 @@ class LabelingViewModel(
 
     private val _colors = MutableLiveData(
         listOf(
-            PalletItem("Yellow", "#353125", "#E8C15D", "#FFE299"),
-            PalletItem("Orange", "#2E2218", "#EC9147", "#FFCBA1"),
-            PalletItem("Red", "#2C1922", "#C76761", "#FFA799"),
-            PalletItem("Pink", "#2D1D25", "#E089B5", "#FFC7E3"),
-            PalletItem("Violet", "#2A1F38", "#A06EE5", "#D9C2FF"),
-            PalletItem("Cobalt Blue", "#2B2B4D", "#6565E5", "#BFBFFF"),
-            PalletItem("Blue", "#132334", "#4CA6FF", "#B2D9FF"),
-            PalletItem("Peacock Green", "#182424", "#52CCCC", "#A1E5E5"),
-            PalletItem("Green", "#1D2A24", "#3EA87A", "#B1E5CF"),
-            PalletItem("Gray", "#282A2F", "#7B8399", "#CCDAFF")
+            PalletItem("Yellow"),
+            PalletItem("Orange"),
+            PalletItem("Red"),
+            PalletItem("Pink"),
+            PalletItem("Violet"),
+            PalletItem("Purple Blue"),
+            PalletItem("Blue"),
+            PalletItem("Peacock Green"),
+            PalletItem("Green"),
+            PalletItem("Gray")
         )
     )
 
@@ -62,6 +65,7 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
+        override fun getLabelQuery(): LiveData<String> = labelQuery
     }
 
     val input = object : LabelingInput {
@@ -110,6 +114,7 @@ class LabelingViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         _finish.value = Unit
+                        BusImpl.sendData(_finish.value ?: Unit)
                     }, { it.printStackTrace() })
             )
         }
@@ -118,7 +123,7 @@ class LabelingViewModel(
     init {
         val labels = loadLabelUseCase.buildUseCase(Unit).cache()
 
-        val labelTextCache = _labelText.cache()
+        val labelTextCache = _labelText.debounce(1000L, TimeUnit.MILLISECONDS).cache()
 
         val clickLabelCache = _clickedLabel.cache()
 
@@ -134,6 +139,7 @@ class LabelingViewModel(
                         _isEmptyLabel.value = true
                     }
                 }, { it.printStackTrace() }),
+
 
             Observable.combineLatest(
                 labelTextCache,
@@ -176,6 +182,8 @@ class LabelingViewModel(
         fun getBottomSheetLabels(): LiveData<List<PalletItem>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
+
+        fun getLabelQuery(): LiveData<String>
     }
 
     interface LabelingInput : Input {

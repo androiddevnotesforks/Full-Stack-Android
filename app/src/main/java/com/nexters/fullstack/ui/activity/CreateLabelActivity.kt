@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.activity
 
+import android.app.Activity
 import android.os.Bundle
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
@@ -22,6 +23,23 @@ class CreateLabelActivity : BaseActivity<ActivityCreateLabelBinding, LabelingVie
             setVariable(BR.vm, viewModel)
         }
 
+
+        setOnClickListener()
+        onObserve()
+    }
+
+    private fun onObserve() {
+        with(viewModel.output) {
+            finish().observe(this@CreateLabelActivity) {
+                if (it != null) {
+                    setResult(Activity.RESULT_OK)
+                    this@CreateLabelActivity.finish()
+                }
+            }
+        }
+    }
+
+    private fun setOnClickListener() {
         binding.palletLayout.setOnLabelClickListener = {
             viewModel.input.clickLabel(it)
         }

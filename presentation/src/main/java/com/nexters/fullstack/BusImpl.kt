@@ -5,11 +5,11 @@ import io.reactivex.subjects.PublishSubject
 
 
 object BusImpl {
-    private val subject = PublishSubject.create<Int>()
+    private val subject = PublishSubject.create<Any>()
 
-    fun publish(): Observable<Int> = subject
+    fun publish(): Observable<Any> = subject
 
-    fun sendData(data: Int) {
+    fun sendData(data: Any) {
         subject.onNext(data)
     }
 
