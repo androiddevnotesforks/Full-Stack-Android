@@ -1,3 +1,8 @@
 package com.nexters.fullstack.source.data
 
-data class LocalImageDomain(val id: Long, val originUrl: String)
+import java.util.*
+
+data class LocalImageDomain(
+    val id: Long = UUID.randomUUID().mostSignificantBits,
+    val originUrl: String
+)

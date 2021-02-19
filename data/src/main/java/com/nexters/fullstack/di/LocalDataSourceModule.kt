@@ -5,5 +5,7 @@ import com.nexters.fullstack.local.LabelaryLocalDataSourceImpl
 import org.koin.dsl.module
 
 val localDataSourceModule = module {
-    single<LabelaryLocalDataSource> { LabelaryLocalDataSourceImpl(get()) }
+    single<LabelaryLocalDataSource.Label> { LabelaryLocalDataSourceImpl(get(), get()) }
+
+    single<LabelaryLocalDataSource.Image> { LabelaryLocalDataSourceImpl(get(), get()) }
 }

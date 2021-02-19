@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,18 +29,20 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
         RequestExitDialog()
     }
 
-    private val labelSelectFragment: LabelSelectFragment = LabelSelectFragment.getInstance()
-    private var activeFragment: Fragment = labelSelectFragment
+    private lateinit var labelSelectFragment: LabelSelectFragment
+    private lateinit var activeFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        labelSelectFragment =
+            LabelSelectFragment.getInstance(intent.getParcelableExtra(Constants.LABEL_BUNDLE_KEY))
+        activeFragment = labelSelectFragment
         setOnClickListener()
         initToolbar()
         initView()
         observe()
         bind { }
-        Log.e("hi", intent.getParcelableExtra<LocalFile>(Constants.LABEL_BUNDLE_KEY).toString())
     }
 
     private fun initToolbar() {
@@ -93,6 +96,12 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
                             SearchLabelActivity::class.java
                         )
                     )
+                }
+            }
+            finish().observe(this@LabelingActivity) {
+                if (it != null) {
+                    setResult(Activity.RESULT_OK)
+                    this@LabelingActivity.finish()
                 }
             }
         }
