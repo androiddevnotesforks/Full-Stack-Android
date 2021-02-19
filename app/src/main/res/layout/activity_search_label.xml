@@ -114,6 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_40"
             android:visibility="@{vm.labelQuery.empty ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toStartOf="@+id/right_guide_line"
             app:layout_constraintStart_toStartOf="@+id/left_guide_line"

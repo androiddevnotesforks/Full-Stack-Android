@@ -84,6 +84,32 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
                     )
                 )
             }
+            rvRecentlySearch.run {
+                adapter = MyLabelAdapter(true).apply {
+                    addItems(
+                        listOf(
+                            LabelSource(name = "강아지", color = "Yellow"),
+                            LabelSource(name = "충무로", color = "Red"),
+                            LabelSource(name = "홍대입구", color = "Purple Blue"),
+                            LabelSource(name = "넥스터즈", color = "Green"),
+                            LabelSource(name = "안드로이드", color = "Pink"),
+                            LabelSource(name = "개발", color = "Orange"),
+                            LabelSource(name = "관악구", color = "Violet")
+                        )
+                    )
+                    finish = {}
+                }
+                layoutManager = FlexboxLayoutManager(this@SearchLabelActivity).apply {
+                    flexWrap = FlexWrap.WRAP
+                    flexDirection = FlexDirection.ROW
+                }
+                addItemDecoration(
+                    SpaceBetweenRecyclerDecoration(
+                        VERTICAL_SPACING,
+                        HORIZONTAL_SPACING
+                    )
+                )
+            }
         }
     }
 
@@ -110,6 +136,6 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
     companion object {
         private const val HORIZONTAL_SPACING = 5
 
-        private const val VERTICAL_SPACING = 5
+        private const val VERTICAL_SPACING = 10
     }
 }
