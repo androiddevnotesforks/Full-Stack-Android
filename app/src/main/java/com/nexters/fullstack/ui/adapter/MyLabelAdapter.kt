@@ -33,13 +33,6 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            LabelSource.DEFAULT -> MyLabelViewHolder(
-                ItemLabelBinding.inflate(
-                    LayoutInflater.from(
-                        parent.context
-                    )
-                )
-            )
             LabelSource.RECOMMEND -> RecommendLabelViewHolder(
                 ItemLabelBinding.inflate(
                     LayoutInflater.from(
@@ -67,16 +60,6 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MyLabelViewHolder -> {
-                holder.bind(items[position])
-                holder.itemView.setOnClickListener {
-                    getItemClickListener()?.invoke(
-                        it,
-                        holder.adapterPosition,
-                        items[holder.adapterPosition]
-                    )
-                }
-            }
             is RecommendLabelViewHolder -> holder.bind(items[position])
             is LabelListViewHolder -> {
                 holder.bind(_selectedLabel, items[position])

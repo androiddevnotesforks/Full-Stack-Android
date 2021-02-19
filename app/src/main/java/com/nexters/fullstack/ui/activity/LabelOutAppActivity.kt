@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 
 import android.view.inputmethod.EditorInfo
 import com.bumptech.glide.Glide
@@ -19,6 +20,7 @@ import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.hideKeyboard
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
+import com.nexters.fullstack.ui.adapter.OutAppLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
@@ -28,10 +30,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     override val layoutRes: Int = R.layout.activity_label_outapp
     override val viewModel: LabelOutAppViewModel by viewModel()
 
-    private val myLabelAdapter : MyLabelAdapter = MyLabelAdapter()
+    private val myLabelAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.MY_LABEL)
     private val selectedLabelAdapter : SelectedLabelAdapter = SelectedLabelAdapter()
-    private val recentlyLabelAdapter : MyLabelAdapter = MyLabelAdapter()
-    private val searchResultAdapter : MyLabelAdapter = MyLabelAdapter()
+    private val recentlyLabelAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.RECENT_LABEL)
+    private val searchResultAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +103,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             tvDone.setOnClickListener {
                 viewModel.completeLabeling()
                 // TODO finish activity and show toast
+                finish()
             }
             etSearch.setOnFocusChangeListener { _, isFocused ->
                 if(isFocused){
@@ -122,6 +125,12 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
         myLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.selectLabel(i)
+        }
+        recentlyLabelAdapter.setItemClickListener { view, i, labelSource ->
+            Log.e("test", "recent")
+        }
+        searchResultAdapter.setItemClickListener { view, i, labelSource ->
+
         }
         selectedLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.deselectLabel(i)
