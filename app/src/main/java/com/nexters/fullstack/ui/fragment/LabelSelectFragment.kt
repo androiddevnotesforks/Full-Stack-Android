@@ -1,9 +1,11 @@
 package com.nexters.fullstack.ui.fragment
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.nexters.fullstack.BR
+import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
@@ -14,12 +16,27 @@ import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.viewmodel.LabelingViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingViewModel>() {
     override val layoutRes: Int = R.layout.fragment_label_select
     override val viewModel: LabelingViewModel by sharedViewModel()
     private val labelAdapter = MyLabelAdapter()
+
+    init {
+        disposable.add(
+            BusImpl.publish()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    if (result == Activity.RESULT_OK) {
+                        labelAdapter.notifyDataSetChanged()
+                    }
+                }, {})
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

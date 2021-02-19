@@ -1,6 +1,5 @@
 package com.nexters.fullstack.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,14 +7,12 @@ import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemListLabelBinding
+import com.nexters.fullstack.databinding.ItemLocalSearchViewBinding
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
 import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.ui.holder.LabelListViewHolder
-import com.nexters.fullstack.ui.holder.LabelingSelectedViewHolder
-import com.nexters.fullstack.ui.holder.MyLabelViewHolder
-import com.nexters.fullstack.ui.holder.RecommendLabelViewHolder
+import com.nexters.fullstack.ui.holder.*
 
-class MyLabelAdapter : BaseAdapter<LabelSource>() {
+class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdapter<LabelSource>() {
     private val _selectedLabel = mutableListOf<LabelSource>()
     val selectedLabel: List<LabelSource>
         get() = _selectedLabel
@@ -27,7 +24,6 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
         } else {
             _selectedLabel.add(getLabelSource)
         }
-        Log.e("selectedLabel", _selectedLabel.toString())
         notifyDataSetChanged()
     }
 
@@ -47,12 +43,18 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
                     )
                 )
             )
-            LabelSource.LIST -> {
-                LabelListViewHolder(
-                    onLabelClickListener,
-                    ItemListLabelBinding.inflate(LayoutInflater.from(parent.context))
-                )
-            }
+            LabelSource.LIST ->
+                if (isSearchViewHolder) {
+                    SearchLocalListViewHolder(
+                        ItemLocalSearchViewBinding.inflate(LayoutInflater.from(parent.context))
+                    )
+                } else {
+                    LabelListViewHolder(
+                        onLabelClickListener,
+                        ItemListLabelBinding.inflate(LayoutInflater.from(parent.context))
+                    )
+                }
+
             LabelSource.SELECTED -> {
                 LabelingSelectedViewHolder(
                     ItemSelectedLabelBinding.inflate(
@@ -80,6 +82,9 @@ class MyLabelAdapter : BaseAdapter<LabelSource>() {
             is RecommendLabelViewHolder -> holder.bind(items[position])
             is LabelListViewHolder -> {
                 holder.bind(_selectedLabel, items[position])
+            }
+            is SearchLocalListViewHolder -> {
+                holder.bind(items[position])
             }
         }
     }

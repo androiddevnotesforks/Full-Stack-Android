@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.R
@@ -122,5 +123,13 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
     override fun onSupportNavigateUp(): Boolean {
         dialog.show(supportFragmentManager, "")
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == Activity.RESULT_OK) {
+            BusImpl.sendData(resultCode)
+        }
     }
 }

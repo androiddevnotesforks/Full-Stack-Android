@@ -1,6 +1,9 @@
 package com.nexters.fullstack.ui.activity
 
 import android.os.Bundle
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -14,7 +17,7 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
 
     override val viewModel: LabelingViewModel by viewModel()
 
-    private val labelAdapter = MyLabelAdapter()
+    private val labelAdapter = MyLabelAdapter(true)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,18 +26,28 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
             setVariable(BR.vm, viewModel)
         }
 
-        viewModel.output.finish().observe(this) { value ->
-            if (value != null) {
-                finish()
-            }
-        }
+        onViewInit()
+        onObserve()
     }
 
     private fun onViewInit() {
         with(binding) {
             rvMyLabel.run {
                 adapter = labelAdapter
-                layoutManager = FlexboxLayoutManager
+                layoutManager = FlexboxLayoutManager(this@SearchLabelActivity).apply {
+                    flexWrap = FlexWrap.WRAP
+                    flexDirection = FlexDirection.ROW
+                }
+            }
+        }
+    }
+
+    private fun onObserve() {
+        with(viewModel.output) {
+            finish().observe(this@SearchLabelActivity) { value ->
+                if (value != null) {
+                    this@SearchLabelActivity.finish()
+                }
             }
         }
     }

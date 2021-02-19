@@ -1,7 +1,6 @@
 package com.tsdev.feature.ui.layout
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import com.tsdev.feature.R
 import com.tsdev.feature.ui.data.PalletItem
+import com.tsdev.feature.util.ColorUtils
 
 class PalletGridLayout @JvmOverloads constructor(
     context: Context,
@@ -57,12 +57,17 @@ class PalletGridLayout @JvmOverloads constructor(
             textView.run {
                 text = item.name
 
-                setBackgroundColor(Color.parseColor(item.backgroundColor))
-                setTextColor(Color.parseColor(item.textColor))
+                setBackgroundColor(ColorUtils(item.name, context).getInactive())
+                setTextColor(ColorUtils(item.name, context).getText())
                 setOnClickListener { itemView ->
                     if (::selectedView.isInitialized) {
                         selectedView.isSelected = false
-                        selectedView.setBackgroundColor(Color.parseColor(selectedPalletItem.backgroundColor))
+                        selectedView.setBackgroundColor(
+                            ColorUtils(
+                                selectedPalletItem.name,
+                                context
+                            ).getInactive()
+                        )
                     }
 
                     selectedPalletItem = item
@@ -71,7 +76,7 @@ class PalletGridLayout @JvmOverloads constructor(
 
                     itemView.isSelected = true
 
-                    setBackgroundColor(Color.parseColor(item.selectedBackgroundColor))
+                    setBackgroundColor(ColorUtils(item.name, context).getActive())
                     setOnLabelClickListener(item)
 
                     invalidate()
