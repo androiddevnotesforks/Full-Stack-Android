@@ -8,7 +8,9 @@ import com.nexters.fullstack.Output
 import com.nexters.fullstack.mapper.Mapper
 import com.nexters.fullstack.source.*
 import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.usecase.base.BaseUseCase
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -20,6 +22,7 @@ import io.reactivex.subjects.PublishSubject
 class MainViewModel(
     private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
     albumLoadUseCase: BaseUseCase<String, Single<List<LocalImageDomain>>>,
+    localImageDBUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
     mapper: Mapper<LocalImageDomain, PresentLocalFile>
 ) : BaseViewModel() {
 
@@ -29,6 +32,7 @@ class MainViewModel(
 
     private val mainLabel = MutableLiveData<MainLabel>()
     private val startLabeling = MutableLiveData<Unit>()
+    private val _localImage = MutableLiveData<List<DomainUserImage>>()
 
     val input = object : MainInput {
         override fun onClickedButton(state: State) = onClickButton.onNext(state)
@@ -40,6 +44,8 @@ class MainViewModel(
         override fun state(): LiveData<MainLabel> {
             return mainLabel
         }
+
+        override fun getLocalImage(): LiveData<List<DomainUserImage>> = _localImage
 
         override fun startLabelling() = startLabeling
     }
@@ -55,12 +61,23 @@ class MainViewModel(
 
         val state = onClickButton.cache()
 
+        val localImage: Maybe<List<DomainUserImage>> =
+            localImageDBUseCase.buildUseCase(Unit)
+                .cache()
+
         disposable.addAll(
             images
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     mainLabel.value = MainLabel(images = response)
+                }, {}),
+
+            localImage
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _localImage.value = it
                 }, {}),
 
             Observable.combineLatest(
@@ -85,6 +102,8 @@ class MainViewModel(
 
     interface MainOutput : Output {
         fun state(): LiveData<MainLabel>
+
+        fun getLocalImage(): LiveData<List<DomainUserImage>>
 
         //Router
         fun startLabelling(): LiveData<Unit>

@@ -1,6 +1,7 @@
 package com.nexters.fullstack.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
@@ -19,6 +20,8 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
         binding.addLabel.setOnClickListener {
             CreateAlbumBottomSheet(requireContext()).show()
         }
+
+        Log.e("localList", viewModel.output.getLocalImage().toString())
     }
 
     companion object {

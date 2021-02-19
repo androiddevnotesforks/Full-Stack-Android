@@ -18,7 +18,7 @@ val presentationMapper = module {
 
 val viewModelModule = module {
     viewModel { LabelOutAppViewModel() }
-    viewModel { MainViewModel(get(), get(named("label")), get()) }
+    viewModel { MainViewModel(get(), get(named("label")), get(named("image")), get()) }
     viewModel { LabelingViewModel(get(), get(), get()) }
 }
 

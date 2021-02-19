@@ -9,6 +9,5 @@ internal class AlbumLoadUseCase(private val albumRepository: AlbumRepository) :
     BaseUseCase<String, Single<List<LocalImageDomain>?>> {
     override fun buildUseCase(params: String): Single<List<LocalImageDomain>?> {
         return Single.just(albumRepository.getUnLabeling(params))
-//            .subscribeOn(Schedulers.computation())
     }
 }
