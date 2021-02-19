@@ -21,6 +21,7 @@
 
     <!-- Label -->
     <string name="recommnd">추천</string>
+    <string name="label_add">생성</string>
 
     <!--    LabelManagerFragment    -->
     <string name="label_title">지금 라벨링 할까요?</string>

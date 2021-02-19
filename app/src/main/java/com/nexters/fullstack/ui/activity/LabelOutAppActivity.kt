@@ -34,6 +34,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private val selectedLabelAdapter : SelectedLabelAdapter = SelectedLabelAdapter()
     private val recentlyLabelAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.RECENT_LABEL)
     private val searchResultAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
+    private val addLabelAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.NO_RESULT)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +87,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
             recentlyLabelAdapter.addItems(viewModel.state().recentlySearch.value ?: ArrayList())
             searchResultAdapter.addItems(viewModel.state().searchResult.value ?: ArrayList())
+            addLabelAdapter.addItems(ArrayList())
         }
     }
 
@@ -130,10 +132,14 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             Log.e("test", "recent")
         }
         searchResultAdapter.setItemClickListener { view, i, labelSource ->
-
+            viewModel.selectLabel(labelSource.name)
+            viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
         }
         selectedLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.deselectLabel(i)
+        }
+        addLabelAdapter.setItemClickListener { view, i, labelSource ->
+            // TODO start add label activity and update my labels
         }
     }
 
@@ -146,6 +152,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 selectedLabelAdapter.calDiff(it as MutableList<LabelSource>)
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
+            searchResult.observe(this@LabelOutAppActivity, {
+                searchResultAdapter.calDiff(it as MutableList<LabelSource>)
+            })
             searchKeyword.observe(this@LabelOutAppActivity, {
                 if(it == "" || it == null){
                     if(viewModel.state().viewState.value != LabelOutAppViewModel.ViewState.MY_LABEL){
@@ -153,8 +162,14 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     }
                 }
                 else{
-                    viewModel.setViewState(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
-                    // TODO 검색 결과 recycler view list update
+                    if(viewModel.search()){
+                        viewModel.setViewState(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
+                    }
+                    else {
+                        viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_RESULT)
+                        addLabelAdapter.clearItems()
+                        addLabelAdapter.addItem(LabelSource(type = 2002, color = "", name = it))
+                    }
                 }
             })
             viewState.observe(this@LabelOutAppActivity, {
@@ -170,6 +185,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     }
                     LabelOutAppViewModel.ViewState.SEARCH_RESULT -> {
                         binding.rvLabel.adapter = searchResultAdapter
+                    }
+                    LabelOutAppViewModel.ViewState.NO_RESULT -> {
+                        binding.rvLabel.adapter = addLabelAdapter
                     }
                     else -> throw NotFoundViewState
                 }
