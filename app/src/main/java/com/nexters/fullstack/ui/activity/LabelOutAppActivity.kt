@@ -102,11 +102,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 viewModel.completeLabeling()
                 // TODO finish activity and show toast
             }
-//            etSearch.setOnClickListener {
-//                containerAppbar.setExpanded(false)
-//            }
             etSearch.setOnFocusChangeListener { _, isFocused ->
                 if(isFocused){
+                    viewModel.setViewState(LabelOutAppViewModel.ViewState.RECENT_LABEL)
                     containerAppbar.setExpanded(false)
                 }
                 else{
@@ -140,8 +138,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
             searchKeyword.observe(this@LabelOutAppActivity, {
-                if(it == ""){
-                    viewModel.setViewState(LabelOutAppViewModel.ViewState.RECENT_LABEL)
+                if(it == "" || it == null){
+                    if(viewModel.state().viewState.value != LabelOutAppViewModel.ViewState.MY_LABEL){
+                        viewModel.setViewState(LabelOutAppViewModel.ViewState.RECENT_LABEL)
+                    }
                 }
                 else{
                     viewModel.setViewState(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
@@ -153,7 +153,6 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     LabelOutAppViewModel.ViewState.MY_LABEL -> {
                         binding.rvLabel.adapter = myLabelAdapter
                         binding.containerAppbar.setExpanded(true)
-                        binding.etSearch.hideKeyboard()
                         binding.etSearch.clearFocus()
                         viewModel.clearSearchKeyword()
                     }
