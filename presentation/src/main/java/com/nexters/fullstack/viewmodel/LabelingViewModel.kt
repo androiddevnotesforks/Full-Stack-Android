@@ -6,11 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
+import com.nexters.fullstack.mapper.LabelSourceMapper
 import com.nexters.fullstack.mapper.LabelingMapper
-import com.nexters.fullstack.source.LocalLabel
-import com.nexters.fullstack.source.MainMakeLabelSource
-import com.nexters.fullstack.source.ViewState
-import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.mapper.PresenterLocalFileMapper
+import com.nexters.fullstack.source.*
+import com.nexters.fullstack.source.local.DomainUserImage
+import com.nexters.fullstack.usecase.ImageLabelingUseCase
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.tsdev.feature.ui.data.PalletItem
@@ -22,7 +23,8 @@ import io.reactivex.subjects.PublishSubject
 
 class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
-    loadLabelUseCase: LoadLabelUseCase
+    loadLabelUseCase: LoadLabelUseCase,
+    private val imageLabelingUseCase: ImageLabelingUseCase
 ) : BaseViewModel() {
     private val _viewState = MutableLiveData<ViewState>()
     private val _finish = MutableLiveData<Unit>()
@@ -92,6 +94,24 @@ class LabelingViewModel(
 
         override fun clickCancelButton() {
             _finish.value = Unit
+        }
+
+        override fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile) {
+            if (file.url.isEmpty()) {
+                return
+            }
+            val localFileMapper = PresenterLocalFileMapper.toData(file)
+            val labelMapper = LabelSourceMapper.toData(didClickList)
+
+            disposable.add(
+                imageLabelingUseCase.buildUseCase(
+                    DomainUserImage(labelMapper, localFileMapper)
+                ).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        _finish.value = Unit
+                    }, { it.printStackTrace() })
+            )
         }
     }
 
@@ -168,6 +188,8 @@ class LabelingViewModel(
         fun clickLabelAddButton()
 
         fun clickCancelButton()
+
+        fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile)
     }
 
     override fun onCleared() {

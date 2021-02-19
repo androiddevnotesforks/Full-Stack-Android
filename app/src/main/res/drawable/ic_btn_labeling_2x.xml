@@ -37,4 +37,9 @@
       </gradient>
     </aapt:attr>
   </path>
+  <path
+      android:pathData="M37.8496,30V38.5H40.8496V30H49.3496V27H40.8496V18.5H37.8496V27H29.3496V30H37.8496Z"
+      android:fillColor="#ffffff"
+      android:fillAlpha="0.93"
+      android:fillType="evenOdd"/>
 </vector>

@@ -8,4 +8,6 @@ val databaseModule = module {
     single { AppDatabase.getInstance(androidContext()) }
 
     single { get<AppDatabase>().labelDAO() }
+
+    single { get<AppDatabase>().imageDAO() }
 }
