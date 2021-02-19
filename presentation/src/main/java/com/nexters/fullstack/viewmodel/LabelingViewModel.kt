@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.mapper.LabelSourceMapper
@@ -113,6 +114,7 @@ class LabelingViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         _finish.value = Unit
+                        BusImpl.sendData(_finish.value ?: Unit)
                     }, { it.printStackTrace() })
             )
         }

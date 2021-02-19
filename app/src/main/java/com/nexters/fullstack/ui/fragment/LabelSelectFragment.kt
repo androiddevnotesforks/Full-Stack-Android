@@ -2,7 +2,6 @@ package com.nexters.fullstack.ui.fragment
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.BusImpl
@@ -14,7 +13,6 @@ import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
-import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.viewmodel.LabelingViewModel

@@ -3,9 +3,7 @@ package com.nexters.fullstack.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseActivity
@@ -15,13 +13,12 @@ import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ext.loadFragment
 import com.nexters.fullstack.ext.removeFragment
-import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
-import com.nexters.fullstack.ui.fragment.LabelCreateFragment
 import com.nexters.fullstack.widget.RequestExitDialog
 import com.nexters.fullstack.ui.fragment.LabelSelectFragment
-import com.nexters.fullstack.ui.fragment.label.LabelSearchFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel>() {
     override val layoutRes: Int = R.layout.activity_labeling
@@ -33,6 +30,20 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
 
     private lateinit var labelSelectFragment: LabelSelectFragment
     private lateinit var activeFragment: Fragment
+    private val disposable = CompositeDisposable()
+
+    init {
+        disposable.add(
+            BusImpl.publish()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result ->
+                    if (result is Unit) {
+                        setResult(Activity.RESULT_OK)
+                        finish()
+                    }
+                }, {}))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
