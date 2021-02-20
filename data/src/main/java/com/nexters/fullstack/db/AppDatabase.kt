@@ -14,7 +14,7 @@ import com.nexters.fullstack.db.entity.UserLabelingImage
 
 @Database(
     entities = [UserLabel::class, UserLabelingImage::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(UserLabelConverter::class, LocalImageDataConverter::class)

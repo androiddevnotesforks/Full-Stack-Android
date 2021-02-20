@@ -7,10 +7,10 @@ import com.nexters.fullstack.db.TableName
 
 @Entity(tableName = TableName.LABEL)
 data class UserLabel(
-    @PrimaryKey
     @ColumnInfo(name = "color")
     val color: String,
 
+    @PrimaryKey
     @ColumnInfo(name = "text")
     val text: String
 )
