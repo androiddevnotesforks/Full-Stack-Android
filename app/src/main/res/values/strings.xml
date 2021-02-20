@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">CaptureBox</string>
 
+    <!--    splash  -->
+    <string name="splash">스크린 샷<br/>정리가 어렵다면</string>
+
     <!--    Bottom Sheet    -->
     <string name="labelling">라벨링</string>
     <string name="search">탐색</string>
