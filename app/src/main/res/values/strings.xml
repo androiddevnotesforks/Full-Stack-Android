@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CaptureBox</string>
+    <string name="app_name">Labelary</string>
 
     <!--    splash  -->
     <string name="splash">스크린 샷<br/>정리가 어렵다면</string>
