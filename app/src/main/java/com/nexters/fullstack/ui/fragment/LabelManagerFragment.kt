@@ -2,30 +2,21 @@ package com.nexters.fullstack.ui.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants.LABEL_BUNDLE_KEY
-import com.nexters.fullstack.MainActivity
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelManagerBinding
-import com.nexters.fullstack.source.LabellingState
-import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
 import com.yuyakaido.android.cardstackview.*
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewModel>(),
@@ -41,7 +32,8 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
 
 
     init {
-        disposable.add(BusImpl.publish()
+        disposable.add(
+            BusImpl.publish()
             .subscribeOn(Schedulers.computation())
             .onErrorReturn {
                 -9999
@@ -126,7 +118,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     override fun onCardAppeared(view: View?, position: Int) {
-        stackAdapter.isSwipe = true
+
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
@@ -134,7 +126,9 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     private fun startActivityWithData() {
-        val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java)
+        val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
         intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
         startActivityForResult(intent, 2000)
     }

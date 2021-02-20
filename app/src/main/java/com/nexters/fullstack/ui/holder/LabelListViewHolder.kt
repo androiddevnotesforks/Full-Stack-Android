@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemListLabelBinding
 import com.nexters.fullstack.source.LabelSource
+import com.tsdev.feature.util.ColorUtils
 
 class LabelListViewHolder(
     private val onLabelClickListener: (position: Int) -> Unit,
@@ -18,11 +19,20 @@ class LabelListViewHolder(
 
     fun bind(selectedList: List<LabelSource>, item: LabelSource) {
         binding.label.text = item.name
-        binding.labelView.setBackgroundColor(Color.parseColor(item.color))
+        binding.hintColor.setBackgroundColor(
+            ColorUtils(
+                item.color,
+                binding.root.context
+            ).getActive()
+        )
         if (selectedList.contains(item)) {
-            binding.labelView.setBackgroundColor(Color.parseColor(item.color))
+            binding.labelView.setBackgroundColor(
+                ColorUtils(
+                    item.color,
+                    binding.root.context
+                ).getActive()
+            )
         } else {
-            binding.hintColor.setBackgroundColor(Color.parseColor(item.color))
             binding.labelView.setBackgroundColor(Color.parseColor(DEFAULT_COLOR))
         }
     }

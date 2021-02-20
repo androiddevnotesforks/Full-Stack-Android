@@ -26,13 +26,14 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
-        binding.executePendingBindings()
+
         binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root
     }
 
     fun bind(body: VB.() -> Unit) {
         binding.run(body)
+        binding.executePendingBindings()
     }
 
     override fun onDestroy() {

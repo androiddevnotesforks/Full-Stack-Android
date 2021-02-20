@@ -4,7 +4,7 @@
     <!--    Bottom Sheet    -->
     <string name="labelling">라벨링</string>
     <string name="search">탐색</string>
-    <string name="album">앨범</string>
+    <string name="album">라벨</string>
 
     <!-- Titles -->
     <string name="do_labelling">스크린샷 라벨 추가</string>
@@ -45,6 +45,8 @@
     <!--    SearchLabel Activity    -->
     <string name="search_hint">라벨을 검색해보세요.</string>
     <string name="cancel">취소</string>
+    <string name="recentlySearch_title">최근 검색한 라벨</string>
+    <string name="myLabel_title">내 라벨</string>
     <!--    라벨이 없을 때    -->
     <string name="non_label_title">라벨 앨범이 없습니다.</string>
     <string name="non_label_message">"라벨 앨범을 추가해서 \n스크린샷에 라벨 추가를 할 수 있습니다."</string>
