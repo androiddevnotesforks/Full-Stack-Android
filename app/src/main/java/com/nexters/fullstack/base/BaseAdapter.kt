@@ -20,6 +20,7 @@ abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewH
 
     fun addItem(item: ITEM) {
         items.add(item)
+        notifyDataSetChanged()
     }
 
     fun addItems(items: List<ITEM>) {

@@ -1,13 +1,18 @@
 package com.nexters.fullstack.viewmodel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.mapper.LabelSourceMapper
 import com.nexters.fullstack.source.LabelSource
+import com.nexters.fullstack.usecase.LoadLabelUseCase
 import kotlinx.coroutines.launch
 
-class LabelOutAppViewModel : BaseViewModel() {
+class LabelOutAppViewModel(
+    private val loadLabelUseCase: LoadLabelUseCase
+) : BaseViewModel() {
     private val state: State
     private val myLabelList = mutableListOf<LabelSource>()
     private val selectedLabelList = mutableListOf<LabelSource>()
@@ -18,6 +23,18 @@ class LabelOutAppViewModel : BaseViewModel() {
 
     fun loadImage(uri: Uri) {
         state.imageUri.value = uri
+    }
+
+    fun selectLabel(name : String){
+        for (label in myLabelList){
+            if(label.name == name){
+                myLabelList.remove(label)
+                selectedLabelList.add(0, label)
+                break
+            }
+        }
+        state.myLabels.value = myLabelList
+        state.selectedLabels.value = selectedLabelList
     }
 
     fun selectLabel(position: Int) {
@@ -51,39 +68,54 @@ class LabelOutAppViewModel : BaseViewModel() {
         state.searchKeyword.value = ""
     }
 
+    // TODO modify to using usecase
+    fun search() : Boolean{
+        searchResultList.clear()
+        for(label in myLabelList){
+            if(label.name.contains(state.searchKeyword.value!!)) {
+                searchResultList.add(label)
+            }
+        }
+        state.searchResult.value = searchResultList
+
+        return searchResultList.size != 0
+    }
+
     init {
         state = State()
 
         // TODO init my label list using usecase
         viewModelScope.launch {
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "my_label1"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label2"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label3"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label4"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label5"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label6"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label7"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label8"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label9"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "", "label10"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Yellow", "인테리어"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Green", "OOTD"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Orange", "컬러 팔레트"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Red", "UI 레퍼런스"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Pink", "편집디자인"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Violet", "채팅"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Purple Blue", "memo모음"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Blue", "글귀"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Peacock Green", "장소(공연,전시 등)"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Green", "영화"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Gray", "네일"))
+            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Purple Blue", "맛집"))
         }
         state.myLabels.value = myLabelList
 
         viewModelScope.launch {
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "", "recent_label1"))
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Yellow", "OOTD"))
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Red", "UI 레퍼런스"))
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Violet", "채팅"))
+            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Yellow", "인테리어"))
         }
         state.recentlySearch.value = recentlySearchList
 
-        viewModelScope.launch {
-            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-        }
-        state.searchResult.value = searchResultList
+//        viewModelScope.launch {
+//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
+//        }
+//        state.searchResult.value = searchResultList
     }
 
     data class State(
@@ -100,6 +132,7 @@ class LabelOutAppViewModel : BaseViewModel() {
     enum class ViewState{
         MY_LABEL,
         RECENT_LABEL,
-        SEARCH_RESULT
+        SEARCH_RESULT,
+        NO_RESULT
     }
 }
