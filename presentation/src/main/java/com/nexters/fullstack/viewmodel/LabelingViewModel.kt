@@ -79,7 +79,7 @@ class LabelingViewModel(
             makeMainLabelSource?.let { source ->
                 val mapper = LabelingMapper().fromData(source)
 
-                disposable.add(
+                disposable.addAll(
                     labelingUseCase.buildUseCase(mapper)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -87,7 +87,19 @@ class LabelingViewModel(
                             _finish.value = Unit
                         }, {
                             it.printStackTrace()
-                        })
+                        }),
+
+                    loadLabelUseCase.buildUseCase(Unit)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ localLabels ->
+                            if (localLabels.isNotEmpty()) {
+                                _isEmptyLabel.value = false
+                                _labels.value = LocalLabel(localLabels)
+                            } else {
+                                _isEmptyLabel.value = true
+                            }
+                        }, { it.printStackTrace() }),
                 )
             } ?: Log.e("labelSourceError", "makeMainLabelSource is Null")
         }

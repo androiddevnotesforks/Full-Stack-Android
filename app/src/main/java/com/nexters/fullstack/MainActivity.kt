@@ -3,6 +3,7 @@ package com.nexters.fullstack
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.nexters.fullstack.base.BaseActivity
@@ -28,6 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         super.onCreate(savedInstanceState)
         initView()
         bind { }
+        Log.e("hi", viewModel.output.getLocalImage().value?.size.toString())
     }
 
     private fun initView() {

@@ -56,6 +56,7 @@
     <dimen name="spacing_20">20dp</dimen>
     <dimen name="spacing_40">40dp</dimen>
     <dimen name="spacing_75">75dp</dimen>
+    <dimen name="spacing_110">110dp</dimen>
     <dimen name="spacing_165">165dp</dimen>
 
     <dimen name="radius_4">4dp</dimen>

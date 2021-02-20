@@ -10,6 +10,7 @@ import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.mapper.LocalFileMapper
+import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
@@ -50,6 +51,19 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
         setOnInitView()
         setInitOnClickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.output.labels().observe(this.viewLifecycleOwner) {
+
+            val mapper = it.items.map { domainUserLabel ->
+                LabelSource(color = domainUserLabel.color ?: "", name = domainUserLabel.text)
+            }
+
+            labelAdapter.addItems(mapper)
+            labelAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun setOnInitView() {
