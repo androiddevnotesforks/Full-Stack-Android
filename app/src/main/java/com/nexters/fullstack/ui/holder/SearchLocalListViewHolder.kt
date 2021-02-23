@@ -3,7 +3,7 @@ package com.nexters.fullstack.ui.holder
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemLocalSearchViewBinding
 import com.nexters.fullstack.source.LabelSource
-import com.tsdev.feature.util.ColorUtils
+import com.nexters.feature.util.ColorUtils
 
 class SearchLocalListViewHolder(
     onSearchLabelClickListener: (Int) -> Unit,

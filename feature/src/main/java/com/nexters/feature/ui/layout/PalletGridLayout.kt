@@ -1,4 +1,4 @@
-package com.tsdev.feature.ui.layout
+package com.nexters.feature.ui.layout
 
 import android.content.Context
 import android.util.AttributeSet
@@ -8,9 +8,9 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
-import com.tsdev.feature.R
-import com.tsdev.feature.ui.data.PalletItem
-import com.tsdev.feature.util.ColorUtils
+import com.nexters.feature.R
+import com.nexters.feature.ui.data.PalletItem
+import com.nexters.feature.util.ColorUtils
 
 class PalletGridLayout @JvmOverloads constructor(
     context: Context,

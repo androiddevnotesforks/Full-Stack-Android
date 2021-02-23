@@ -15,7 +15,7 @@ import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.usecase.ImageLabelingUseCase
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
-import com.tsdev.feature.ui.data.PalletItem
+import com.nexters.feature.ui.data.PalletItem
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

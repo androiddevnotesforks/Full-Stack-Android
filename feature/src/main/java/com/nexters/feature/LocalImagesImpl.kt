@@ -1,4 +1,4 @@
-package com.tsdev.feature
+package com.nexters.feature
 
 import android.content.Context
 import android.database.Cursor

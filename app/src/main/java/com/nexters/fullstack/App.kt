@@ -2,7 +2,7 @@ package com.nexters.fullstack
 
 import android.app.Application
 import com.nexters.fullstack.di.*
-import com.tsdev.feature.di.localImageModule
+import com.nexters.feature.di.localImageModule
 import io.reactivex.plugins.RxJavaPlugins
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

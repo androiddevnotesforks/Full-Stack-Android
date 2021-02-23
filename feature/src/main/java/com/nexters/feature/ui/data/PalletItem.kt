@@ -1,4 +1,4 @@
-package com.tsdev.feature.ui.data
+package com.nexters.feature.ui.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

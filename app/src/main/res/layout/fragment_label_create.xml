@@ -66,7 +66,7 @@
                 app:layout_constraintStart_toStartOf="@+id/left_guide_line"
                 app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-            <com.tsdev.feature.ui.layout.PalletGridLayout
+            <com.nexters.feature.ui.layout.PalletGridLayout
                 android:id="@+id/pallet_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

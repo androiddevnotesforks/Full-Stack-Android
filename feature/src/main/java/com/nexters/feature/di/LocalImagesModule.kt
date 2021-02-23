@@ -1,7 +1,7 @@
-package com.tsdev.feature.di
+package com.nexters.feature.di
 
-import com.tsdev.feature.LocalImages
-import com.tsdev.feature.LocalImagesImpl
+import com.nexters.feature.LocalImages
+import com.nexters.feature.LocalImagesImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

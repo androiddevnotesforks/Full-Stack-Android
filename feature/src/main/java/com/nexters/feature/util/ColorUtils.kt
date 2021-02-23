@@ -1,8 +1,8 @@
-package com.tsdev.feature.util
+package com.nexters.feature.util
 
 import android.content.Context
 import androidx.core.content.ContextCompat
-import com.tsdev.feature.R
+import com.nexters.feature.R
 
 class ColorUtils(color: String, private val context: Context) {
     private var activeColor: Int = 0

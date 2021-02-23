@@ -1,20 +1,16 @@
 package com.nexters.fullstack.widget
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.BsLayoutColorSelectBinding
 import com.nexters.fullstack.viewmodel.LabelingViewModel
-import com.tsdev.feature.ui.data.PalletItem
+import com.nexters.feature.ui.data.PalletItem
 
 class LabelColorBottomSheet(private val vm: LabelingViewModel) :
     BottomSheetDialogFragment() {

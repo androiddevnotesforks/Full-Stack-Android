@@ -1,6 +1,4 @@
-package com.tsdev.feature
-
-import android.content.Context
+package com.nexters.feature
 
 interface LocalImages {
     fun fetch(filterValue: String): ArrayList<String>
