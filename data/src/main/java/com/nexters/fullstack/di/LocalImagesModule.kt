@@ -1,10 +1,12 @@
-package com.nexters.feature.di
+package com.nexters.fullstack.di
 
-import com.nexters.feature.LocalImages
-import com.nexters.feature.LocalImagesImpl
+import com.nexters.fullstack.local.image.LocalImages
+import com.nexters.fullstack.local.image.LocalImagesImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val localImageModule = module {
-    factory<LocalImages> { LocalImagesImpl(androidContext()) }
+    factory<LocalImages> {
+        LocalImagesImpl(androidContext())
+    }
 }

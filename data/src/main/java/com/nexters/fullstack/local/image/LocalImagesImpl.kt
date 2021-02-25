@@ -1,4 +1,4 @@
-package com.nexters.feature
+package com.nexters.fullstack.local.image
 
 import android.content.Context
 import android.database.Cursor

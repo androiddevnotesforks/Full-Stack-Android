@@ -3,8 +3,6 @@ package com.nexters.fullstack.ui.holder
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
-import com.nexters.fullstack.source.DomainLabel
-import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.util.ColorUtil
 
