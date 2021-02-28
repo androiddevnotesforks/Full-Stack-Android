@@ -2,7 +2,10 @@ package com.nexters.fullstack.ui.fragment
 
 import android.app.Activity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants
@@ -40,6 +43,10 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                     }
                 }, {})
         )
+
+        labelAdapter.callback = {
+            updateView(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,6 +90,29 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                         arguments?.getParcelable(Constants.LABEL_BUNDLE_KEY) ?: LocalFile("")
                     )
                 )
+            }
+        }
+    }
+
+    private fun updateView(labels: MutableList<LabelSource>) {
+        if (labels.isEmpty()) {
+            binding.selectLinearLayout.visibility = View.GONE
+        } else {
+            binding.selectLinearLayout.visibility = View.VISIBLE
+            binding.selectLinearLayout.removeAllViews()
+
+            for (i in labels.indices) {
+                val layout = LayoutInflater.from(requireContext())
+                    .inflate(R.layout.selected_label_item, null)
+                val title = layout.findViewById<TextView>(R.id.tv_label)
+                val cancelButton = layout.findViewById<ImageView>(R.id.cancel_button)
+                cancelButton.setOnClickListener {
+                    labels.remove(labels[i])
+                    binding.selectLinearLayout.removeViewAt(i)
+                    labelAdapter.notifyDataSetChanged()
+                }
+                title.text = labels[i].name
+                binding.selectLinearLayout.addView(layout, 0)
             }
         }
     }

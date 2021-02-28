@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="100dp"
+    android:layout_width="wrap_content"
     android:layout_height="33dp"
+    android:padding="@dimen/spacing_8"
     android:background="@drawable/bg_selected_tv">
 
     <TextView
@@ -10,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/spacing_8"
         android:ellipsize="end"
         android:maxLength="5"
+        android:maxLines="1"
         tools:text="text" />
 
     <ImageView
@@ -20,7 +21,6 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_gravity="end|center"
-        android:layout_marginEnd="@dimen/spacing_8"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_btn_icon_cancel" />
 </FrameLayout>
