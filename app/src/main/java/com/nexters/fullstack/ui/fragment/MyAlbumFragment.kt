@@ -20,8 +20,6 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
         binding.addLabel.setOnClickListener {
             CreateAlbumBottomSheet(requireContext()).show()
         }
-
-        Log.e("localList", viewModel.output.getLocalImage().toString())
     }
 
     companion object {

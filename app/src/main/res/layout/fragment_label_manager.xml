@@ -69,7 +69,7 @@
                         android:paddingStart="@dimen/spacing_8"
                         android:paddingEnd="@dimen/spacing_8"
                         android:layout_marginStart="@dimen/spacing_12"
-                        android:text="@{String.format(@string/label_size, vm.output.localImage.size())}"
+                        android:text="@{String.format(@string/label_size, vm.output.localImageCount)}"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/toolbar_guide_line"

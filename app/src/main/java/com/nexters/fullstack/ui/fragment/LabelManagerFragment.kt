@@ -13,16 +13,16 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelManagerBinding
 import com.nexters.fullstack.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
 import com.yuyakaido.android.cardstackview.*
 import io.reactivex.schedulers.Schedulers
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewModel>(),
     CardStackListener {
     override val layoutRes: Int = R.layout.fragment_label_manager
-    override val viewModel: MainViewModel by viewModel()
+    override val viewModel: MainViewModel by sharedViewModel()
 
     private val stackAdapter: MainStackAdapter by lazy {
         MainStackAdapter()
