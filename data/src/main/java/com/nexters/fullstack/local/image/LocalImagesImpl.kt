@@ -7,8 +7,9 @@ import android.provider.MediaStore
 import android.text.TextUtils
 
 internal class LocalImagesImpl(private val context: Context) : LocalImages {
+    private val result = arrayListOf<String>()
+
     override fun fetch(filterValue: String): ArrayList<String> {
-        val result = arrayListOf<String>()
 
         val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DISPLAY_NAME)
@@ -34,5 +35,9 @@ internal class LocalImagesImpl(private val context: Context) : LocalImages {
             }
         }
         return result
+    }
+
+    override fun getSize(): Int {
+        return result.size
     }
 }
