@@ -116,6 +116,9 @@ class LabelingViewModel(
             if (file.url.isEmpty()) {
                 return
             }
+            if (didClickList.isNullOrEmpty()) {
+                return
+            }
             val localFileMapper = PresenterLocalFileMapper.toData(file)
             val labelMapper = LabelSourceMapper.toData(didClickList)
 
