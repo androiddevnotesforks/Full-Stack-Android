@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import com.nexters.feature.util.ColorUtils
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants
@@ -109,10 +112,23 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                 cancelButton.setOnClickListener {
                     labels.remove(labels[i])
                     binding.selectLinearLayout.removeViewAt(i)
+                    updateView(labels)
                     labelAdapter.notifyDataSetChanged()
                 }
                 title.text = labels[i].name
+                setBackgroundTint(cancelButton, labels[i].color)
                 binding.selectLinearLayout.addView(layout, 0)
+            }
+        }
+    }
+
+    private fun setBackgroundTint(view: View, color: String) {
+        when (view) {
+            is TextView -> {
+
+            }
+            is ImageView -> {
+                view.setColorFilter(ColorUtils(color, requireContext()).getActive())
             }
         }
     }
