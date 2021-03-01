@@ -1,9 +1,13 @@
 package com.nexters.fullstack.ui.fragment
 
 import android.app.Activity
+import android.graphics.ColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -15,6 +19,7 @@ import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.source.LabelSource
@@ -22,6 +27,8 @@ import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
+import com.nexters.fullstack.util.fadeInAnimation
+import com.nexters.fullstack.util.fadeOutAnimation
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -99,14 +106,23 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
     private fun updateView(labels: MutableList<LabelSource>) {
         if (labels.isEmpty()) {
+            binding.selectLinearLayout.fadeOutAnimation()
             binding.selectLinearLayout.visibility = View.GONE
         } else {
+            binding.selectLinearLayout.fadeInAnimation()
             binding.selectLinearLayout.visibility = View.VISIBLE
             binding.selectLinearLayout.removeAllViews()
 
             for (i in labels.indices) {
                 val layout = LayoutInflater.from(requireContext())
                     .inflate(R.layout.selected_label_item, null)
+                val frameLayoutParams = FrameLayout.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+                frameLayoutParams.setMargins(0, 0, 10.toPx, 0)
+                layout.layoutParams = frameLayoutParams
+                val frameLayout = layout.findViewById<FrameLayout>(R.id.bg_selected)
                 val title = layout.findViewById<TextView>(R.id.tv_label)
                 val cancelButton = layout.findViewById<ImageView>(R.id.cancel_button)
                 cancelButton.setOnClickListener {
@@ -116,21 +132,22 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                     labelAdapter.notifyDataSetChanged()
                 }
                 title.text = labels[i].name
-                setBackgroundTint(cancelButton, labels[i].color)
+                setBackgroundTint(cancelButton, title, frameLayout, color = labels[i].color)
                 binding.selectLinearLayout.addView(layout, 0)
             }
         }
     }
 
-    private fun setBackgroundTint(view: View, color: String) {
-        when (view) {
-            is TextView -> {
-
-            }
-            is ImageView -> {
-                view.setColorFilter(ColorUtils(color, requireContext()).getActive())
-            }
-        }
+    private fun setBackgroundTint(
+        imageView: ImageView,
+        textView: TextView,
+        frameLayout: FrameLayout,
+        color: String
+    ) {
+        val colorUtils = ColorUtils(color, requireContext()).getActive()
+        imageView.setColorFilter(colorUtils)
+        textView.setTextColor(colorUtils)
+        frameLayout.background.setTint(colorUtils)
     }
 
     override fun onDestroyView() {
