@@ -1,4 +1,4 @@
-package com.nexters.feature.ui.data
+package com.nexters.feature.ui.data.pallet
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

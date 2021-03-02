@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import com.nexters.feature.R
-import com.nexters.feature.ui.data.PalletItem
+import com.nexters.feature.ui.data.pallet.PalletItem
 import com.nexters.feature.util.ColorUtils
 
 class PalletGridLayout @JvmOverloads constructor(
