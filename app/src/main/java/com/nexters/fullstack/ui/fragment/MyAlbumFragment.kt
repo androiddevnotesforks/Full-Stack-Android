@@ -27,11 +27,8 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
                 .throttleFirst(1000L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {
-                        startActivity(Intent(requireContext(), CreateLabelActivity::class.java))
-                    }, {
-                        it.printStackTrace()
-                    }
+                    { startActivity(Intent(requireContext(), CreateLabelActivity::class.java)) },
+                    { it.printStackTrace() }
                 )
         )
     }
