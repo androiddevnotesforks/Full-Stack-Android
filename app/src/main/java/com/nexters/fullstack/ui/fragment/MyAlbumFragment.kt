@@ -18,7 +18,8 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addLabel.setOnClickListener {
-            CreateAlbumBottomSheet(requireContext()).show()
+//            CreateAlbumBottomSheet(requireContext()).show()
+            //todo LabelCreate Activity
         }
     }
 
