@@ -10,15 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nexters.feature.R
 import com.nexters.feature.databinding.LayoutLabelManagerBottomSheetBinding
-import com.nexters.feature.ui.data.bottomsheet.BottomSheetItem
 
-class LabelManagerBottomSheetDialog : BottomSheetDialogFragment() {
-
-    val items = listOf(BottomSheetItem("라벨 수정하기") {
-
-    }, BottomSheetItem("라벨 삭제하기") {
-
-    })
+//todo BottomSheetAdapter
+class LabelManagerBottomSheetDialog(private val bottomSheetAdapter: Unit) : BottomSheetDialogFragment() {
 
     private lateinit var binding: LayoutLabelManagerBottomSheetBinding
 
@@ -30,12 +24,17 @@ class LabelManagerBottomSheetDialog : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.layout_label_manager_bottom_sheet, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.executePendingBindings()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =

@@ -1,3 +1,3 @@
-package com.nexters.feature.ui.data.bottomsheet
+package com.nexters.fullstack.source.bottomsheet
 
 data class BottomSheetItem(val title: String, val onClickListener: () -> Unit)
