@@ -22,6 +22,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
+import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
@@ -40,20 +41,6 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     private val labelAdapter = MyLabelAdapter()
 
     init {
-        disposable.add(
-            BusImpl.publish()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result == Activity.RESULT_OK) {
-                        labelAdapter.notifyDataSetChanged()
-                    } else {
-                        labelAdapter.addSelectedItem(result as LabelSource)
-                        labelAdapter.notifyDataSetChanged()
-                    }
-                }, {})
-        )
-
         labelAdapter.callback = {
             updateView(it)
         }
@@ -166,6 +153,16 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                         putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData)
                     }
             }.also { instance = it }
+        }
+    }
+
+    override fun onActivityResult(activityResultData: ActivityResultData) {
+        if (activityResultData.resultCode == Activity.RESULT_OK) {
+            labelAdapter.notifyDataSetChanged()
+        } else if (activityResultData.result != null && activityResultData.result is LabelSource) {
+            val labelSource = activityResultData.result as LabelSource
+            labelAdapter.addSelectedItem(labelSource)
+            labelAdapter.notifyDataSetChanged()
         }
     }
 }

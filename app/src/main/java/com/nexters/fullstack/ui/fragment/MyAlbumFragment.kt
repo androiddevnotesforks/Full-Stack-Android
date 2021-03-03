@@ -6,6 +6,7 @@ import android.view.View
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.viewmodel.MainViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -49,5 +50,9 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
             }
             return MyAlbumFragment()
         }
+    }
+
+    override fun onActivityResult(activityResultData: ActivityResultData) {
+        //no-op
     }
 }
