@@ -7,7 +7,6 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.os.bundleOf
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants.LABEL_BUNDLE_KEY
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
@@ -17,7 +16,6 @@ import com.nexters.fullstack.viewmodel.MainViewModel
 import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
 import com.yuyakaido.android.cardstackview.*
-import io.reactivex.schedulers.Schedulers
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewModel>(),
