@@ -1,27 +1,22 @@
 package com.nexters.fullstack.ui.fragment
 
 import android.app.Activity
-import android.graphics.ColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.nexters.feature.util.ColorUtils
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.mapper.LocalFileMapper
-import com.nexters.fullstack.mapper.LocalMainLabelMapper
+import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.LocalFile
 import com.nexters.fullstack.source.ViewState
@@ -40,20 +35,6 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     private val labelAdapter = MyLabelAdapter()
 
     init {
-        disposable.add(
-            BusImpl.publish()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result == Activity.RESULT_OK) {
-                        labelAdapter.notifyDataSetChanged()
-                    } else {
-                        labelAdapter.addSelectedItem(result as LabelSource)
-                        labelAdapter.notifyDataSetChanged()
-                    }
-                }, {})
-        )
-
         labelAdapter.callback = {
             updateView(it)
         }
@@ -166,6 +147,16 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                         putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData)
                     }
             }.also { instance = it }
+        }
+    }
+
+    override fun onActivityResult(activityResultData: ActivityResultData) {
+        if (activityResultData.resultCode == Activity.RESULT_OK) {
+            labelAdapter.notifyDataSetChanged()
+        } else if (activityResultData.result != null && activityResultData.result is LabelSource) {
+            val labelSource = activityResultData.result as LabelSource
+            labelAdapter.addSelectedItem(labelSource)
+            labelAdapter.notifyDataSetChanged()
         }
     }
 }

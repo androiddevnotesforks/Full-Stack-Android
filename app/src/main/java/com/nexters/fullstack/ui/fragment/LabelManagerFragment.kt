@@ -7,16 +7,15 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.os.bundleOf
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Constants.LABEL_BUNDLE_KEY
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelManagerBinding
+import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.viewmodel.MainViewModel
 import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
 import com.yuyakaido.android.cardstackview.*
-import io.reactivex.schedulers.Schedulers
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewModel>(),
@@ -29,22 +28,6 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     private val manager by lazy { CardStackLayoutManager(requireContext(), this) }
-
-
-    init {
-        disposable.add(
-            BusImpl.publish()
-            .subscribeOn(Schedulers.computation())
-            .onErrorReturn {
-                -9999
-            }
-            .subscribe { result ->
-                if (result == Activity.RESULT_CANCELED) {
-                    binding.cardStackView.rewind()
-                }
-            })
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -131,5 +114,11 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         }
         intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
         startActivityForResult(intent, 2000)
+    }
+
+    override fun onActivityResult(activityResultData: ActivityResultData) {
+        if (activityResultData.resultCode == Activity.RESULT_CANCELED) {
+            binding.cardStackView.rewind()
+        }
     }
 }

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.nexters.fullstack.source.ActivityResultData
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
@@ -15,10 +16,13 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
         private set
 
     internal val disposable = CompositeDisposable()
+
     //layout
     abstract val layoutRes: Int
 
-    abstract val viewModel : VM
+    abstract val viewModel: VM
+
+    abstract fun onActivityResult(activityResultData: ActivityResultData)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,13 +35,21 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        disposable.add((activity as BaseActivity<*, *>).onActivityResultProcessor.subscribe(::onActivityResult))
+    }
+
     fun bind(body: VB.() -> Unit) {
         binding.run(body)
         binding.executePendingBindings()
     }
 
     override fun onDestroy() {
-        disposable.clear()
+        if (!disposable.isDisposed) {
+            disposable.clear()
+        }
         super.onDestroy()
     }
 }
