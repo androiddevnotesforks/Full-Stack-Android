@@ -1,7 +1,7 @@
 package com.nexters.feature.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.nexters.feature.ui.data.PalletItem
+import com.nexters.feature.ui.data.pallet.PalletItem
 
 class PalletViewModel : ViewModel() {
     internal val _colors =
