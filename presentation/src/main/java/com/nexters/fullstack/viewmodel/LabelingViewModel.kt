@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.mapper.LabelSourceMapper
@@ -43,27 +42,13 @@ class LabelingViewModel(
 
     fun onTextChanged(s: CharSequence) = _labelText.onNext(s.toString())
 
-    private val _colors = MutableLiveData(
-        listOf(
-            PalletItem("Yellow"),
-            PalletItem("Orange"),
-            PalletItem("Red"),
-            PalletItem("Pink"),
-            PalletItem("Violet"),
-            PalletItem("Purple Blue"),
-            PalletItem("Blue"),
-            PalletItem("Peacock Green"),
-            PalletItem("Green"),
-            PalletItem("Gray")
-        )
-    )
+
 
     val output = object : LabelingOutput {
         override fun viewState(): LiveData<ViewState> = _viewState
         override fun finish(): LiveData<Unit> = _finish
         override fun isEmptyLocalLabel(): LiveData<Boolean> = _isEmptyLabel
         override fun labels(): LiveData<LocalLabel> = _labels
-        override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
     }
@@ -129,7 +114,6 @@ class LabelingViewModel(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         _finish.value = Unit
-                        BusImpl.sendData(_finish.value ?: Unit)
                     }, { it.printStackTrace() })
             )
         }
@@ -171,10 +155,6 @@ class LabelingViewModel(
         _viewState.value = ViewState.Selected
     }
 
-    fun setViewState(viewState: ViewState) {
-        _viewState.value = viewState
-    }
-
     private fun didWriteLabelInfo(mainMakeLabelSource: MainMakeLabelSource): Boolean {
         var result = false
         return if (mainMakeLabelSource.labelText.isBlank()) {
@@ -193,8 +173,6 @@ class LabelingViewModel(
         fun isEmptyLocalLabel(): LiveData<Boolean>
 
         fun labels(): LiveData<LocalLabel>
-
-        fun getBottomSheetLabels(): LiveData<List<PalletItem>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
 

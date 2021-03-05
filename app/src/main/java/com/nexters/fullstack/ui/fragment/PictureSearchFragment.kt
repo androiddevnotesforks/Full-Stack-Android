@@ -5,6 +5,7 @@ import android.view.View
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentPictureSearchBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,5 +25,9 @@ class PictureSearchFragment : BaseFragment<FragmentPictureSearchBinding, MainVie
             }
             return PictureSearchFragment()
         }
+    }
+
+    override fun onActivityResult(activityResultData: ActivityResultData) {
+
     }
 }
