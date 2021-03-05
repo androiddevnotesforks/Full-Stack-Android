@@ -94,7 +94,6 @@ drawable bg_bottom_sheet_dialog
 drawable bg_bottom_sheet_ios_dialog
 id label
 layout item_pallet_view
-layout layout_label_manager_bottom_sheet
 style BaseBottomSheetDialog
 style BottomSheet
 style BottomSheetDialogTheme

@@ -2070,7 +2070,6 @@ int layout design_navigation_menu_item 0x0
 int layout design_text_input_end_icon 0x0
 int layout design_text_input_start_icon 0x0
 int layout item_pallet_view 0x0
-int layout layout_label_manager_bottom_sheet 0x0
 int layout mtrl_alert_dialog 0x0
 int layout mtrl_alert_dialog_actions 0x0
 int layout mtrl_alert_dialog_title 0x0

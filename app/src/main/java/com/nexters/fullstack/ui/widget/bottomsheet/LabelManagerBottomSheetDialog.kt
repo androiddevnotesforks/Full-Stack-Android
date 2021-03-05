@@ -1,4 +1,4 @@
-package com.nexters.feature.ui.bottomsheet
+package com.nexters.fullstack.ui.widget.bottomsheet
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,13 +8,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.nexters.feature.R
-import com.nexters.feature.databinding.LayoutLabelManagerBottomSheetBinding
+import com.nexters.fullstack.R
+import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
+import com.nexters.fullstack.viewmodel.BottomSheetViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.KoinComponent
 
 //todo BottomSheetAdapter
-class LabelManagerBottomSheetDialog(private val bottomSheetAdapter: Unit) : BottomSheetDialogFragment() {
+class LabelManagerBottomSheetDialog(private val bottomSheetAdapter: Unit) :
+    BottomSheetDialogFragment(), KoinComponent {
 
     private lateinit var binding: LayoutLabelManagerBottomSheetBinding
+
+    private val bottomSheetViewModel by viewModel<BottomSheetViewModel>()
 
     override fun getTheme(): Int {
         return R.style.iOSBottomSheetDialogTheme
@@ -25,7 +31,12 @@ class LabelManagerBottomSheetDialog(private val bottomSheetAdapter: Unit) : Bott
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.layout_label_manager_bottom_sheet, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.layout_label_manager_bottom_sheet,
+            container,
+            false
+        )
         binding.lifecycleOwner = viewLifecycleOwner
         binding.executePendingBindings()
 
