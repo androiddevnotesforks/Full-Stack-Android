@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
 import com.nexters.fullstack.viewmodel.BottomSheetViewModel
@@ -38,6 +39,7 @@ class LabelManagerBottomSheetDialog(private val bottomSheetAdapter: Unit) :
             false
         )
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.setVariable(BR.vm, bottomSheetViewModel)
         binding.executePendingBindings()
 
         return binding.root
