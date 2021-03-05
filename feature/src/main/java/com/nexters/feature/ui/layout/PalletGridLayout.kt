@@ -8,27 +8,31 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.*
+import com.nexters.feature.BR
 import com.nexters.feature.R
+import com.nexters.feature.databinding.ItemPalletViewBinding
 import com.nexters.feature.ui.data.PalletItem
 import com.nexters.feature.util.ColorUtils
+import com.nexters.feature.viewmodel.PalletViewModel
 
 class PalletGridLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet,
     defaultAttr: Int = 0
-) : GridLayout(context, attrs, defaultAttr) {
+) : GridLayout(context, attrs, defaultAttr), LifecycleObserver, LifecycleOwner,
+    ViewModelStoreOwner {
 
     private val _items = mutableListOf<PalletItem>()
 
     lateinit var setOnLabelClickListener: (PalletItem) -> Unit
 
-    var setItems: List<PalletItem>
-        set(value) {
-            if (value.isNotEmpty()) {
-                _items.addAll(value)
-            }
-        }
-        get() = _items
+    private val lifecycleRegister = LifecycleRegistry(this)
+
+    private val viewModelStore = ViewModelStore()
+
+    val viewModel = ViewModelProvider(this).get(PalletViewModel::class.java)
 
     lateinit var selectedView: View
 
@@ -36,25 +40,32 @@ class PalletGridLayout @JvmOverloads constructor(
 
     init {
         columnCount = 2
+        _items.addAll(viewModel._colors)
     }
 
     fun setOnInitView() {
         _items.forEachIndexed { index, item ->
-            val childView =
+            val childView = DataBindingUtil.bind<ItemPalletViewBinding>(
                 LayoutInflater.from(context).inflate(R.layout.item_pallet_view, this, false)
+            )
 
-            val textView = childView.findViewById<TextView>(R.id.label)
+            childView?.lifecycleOwner = this
+            childView?.executePendingBindings()
+            
+            val textView = childView?.label
 
-            if (index % 2 == 0) {
-                textView.width =
-                    (resources.displayMetrics.widthPixels / 2) - textView.marginRight - (textView.marginLeft * 2)
-            } else {
-                textView.width =
-                    (resources.displayMetrics.widthPixels / 2) - textView.marginRight - textView.marginLeft
+            if (textView != null) {
+                if (index % 2 == 0) {
+                    textView.width =
+                        (resources.displayMetrics.widthPixels / 2) - textView.marginRight - (textView.marginLeft * 2)
+                } else {
+                    textView.width =
+                        (resources.displayMetrics.widthPixels / 2) - textView.marginRight - textView.marginLeft
+                }
             }
 
 
-            textView.run {
+            textView?.run {
                 text = item.name
 
                 setBackgroundColor(ColorUtils(item.name, context).getInactive())
@@ -83,7 +94,20 @@ class PalletGridLayout @JvmOverloads constructor(
                 }
             }
 
-            addView(childView)
+            addView(childView?.root)
         }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+    fun onStartEvent(event: Lifecycle.Event) {
+        lifecycleRegister.handleLifecycleEvent(event)
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return lifecycleRegister
+    }
+
+    override fun getViewModelStore(): ViewModelStore {
+        return viewModelStore
     }
 }
