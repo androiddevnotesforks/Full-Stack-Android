@@ -42,27 +42,13 @@ class LabelingViewModel(
 
     fun onTextChanged(s: CharSequence) = _labelText.onNext(s.toString())
 
-    private val _colors = MutableLiveData(
-        listOf(
-            PalletItem("Yellow"),
-            PalletItem("Orange"),
-            PalletItem("Red"),
-            PalletItem("Pink"),
-            PalletItem("Violet"),
-            PalletItem("Purple Blue"),
-            PalletItem("Blue"),
-            PalletItem("Peacock Green"),
-            PalletItem("Green"),
-            PalletItem("Gray")
-        )
-    )
+
 
     val output = object : LabelingOutput {
         override fun viewState(): LiveData<ViewState> = _viewState
         override fun finish(): LiveData<Unit> = _finish
         override fun isEmptyLocalLabel(): LiveData<Boolean> = _isEmptyLabel
         override fun labels(): LiveData<LocalLabel> = _labels
-        override fun getBottomSheetLabels(): LiveData<List<PalletItem>> = _colors
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
     }
@@ -187,8 +173,6 @@ class LabelingViewModel(
         fun isEmptyLocalLabel(): LiveData<Boolean>
 
         fun labels(): LiveData<LocalLabel>
-
-        fun getBottomSheetLabels(): LiveData<List<PalletItem>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
 

@@ -19,6 +19,7 @@ class CreateLabelActivity : BaseActivity<ActivityCreateLabelBinding, LabelingVie
         super.onCreate(savedInstanceState)
 
         initToolbar()
+        setIntiView()
         bind {
             setVariable(BR.vm, viewModel)
         }
@@ -51,6 +52,10 @@ class CreateLabelActivity : BaseActivity<ActivityCreateLabelBinding, LabelingVie
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24)
+    }
+
+    private fun setIntiView() {
+        binding.palletLayout.setOnInitView()
     }
 
     override fun onSupportNavigateUp(): Boolean {

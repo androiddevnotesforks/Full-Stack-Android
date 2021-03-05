@@ -32,13 +32,7 @@ class PalletGridLayout @JvmOverloads constructor(
 
     private val viewModelStore = ViewModelStore()
 
-    var setItems: List<PalletItem>
-        set(value) {
-            if (value.isNotEmpty()) {
-                _items.addAll(value)
-            }
-        }
-        get() = _items
+    val viewModel = ViewModelProvider(this).get(PalletViewModel::class.java)
 
     lateinit var selectedView: View
 
@@ -46,6 +40,7 @@ class PalletGridLayout @JvmOverloads constructor(
 
     init {
         columnCount = 2
+        _items.addAll(viewModel._colors)
     }
 
     fun setOnInitView() {
@@ -54,9 +49,7 @@ class PalletGridLayout @JvmOverloads constructor(
                 LayoutInflater.from(context).inflate(R.layout.item_pallet_view, this, false)
             )
 
-            val viewModel = ViewModelProvider(this).get(PalletViewModel::class.java)
             childView?.lifecycleOwner = this
-            childView?.setVariable(BR.vm, viewModel)
             childView?.executePendingBindings()
             
             val textView = childView?.label
