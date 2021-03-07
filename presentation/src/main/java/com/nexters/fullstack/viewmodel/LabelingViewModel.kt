@@ -15,6 +15,9 @@ import com.nexters.fullstack.usecase.ImageLabelingUseCase
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.nexters.feature.ui.data.pallet.PalletItem
+import com.nexters.fullstack.usecase.LoadImageUseCase
+import com.nexters.fullstack.usecase.base.BaseUseCase
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,6 +28,7 @@ import java.util.concurrent.TimeUnit
 class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
     loadLabelUseCase: LoadLabelUseCase,
+    private val loadImageUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
     private val imageLabelingUseCase: ImageLabelingUseCase
 ) : BaseViewModel() {
     private val _viewState = MutableLiveData<ViewState>()
@@ -41,7 +45,6 @@ class LabelingViewModel(
     private val disposable = CompositeDisposable()
 
     fun onTextChanged(s: CharSequence) = _labelText.onNext(s.toString())
-
 
 
     val output = object : LabelingOutput {
@@ -150,7 +153,7 @@ class LabelingViewModel(
                     val result = didWriteLabelInfo(labelSource)
                     makeMainLabelSource = labelSource
                     _didWriteLabelInfo.value = result
-                }, { it.printStackTrace() })
+                }, { it.printStackTrace() }),
         )
         _viewState.value = ViewState.Selected
     }
@@ -164,6 +167,16 @@ class LabelingViewModel(
             result
         }
     }
+
+    fun initImageList() {
+        loadImageUseCase.buildUseCase(Unit)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.e("test", it.toString())
+            }, {})
+    }
+
 
     interface LabelingOutput : Output {
         fun viewState(): LiveData<ViewState>

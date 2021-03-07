@@ -8,20 +8,22 @@ import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
-import com.nexters.fullstack.viewmodel.MainViewModel
+import com.nexters.fullstack.viewmodel.LabelingViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
-class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
+class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>() {
     override val layoutRes: Int = R.layout.fragment_myalbum
-    override val viewModel: MainViewModel by viewModel()
+    override val viewModel: LabelingViewModel by viewModel()
     private val addLabelButtonSubject = BehaviorSubject.create<Unit>()
 
     init {
         /**
          * 액티비티 중복 호출 방지.
+         * todo MainActivity  에서 객체가 한번 다 만들어지니까 또 호출할 땐 중복 호출이 안됌.
          */
         disposable.add(
             addLabelButtonSubject
@@ -39,6 +41,8 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
 
         onInitView()
         setOnInitClickListener()
+
+        viewModel.initImageList()
     }
 
     private fun setOnInitClickListener() {

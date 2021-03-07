@@ -1,5 +1,6 @@
 package com.nexters.fullstack.di
 
+import com.nexters.fullstack.constants.KoinNamed
 import com.nexters.fullstack.mapper.LocalToPresentMapper
 import com.nexters.fullstack.mapper.Mapper
 import com.nexters.fullstack.source.PresentLocalFile
@@ -20,7 +21,7 @@ val presentationMapper = module {
 val viewModelModule = module {
     viewModel { LabelOutAppViewModel(get()) }
     viewModel { MainViewModel(get(), get(named("label")), get(named("image")), get()) }
-    viewModel { LabelingViewModel(get(), get(), get()) }
+    viewModel { LabelingViewModel(get(), get(), get(named(KoinNamed.IMAGE)), get()) }
     viewModel { BottomSheetViewModel() }
 }
 
