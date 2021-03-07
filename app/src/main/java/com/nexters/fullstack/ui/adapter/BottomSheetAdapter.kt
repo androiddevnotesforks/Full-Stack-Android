@@ -8,8 +8,11 @@ import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemBottomSheetLabelDeleteBinding
 import com.nexters.fullstack.databinding.ItemBottomSheetLabelUpdateBinding
 import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
+import com.nexters.fullstack.source.local.DomainUserImage
 
 class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
+    lateinit var onClickListener: (DomainUserImage) -> Unit
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             7000 -> {
@@ -33,10 +36,13 @@ class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is LabelDeleteViewHolder -> {
                 //todo bind ViewHolder item, onClickListener..
-//                holder.bind(items[position],)
+                holder.bind(items[position], onClickListener)
+            }
+            is LabelUpdateViewHolder -> {
+                holder.bind(items[position], onClickListener)
             }
         }
     }
@@ -48,7 +54,7 @@ class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
     private inner class LabelUpdateViewHolder(private val binding: ItemBottomSheetLabelUpdateBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(bindItem: BottomSheetItem, onClickListener: (Any) -> Unit) {
+        fun bind(bindItem: BottomSheetItem, onClickListener: (DomainUserImage) -> Unit) {
             binding.item = bindItem
             binding.item.onClickListener = onClickListener
             binding.executePendingBindings()
@@ -58,7 +64,7 @@ class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
 
     private inner class LabelDeleteViewHolder(private val binding: ItemBottomSheetLabelDeleteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(bindItem: BottomSheetItem, onClickListener: (Any) -> Unit) {
+        fun bind(bindItem: BottomSheetItem, onClickListener: (DomainUserImage) -> Unit) {
             binding.item = bindItem
             binding.item.onClickListener = onClickListener
             binding.executePendingBindings()
