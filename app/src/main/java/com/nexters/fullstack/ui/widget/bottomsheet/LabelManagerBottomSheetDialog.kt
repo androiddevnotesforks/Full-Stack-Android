@@ -1,15 +1,18 @@
 package com.nexters.fullstack.ui.widget.bottomsheet
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
 import com.nexters.fullstack.db.entity.UserLabelingImage
+import com.nexters.fullstack.mapper.UserLabelingImageMapper
 import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.viewmodel.BottomSheetViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,7 +21,7 @@ import org.koin.core.KoinComponent
 //todo BottomSheetAdapter
 class LabelManagerBottomSheetDialog(
     private val bottomSheetAdapter: BottomSheetAdapter,
-    private val data: UserLabelingImage?
+    private val data: UserLabelingImage
 ) :
     BottomSheetDialogFragment(), KoinComponent {
 
@@ -45,6 +48,8 @@ class LabelManagerBottomSheetDialog(
         binding.setVariable(BR.vm, bottomSheetViewModel)
         binding.executePendingBindings()
 
+        bottomSheetAdapter.userImage = UserLabelingImageMapper.fromDomain(data)
+
         return binding.root
     }
 
@@ -55,21 +60,19 @@ class LabelManagerBottomSheetDialog(
         binding.rvBottomSheet.setHasFixedSize(true)
     }
 
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-//        BottomSheetDialog(requireContext(), theme)
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        BottomSheetDialog(requireContext(), theme)
 
     companion object {
         private var instance: LabelManagerBottomSheetDialog? = null
 
         fun getInstance(
             adapter: BottomSheetAdapter,
-            data: UserLabelingImage? = null
+            data: UserLabelingImage
         ): LabelManagerBottomSheetDialog {
             return instance ?: LabelManagerBottomSheetDialog(adapter, data).apply {
-                data?.let {
-                    arguments = Bundle().apply {
-                        putParcelable("data", data)
-                    }
+                arguments = Bundle().apply {
+                    putParcelable("data", data)
                 }
             }.also { bottomSheet -> instance = bottomSheet }
         }

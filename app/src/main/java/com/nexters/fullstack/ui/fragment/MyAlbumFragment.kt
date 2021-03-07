@@ -37,9 +37,18 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, MainViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        onInitView()
+        setOnInitClickListener()
+    }
+
+    private fun setOnInitClickListener() {
         binding.addLabel.setOnClickListener {
             addLabelButtonSubject.onNext(Unit)
         }
+    }
+
+    private fun onInitView() {
+//        binding.rvUserImage.adapter =
     }
 
     companion object {

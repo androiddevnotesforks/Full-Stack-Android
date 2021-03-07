@@ -12,6 +12,7 @@ import com.nexters.fullstack.source.local.DomainUserImage
 
 class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
     lateinit var onClickListener: (DomainUserImage) -> Unit
+    lateinit var userImage: DomainUserImage
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -21,7 +22,8 @@ class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
                         LayoutInflater.from(
                             parent.context
                         )
-                    )
+                    ),
+                    onClickListener
                 )
             }
             7001 -> {
@@ -39,10 +41,10 @@ class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
         when (holder) {
             is LabelDeleteViewHolder -> {
                 //todo bind ViewHolder item, onClickListener..
-                holder.bind(items[position], onClickListener)
+                holder.bind(items[position])
             }
             is LabelUpdateViewHolder -> {
-                holder.bind(items[position], onClickListener)
+                holder.bind(items[position])
             }
         }
     }
@@ -51,12 +53,20 @@ class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
         return items[position].type
     }
 
-    private inner class LabelUpdateViewHolder(private val binding: ItemBottomSheetLabelUpdateBinding) :
+    private inner class LabelUpdateViewHolder(
+        private val binding: ItemBottomSheetLabelUpdateBinding,
+        private val onClickListener: (DomainUserImage) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(bindItem: BottomSheetItem, onClickListener: (DomainUserImage) -> Unit) {
+        init {
+            binding.itemContainer.setOnClickListener {
+                onClickListener(userImage)
+            }
+        }
+
+        fun bind(bindItem: BottomSheetItem) {
             binding.item = bindItem
-            binding.item.onClickListener = onClickListener
             binding.executePendingBindings()
         }
 
@@ -64,9 +74,8 @@ class BottomSheetAdapter : BaseAdapter<BottomSheetItem>() {
 
     private inner class LabelDeleteViewHolder(private val binding: ItemBottomSheetLabelDeleteBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(bindItem: BottomSheetItem, onClickListener: (DomainUserImage) -> Unit) {
+        fun bind(bindItem: BottomSheetItem) {
             binding.item = bindItem
-            binding.item.onClickListener = onClickListener
             binding.executePendingBindings()
         }
     }
