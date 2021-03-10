@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="vm"
+            type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,6 +90,7 @@
                 android:id="@+id/rv_user_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:localImages="@{vm.output.images}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:spanCount="2"
