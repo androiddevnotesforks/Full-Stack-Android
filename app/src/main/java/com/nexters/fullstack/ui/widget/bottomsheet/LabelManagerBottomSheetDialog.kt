@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nexters.fullstack.BR
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
 import com.nexters.fullstack.db.entity.UserLabelingImage
@@ -72,7 +73,7 @@ class LabelManagerBottomSheetDialog(
         ): LabelManagerBottomSheetDialog {
             return instance ?: LabelManagerBottomSheetDialog(adapter, data).apply {
                 arguments = Bundle().apply {
-                    putParcelable("data", data)
+                    putParcelable(Constants.BOTTOM_SHEET_KEY, data)
                 }
             }.also { bottomSheet -> instance = bottomSheet }
         }

@@ -13,4 +13,6 @@ object Constants {
     const val BOTTOM_SHEET_TAG = "bottomsheet"
 
     const val SELECT_LABEL_ITEM = "label"
+
+    const val BOTTOM_SHEET_KEY = "data"
 }
