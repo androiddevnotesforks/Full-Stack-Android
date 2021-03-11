@@ -16,6 +16,8 @@ class LocalImageAdapter : BaseAdapter<DomainUserImage>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+        if(holder is LocalImageViewHolder) {
+            holder.onBind(items[position])
+        }
     }
 }

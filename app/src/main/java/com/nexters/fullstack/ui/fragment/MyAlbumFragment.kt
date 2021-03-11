@@ -3,11 +3,13 @@ package com.nexters.fullstack.ui.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
+import com.nexters.fullstack.ui.adapter.LocalImageAdapter
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -19,6 +21,8 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     override val layoutRes: Int = R.layout.fragment_myalbum
     override val viewModel: LabelingViewModel by viewModel()
     private val addLabelButtonSubject = BehaviorSubject.create<Unit>()
+
+    private val localImageAdapter by lazy { LocalImageAdapter() }
 
     init {
         /**
@@ -41,8 +45,9 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
 
         onInitView()
         setOnInitClickListener()
-
-        viewModel.initImageList()
+        bind {
+            setVariable(BR.vm, viewModel)
+        }
     }
 
     private fun setOnInitClickListener() {
@@ -52,7 +57,8 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     }
 
     private fun onInitView() {
-//        binding.rvUserImage.adapter =
+
+//        binding.rvUserImage.adapter = localImageAdapter
     }
 
     companion object {
