@@ -10,13 +10,18 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityOnboardingBinding
 import com.nexters.fullstack.ui.fragment.OnBoardingFragment
+import com.nexters.fullstack.util.PrefDataStoreManager
 import com.nexters.fullstack.viewmodel.OnBoardingViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingViewModel>() {
     override val layoutRes: Int = R.layout.activity_onboarding
     override val viewModel: OnBoardingViewModel by viewModel()
 
+    private val prefDataStoreManager = PrefDataStoreManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +33,25 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
         binding.pager.adapter = PagerAdapter(this)
     }
 
+    // TODO 건너뛰기 추가
     private fun initListner(){
         with(binding){
             tvButton.setOnClickListener {
                 with(pager){
-                    if(currentItem == PAGE_NUM - 1){
-                        startActivity(Intent(this@OnBoardingActivity, MainActivity::class.java))
+                    if(currentItem == PAGE_NUM-1){
+                        startMainActivity()
                     }else{
                         currentItem += 1
                     }
                 }
             }
+        }
+    }
+
+    private fun startMainActivity(){
+        CoroutineScope(Dispatchers.IO).launch {
+            prefDataStoreManager.updateIsFirst(false)
+            startActivity(Intent(this@OnBoardingActivity, MainActivity::class.java))
         }
     }
 

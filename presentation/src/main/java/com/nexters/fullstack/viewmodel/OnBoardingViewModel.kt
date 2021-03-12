@@ -1,10 +1,9 @@
 package com.nexters.fullstack.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 
 class OnBoardingViewModel : BaseViewModel() {
+
     fun getItem(order : Int) : OnBoardingData = list[order]
 
     companion object{

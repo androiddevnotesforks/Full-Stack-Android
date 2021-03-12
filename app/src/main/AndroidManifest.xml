@@ -26,7 +26,9 @@
         <activity
             android:name=".ui.activity.LabelingActivity"
             android:theme="@style/Transparent" />
-        <activity android:name=".ui.activity.SplashActivity">
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
