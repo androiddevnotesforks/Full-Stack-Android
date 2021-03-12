@@ -14,6 +14,8 @@ object Constants {
 
     const val SELECT_LABEL_ITEM = "label"
 
+    const val BOTTOM_SHEET_KEY = "data"
+
     // shared Preference Key
     const val FIRST_LOADING = "first_loading"
 }

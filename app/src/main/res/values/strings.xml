@@ -2,7 +2,7 @@
     <string name="app_name">Labelary</string>
 
     <!--    splash  -->
-    <string name="splash">스크린 샷<br/>정리가 어렵다면</string>
+    <string name="splash">스크린 샷<br />정리가 어렵다면</string>
 
     <!--    Bottom Sheet    -->
     <string name="labelling">라벨링</string>
@@ -30,6 +30,7 @@
 
     <!--    LabelManagerFragment    -->
     <string name="label_title">지금 라벨링 할까요?</string>
+    <string name="label_size">+%1$d</string>
 
     <!--    Labeling Activity   -->
     <string name="label_activity_title">라벨 선택</string>

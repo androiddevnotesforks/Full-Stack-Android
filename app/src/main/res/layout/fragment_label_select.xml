@@ -99,18 +99,26 @@
 
         <!--        라벨이 있을 때        -->
 
-        <androidx.recyclerview.widget.RecyclerView
+        <HorizontalScrollView
             android:id="@+id/rv_selected"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="@{vm.output.isEmptyLocalLabel() ? View.GONE : View.VISIBLE}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/select_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_gravity="start"
+                android:animateLayoutChanges="false"
+                android:gravity="start"
+                android:orientation="horizontal"
+                android:layout_height="match_parent" />
+        </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/spacing_20"
             android:id="@+id/rv_label"
             android:layout_width="0dp"
             android:layout_height="0dp"

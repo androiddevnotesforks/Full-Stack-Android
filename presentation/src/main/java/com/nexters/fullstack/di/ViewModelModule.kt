@@ -1,9 +1,11 @@
 package com.nexters.fullstack.di
 
+import com.nexters.fullstack.constants.KoinNamed
 import com.nexters.fullstack.mapper.LocalToPresentMapper
 import com.nexters.fullstack.mapper.Mapper
 import com.nexters.fullstack.source.PresentLocalFile
 import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.viewmodel.BottomSheetViewModel
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import com.nexters.fullstack.viewmodel.MainViewModel
@@ -22,5 +24,7 @@ val viewModelModule = module {
     viewModel { MainViewModel(get(), get(named("label")), get(named("image")), get()) }
     viewModel { LabelingViewModel(get(), get(), get()) }
     viewModel { OnBoardingViewModel() }
+    viewModel { LabelingViewModel(get(), get(), get(named(KoinNamed.IMAGE)), get()) }
+    viewModel { BottomSheetViewModel() }
 }
 

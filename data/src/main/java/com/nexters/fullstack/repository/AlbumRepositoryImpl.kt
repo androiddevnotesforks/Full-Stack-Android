@@ -1,9 +1,9 @@
 package com.nexters.fullstack.repository
 
+import com.nexters.fullstack.local.image.LocalImages
 import com.nexters.fullstack.mapper.LocalImageMapper
 import com.nexters.fullstack.source.LocalImageData
 import com.nexters.fullstack.source.data.LocalImageDomain
-import com.tsdev.feature.LocalImages
 
 
 internal class AlbumRepositoryImpl(private val localImages: LocalImages) : AlbumRepository {

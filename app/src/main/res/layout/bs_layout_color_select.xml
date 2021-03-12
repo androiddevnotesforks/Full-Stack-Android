@@ -30,14 +30,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.tsdev.feature.ui.layout.PalletGridLayout
+        <com.nexters.feature.ui.layout.PalletGridLayout
             android:id="@+id/pallet_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:setItems="@{vm.output.getBottomSheetLabels()}" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/textView7"

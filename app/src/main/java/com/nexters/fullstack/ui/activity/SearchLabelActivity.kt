@@ -6,10 +6,10 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.BusImpl
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivitySearchLabelBinding
+import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -32,7 +32,7 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             startActivity(intent)
-            BusImpl.sendData(labelList)
+            onActivityResultProcessor.onNext(ActivityResultData(result = labelList))
         }
 
         labelAdapter.finish = { labelList ->
@@ -41,7 +41,7 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             startActivity(intent)
-            BusImpl.sendData(labelList)
+            onActivityResultProcessor.onNext(ActivityResultData(result = labelList))
         }
     }
 

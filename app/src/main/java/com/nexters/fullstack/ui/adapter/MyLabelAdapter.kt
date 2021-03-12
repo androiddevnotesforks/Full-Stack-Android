@@ -17,6 +17,9 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
     val selectedLabel: List<LabelSource>
         get() = _selectedLabel
     lateinit var finish: (LabelSource) -> Unit
+
+    lateinit var callback: (MutableList<LabelSource>) -> Unit
+
     private val onLabelClickListener = { position: Int ->
         val getLabelSource = getItem(position)
         if (_selectedLabel.contains(getLabelSource)) {
@@ -24,6 +27,7 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
         } else {
             _selectedLabel.add(getLabelSource)
         }
+        callback(_selectedLabel)
         notifyDataSetChanged()
     }
 

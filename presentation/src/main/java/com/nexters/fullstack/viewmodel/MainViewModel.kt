@@ -33,6 +33,7 @@ class MainViewModel(
     private val mainLabel = MutableLiveData<MainLabel>()
     private val startLabeling = MutableLiveData<Unit>()
     private val _localImage = MutableLiveData<List<DomainUserImage>>()
+    private val _imageItemCount = MutableLiveData<Int>()
 
     val input = object : MainInput {
         override fun onClickedButton(state: State) = onClickButton.onNext(state)
@@ -45,7 +46,7 @@ class MainViewModel(
             return mainLabel
         }
 
-        override fun getLocalImage(): LiveData<List<DomainUserImage>> = _localImage
+        override fun getLocalImageCount(): LiveData<Int> = _imageItemCount
 
         override fun startLabelling() = startLabeling
     }
@@ -71,6 +72,7 @@ class MainViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     mainLabel.value = MainLabel(images = response)
+                    _imageItemCount.value = response.size
                 }, {}),
 
             localImage
@@ -90,7 +92,7 @@ class MainViewModel(
                 }
                 mainLabel.value = response
             }, {
-
+                it.printStackTrace()
             })
         )
     }
@@ -103,7 +105,7 @@ class MainViewModel(
     interface MainOutput : Output {
         fun state(): LiveData<MainLabel>
 
-        fun getLocalImage(): LiveData<List<DomainUserImage>>
+        fun getLocalImageCount(): LiveData<Int>
 
         //Router
         fun startLabelling(): LiveData<Unit>

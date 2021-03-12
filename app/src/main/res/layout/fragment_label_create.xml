@@ -66,15 +66,14 @@
                 app:layout_constraintStart_toStartOf="@+id/left_guide_line"
                 app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-            <com.tsdev.feature.ui.layout.PalletGridLayout
+            <com.nexters.feature.ui.layout.PalletGridLayout
                 android:id="@+id/pallet_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_x_large"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/left_guide_line"
-                app:layout_constraintTop_toBottomOf="@+id/label_color_title"
-                app:setItems="@{vm.output.bottomSheetLabels}" />
+                app:layout_constraintTop_toBottomOf="@+id/label_color_title" />
 
             <TextView
                 android:id="@+id/add_label_text"
