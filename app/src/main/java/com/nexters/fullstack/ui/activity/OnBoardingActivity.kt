@@ -1,12 +1,10 @@
 package com.nexters.fullstack.ui.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.nexters.fullstack.Constants
 import com.nexters.fullstack.MainActivity
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -39,7 +37,6 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
         binding.pager.adapter = PagerAdapter(this)
     }
 
-    // TODO 건너뛰기 추가
     private fun initListner(){
         with(binding){
             tvButton.setOnClickListener {

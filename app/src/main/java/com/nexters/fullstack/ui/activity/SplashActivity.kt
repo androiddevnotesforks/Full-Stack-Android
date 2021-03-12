@@ -3,10 +3,6 @@ package com.nexters.fullstack.ui.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import com.nexters.fullstack.Constants
 import com.nexters.fullstack.MainActivity
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -15,8 +11,6 @@ import com.nexters.fullstack.util.PrefDataStoreManager
 import com.nexters.fullstack.viewmodel.MainViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, MainViewModel>() {
