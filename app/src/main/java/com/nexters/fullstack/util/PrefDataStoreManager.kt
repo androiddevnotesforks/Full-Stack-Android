@@ -4,9 +4,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.createDataStore
 import com.nexters.fullstack.App
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import java.util.concurrent.Flow
 
 class PrefDataStoreManager {
     private val dataStore = App.app.createDataStore(name = DATA_STORE_NAME)

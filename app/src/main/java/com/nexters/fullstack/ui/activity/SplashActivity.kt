@@ -1,10 +1,12 @@
 package com.nexters.fullstack.ui.activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.MainActivity
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -22,13 +24,20 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, MainViewModel>() {
     override val viewModel: MainViewModel by viewModel()
 
     private val prefDataStoreManager = PrefDataStoreManager()
+//    <  using shared Preference  >
+//    private lateinit var sharedPref : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+//        <  using shared Preference  >
+//        sharedPref = this.getPreferences(MODE_PRIVATE)
+//        sharedPref.getBoolean(Constants.FIRST_LOADING, true)
+
         var intent = Intent(this, MainActivity::class.java)
+
         CoroutineScope(Dispatchers.IO).launch {
-            launch {
+            GlobalScope.launch {
                 prefDataStoreManager.readIsFirstFlow().collect {
                     if (it) intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
                 }
@@ -39,6 +48,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, MainViewModel>() {
     }
 
     companion object{
-        const val SPLASH_VIEW_TIME = 1000L
+        private const val SPLASH_VIEW_TIME = 1000L
     }
 }

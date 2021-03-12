@@ -1,10 +1,12 @@
 package com.nexters.fullstack.ui.activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.MainActivity
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -22,9 +24,13 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
     override val viewModel: OnBoardingViewModel by viewModel()
 
     private val prefDataStoreManager = PrefDataStoreManager()
+//    <  using shared preference  >
+//    private lateinit var sharedPref : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        <  using shared preference  >
+//        sharedPref = this.getPreferences(MODE_PRIVATE)
         initView()
         initListner()
     }
@@ -49,6 +55,8 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
     }
 
     private fun startMainActivity(){
+//        <  using shared preference  >
+//        sharedPref.edit().putBoolean(Constants.FIRST_LOADING, false).apply()
         CoroutineScope(Dispatchers.IO).launch {
             prefDataStoreManager.updateIsFirst(false)
             startActivity(Intent(this@OnBoardingActivity, MainActivity::class.java))
