@@ -14,7 +14,10 @@ import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.usecase.ImageLabelingUseCase
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
-import com.nexters.feature.ui.data.PalletItem
+import com.nexters.feature.ui.data.pallet.PalletItem
+import com.nexters.fullstack.usecase.LoadImageUseCase
+import com.nexters.fullstack.usecase.base.BaseUseCase
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,12 +28,15 @@ import java.util.concurrent.TimeUnit
 class LabelingViewModel(
     private val labelingUseCase: LabelingUseCase,
     loadLabelUseCase: LoadLabelUseCase,
+    loadImageUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
     private val imageLabelingUseCase: ImageLabelingUseCase
 ) : BaseViewModel() {
     private val _viewState = MutableLiveData<ViewState>()
     private val _finish = MutableLiveData<Unit>()
     private val _isEmptyLabel = MutableLiveData(true)
     private val _labels = MutableLiveData<LocalLabel>()
+
+    private val _images = MutableLiveData<List<DomainUserImage>>()
 
     val _didWriteLabelInfo = MutableLiveData(false)
     private var makeMainLabelSource: MainMakeLabelSource? = null
@@ -43,7 +49,6 @@ class LabelingViewModel(
     fun onTextChanged(s: CharSequence) = _labelText.onNext(s.toString())
 
 
-
     val output = object : LabelingOutput {
         override fun viewState(): LiveData<ViewState> = _viewState
         override fun finish(): LiveData<Unit> = _finish
@@ -51,6 +56,7 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
+        override fun getImages(): LiveData<List<DomainUserImage>> = _images
     }
 
     val input = object : LabelingInput {
@@ -139,6 +145,12 @@ class LabelingViewModel(
                     }
                 }, { it.printStackTrace() }),
 
+            loadImageUseCase.buildUseCase(Unit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _images.value = it
+                }, { it.printStackTrace() }),
 
             Observable.combineLatest(
                 labelTextCache,
@@ -150,7 +162,7 @@ class LabelingViewModel(
                     val result = didWriteLabelInfo(labelSource)
                     makeMainLabelSource = labelSource
                     _didWriteLabelInfo.value = result
-                }, { it.printStackTrace() })
+                }, { it.printStackTrace() }),
         )
         _viewState.value = ViewState.Selected
     }
@@ -177,6 +189,8 @@ class LabelingViewModel(
         fun didWriteCreateLabelForm(): LiveData<Boolean>
 
         fun getLabelQuery(): LiveData<String>
+
+        fun getImages(): LiveData<List<DomainUserImage>>
     }
 
     interface LabelingInput : Input {

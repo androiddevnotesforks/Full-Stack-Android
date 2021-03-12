@@ -10,7 +10,7 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.BsLayoutColorSelectBinding
 import com.nexters.fullstack.viewmodel.LabelingViewModel
-import com.nexters.feature.ui.data.PalletItem
+import com.nexters.feature.ui.data.pallet.PalletItem
 
 class LabelColorBottomSheet(private val vm: LabelingViewModel) :
     BottomSheetDialogFragment() {

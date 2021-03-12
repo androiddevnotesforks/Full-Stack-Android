@@ -5,15 +5,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.GridLayout
-import android.widget.TextView
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
-import com.nexters.feature.BR
 import com.nexters.feature.R
 import com.nexters.feature.databinding.ItemPalletViewBinding
-import com.nexters.feature.ui.data.PalletItem
+import com.nexters.feature.ui.data.pallet.PalletItem
 import com.nexters.feature.util.ColorUtils
 import com.nexters.feature.viewmodel.PalletViewModel
 

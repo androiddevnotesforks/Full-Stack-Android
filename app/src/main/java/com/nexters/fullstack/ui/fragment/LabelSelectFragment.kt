@@ -25,8 +25,6 @@ import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.util.fadeInAnimation
 import com.nexters.fullstack.util.fadeOutAnimation
 import com.nexters.fullstack.viewmodel.LabelingViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingViewModel>() {
