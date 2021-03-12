@@ -25,7 +25,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, MainViewModel>() {
 
     private val prefDataStoreManager = PrefDataStoreManager()
 //    <  using shared Preference  >
-//    private lateinit var sharedPref : SharedPreferences
+    private lateinit var sharedPref : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

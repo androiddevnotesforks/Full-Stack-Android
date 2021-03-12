@@ -51,6 +51,9 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
                     }
                 }
             }
+            tvSkip.setOnClickListener {
+                startMainActivity()
+            }
         }
     }
 
