@@ -7,6 +7,7 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentOnboardingBinding
+import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.viewmodel.OnBoardingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,5 +47,9 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding, OnBoardingVie
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onActivityResult(activityResultData: ActivityResultData) {
+        //no op
     }
 }
