@@ -7,6 +7,10 @@
         <variable
             name="vm"
             type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
+
+        <variable
+            name="event"
+            type="com.nexters.fullstack.ui.adapter.listener.ItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,6 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:localImages="@{vm.output.images}"
+                app:eventAction="@{event}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:spanCount="2"

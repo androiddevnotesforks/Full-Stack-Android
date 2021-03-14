@@ -9,9 +9,13 @@ import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.ui.holder.LocalImageViewHolder
 
 class LocalImageAdapter : BaseAdapter<DomainUserImage>() {
+
+    var eventAction: Any? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LocalImageViewHolder(
-            ItemAlbumWithLabelBinding.inflate(LayoutInflater.from(parent.context))
+            ItemAlbumWithLabelBinding.inflate(LayoutInflater.from(parent.context)),
+            eventAction
         )
     }
 

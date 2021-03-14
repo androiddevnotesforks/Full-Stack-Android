@@ -2,12 +2,10 @@ package com.nexters.fullstack.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.source.LocalLabel
 import com.nexters.fullstack.source.MainLabel
-import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.ui.adapter.LocalImageAdapter
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
@@ -36,10 +34,14 @@ fun RecyclerView.setLocalLabel(items: LocalLabel?) {
     localAdapter?.notifyDataSetChanged()
 }
 
-@BindingAdapter("app:localImages")
-fun RecyclerView.setLocalImage(items: List<DomainUserImage>?) {
+@BindingAdapter("app:localImages", "app:eventAction")
+fun RecyclerView.setLocalImage(
+    items: List<DomainUserImage>?,
+    event: Any?
+) {
     adapter?.run {
         if (this is LocalImageAdapter) {
+            eventAction = event
             items?.let {
                 addItems(it)
                 notifyDataSetChanged()
@@ -52,9 +54,3 @@ fun RecyclerView.setLocalImage(items: List<DomainUserImage>?) {
         }
     }
 }
-
-//@BindingAdapter("app:bottomSheetItems")
-//fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?) {
-//    //todo binding adapter
-////    adapter =
-//}
