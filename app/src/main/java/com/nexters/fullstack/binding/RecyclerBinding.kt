@@ -6,7 +6,9 @@ import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.source.LocalLabel
 import com.nexters.fullstack.source.MainLabel
+import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.source.local.DomainUserImage
+import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.ui.adapter.LocalImageAdapter
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
@@ -52,5 +54,19 @@ fun RecyclerView.setLocalImage(
             adapter = it
             addItemDecoration(SpaceBetweenRecyclerDecoration(14, 10))
         }
+    }
+}
+
+@BindingAdapter("app:bottomSheetItem", "app:onClickEvent")
+fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent: Any?) {
+    adapter?.run {
+        if (this is BottomSheetAdapter) {
+            items?.let {
+                addItems(it)
+                notifyDataSetChanged()
+            }
+        }
+    } ?: BottomSheetAdapter(onClickEvent).also {
+        adapter = it
     }
 }

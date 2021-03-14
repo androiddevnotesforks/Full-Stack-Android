@@ -8,28 +8,32 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.db.entity.UserLabelingImage
 import com.nexters.fullstack.mapper.UserLabelingImageMapper
 import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
-import com.nexters.fullstack.ui.adapter.LocalImageAdapter
+import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
 import com.nexters.fullstack.ui.adapter.listener.ItemClickListener
-import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
+import com.nexters.fullstack.ui.adapter.source.ItemType
 import com.nexters.fullstack.ui.widget.bottomsheet.LabelManagerBottomSheetDialog
+import com.nexters.fullstack.viewmodel.BottomSheetViewModel
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(),
     ItemClickListener {
+
     override val layoutRes: Int = R.layout.fragment_myalbum
+
     override val viewModel: LabelingViewModel by viewModel()
+
     private val addLabelButtonSubject = BehaviorSubject.create<Unit>()
+
+    private val bottomSheetAdapter by lazy { BottomSheetAdapter() }
 
     init {
         /**
@@ -82,10 +86,13 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
         //no-op
     }
 
+    /**
+     * Album Lead More Click Event
+     **/
     override fun onClick(item: DomainUserImage) {
         Log.e("click", item.toString())
         LabelManagerBottomSheetDialog.getInstance(
-            BottomSheetAdapter(),
+            bottomSheetAdapter,
             UserLabelingImageMapper.toDomain(item)
         ).show(requireActivity().supportFragmentManager, this.tag)
     }

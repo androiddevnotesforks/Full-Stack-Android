@@ -15,16 +15,17 @@ import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
 import com.nexters.fullstack.db.entity.UserLabelingImage
 import com.nexters.fullstack.mapper.UserLabelingImageMapper
 import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
+import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
+import com.nexters.fullstack.ui.adapter.source.ItemType
 import com.nexters.fullstack.viewmodel.BottomSheetViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
-//todo BottomSheetAdapter
 class LabelManagerBottomSheetDialog(
     private val bottomSheetAdapter: BottomSheetAdapter,
     private val data: UserLabelingImage
 ) :
-    BottomSheetDialogFragment(), KoinComponent {
+    BottomSheetDialogFragment(), KoinComponent, BottomSheetClickListener {
 
     private lateinit var binding: LayoutLabelManagerBottomSheetBinding
 
@@ -45,11 +46,9 @@ class LabelManagerBottomSheetDialog(
             container,
             false
         )
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.setVariable(BR.vm, bottomSheetViewModel)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.executePendingBindings()
-
-        bottomSheetAdapter.userImage = UserLabelingImageMapper.fromDomain(data)
 
         return binding.root
     }
@@ -57,7 +56,7 @@ class LabelManagerBottomSheetDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvBottomSheet.adapter = bottomSheetAdapter
+//        binding.rvBottomSheet.adapter = bottomSheetAdapter
         binding.rvBottomSheet.setHasFixedSize(true)
     }
 
@@ -76,6 +75,18 @@ class LabelManagerBottomSheetDialog(
                     putParcelable(Constants.BOTTOM_SHEET_KEY, data)
                 }
             }.also { bottomSheet -> instance = bottomSheet }
+        }
+    }
+
+    /**
+     * BottomSheet Click Event
+     **/
+    override fun onClick(type: ItemType) {
+        when (type) {
+            ItemType.DELETE -> {
+            }
+            ItemType.UPDATE -> {
+            }
         }
     }
 }
