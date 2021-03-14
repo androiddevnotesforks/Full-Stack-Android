@@ -36,6 +36,10 @@ class LabelManagerBottomSheetDialog(
 
     private val bottomSheetViewModel by viewModel<BottomSheetViewModel>()
 
+    private val dialog by lazy {
+        AlertDialog.Builder(this.requireContext(), R.style.DialogTheme)
+    }
+
     override fun getTheme(): Int {
         return R.style.iOSBottomSheetDialogTheme
     }
@@ -86,10 +90,11 @@ class LabelManagerBottomSheetDialog(
     private fun setObserver() {
         with(bottomSheetViewModel.output) {
             getDialogItem().observe(this@LabelManagerBottomSheetDialog.viewLifecycleOwner) {
-                AlertDialog.Builder(requireContext())
+                dialog
                     .setTitle(it.title)
                     .setMessage(it.message)
                     .setNegativeButton(it.cancel) { dialogInterface, i ->
+
                         Log.e("negative", "click")
                     }
                     .setPositiveButton(it.positive) { _, _ ->
