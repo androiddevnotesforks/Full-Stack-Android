@@ -20,6 +20,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_container"
+        android:onClick="@{() -> onClickEvent.onClick(type.DELETE)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -33,7 +34,6 @@
             android:paddingBottom="@dimen/spacing_20"
             android:paddingEnd="@dimen/spacing_12"
             android:textSize="@dimen/b1"
-            android:onClick="@{() -> onClickEvent.onClick(type.DELETE)}"
             android:text="@{item.title}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,10 +1,14 @@
 package com.nexters.fullstack.ui.widget.bottomsheet
 
 import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -14,6 +18,8 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
 import com.nexters.fullstack.db.entity.UserLabelingImage
 import com.nexters.fullstack.mapper.UserLabelingImageMapper
+import com.nexters.fullstack.source.dialog.DeleteDialogItem
+import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
 import com.nexters.fullstack.ui.adapter.source.ItemType
@@ -22,7 +28,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 class LabelManagerBottomSheetDialog(
-    private val bottomSheetAdapter: BottomSheetAdapter,
     private val data: UserLabelingImage
 ) :
     BottomSheetDialogFragment(), KoinComponent, BottomSheetClickListener {
@@ -47,6 +52,7 @@ class LabelManagerBottomSheetDialog(
             false
         )
         binding.setVariable(BR.vm, bottomSheetViewModel)
+        binding.event = this@LabelManagerBottomSheetDialog
         binding.lifecycleOwner = viewLifecycleOwner
         binding.executePendingBindings()
 
@@ -56,8 +62,8 @@ class LabelManagerBottomSheetDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.rvBottomSheet.adapter = bottomSheetAdapter
         binding.rvBottomSheet.setHasFixedSize(true)
+        setObserver()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
@@ -67,14 +73,31 @@ class LabelManagerBottomSheetDialog(
         private var instance: LabelManagerBottomSheetDialog? = null
 
         fun getInstance(
-            adapter: BottomSheetAdapter,
             data: UserLabelingImage
         ): LabelManagerBottomSheetDialog {
-            return instance ?: LabelManagerBottomSheetDialog(adapter, data).apply {
+            return instance ?: LabelManagerBottomSheetDialog(data).apply {
                 arguments = Bundle().apply {
                     putParcelable(Constants.BOTTOM_SHEET_KEY, data)
                 }
             }.also { bottomSheet -> instance = bottomSheet }
+        }
+    }
+
+    private fun setObserver() {
+        with(bottomSheetViewModel.output) {
+            getDialogItem().observe(this@LabelManagerBottomSheetDialog.viewLifecycleOwner) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(it.title)
+                    .setMessage(it.message)
+                    .setNegativeButton(it.cancel) { dialogInterface, i ->
+                        Log.e("negative", "click")
+                    }
+                    .setPositiveButton(it.positive) { _, _ ->
+                        Log.e("positive", "click")
+                    }
+                    .create()
+                    .show()
+            }
         }
     }
 
@@ -84,8 +107,22 @@ class LabelManagerBottomSheetDialog(
     override fun onClick(type: ItemType) {
         when (type) {
             ItemType.DELETE -> {
+                bottomSheetViewModel.input.setDialogItem(
+                    DeleteDialogItem(
+                        "라벨을 삭제하시겠어요?", "해당 라벨을 삭제해도 라벨이 추가된 스크린샷은 삭제되지 않습니다.",
+                        "취소", "삭제"
+                    )
+                )
+                dismiss()
             }
             ItemType.UPDATE -> {
+                dismiss()
+                requireContext().startActivity(
+                    Intent(
+                        this.context,
+                        CreateLabelActivity::class.java
+                    )
+                )
             }
         }
     }

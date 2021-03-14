@@ -67,7 +67,7 @@ class BottomSheetAdapter(private val event: Any? = null) : BaseAdapter<BottomShe
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bindItem: BottomSheetItem) {
             binding.item = bindItem
-            binding.setVariable(BR.clickEvent, event)
+            binding.setVariable(BR.onClickEvent, event)
             binding.executePendingBindings()
         }
     }

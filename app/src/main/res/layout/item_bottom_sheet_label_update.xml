@@ -21,19 +21,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> onClickEvent.onClick(type.UPDATE)}">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:onClick="@{() -> onClickEvent.onClick(type.UPDATE)}"
+            android:paddingStart="@dimen/spacing_12"
+            android:paddingTop="@dimen/spacing_20"
+            android:paddingEnd="@dimen/spacing_12"
+            android:paddingBottom="@dimen/spacing_20"
             android:text="@{item.title}"
             android:textColor="@color/text_white"
-            android:paddingTop="@dimen/spacing_20"
-            android:paddingStart="@dimen/spacing_12"
-            android:paddingBottom="@dimen/spacing_20"
-            android:paddingEnd="@dimen/spacing_12"
             android:textSize="@dimen/b1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -33,8 +33,6 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
 
     private val addLabelButtonSubject = BehaviorSubject.create<Unit>()
 
-    private val bottomSheetAdapter by lazy { BottomSheetAdapter() }
-
     init {
         /**
          * 액티비티 중복 호출 방지.
@@ -90,9 +88,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
      * Album Lead More Click Event
      **/
     override fun onClick(item: DomainUserImage) {
-        Log.e("click", item.toString())
         LabelManagerBottomSheetDialog.getInstance(
-            bottomSheetAdapter,
             UserLabelingImageMapper.toDomain(item)
         ).show(requireActivity().supportFragmentManager, this.tag)
     }
