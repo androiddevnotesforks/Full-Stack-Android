@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.source.dialog.DeleteDialogItem
+import com.nexters.fullstack.util.SingleLiveData
 
 class BottomSheetViewModel : BaseViewModel() {
     private val _items = MutableLiveData<List<BottomSheetItem>>()
     val items: LiveData<List<BottomSheetItem>>
         get() = _items
 
-    private val _deleteDialog = MutableLiveData<DeleteDialogItem>()
+    private val _deleteDialog = SingleLiveData<DeleteDialogItem>()
 
     init {
         _items.value = listOf(
