@@ -37,7 +37,6 @@ class BottomSheetAdapter(private val event: Any? = null) : BaseAdapter<BottomShe
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is LabelDeleteViewHolder -> {
-                //todo bind ViewHolder item, onClickListener..
                 holder.bind(items[position])
             }
             is LabelUpdateViewHolder -> {

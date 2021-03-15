@@ -6,11 +6,15 @@
     <data>
 
         <variable
-            name="item"
-            type="com.nexters.fullstack.source.local.DomainUserImage" />
+            name="domainLabel"
+            type="com.nexters.fullstack.source.local.DomainUserLabel" />
 
         <variable
-            name="clickEvent"
+            name="image"
+            type="com.nexters.fullstack.source.data.LocalImageDomain" />
+
+        <variable
+            name="event"
             type="com.nexters.fullstack.ui.adapter.listener.ItemClickListener" />
     </data>
 
@@ -30,10 +34,11 @@
 
             <ImageView
                 android:layout_width="match_parent"
+                app:localImage="@{image.originUrl}"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:localImage="@{item.image.originUrl}"
                 tools:src="@mipmap/ic_launcher" />
+
 
             <FrameLayout
                 android:id="@+id/info_more"
@@ -41,8 +46,8 @@
                 android:layout_height="50dp"
                 android:layout_gravity="end|top"
                 android:layout_marginTop="@dimen/spacing_5"
-                android:layout_marginEnd="@dimen/spacing_5"
-                android:onClick="@{() -> clickEvent.onClick(item)}">
+                android:onClick="@{() -> event.onClick(domainLabel)}"
+                android:layout_marginEnd="@dimen/spacing_5">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -61,18 +66,18 @@
             android:layout_marginTop="@dimen/spacing_normal"
             android:background="@drawable/bg_album_title"
             android:padding="@dimen/spacing_normal"
-            android:text="테스트"
+            android:text="@{domainLabel.text}"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/image_size"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8"
             android:gravity="start"
-            android:text="n개"
+            tools:text="n개"
             android:textColor="@color/gray"
             android:textSize="@dimen/b3"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -16,9 +16,11 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
+import com.nexters.fullstack.db.entity.UserLabel
 import com.nexters.fullstack.db.entity.UserLabelingImage
 import com.nexters.fullstack.mapper.UserLabelingImageMapper
 import com.nexters.fullstack.source.dialog.DeleteDialogItem
+import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
@@ -28,7 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 class LabelManagerBottomSheetDialog(
-    private val data: UserLabelingImage
+    private val data: UserLabel
 ) :
     BottomSheetDialogFragment(), KoinComponent, BottomSheetClickListener {
 
@@ -77,7 +79,7 @@ class LabelManagerBottomSheetDialog(
         private var instance: LabelManagerBottomSheetDialog? = null
 
         fun getInstance(
-            data: UserLabelingImage
+            data: UserLabel
         ): LabelManagerBottomSheetDialog {
             return instance ?: LabelManagerBottomSheetDialog(data).apply {
                 arguments = Bundle().apply {

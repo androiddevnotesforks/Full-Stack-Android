@@ -2,15 +2,16 @@ package com.nexters.fullstack.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.mapper.UserLabelingImageMapper
+import com.nexters.fullstack.mapper.LocalMainLabelMapper
+import com.nexters.fullstack.mapper.local.LocalLabelMapper
 import com.nexters.fullstack.source.ActivityResultData
 import com.nexters.fullstack.source.local.DomainUserImage
+import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
@@ -87,9 +88,9 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     /**
      * Album Lead More Click Event
      **/
-    override fun onClick(item: DomainUserImage) {
+    override fun onClick(item: DomainUserLabel) {
         LabelManagerBottomSheetDialog.getInstance(
-            UserLabelingImageMapper.toDomain(item)
+            LocalLabelMapper.toDomain(item)
         ).show(requireActivity().supportFragmentManager, this.tag)
     }
 }

@@ -15,6 +15,8 @@ import com.nexters.fullstack.usecase.ImageLabelingUseCase
 import com.nexters.fullstack.usecase.LabelingUseCase
 import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.nexters.feature.ui.data.pallet.PalletItem
+import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.usecase.LoadImageUseCase
 import com.nexters.fullstack.usecase.base.BaseUseCase
 import io.reactivex.Maybe
@@ -36,7 +38,11 @@ class LabelingViewModel(
     private val _isEmptyLabel = MutableLiveData(true)
     private val _labels = MutableLiveData<LocalLabel>()
 
-    private val _images = MutableLiveData<List<DomainUserImage>>()
+    private val _images = MutableLiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>()
+
+    private val items = mutableListOf<MutableMap<DomainUserLabel, MutableList<LocalImageDomain>>>()
+
+    val labelingMap = mutableMapOf<DomainUserLabel, MutableList<LocalImageDomain>>()
 
     val _didWriteLabelInfo = MutableLiveData(false)
     private var makeMainLabelSource: MainMakeLabelSource? = null
@@ -56,7 +62,7 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
-        override fun getImages(): LiveData<List<DomainUserImage>> = _images
+        override fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>> = _images
     }
 
     val input = object : LabelingInput {
@@ -149,7 +155,24 @@ class LabelingViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _images.value = it
+                    it.forEach { domainUserImage ->
+                        domainUserImage.labels.forEach { label ->
+                            if (labelingMap.containsKey(label)) {
+                                val images = labelingMap[label]
+                                images?.let { mutableImage ->
+                                    if (!mutableImage.contains(domainUserImage.image)) {
+                                        mutableImage.add(domainUserImage.image)
+                                    }
+                                } ?: run {
+                                    labelingMap[label] = mutableListOf(domainUserImage.image)
+                                }
+                            } else {
+                                labelingMap[label] = mutableListOf(domainUserImage.image)
+                            }
+                        }
+                        items.add(labelingMap)
+                    }
+                    _images.value = items
                 }, { it.printStackTrace() }),
 
             Observable.combineLatest(
@@ -190,7 +213,7 @@ class LabelingViewModel(
 
         fun getLabelQuery(): LiveData<String>
 
-        fun getImages(): LiveData<List<DomainUserImage>>
+        fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>
     }
 
     interface LabelingInput : Input {

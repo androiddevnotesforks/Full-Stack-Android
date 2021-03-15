@@ -4,10 +4,13 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
+import com.nexters.fullstack.source.LabelingImage
 import com.nexters.fullstack.source.LocalLabel
 import com.nexters.fullstack.source.MainLabel
 import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
+import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.source.local.DomainUserImage
+import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.ui.adapter.LocalImageAdapter
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
@@ -38,14 +41,23 @@ fun RecyclerView.setLocalLabel(items: LocalLabel?) {
 
 @BindingAdapter("app:localImages", "app:eventAction")
 fun RecyclerView.setLocalImage(
-    items: List<DomainUserImage>?,
+    items: List<Map<DomainUserLabel, List<LocalImageDomain>>>?,
     event: Any?
 ) {
+    val item = mutableListOf<LabelingImage>()
     adapter?.run {
+//        item.clear()
         if (this is LocalImageAdapter) {
             eventAction = event
             items?.let {
-                addItems(it)
+                it.forEach {
+                    it.mapKeys {
+                        if (!item.contains(LabelingImage(it.key, it.value))) {
+                            item.add(LabelingImage(it.key, it.value))
+                        }
+                    }
+                }
+                addItems(item)
                 notifyDataSetChanged()
             }
         }

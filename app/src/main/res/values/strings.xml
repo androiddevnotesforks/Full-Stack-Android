@@ -48,6 +48,8 @@
     <string name="label_select_title">라벨 색 선택하기</string>
 
 
+    <string name="image_count">%1$d 개</string>
+
     <!--    SearchLabel Activity    -->
     <string name="search_hint">라벨을 검색해보세요.</string>
     <string name="cancel">취소</string>
