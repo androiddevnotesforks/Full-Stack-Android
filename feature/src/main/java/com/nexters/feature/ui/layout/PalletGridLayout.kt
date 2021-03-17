@@ -41,7 +41,7 @@ class PalletGridLayout @JvmOverloads constructor(
         _items.addAll(viewModel._colors)
     }
 
-    fun setOnInitView() {
+    fun setOnInitView(data: PalletItem? = null) {
         _items.forEachIndexed { index, item ->
             val childView = DataBindingUtil.bind<ItemPalletViewBinding>(
                 LayoutInflater.from(context).inflate(R.layout.item_pallet_view, this, false)
@@ -49,7 +49,7 @@ class PalletGridLayout @JvmOverloads constructor(
 
             childView?.lifecycleOwner = this
             childView?.executePendingBindings()
-            
+
             val textView = childView?.label
 
             if (textView != null) {
@@ -86,10 +86,16 @@ class PalletGridLayout @JvmOverloads constructor(
                     itemView.isSelected = true
 
                     setBackgroundColor(ColorUtils(item.name, context).getActive())
-                    setOnLabelClickListener(item)
+                    if (::setOnLabelClickListener.isInitialized) {
+                        setOnLabelClickListener(item)
+                    }
 
                     invalidate()
                 }
+            }
+
+            if (data?.name == item.name) {
+                textView?.performClick()
             }
 
             addView(childView?.root)

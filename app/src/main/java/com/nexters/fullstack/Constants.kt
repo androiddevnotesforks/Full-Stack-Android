@@ -18,4 +18,7 @@ object Constants {
 
     // shared Preference Key
     const val FIRST_LOADING = "first_loading"
+
+    //label via key
+    const val LABEL_MODIFY_KEY = "label"
 }

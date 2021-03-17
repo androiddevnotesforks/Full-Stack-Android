@@ -106,7 +106,7 @@
                         android:text="@string/label" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/et_label_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_10"
@@ -154,7 +154,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@{vm.output.didWriteCreateLabelForm() ? @drawable/bg_add_label: @drawable/bg_default_add_label}"
-                        android:enabled="@{vm.output.didWriteCreateLabelForm() ? true: false}"
+                        android:enabled="@{vm.output.didWriteCreateLabelForm()}"
                         android:gravity="center"
                         android:onClick="@{() -> vm.input.clickSaveButton()}"
                         android:padding="@dimen/spacing_large"

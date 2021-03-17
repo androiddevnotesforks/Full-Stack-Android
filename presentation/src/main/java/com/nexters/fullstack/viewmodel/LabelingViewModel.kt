@@ -62,7 +62,8 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
-        override fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>> = _images
+        override fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>> =
+            _images
     }
 
     val input = object : LabelingInput {
@@ -128,6 +129,10 @@ class LabelingViewModel(
                         _finish.value = Unit
                     }, { it.printStackTrace() })
             )
+        }
+
+        override fun setDidLabelingState(isDidLabeled: Boolean) {
+            _didWriteLabelInfo.value = isDidLabeled
         }
     }
 
@@ -228,6 +233,12 @@ class LabelingViewModel(
         fun clickCancelButton()
 
         fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile)
+
+        fun setDidLabelingState(isDidLabeled: Boolean)
+    }
+
+    fun onCreateView(data: MainMakeLabelSource) {
+        this.makeMainLabelSource = data
     }
 
     override fun onCleared() {

@@ -3,10 +3,13 @@ package com.nexters.fullstack.ui.activity
 import android.app.Activity
 import android.os.Bundle
 import com.nexters.fullstack.BR
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityCreateLabelBinding
-import com.nexters.fullstack.source.ViewState
+import com.nexters.fullstack.db.entity.UserLabel
+import com.nexters.fullstack.source.MainMakeLabelSource
+import com.nexters.fullstack.ui.widget.bottomsheet.mapper.mapToPallet
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,7 +58,22 @@ class CreateLabelActivity : BaseActivity<ActivityCreateLabelBinding, LabelingVie
     }
 
     private fun setIntiView() {
-        binding.palletLayout.setOnInitView()
+        val viaLabelData = intent.getParcelableExtra<UserLabel>(Constants.LABEL_MODIFY_KEY)
+
+        if (viaLabelData != null) {
+            binding.etLabelText.setText(viaLabelData.text)
+
+            //커서 이동
+            binding.etLabelText.setSelection(viaLabelData.text.length)
+            viewModel.onCreateView(
+                MainMakeLabelSource(
+                    viaLabelData.text,
+                    viaLabelData.mapToPallet()
+                )
+            )
+            viewModel.input.setDidLabelingState(true)
+        }
+        binding.palletLayout.setOnInitView(viaLabelData?.mapToPallet())
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -124,12 +124,9 @@ class LabelManagerBottomSheetDialog(
             }
             ItemType.UPDATE -> {
                 dismiss()
-                requireContext().startActivity(
-                    Intent(
-                        this.context,
-                        CreateLabelActivity::class.java
-                    )
-                )
+                val intent = Intent(requireContext(), CreateLabelActivity::class.java)
+                intent.putExtra(Constants.LABEL_MODIFY_KEY, data)
+                requireContext().startActivity(intent)
             }
         }
     }
