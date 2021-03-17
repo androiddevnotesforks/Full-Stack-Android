@@ -76,16 +76,14 @@ class LabelManagerBottomSheetDialog(
         BottomSheetDialog(requireContext(), theme)
 
     companion object {
-        private var instance: LabelManagerBottomSheetDialog? = null
-
         fun getInstance(
             data: UserLabel
         ): LabelManagerBottomSheetDialog {
-            return instance ?: LabelManagerBottomSheetDialog(data).apply {
+            return LabelManagerBottomSheetDialog(data).apply {
                 arguments = Bundle().apply {
                     putParcelable(Constants.BOTTOM_SHEET_KEY, data)
                 }
-            }.also { bottomSheet -> instance = bottomSheet }
+            }
         }
     }
 

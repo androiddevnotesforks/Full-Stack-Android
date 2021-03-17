@@ -3,6 +3,7 @@ package com.nexters.fullstack.ui.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
@@ -53,7 +54,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onInitView()
+        onObserve()
         setOnInitClickListener()
         bind {
             setVariable(BR.vm, viewModel)
@@ -67,8 +68,12 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
         }
     }
 
-    private fun onInitView() {
-        //no-op
+    private fun onObserve() {
+        with(viewModel.output) {
+            getToastMessage().observe(this@MyAlbumFragment.viewLifecycleOwner) { message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     companion object {

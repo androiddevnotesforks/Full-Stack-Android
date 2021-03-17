@@ -150,13 +150,12 @@
                         app:layout_constraintStart_toStartOf="@+id/left_guide_line" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/tv_labeling"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@{vm.output.didWriteCreateLabelForm() ? @drawable/bg_add_label: @drawable/bg_default_add_label}"
                         android:enabled="@{vm.output.didWriteCreateLabelForm()}"
                         android:gravity="center"
-                        android:onClick="@{() -> vm.input.clickSaveButton()}"
                         android:padding="@dimen/spacing_large"
                         android:text="@string/add_label_finish"
                         android:textColor="@color/white"
