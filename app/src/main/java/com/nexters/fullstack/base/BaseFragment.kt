@@ -22,8 +22,6 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
 
     abstract val viewModel: VM
 
-    abstract fun onActivityResult(activityResultData: ActivityResultData)
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,5 +49,9 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {
             disposable.clear()
         }
         super.onDestroy()
+    }
+
+    open fun onActivityResult(activityResultData: ActivityResultData){
+
     }
 }
