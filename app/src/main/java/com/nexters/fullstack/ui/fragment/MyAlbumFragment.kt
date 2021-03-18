@@ -2,6 +2,7 @@ package com.nexters.fullstack.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.nexters.fullstack.BR
@@ -23,6 +24,7 @@ import com.nexters.fullstack.viewmodel.BottomSheetViewModel
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
@@ -31,7 +33,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
 
     override val layoutRes: Int = R.layout.fragment_myalbum
 
-    override val viewModel: LabelingViewModel by viewModel()
+    override val viewModel: LabelingViewModel by sharedViewModel()
 
     private val addLabelButtonSubject = BehaviorSubject.create<Unit>()
 
@@ -71,6 +73,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     private fun onObserve() {
         with(viewModel.output) {
             getToastMessage().observe(this@MyAlbumFragment.viewLifecycleOwner) { message ->
+                Log.e("observe?", "can")
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
             }
         }
@@ -84,10 +87,6 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
             }
             return MyAlbumFragment()
         }
-    }
-
-    override fun onActivityResult(activityResultData: ActivityResultData) {
-        //no-op
     }
 
     /**

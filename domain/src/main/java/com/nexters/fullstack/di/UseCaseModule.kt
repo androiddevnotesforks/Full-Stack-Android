@@ -23,7 +23,7 @@ val useCaseModule = module {
     }
     single { LabelingUseCase(get()) }
 
-    single { LoadLabelUseCase(get()) }
+    single { GetLabelManagementUseCase(get()) }
 
     single { ImageLabelingUseCase(get()) }
 

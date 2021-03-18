@@ -12,12 +12,10 @@ import com.nexters.fullstack.mapper.PresenterLocalFileMapper
 import com.nexters.fullstack.source.*
 import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.usecase.ImageLabelingUseCase
-import com.nexters.fullstack.usecase.LabelingUseCase
-import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.nexters.feature.ui.data.pallet.PalletItem
 import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.source.local.DomainUserLabel
-import com.nexters.fullstack.usecase.LoadImageUseCase
+import com.nexters.fullstack.usecase.GetLabelManagementUseCase
 import com.nexters.fullstack.usecase.base.BaseUseCase
 import com.nexters.fullstack.util.SingleLiveData
 import io.reactivex.Maybe
@@ -29,8 +27,8 @@ import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class LabelingViewModel(
-    private val labelingUseCase: LabelingUseCase,
-    loadLabelUseCase: LoadLabelUseCase,
+//    private val labelingUseCase: LabelingUseCase,
+    private val getLabelManagementUseCase: GetLabelManagementUseCase,
     loadImageUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
     private val imageLabelingUseCase: ImageLabelingUseCase
 ) : BaseViewModel() {
@@ -83,23 +81,23 @@ class LabelingViewModel(
 
                 val labeling = when (labelingState) {
                     LabelingState.CREATE -> {
-                        labelingUseCase.buildUseCase(mapper)
+                        getLabelManagementUseCase.create(mapper)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
-                                _finish.value = Unit
                                 _toastMessage.value = "${mapper.text}라벨이 생성되었습니다."
+                                _finish.value = Unit
                             }, {
                                 it.printStackTrace()
                             })
                     }
                     LabelingState.UPDATE -> {
-                        labelingUseCase.update(mapper)
+                        getLabelManagementUseCase.update(mapper)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
-                                _finish.value = Unit
                                 _toastMessage.value = "${mapper.text}라벨이 수정되었습니다."
+                                _finish.value = Unit
                             }, {
                                 it.printStackTrace()
                             })
@@ -108,7 +106,7 @@ class LabelingViewModel(
 
                 disposable.addAll(
                     labeling,
-                    loadLabelUseCase.buildUseCase(Unit)
+                    getLabelManagementUseCase.buildUseCase(Unit)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ localLabels ->
@@ -162,7 +160,7 @@ class LabelingViewModel(
     }
 
     init {
-        val labels = loadLabelUseCase.buildUseCase(Unit).cache()
+        val labels = getLabelManagementUseCase.buildUseCase(Unit).cache()
 
         val labelTextCache = _labelText.debounce(1000L, TimeUnit.MILLISECONDS).cache()
 
@@ -175,6 +173,7 @@ class LabelingViewModel(
                 .subscribe({ localLabels ->
                     if (localLabels.isNotEmpty()) {
                         _isEmptyLabel.value = false
+                        Log.e("라벨스", localLabels.toString())
                         _labels.value = LocalLabel(localLabels)
                     } else {
                         _isEmptyLabel.value = true
@@ -216,6 +215,12 @@ class LabelingViewModel(
                     makeMainLabelSource = labelSource
                     _didWriteLabelInfo.value = result
                 }, { it.printStackTrace() }),
+
+//            clickLabelCache
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                }, { it.printStackTrace() })
         )
         _viewState.value = ViewState.Selected
     }
