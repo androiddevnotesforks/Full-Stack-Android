@@ -114,8 +114,10 @@ class LabelManagerBottomSheetDialog(
             ItemType.DELETE -> {
                 bottomSheetViewModel.input.setDialogItem(
                     DeleteDialogItem(
-                        "라벨을 삭제하시겠어요?", "해당 라벨을 삭제해도 라벨이 추가된 스크린샷은 삭제되지 않습니다.",
-                        "취소", "삭제"
+                        requireContext().getString(R.string.title),
+                        requireContext().getString(R.string.message),
+                        requireContext().getString(R.string.cancel),
+                        requireContext().getString(R.string.delete)
                     )
                 )
                 dismiss()
