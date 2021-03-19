@@ -10,10 +10,12 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = TableName.LABEL)
 data class UserLabel(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
+
     @ColumnInfo(name = "color")
     val color: String,
 
-    @PrimaryKey
     @ColumnInfo(name = "text")
     val text: String
 ) : Parcelable

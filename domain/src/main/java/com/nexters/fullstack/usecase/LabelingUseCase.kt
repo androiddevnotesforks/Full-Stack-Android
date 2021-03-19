@@ -15,6 +15,10 @@ class LabelingUseCase(private val labelRepository: LabelRepository) :
         //subscribeOn BaseUseCase 로 옮기는건 고민 중.
         return labelRepository.save(params)
     }
+
+    fun update(params: DomainUserLabel): Completable {
+        return labelRepository.update(params)
+    }
 }
 
 

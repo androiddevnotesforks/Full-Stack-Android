@@ -12,11 +12,12 @@ import com.nexters.fullstack.mapper.PresenterLocalFileMapper
 import com.nexters.fullstack.source.*
 import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.usecase.ImageLabelingUseCase
-import com.nexters.fullstack.usecase.LabelingUseCase
-import com.nexters.fullstack.usecase.LoadLabelUseCase
 import com.nexters.feature.ui.data.pallet.PalletItem
-import com.nexters.fullstack.usecase.LoadImageUseCase
+import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.usecase.GetLabelManagementUseCase
 import com.nexters.fullstack.usecase.base.BaseUseCase
+import com.nexters.fullstack.util.SingleLiveData
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,8 +27,8 @@ import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class LabelingViewModel(
-    private val labelingUseCase: LabelingUseCase,
-    loadLabelUseCase: LoadLabelUseCase,
+//    private val labelingUseCase: LabelingUseCase,
+    private val getLabelManagementUseCase: GetLabelManagementUseCase,
     loadImageUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
     private val imageLabelingUseCase: ImageLabelingUseCase
 ) : BaseViewModel() {
@@ -35,8 +36,13 @@ class LabelingViewModel(
     private val _finish = MutableLiveData<Unit>()
     private val _isEmptyLabel = MutableLiveData(true)
     private val _labels = MutableLiveData<LocalLabel>()
+    private val _toastMessage = SingleLiveData<String>()
 
-    private val _images = MutableLiveData<List<DomainUserImage>>()
+    private val _images = MutableLiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>()
+
+    private val items = mutableListOf<MutableMap<DomainUserLabel, MutableList<LocalImageDomain>>>()
+
+    val labelingMap = mutableMapOf<DomainUserLabel, MutableList<LocalImageDomain>>()
 
     val _didWriteLabelInfo = MutableLiveData(false)
     private var makeMainLabelSource: MainMakeLabelSource? = null
@@ -56,7 +62,10 @@ class LabelingViewModel(
         override fun labels(): LiveData<LocalLabel> = _labels
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
-        override fun getImages(): LiveData<List<DomainUserImage>> = _images
+        override fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>> =
+            _images
+
+        override fun getToastMessage(): LiveData<String> = _toastMessage
     }
 
     val input = object : LabelingInput {
@@ -66,21 +75,38 @@ class LabelingViewModel(
 
         override fun clickLabel(palletItem: PalletItem) = _clickedLabel.onNext(palletItem)
 
-        override fun clickSaveButton() {
+        override fun clickSaveButton(labelingState: LabelingState) {
             makeMainLabelSource?.let { source ->
                 val mapper = LabelingMapper().fromData(source)
 
-                disposable.addAll(
-                    labelingUseCase.buildUseCase(mapper)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            _finish.value = Unit
-                        }, {
-                            it.printStackTrace()
-                        }),
+                val labeling = when (labelingState) {
+                    LabelingState.CREATE -> {
+                        getLabelManagementUseCase.create(mapper)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                _toastMessage.value = "${mapper.text}라벨이 생성되었습니다."
+                                _finish.value = Unit
+                            }, {
+                                it.printStackTrace()
+                            })
+                    }
+                    LabelingState.UPDATE -> {
+                        getLabelManagementUseCase.update(mapper)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                _toastMessage.value = "${mapper.text}라벨이 수정되었습니다."
+                                _finish.value = Unit
+                            }, {
+                                it.printStackTrace()
+                            })
+                    }
+                }
 
-                    loadLabelUseCase.buildUseCase(Unit)
+                disposable.addAll(
+                    labeling,
+                    getLabelManagementUseCase.buildUseCase(Unit)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ localLabels ->
@@ -123,10 +149,18 @@ class LabelingViewModel(
                     }, { it.printStackTrace() })
             )
         }
+
+        override fun setDidLabelingState(isDidLabeled: Boolean) {
+            _didWriteLabelInfo.value = isDidLabeled
+        }
+
+        override fun setToastMessage(message: String) {
+            _toastMessage.value = message
+        }
     }
 
     init {
-        val labels = loadLabelUseCase.buildUseCase(Unit).cache()
+        val labels = getLabelManagementUseCase.buildUseCase(Unit).cache()
 
         val labelTextCache = _labelText.debounce(1000L, TimeUnit.MILLISECONDS).cache()
 
@@ -139,6 +173,7 @@ class LabelingViewModel(
                 .subscribe({ localLabels ->
                     if (localLabels.isNotEmpty()) {
                         _isEmptyLabel.value = false
+                        Log.e("라벨스", localLabels.toString())
                         _labels.value = LocalLabel(localLabels)
                     } else {
                         _isEmptyLabel.value = true
@@ -149,7 +184,24 @@ class LabelingViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _images.value = it
+                    it.forEach { domainUserImage ->
+                        domainUserImage.labels.forEach { label ->
+                            if (labelingMap.containsKey(label)) {
+                                val images = labelingMap[label]
+                                images?.let { mutableImage ->
+                                    if (!mutableImage.contains(domainUserImage.image)) {
+                                        mutableImage.add(domainUserImage.image)
+                                    }
+                                } ?: run {
+                                    labelingMap[label] = mutableListOf(domainUserImage.image)
+                                }
+                            } else {
+                                labelingMap[label] = mutableListOf(domainUserImage.image)
+                            }
+                        }
+                        items.add(labelingMap)
+                    }
+                    _images.value = items
                 }, { it.printStackTrace() }),
 
             Observable.combineLatest(
@@ -163,6 +215,12 @@ class LabelingViewModel(
                     makeMainLabelSource = labelSource
                     _didWriteLabelInfo.value = result
                 }, { it.printStackTrace() }),
+
+//            clickLabelCache
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                }, { it.printStackTrace() })
         )
         _viewState.value = ViewState.Selected
     }
@@ -190,7 +248,8 @@ class LabelingViewModel(
 
         fun getLabelQuery(): LiveData<String>
 
-        fun getImages(): LiveData<List<DomainUserImage>>
+        fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>
+        fun getToastMessage(): LiveData<String>
     }
 
     interface LabelingInput : Input {
@@ -198,13 +257,20 @@ class LabelingViewModel(
 
         fun clickLabel(palletItem: PalletItem)
 
-        fun clickSaveButton()
+        fun clickSaveButton(labelingState: LabelingState)
 
         fun clickLabelAddButton()
 
         fun clickCancelButton()
 
         fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile)
+
+        fun setDidLabelingState(isDidLabeled: Boolean)
+        fun setToastMessage(message: String)
+    }
+
+    fun onCreateView(data: MainMakeLabelSource) {
+        this.makeMainLabelSource = data
     }
 
     override fun onCleared() {

@@ -100,4 +100,9 @@
 
     <color name="transparent">#1A000000</color>
     <color name="neumorphism">#575D66</color>
+
+    <!--    Dialog  -->
+    <color name="positive">#C76661</color>
+    <color name="negative">#0A84FF</color>
+
 </resources>
