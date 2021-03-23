@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.nexters.fullstack.MainActivity
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -30,14 +31,15 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
 //        <  using shared preference  >
 //        sharedPref = this.getPreferences(MODE_PRIVATE)
         initView()
-        initListner()
+        initListener()
     }
 
     private fun initView(){
         binding.pager.adapter = PagerAdapter(this)
+        setIndicator(0)
     }
 
-    private fun initListner(){
+    private fun initListener(){
         with(binding){
             tvButton.setOnClickListener {
                 with(pager){
@@ -50,6 +52,27 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
             }
             tvSkip.setOnClickListener {
                 startMainActivity()
+            }
+
+            pager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    setIndicator(position)
+                }
+            })
+        }
+    }
+
+    private fun setIndicator(position: Int){
+        with(binding){
+            indicator1.isSelected = false
+            indicator2.isSelected = false
+            indicator3.isSelected = false
+
+            when(position){
+                0 -> binding.indicator1.isSelected = true
+                1 -> binding.indicator2.isSelected = true
+                2 -> binding.indicator3.isSelected = true
             }
         }
     }
