@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.mapper.LabelSourceMapper
 import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.usecase.LoadLabelUseCase
+import com.nexters.fullstack.usecase.GetLabelManagementUseCase
 import kotlinx.coroutines.launch
 
 class LabelOutAppViewModel(
-    private val loadLabelUseCase: LoadLabelUseCase
+    private val loadLabelUseCase: GetLabelManagementUseCase
 ) : BaseViewModel() {
     private val state: State
     private val myLabelList = mutableListOf<LabelSource>()
@@ -25,9 +25,9 @@ class LabelOutAppViewModel(
         state.imageUri.value = uri
     }
 
-    fun selectLabel(name : String){
-        for (label in myLabelList){
-            if(label.name == name){
+    fun selectLabel(name: String) {
+        for (label in myLabelList) {
+            if (label.name == name) {
                 myLabelList.remove(label)
                 selectedLabelList.add(0, label)
                 break
@@ -60,19 +60,19 @@ class LabelOutAppViewModel(
         }
     }
 
-    fun setViewState(viewState: ViewState){
+    fun setViewState(viewState: ViewState) {
         state.viewState.value = viewState
     }
 
-    fun clearSearchKeyword(){
+    fun clearSearchKeyword() {
         state.searchKeyword.value = ""
     }
 
     // TODO modify to using usecase
-    fun search() : Boolean{
+    fun search(): Boolean {
         searchResultList.clear()
-        for(label in myLabelList){
-            if(label.name.contains(state.searchKeyword.value!!)) {
+        for (label in myLabelList) {
+            if (label.name.contains(state.searchKeyword.value!!)) {
                 searchResultList.add(label)
             }
         }
@@ -122,14 +122,14 @@ class LabelOutAppViewModel(
         val imageUri: MutableLiveData<Uri> = MutableLiveData(),
         val myLabels: MutableLiveData<List<LabelSource>> = MutableLiveData(),
         val selectedLabels: MutableLiveData<List<LabelSource>> = MutableLiveData(),
-        val searchKeyword : MutableLiveData<String> = MutableLiveData(),
-        val searchResult : MutableLiveData<List<LabelSource>> = MutableLiveData(),
-        val recentlySearch : MutableLiveData<List<LabelSource>> = MutableLiveData(),
-        val viewState : MutableLiveData<ViewState> = MutableLiveData(ViewState.MY_LABEL)
+        val searchKeyword: MutableLiveData<String> = MutableLiveData(),
+        val searchResult: MutableLiveData<List<LabelSource>> = MutableLiveData(),
+        val recentlySearch: MutableLiveData<List<LabelSource>> = MutableLiveData(),
+        val viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.MY_LABEL)
     )
 
     // TODO refactor : state가 list를 가지고 있어서 activity에서 분기 처리 안하고 일괄적으로 처리해줄 수 있도록 ?
-    enum class ViewState{
+    enum class ViewState {
         MY_LABEL,
         RECENT_LABEL,
         SEARCH_RESULT,

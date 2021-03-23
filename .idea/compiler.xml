@@ -7,6 +7,10 @@
       <module name="CaptureBox.feature" target="1.8" />
       <module name="CaptureBox.helper" target="1.8" />
       <module name="CaptureBox.presentation" target="1.8" />
+      <module name="nexters.CaptureBox.app" target="1.8" />
+      <module name="nexters.CaptureBox.data" target="1.8" />
+      <module name="nexters.CaptureBox.feature" target="1.8" />
+      <module name="nexters.CaptureBox.presentation" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

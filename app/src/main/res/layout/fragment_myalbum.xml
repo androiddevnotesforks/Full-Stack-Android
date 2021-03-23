@@ -7,6 +7,10 @@
         <variable
             name="vm"
             type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
+
+        <variable
+            name="event"
+            type="com.nexters.fullstack.ui.adapter.listener.ItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,6 +48,7 @@
                             android:text="@string/album"
                             android:textColor="@color/white"
                             android:textSize="@dimen/h1"
+                            android:layout_marginStart="@dimen/spacing_12"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -62,6 +67,7 @@
                             android:id="@+id/add_label"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
+                            android:layout_marginEnd="@dimen/spacing_12"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -91,10 +97,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:localImages="@{vm.output.images}"
+                app:eventAction="@{event}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:spanCount="2"
-                tools:listitem="@layout/recycler_album_item" />
+                tools:listitem="@layout/item_album_with_label" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

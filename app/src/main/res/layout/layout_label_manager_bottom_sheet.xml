@@ -7,23 +7,29 @@
         <variable
             name="vm"
             type="com.nexters.fullstack.viewmodel.BottomSheetViewModel" />
+
+        <variable
+            name="event"
+            type="com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_bottom_sheet"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:bottomSheetItem="@{vm.items}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            app:onClickEvent="@{event}"
+            app:spanCount="1" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>
