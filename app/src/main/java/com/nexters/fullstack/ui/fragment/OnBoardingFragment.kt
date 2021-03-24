@@ -42,8 +42,4 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding, OnBoardingVie
             return fragment
         }
     }
-
-    override fun onActivityResult(activityResultData: ActivityResultData) {
-        //no op
-    }
 }
