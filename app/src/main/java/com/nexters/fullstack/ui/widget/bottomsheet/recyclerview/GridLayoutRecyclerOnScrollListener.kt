@@ -19,6 +19,12 @@ class GridLayoutRecyclerOnScrollListener(
     private val title: TextView
 ) :
     RecyclerView.OnScrollListener() {
+
+    private val minSize = 4.toPx.toFloat()
+    private val maxSize = 7.toPx.toFloat()
+    private val OPACITY_ZERO = 0
+    private val OPACITY_ONE = 1f
+
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
 
@@ -27,9 +33,11 @@ class GridLayoutRecyclerOnScrollListener(
         val visibleItemPosition = layoutManager?.findFirstCompletelyVisibleItemPosition() ?: 999
 
         if (visibleItemPosition != FIRST_POSITION && visibleItemPosition % 2 == 0) {
-            toolbar.background.alpha = 0
-            title.gravity = Gravity.CENTER
-            title.textSize = 4.toPx.toFloat()
+            toolbar.background.alpha = OPACITY_ZERO
+            title.apply {
+                gravity = Gravity.CENTER
+                textSize = minSize
+            }
             frameLayout.visibility = View.GONE
         } else if (recyclerView.canScrollVertically(-1)) {
             toolbar.setBackgroundColor(
@@ -39,9 +47,11 @@ class GridLayoutRecyclerOnScrollListener(
                     null
                 )
             )
-            toolbar.alpha = 1f
-            title.gravity = Gravity.START
-            title.textSize = 7.toPx.toFloat()
+            toolbar.alpha = OPACITY_ONE
+            title.apply {
+                gravity = Gravity.START
+                textSize = maxSize
+            }
             frameLayout.visibility = View.VISIBLE
         }
     }
