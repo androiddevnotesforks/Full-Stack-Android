@@ -16,6 +16,7 @@ import com.nexters.fullstack.ui.adapter.LocalImageAdapter
 import com.nexters.fullstack.ui.adapter.MainStackAdapter
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
+import com.nexters.fullstack.ui.holder.LocalImageViewHolder
 
 @BindingAdapter("app:setStackItems")
 fun RecyclerView.setStackBinding(items: MainLabel?) {
@@ -39,21 +40,22 @@ fun RecyclerView.setLocalLabel(items: LocalLabel?) {
     localAdapter?.notifyDataSetChanged()
 }
 
-@BindingAdapter("app:localImages", "app:eventAction")
+@BindingAdapter("app:localImages", "app:eventAction", "app:onClickDelegate")
 fun RecyclerView.setLocalImage(
     items: List<Map<DomainUserLabel, List<LocalImageDomain>>>?,
-    event: Any?
+    event: Any?,
+    onClickItemDelegate: Any?
 ) {
     val item = mutableListOf<LabelingImage>()
     adapter?.run {
-//        item.clear()
         if (this is LocalImageAdapter) {
             eventAction = event
+            delegate = onClickItemDelegate
             items?.let {
-                it.forEach {
-                    it.mapKeys {
-                        if (!item.contains(LabelingImage(it.key, it.value))) {
-                            item.add(LabelingImage(it.key, it.value))
+                it.forEach { domainItemMap ->
+                    domainItemMap.mapKeys { mapItem ->
+                        if (!item.contains(LabelingImage(mapItem.key, mapItem.value))) {
+                            item.add(LabelingImage(mapItem.key, mapItem.value))
                         }
                     }
                 }

@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CaptureBox">
+        <activity android:name=".ui.activity.AlbumActivitybyColor"></activity>
         <activity
             android:name=".ui.activity.SearchLabelActivity"
             android:theme="@style/Transparent"
@@ -37,11 +38,8 @@
         </activity>
         <activity
             android:name=".ui.activity.OnBoardingActivity"
-            android:noHistory="true">
-        </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+            android:noHistory="true"></activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".ui.activity.LabelOutAppActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />

@@ -1,19 +1,18 @@
 package com.nexters.fullstack.base
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
+import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.helper.PermissionHelper
 import com.nexters.fullstack.source.ActivityResultData
 import io.reactivex.processors.PublishProcessor
 import org.koin.android.ext.android.inject
 
-abstract class BaseActivity<VB : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
     protected lateinit var binding: VB
         private set
 

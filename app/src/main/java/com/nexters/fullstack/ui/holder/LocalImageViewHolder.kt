@@ -6,18 +6,19 @@ import com.nexters.feature.util.ColorUtils
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.ItemAlbumWithLabelBinding
 import com.nexters.fullstack.source.LabelingImage
-import com.nexters.fullstack.source.local.DomainUserImage
 
 class LocalImageViewHolder(
     private val binding: ItemAlbumWithLabelBinding,
-    private val onClick: Any?
+    private val onClick: Any?,
+    private val delegate: Any?
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun onBind(item: LabelingImage) {
-        binding.domainLabel = item.domainLabel
+        binding.labelingImage = item
         binding.image = item.localImages.first()
         binding.setVariable(BR.event, onClick)
+        binding.setVariable(BR.delegate, delegate)
         binding.label.background.setTint(
             ColorUtils(
                 item.domainLabel.color ?: "",

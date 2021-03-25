@@ -5,13 +5,22 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.nexters.fullstack.BR
+import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
+import com.nexters.fullstack.mapper.LocalImageMapper
+import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.mapper.local.LocalLabelMapper
+import com.nexters.fullstack.source.LabelingImage
+import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.ui.activity.AlbumActivitybyColor
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
+import com.nexters.fullstack.ui.adapter.LocalImageAdapter
 import com.nexters.fullstack.ui.adapter.listener.ItemClickListener
+import com.nexters.fullstack.ui.adapter.listener.OnClickItemDelegate
+import com.nexters.fullstack.ui.holder.LocalImageViewHolder
 import com.nexters.fullstack.ui.widget.bottomsheet.LabelManagerBottomSheetDialog
 import com.nexters.fullstack.ui.widget.bottomsheet.recyclerview.GridLayoutRecyclerOnScrollListener
 import com.nexters.fullstack.viewmodel.LabelingViewModel
@@ -21,7 +30,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.concurrent.TimeUnit
 
 class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(),
-    ItemClickListener {
+    ItemClickListener, OnClickItemDelegate {
 
     override val layoutRes: Int = R.layout.fragment_myalbum
 
@@ -58,6 +67,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
         bind {
             setVariable(BR.vm, viewModel)
             setVariable(BR.event, this@MyAlbumFragment)
+            setVariable(BR.delegate, this@MyAlbumFragment)
         }
     }
 
@@ -102,4 +112,14 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
             LocalLabelMapper.toDomain(item)
         ).show(requireActivity().supportFragmentManager, this.tag)
     }
+
+    override fun onClickItem(item: LabelingImage) {
+        val intent = Intent(context, AlbumActivitybyColor::class.java)
+        val imageMapper = item.localImages.map(LocalImageMapper::toDomain)
+        val labelMapper = LocalMainLabelMapper.toData(item.domainLabel)
+        intent.putExtra(Constants.IMAGES, imageMapper.toTypedArray())
+        intent.putExtra(Constants.LABEL, labelMapper)
+        startActivity(intent)
+    }
+
 }
