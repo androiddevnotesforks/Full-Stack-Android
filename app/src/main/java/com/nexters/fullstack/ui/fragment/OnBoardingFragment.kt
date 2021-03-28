@@ -28,12 +28,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding, OnBoardingVie
         binding.lottie.setAnimation(LOTTIE_PREFIX + data.order + LOTTIE_SUFFIX)
         binding.lottie.playAnimation()
         binding.lottie.repeatCount = LottieDrawable.INFINITE
-
-        when(data.order){
-            1 -> binding.indicator1.isSelected = true
-            2 -> binding.indicator2.isSelected = true
-            3 -> binding.indicator3.isSelected = true
-        }
     }
 
     companion object {
@@ -47,9 +41,5 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding, OnBoardingVie
             fragment.arguments = bundle
             return fragment
         }
-    }
-
-    override fun onActivityResult(activityResultData: ActivityResultData) {
-        //no op
     }
 }
