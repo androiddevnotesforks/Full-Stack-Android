@@ -1,19 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/ss_small_width"
-        android:layout_height="@dimen/ss_small_height">
+        android:id="@+id/container_input_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_search_height"
+        android:background="@drawable/bg_search_bar"
+        android:paddingLeft="@dimen/spacing_10"
+        android:paddingRight="@dimen/spacing_10"
+        >
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="@dimen/icon_mini"
+            android:layout_height="@dimen/icon_mini"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_icon_search">
+        </ImageView>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_search"
+            app:layout_constraintRight_toLeftOf="@id/iv_clear"
+            android:layout_marginLeft="@dimen/spacing_8"
+            android:textColorHint="@color/edittext_hint"
+            android:textColor="@color/def_primary"
+            android:hint="@string/placeholder_label_search"
+            android:textSize="@dimen/b1"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            style="@style/EditTextStyle"
+            android:theme="@style/EditTextStyle"
+            android:text="@={vm.state().searchKeyword}">
+
+        </EditText>
 
         <ImageView
-            android:id="@+id/iv_screenshot"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:id="@+id/iv_clear"
+            android:layout_width="@dimen/icon_micro"
+            android:layout_height="@dimen/icon_micro"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_btn_icon_cancel">
 
         </ImageView>
 
