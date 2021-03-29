@@ -105,4 +105,7 @@
     <color name="positive">#C76661</color>
     <color name="negative">#0A84FF</color>
 
+    <!--    background  -->
+    <color name="background">#1B1C21</color>
+    <color name="dim_background">#331B1D21</color>
 </resources>
