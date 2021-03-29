@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,6 +14,30 @@
             android:id="@+id/iv_screenshot"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/iv_heart"
+            android:layout_width="@dimen/icon_super_micro"
+            android:layout_height="@dimen/icon_super_micro"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginBottom="@dimen/spacing_8"
+            android:layout_marginLeft="@dimen/spacing_8"
+            android:src="@drawable/ic_heart_small">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/iv_label"
+            android:layout_width="@dimen/icon_super_micro"
+            android:layout_height="@dimen/icon_super_micro"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_heart"
+            android:layout_marginBottom="@dimen/spacing_8"
+            android:layout_marginLeft="@dimen/spacing_8"
+            android:src="@drawable/ic_label_small">
 
         </ImageView>
 
