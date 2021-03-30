@@ -22,4 +22,5 @@ val viewModelModule = module {
     viewModel { LabelingViewModel(get(), get(named(KoinNamed.IMAGE)), get()) }
     viewModel { BottomSheetViewModel() }
     viewModel { HomeMainViewModel() }
+    viewModel { HomeSearchViewModel() }
 }

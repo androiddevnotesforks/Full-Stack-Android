@@ -132,7 +132,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             Log.e("test", "recent")
         }
         searchResultAdapter.setItemClickListener { view, i, labelSource ->
-            viewModel.selectLabel(labelSource.name)
+            labelSource?.let {
+                viewModel.selectLabel(it.name)
+            }
             viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
         }
         selectedLabelAdapter.setItemClickListener { _, i, _ ->
