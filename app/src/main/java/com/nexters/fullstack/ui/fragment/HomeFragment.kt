@@ -52,6 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
     private fun initListener(){
         homeMainAdapter.setItemClickListener { view, i, homeList ->
             val intent = Intent(this.context, HomeSearchActivity::class.java)
+            startActivity(intent)
         }
     }
 

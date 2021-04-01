@@ -17,5 +17,16 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
         bind {
             setVariable(BR.vm, viewModel)
         }
+        initListener()
+    }
+
+    private fun initView(){
+
+    }
+
+    private fun initListener(){
+        binding.tvCancel.setOnClickListener {
+            finish()
+        }
     }
 }

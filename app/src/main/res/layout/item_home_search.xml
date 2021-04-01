@@ -25,24 +25,20 @@
             android:src="@drawable/ic_icon_search">
         </ImageView>
 
-        <EditText
+        <TextView
             android:id="@+id/et_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/iv_search"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginLeft="@dimen/spacing_8"
-            android:textColorHint="@color/edittext_hint"
-            android:textColor="@color/def_primary"
-            android:hint="@string/placeholder_label_search"
+            android:textColor="@color/def_inactive"
+            android:text="@string/placeholder_label_search"
             android:textSize="@dimen/b1"
-            android:background="@android:color/transparent"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            style="@style/EditTextStyle"
-            android:theme="@style/EditTextStyle">
+            >
 
-        </EditText>
+        </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
