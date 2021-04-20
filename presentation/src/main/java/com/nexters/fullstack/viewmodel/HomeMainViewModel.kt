@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.source.HomeList
+import com.nexters.fullstack.source.HomeListType
 import com.nexters.fullstack.source.HomeScreenshot
 import kotlinx.coroutines.launch
 
@@ -18,10 +19,16 @@ class HomeMainViewModel : BaseViewModel() {
     init {
         // TODO load screenshots..!
         viewModelScope.launch {
-            recentScreenshotList.add(HomeScreenshot(null, null, false))
-            favoriteScreenshotList.add(HomeScreenshot(null, null, true))
-            screenshotGroupList.add(HomeList("최신순 스크린샷", recentScreenshotList))
-            screenshotGroupList.add(HomeList("즐겨찾는 스크린샷", favoriteScreenshotList))
+//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
+//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
+//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
+//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
+            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
+            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
+            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
+            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
+            screenshotGroupList.add(HomeList(HomeListType.RECENT, HomeListType.RECENT.title, recentScreenshotList))
+            screenshotGroupList.add(HomeList(HomeListType.FAVORITE, HomeListType.FAVORITE.title,favoriteScreenshotList))
         }
         state.screenshotGroups.value = screenshotGroupList
     }

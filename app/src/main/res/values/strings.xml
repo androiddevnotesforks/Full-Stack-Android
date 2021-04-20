@@ -70,5 +70,6 @@
     <string name="message">해당 라벨을 삭제해도 라벨이 추가된 스크린샷은 삭제되지 않습니다.</string>
 
     <!--    Home   -->
-    <string name="empty_favorite">스크린샷을 <br />즐겨찾기 해보세요.</string>
+    <string name="empty_favorite">스크린샷을 \n즐겨찾기 해보세요.</string>
+    <string name="empty_screenshot">스크린샷을 \n캡쳐해보세요.</string>
 </resources>

@@ -25,7 +25,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginBottom="@dimen/spacing_8"
             android:layout_marginLeft="@dimen/spacing_8"
-            android:src="@drawable/ic_heart_small">
+            android:src="@drawable/ic_heart_small"
+            android:visibility="gone">
 
         </ImageView>
 
@@ -37,7 +38,8 @@
             app:layout_constraintLeft_toRightOf="@id/iv_heart"
             android:layout_marginBottom="@dimen/spacing_8"
             android:layout_marginLeft="@dimen/spacing_8"
-            android:src="@drawable/ic_label_small">
+            android:src="@drawable/ic_label_small"
+            android:visibility="gone">
 
         </ImageView>
 
