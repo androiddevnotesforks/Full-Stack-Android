@@ -3,18 +3,12 @@ package com.nexters.fullstack.ui.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.FragmentHomeBinding
+import com.nexters.fullstack.ui.activity.HomeScreenshotActivity
 import com.nexters.fullstack.ui.activity.HomeSearchActivity
-import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.activity.SettingActivity
 import com.nexters.fullstack.ui.adapter.HomeMainParentAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -51,10 +45,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
     }
 
     private fun initListener(){
-        homeMainAdapter.setItemClickListener { view, i, homeList ->
-            val intent = Intent(this.context, HomeSearchActivity::class.java)
+        homeMainAdapter.setItemClickListener { _, count, data ->
+            val intent : Intent
+            if(count == 0){
+                intent = Intent(this.context, HomeSearchActivity::class.java)
+            }
+            else{
+                intent = Intent(this.context, HomeScreenshotActivity::class.java)
+                intent.putExtra(LIST_TITLE_KEY, data?.title)
+                // TODO put image list
+            }
             startActivity(intent)
         }
+
         binding.ivProfile.setOnClickListener {
             startActivity(Intent(context, SettingActivity::class.java))
         }
@@ -62,6 +65,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
 
     companion object {
         const val VERTICAL_SPACING = 10
+        const val LIST_TITLE_KEY = "title"
+        const val LIST_IMAGES_KEY = "images"
 
         private var instance: HomeFragment? = null
         fun getInstance(): HomeFragment {

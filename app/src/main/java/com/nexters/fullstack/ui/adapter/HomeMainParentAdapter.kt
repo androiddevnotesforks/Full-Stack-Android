@@ -51,6 +51,11 @@ class HomeMainParentAdapter : BaseAdapter<HomeList>() {
             }
             is HomeMainParentViewHolder -> {
                 holder.bind(items[position-1])
+                holder.itemView.setOnClickListener {
+                    getItemClickListener()?.invoke(
+                        it, position, items[position-1]
+                    )
+                }
             }
         }
     }

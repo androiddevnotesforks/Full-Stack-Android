@@ -24,7 +24,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="@dimen/b1"
-                android:textColor="@color/def_primary">
+                android:textColor="@color/def_primary"
+                android:textStyle="bold">
 
             </TextView>
 
