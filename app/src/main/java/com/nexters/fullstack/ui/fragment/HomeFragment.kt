@@ -15,6 +15,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.FragmentHomeBinding
 import com.nexters.fullstack.ui.activity.HomeSearchActivity
 import com.nexters.fullstack.ui.activity.LabelingActivity
+import com.nexters.fullstack.ui.activity.SettingActivity
 import com.nexters.fullstack.ui.adapter.HomeMainParentAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.viewmodel.HomeMainViewModel
@@ -53,6 +54,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
         homeMainAdapter.setItemClickListener { view, i, homeList ->
             val intent = Intent(this.context, HomeSearchActivity::class.java)
             startActivity(intent)
+        }
+        binding.ivProfile.setOnClickListener {
+            startActivity(Intent(context, SettingActivity::class.java))
         }
     }
 

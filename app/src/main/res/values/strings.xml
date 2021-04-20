@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Labelary</string>
+    <string name="app_name_ko">레이블러리</string>
 
     <!--    splash  -->
     <string name="splash">스크린 샷<br />정리가 어렵다면</string>
@@ -72,4 +73,15 @@
     <!--    Home   -->
     <string name="empty_favorite">스크린샷을 \n즐겨찾기 해보세요.</string>
     <string name="empty_screenshot">스크린샷을 \n캡쳐해보세요.</string>
+    
+    <!--  Settings  -->
+    <string name="team_name">Team Fullstack</string>
+    <string name="purchase_premium">프리미엄 구매</string>
+    <string name="setting_review">앱스토어에 리뷰쓰기</string>
+    <string name="setting_recommendation">친구에게 추천하기</string>
+    <string name="setting_guide">이용방법 보기</string>
+    <string name="setting_quick_labelling">빠른 라벨링 설정하기</string>
+    <string name="setting_feedback">피드백 보내기</string>
+    <string name="setting_label_clear">라벨 초기화하기</string>
+    <string name="setting_label_clear_description">라벨 내역이 초기화되며, 스크린샷은 삭제되지 않습니다.</string>
 </resources>

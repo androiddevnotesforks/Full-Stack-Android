@@ -2,6 +2,9 @@
 <resources>
     <!-- components -->
     <dimen name="toolbar_height">60dp</dimen>
+    <dimen name="setting_title_height">100dp</dimen>
+    <dimen name="setting_list_height">60dp</dimen>
+    <dimen name="setting_list_large_height">80dp</dimen>
     <dimen name="icon_touch">48dp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="icon_mini">20dp</dimen>

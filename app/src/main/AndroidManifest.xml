@@ -54,6 +54,10 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activity.SettingActivity">
+
+        </activity>
     </application>
 
 </manifest>
