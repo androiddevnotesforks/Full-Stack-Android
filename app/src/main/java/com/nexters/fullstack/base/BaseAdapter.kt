@@ -8,7 +8,7 @@ import com.nexters.fullstack.util.DiffUtilCallback
 abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     protected val items = mutableListOf<ITEM>()
-    private var itemClickListener : ((View, Int, ITEM) -> Unit)? = null
+    private var itemClickListener : ((View, Int, ITEM?) -> Unit)? = null
 
     override fun getItemCount(): Int {
         return items.size
@@ -40,7 +40,7 @@ abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewH
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun setItemClickListener(itemClickListener : (View, Int, ITEM) -> Unit){
+    fun setItemClickListener(itemClickListener : (View, Int, ITEM?) -> Unit){
         this.itemClickListener = itemClickListener
     }
 

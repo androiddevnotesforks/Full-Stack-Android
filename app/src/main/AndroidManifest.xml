@@ -39,6 +39,9 @@
             android:name=".ui.activity.OnBoardingActivity"
             android:noHistory="true">
         </activity>
+        <activity android:name=".ui.activity.HomeSearchActivity">
+
+        </activity>
         <activity android:name=".MainActivity">
 
         </activity>
@@ -50,6 +53,14 @@
 
                 <data android:mimeType="image/*" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.activity.SettingActivity">
+
+        </activity>
+
+        <activity android:name=".ui.activity.HomeScreenshotActivity">
+
         </activity>
     </application>
 

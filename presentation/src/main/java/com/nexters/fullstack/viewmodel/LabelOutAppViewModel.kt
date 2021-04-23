@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class LabelOutAppViewModel(
     private val loadLabelUseCase: GetLabelManagementUseCase
 ) : BaseViewModel() {
-    private val state: State
+    private val state: State = State()
     private val myLabelList = mutableListOf<LabelSource>()
     private val selectedLabelList = mutableListOf<LabelSource>()
     private val recentlySearchList = mutableListOf<LabelSource>()
@@ -82,7 +82,6 @@ class LabelOutAppViewModel(
     }
 
     init {
-        state = State()
 
         // TODO init my label list using usecase
         viewModelScope.launch {
