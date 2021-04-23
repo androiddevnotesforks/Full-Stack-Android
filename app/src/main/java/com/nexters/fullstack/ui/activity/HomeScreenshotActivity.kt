@@ -32,7 +32,7 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
 
     private fun initData(){
         viewModel.state().title.value = intent.getStringExtra(TITLE_KEY)?:""
-        // TODO init imageUrl list
+        // TODO init image list
     }
 
     private fun initListener(){

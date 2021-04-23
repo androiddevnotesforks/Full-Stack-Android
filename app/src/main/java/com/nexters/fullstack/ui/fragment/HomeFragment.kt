@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
             else{
                 intent = Intent(this.context, HomeScreenshotActivity::class.java)
                 intent.putExtra(LIST_TITLE_KEY, data?.title)
-                // TODO put imageUrl list
+                // TODO put image list
             }
             startActivity(intent)
         }
