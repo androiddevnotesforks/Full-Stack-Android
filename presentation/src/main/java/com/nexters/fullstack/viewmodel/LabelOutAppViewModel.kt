@@ -54,7 +54,7 @@ class LabelOutAppViewModel(
     }
 
     fun completeLabeling() {
-        // TODO usecase 연결 > image selectLabels
+        // TODO usecase 연결 > imageUrl selectLabels
         viewModelScope.launch {
 
         }

@@ -68,7 +68,7 @@ class HomeMainChildAdapter(private val type : HomeListType) : BaseAdapter<HomeSc
     }
 
     override fun getItemCount(): Int {
-        if(items.size == 0) return super.getItemCount() + 1
+        if(items.isNullOrEmpty()) return super.getItemCount() + 1
         return super.getItemCount()
     }
 

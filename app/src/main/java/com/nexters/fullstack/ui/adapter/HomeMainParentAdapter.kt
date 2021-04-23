@@ -66,7 +66,7 @@ class HomeMainParentAdapter : BaseAdapter<HomeList>() {
     }
 
     override fun getItemCount(): Int {
-        return if(items.size == 0) 1
+        return if(items.isNullOrEmpty()) 1
         else super.getItemCount()+1
     }
 
