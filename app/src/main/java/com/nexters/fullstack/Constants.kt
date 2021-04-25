@@ -23,6 +23,6 @@ object Constants {
     const val LABEL_MODIFY_KEY = "label"
 
     //album activity key
-    const val IMAGES = "images"
+    const val KEY_IMAGES = "images"
     const val LABEL = "label"
 }
