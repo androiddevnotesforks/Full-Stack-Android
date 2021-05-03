@@ -1,10 +1,13 @@
 package com.nexters.fullstack.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeScreenshotBinding
+import com.nexters.fullstack.source.HomeList
+import com.nexters.fullstack.source.HomeScreenshot
 import com.nexters.fullstack.ui.adapter.HomeScreenshotAdapter
 import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -13,7 +16,8 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
     override val layoutRes: Int = R.layout.activity_home_screenshot
     override val viewModel: HomeScreenshotViewModel by viewModel()
 
-    private val screenshotAdapter = HomeScreenshotAdapter()
+    private val screenshotAdapter = HomeScreenshotAdapter(HomeScreenshotViewModel.Mode.DEFAULT)
+    private val imagePickerAdapter = HomeScreenshotAdapter(HomeScreenshotViewModel.Mode.SELECTION)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,27 +32,51 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
 
     private fun initView(){
         binding.rvImages.adapter = screenshotAdapter
+
     }
 
     private fun initData(){
-        viewModel.state().title.value = intent.getStringExtra(TITLE_KEY)?:""
-        // TODO init image list
+        intent.getParcelableExtra<HomeList>(LIST_KEY)?.let {
+            with(viewModel.state()){
+                title.value = it.title
+                images.value = it.images
+            }
+        }
     }
 
     private fun initListener(){
-        binding.ivBack.setOnClickListener {
-            onBackPressed()
+        with(binding){
+            ivBack.setOnClickListener {
+                onBackPressed()
+            }
+            tvSelection.setOnClickListener {
+                viewModel.changeMode()
+            }
+            ivCancel.setOnClickListener {
+                viewModel.changeMode()
+            }
+            imagePickerAdapter.setItemClickListener { _, _, _ ->
+                viewModel.updateSelected(imagePickerAdapter.getSelectedList())
+            }
         }
     }
 
     private fun initObserver(){
-        viewModel.state().images.observe(this, {
-
-        })
+        with(viewModel.state()){
+            images.observe(this@HomeScreenshotActivity, {
+                screenshotAdapter.addItems(it)
+                imagePickerAdapter.addItems(it)
+            })
+            mode.observe(this@HomeScreenshotActivity, {
+                when(it){
+                    HomeScreenshotViewModel.Mode.DEFAULT -> binding.rvImages.adapter = screenshotAdapter
+                    HomeScreenshotViewModel.Mode.SELECTION -> binding.rvImages.adapter = imagePickerAdapter
+                }
+            })
+        }
     }
 
     companion object{
-        const val TITLE_KEY = "title"
-        const val LIST_IMAGES_KEY = "images"
+        const val LIST_KEY = "home_list"
     }
 }

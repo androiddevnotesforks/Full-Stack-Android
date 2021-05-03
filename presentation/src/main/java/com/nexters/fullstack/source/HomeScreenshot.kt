@@ -1,9 +1,12 @@
 package com.nexters.fullstack.source
 
-import com.nexters.fullstack.source.data.LocalImageDomain
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 class HomeScreenshot (
     val imageUrl : String,
     val labels : List<Label>?,
-    val isFavorite : Boolean
-)
+    val isFavorite : Boolean,
+    var isChecked : Boolean = false
+) : Parcelable

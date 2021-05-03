@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,8 +9,11 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.source.HomeScreenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
+import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
 
-class HomeScreenshotAdapter : BaseAdapter<HomeScreenshot>() {
+class HomeScreenshotAdapter(private val mode : HomeScreenshotViewModel.Mode) : BaseAdapter<HomeScreenshot>() {
+    private val selectedIndex : ArrayList<Int> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HomeMainChildViewHolder(
             DataBindingUtil.inflate(
@@ -17,7 +21,8 @@ class HomeScreenshotAdapter : BaseAdapter<HomeScreenshot>() {
                 R.layout.item_home_screenshot,
                 parent,
                 false
-            )
+            ),
+            mode
         )
     }
 
@@ -25,7 +30,28 @@ class HomeScreenshotAdapter : BaseAdapter<HomeScreenshot>() {
         when(holder){
             is HomeMainChildViewHolder -> {
                 holder.bind(items[position])
+                holder.itemView.setOnClickListener {
+                    getItemClickListener()?.invoke(
+                        it,
+                        position,
+                        null
+                    )
+                    if(selectedIndex.contains(position)){
+                        items[position].isChecked = false
+                        notifyDataSetChanged()
+                        selectedIndex.remove(position)
+                    }
+                    else{
+                        items[position].isChecked = true
+                        notifyDataSetChanged()
+                        selectedIndex.add(position)
+                    }
+                }
             }
         }
     }
+
+    fun getSelectedList() = selectedIndex
+
+
 }

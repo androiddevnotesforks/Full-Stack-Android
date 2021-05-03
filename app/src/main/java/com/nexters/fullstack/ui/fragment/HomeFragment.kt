@@ -52,8 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
             }
             else{
                 intent = Intent(this.context, HomeScreenshotActivity::class.java)
-                intent.putExtra(LIST_TITLE_KEY, data?.title)
-                // TODO put image list
+                intent.putExtra(LIST_KEY, data)
             }
             startActivity(intent)
         }
@@ -65,8 +64,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
 
     companion object {
         const val VERTICAL_SPACING = 10
-        const val LIST_TITLE_KEY = "title"
-        const val LIST_IMAGES_KEY = "images"
+        const val LIST_KEY = "home_list"
 
         private var instance: HomeFragment? = null
         fun getInstance(): HomeFragment {
