@@ -34,7 +34,7 @@ class HomeScreenshotAdapter(private val mode : HomeScreenshotViewModel.Mode) : B
                     getItemClickListener()?.invoke(
                         it,
                         position,
-                        null
+                        items[position]
                     )
                     if(selectedIndex.contains(position)){
                         items[position].isChecked = false

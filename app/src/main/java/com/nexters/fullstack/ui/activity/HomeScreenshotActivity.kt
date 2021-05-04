@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.nexters.fullstack.BR
@@ -28,6 +29,7 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
         initData()
         initListener()
         initObserver()
+        Log.e("init mode", viewModel.state().mode.value!!.name)
     }
 
     private fun initView(){
@@ -51,12 +53,19 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
             }
             tvSelection.setOnClickListener {
                 viewModel.changeMode()
+                Log.e("current mode ", viewModel.state().mode.value!!.name)
             }
             ivCancel.setOnClickListener {
                 viewModel.changeMode()
+                Log.e("current mode ", viewModel.state().mode.value!!.name)
             }
             imagePickerAdapter.setItemClickListener { _, _, _ ->
                 viewModel.updateSelected(imagePickerAdapter.getSelectedList())
+            }
+            screenshotAdapter.setItemClickListener { _, _, data ->
+                val intent = Intent(this@HomeScreenshotActivity, ScreenshotDetailActivity::class.java)
+                intent.putExtra(IMAGE_KEY, data)
+                startActivity(intent)
             }
         }
     }
@@ -78,5 +87,6 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
 
     companion object{
         const val LIST_KEY = "home_list"
+        const val IMAGE_KEY = "image"
     }
 }

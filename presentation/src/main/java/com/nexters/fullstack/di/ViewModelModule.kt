@@ -24,4 +24,5 @@ val viewModelModule = module {
     viewModel { HomeMainViewModel() }
     viewModel { HomeSearchViewModel() }
     viewModel { HomeScreenshotViewModel() }
+    viewModel { ScreenshotDetailViewModel() }
 }

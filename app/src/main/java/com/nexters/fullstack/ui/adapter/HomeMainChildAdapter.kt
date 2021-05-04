@@ -59,6 +59,11 @@ class HomeMainChildAdapter(private val type : HomeListType) : BaseAdapter<HomeSc
         when(holder){
             is HomeMainChildViewHolder -> {
                 holder.bind(items[position])
+                holder.itemView.setOnClickListener {
+                    getItemClickListener()?.invoke(
+                        it, position, items[position]
+                    )
+                }
             }
             is HomeMainChildEmptyRecentViewHolder -> {
 
