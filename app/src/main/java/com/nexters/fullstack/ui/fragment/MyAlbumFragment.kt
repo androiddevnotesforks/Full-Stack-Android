@@ -90,11 +90,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     }
 
     companion object {
-        private var instance: MyAlbumFragment? = null
         fun getInstance(): MyAlbumFragment {
-            if (instance == null) {
-                instance = MyAlbumFragment()
-            }
             return MyAlbumFragment()
         }
     }
@@ -117,7 +113,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
         val intent = Intent(context, AlbumActivitybyColor::class.java)
         val imageMapper = item.localImages.map(LocalImageMapper::toDomain)
         val labelMapper = LocalMainLabelMapper.toData(item.domainLabel)
-        intent.putExtra(Constants.IMAGES, imageMapper.toTypedArray())
+        intent.putExtra(Constants.KEY_IMAGES, imageMapper.toTypedArray())
         intent.putExtra(Constants.LABEL, labelMapper)
         startActivity(intent)
     }
