@@ -2,6 +2,7 @@ package com.nexters.fullstack.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.nexters.fullstack.BR
@@ -113,7 +114,8 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
         val intent = Intent(context, AlbumActivitybyColor::class.java)
         val imageMapper = item.localImages.map(LocalImageMapper::toDomain)
         val labelMapper = LocalMainLabelMapper.toData(item.domainLabel)
-        intent.putExtra(Constants.KEY_IMAGES, imageMapper.toTypedArray())
+        Log.e("pass Images", imageMapper.toString())
+        intent.putParcelableArrayListExtra(Constants.KEY_IMAGES, ArrayList(imageMapper))
         intent.putExtra(Constants.LABEL, labelMapper)
         startActivity(intent)
     }

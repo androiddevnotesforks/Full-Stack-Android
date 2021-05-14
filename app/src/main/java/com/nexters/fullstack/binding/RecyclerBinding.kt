@@ -5,16 +5,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.source.LabelingImage
+import com.nexters.fullstack.source.LocalImageData
 import com.nexters.fullstack.source.LocalLabel
 import com.nexters.fullstack.source.MainLabel
 import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.source.local.DomainUserLabel
-import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
-import com.nexters.fullstack.ui.adapter.LocalImageAdapter
-import com.nexters.fullstack.ui.adapter.MainStackAdapter
-import com.nexters.fullstack.ui.adapter.MyLabelAdapter
+import com.nexters.fullstack.ui.adapter.*
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.ui.holder.LocalImageViewHolder
 
@@ -81,6 +79,21 @@ fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent:
             }
         }
     } ?: BottomSheetAdapter(onClickEvent).also {
+        adapter = it
+    }
+}
+
+@BindingAdapter(requireAll = false, value = ["app:labelAlbumItems", "app:onClickLabelItemEvent"])
+fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, onClickEvent: Any?) {
+    adapter?.run {
+        //todo 라벨 별 앨범 어뎁터 생성.
+        if (this is LabelAlbumRecyclerAdapter) {
+            items?.let {
+                addItems(it)
+                notifyDataSetChanged()
+            }
+        }
+    } ?: LabelAlbumRecyclerAdapter().also {
         adapter = it
     }
 }

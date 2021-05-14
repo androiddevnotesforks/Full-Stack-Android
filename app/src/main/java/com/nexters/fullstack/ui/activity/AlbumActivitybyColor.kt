@@ -1,7 +1,6 @@
 package com.nexters.fullstack.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
@@ -13,7 +12,7 @@ import com.nexters.fullstack.util.ColorUtil
 import com.nexters.fullstack.viewmodel.AlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//todo 라벨 네임 컬러 정하기 리사이클러 뷰 데이터 init
+//todo 리사이클러 뷰 데코레이션 적용.
 class AlbumActivitybyColor : BaseActivity<ActivityAlbumActivitybyColorBinding, AlbumViewModel>() {
 
     override val layoutRes: Int = R.layout.activity_album_activityby_color
@@ -57,5 +56,4 @@ class AlbumActivitybyColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
             }
         }
     }
-
 }
