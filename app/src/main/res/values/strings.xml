@@ -74,6 +74,7 @@
     <string name="empty_favorite">스크린샷을 \n즐겨찾기 해보세요.</string>
     <string name="empty_screenshot">스크린샷을 \n캡쳐해보세요.</string>
     <string name="selection">선택</string>
+    <string name="search_title">스크린샷 검색</string>
     
     <!--  Settings  -->
     <string name="team_name">Team Fullstack</string>

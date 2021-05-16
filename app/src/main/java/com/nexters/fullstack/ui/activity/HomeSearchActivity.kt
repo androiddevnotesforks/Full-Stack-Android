@@ -25,7 +25,7 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
     }
 
     private fun initListener(){
-        binding.tvCancel.setOnClickListener {
+        binding.ivCancel.setOnClickListener {
             finish()
         }
     }

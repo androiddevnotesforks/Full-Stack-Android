@@ -19,14 +19,6 @@ class HomeMainViewModel : BaseViewModel() {
     init {
         // TODO load screenshots..!
         viewModelScope.launch {
-            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
-            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
-            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
-            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
             screenshotGroupList.add(HomeList(HomeListType.RECENT, HomeListType.RECENT.title, recentScreenshotList))
             screenshotGroupList.add(HomeList(HomeListType.FAVORITE, HomeListType.FAVORITE.title,favoriteScreenshotList))
         }

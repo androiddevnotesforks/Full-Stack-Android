@@ -67,6 +67,7 @@
     <dimen name="spacing_165">165dp</dimen>
 
     <dimen name="radius_4">4dp</dimen>
+    <dimen name="radius_bottom_sheet">16dp</dimen>
 
 
     <!--    Text Size   -->
