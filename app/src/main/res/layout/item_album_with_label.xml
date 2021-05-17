@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="domainLabel"
-            type="com.nexters.fullstack.source.local.DomainUserLabel" />
+            name="labelingImage"
+            type="com.nexters.fullstack.source.LabelingImage" />
 
         <variable
             name="image"
@@ -16,9 +16,15 @@
         <variable
             name="event"
             type="com.nexters.fullstack.ui.adapter.listener.ItemClickListener" />
+
+        <variable
+            name="delegate"
+            type="com.nexters.fullstack.ui.adapter.listener.OnClickItemDelegate" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/album"
+        android:onClick="@{() -> delegate.onClickItem(labelingImage)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -46,7 +52,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="end|top"
                 android:layout_marginTop="@dimen/spacing_5"
-                android:onClick="@{() -> event.onClick(domainLabel)}"
+                android:onClick="@{() -> event.onClick(labelingImage.domainLabel)}"
                 android:layout_marginEnd="@dimen/spacing_5">
 
                 <ImageView
@@ -66,7 +72,7 @@
             android:layout_marginTop="@dimen/spacing_normal"
             android:background="@drawable/bg_album_title"
             android:padding="@dimen/spacing_normal"
-            android:text="@{domainLabel.text}"
+            android:text="@{labelingImage.domainLabel.text}"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/thumbnail" />

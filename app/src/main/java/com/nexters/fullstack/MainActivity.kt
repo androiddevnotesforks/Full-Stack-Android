@@ -3,7 +3,12 @@ package com.nexters.fullstack
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.nexters.fullstack.Constants.BOTTOM_SHEET_ITEM
+import com.nexters.fullstack.Constants.BOTTOM_SHEET_KEY
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityMainBinding
 import com.nexters.fullstack.ext.loadFragment
@@ -22,6 +27,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private val myAlbumFragment = MyAlbumFragment.getInstance()
     private var mainFragment: Fragment = labelManagerFragment
     private lateinit var activeFragment: Fragment
+
+    private val firebaseAnalytics: FirebaseAnalytics by lazy {
+        FirebaseAnalytics.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +56,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun fetchBottomSheet(itemId: Int) {
+        firebaseAnalytics.logEvent(BOTTOM_SHEET_KEY) {
+            param(FirebaseAnalytics.Param.ITEM_ID, bundleOf(BOTTOM_SHEET_ITEM to itemId))
+        }
         when (itemId) {
             R.id.label -> changeFragment(activeFragment, labelManagerFragment)
             R.id.album -> changeFragment(activeFragment, myAlbumFragment)
