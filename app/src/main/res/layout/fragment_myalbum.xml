@@ -21,7 +21,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/depth4">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="0dp"
@@ -36,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:fitsSystemWindows="true"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent">
+                android:elevation="0dp"
+                android:background="@color/depth4">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/toolbar"
@@ -78,7 +79,7 @@
                                 android:id="@+id/add_label"
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:layout_marginEnd="@dimen/spacing_12"
+                                android:layout_marginEnd="@dimen/spacing_6"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@+id/guideline"
