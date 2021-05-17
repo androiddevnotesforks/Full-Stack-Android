@@ -2,6 +2,7 @@ package com.nexters.fullstack.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.source.LabelingImage
@@ -95,5 +96,6 @@ fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, onClickEvent
         }
     } ?: LabelAlbumRecyclerAdapter().also {
         adapter = it
+        addItemDecoration(SpaceBetweenRecyclerDecoration(16.toPx, 14.toPx))
     }
 }
