@@ -25,4 +25,6 @@ object Constants {
     //album activity key
     const val KEY_IMAGES = "images"
     const val LABEL = "label"
+
+    const val BOTTOM_SHEET_ITEM = "item"
 }

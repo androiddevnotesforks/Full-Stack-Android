@@ -80,6 +80,11 @@ dependencies {
     // preference datastore
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
 
+
+    //Google Analytics
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     // multi module
     implementation(project(":data"))
     implementation(project(":domain"))
