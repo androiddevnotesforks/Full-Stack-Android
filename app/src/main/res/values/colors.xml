@@ -84,6 +84,8 @@
     <color name="def_secondary">#8CFFFFFF</color>
     <color name="def_inactive">#4DFFFFFF</color>
 
+    <color name="font4">#2EEFF0FF</color>
+
     <color name="text_white">#FFFEFE</color>
 
     <!--    key     -->
