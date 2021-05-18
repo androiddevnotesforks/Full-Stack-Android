@@ -1,9 +1,7 @@
 package com.nexters.fullstack.ui.widget.bottomsheet.recyclerview
 
-import android.graphics.Color
 import android.view.Gravity
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
