@@ -26,7 +26,7 @@ class SettingActivity : BaseActivity<ActivityHomeSettingBinding, HomeSettingView
         initFirebaseEvent()
     }
 
-    private fun initListener(){
+    private fun initListener() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
@@ -34,12 +34,19 @@ class SettingActivity : BaseActivity<ActivityHomeSettingBinding, HomeSettingView
 
 
     private fun initFirebaseEvent() {
-        binding.tvPremium.setOnClickListener(::onPostFirebaseAnalytics)
-        binding.listReview.setOnClickListener(::onPostFirebaseAnalytics)
-        binding.listRecommendation.setOnClickListener(::onPostFirebaseAnalytics)
-        binding.listGuide.setOnClickListener(::onPostFirebaseAnalytics)
-        binding.listLabelClear.setOnClickListener(::onPostFirebaseAnalytics)
+        binding.tvPremium.setOnClickListener {
+            onPostFirebaseAnalytics(it)
+        }
+        binding.listReview.setOnClickListener {
+            onPostFirebaseAnalytics(it)
+        }
+        binding.listRecommendation.setOnClickListener {
+            onPostFirebaseAnalytics(it)
+        }
+        binding.listGuide.setOnClickListener { onPostFirebaseAnalytics(it) }
+        binding.listLabelClear.setOnClickListener { onPostFirebaseAnalytics(it) }
     }
+
 
     private fun onPostFirebaseAnalytics(view: View) {
         firebaseAnalytics.setSettingEvents(view, bundleOf(SETTING_KEY to view))
