@@ -21,6 +21,10 @@
 
     <dimen name="indicator_size">6dp</dimen>
 
+    <dimen name="btn_height">54dp</dimen>
+    
+    <dimen name="line_size">1dp</dimen>
+
 
     <!--    SPACING_MINUS   -->
     <dimen name="spacing_minus_micro">-2dp</dimen>
@@ -68,6 +72,7 @@
     <dimen name="spacing_165">165dp</dimen>
 
     <dimen name="radius_4">4dp</dimen>
+    <dimen name="radius_default">16dp</dimen>
     <dimen name="radius_bottom_sheet">16dp</dimen>
 
 

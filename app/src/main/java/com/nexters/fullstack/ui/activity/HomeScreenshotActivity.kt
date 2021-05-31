@@ -29,7 +29,6 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
         initData()
         initListener()
         initObserver()
-        Log.e("init mode", viewModel.state().mode.value!!.name)
     }
 
     private fun initView(){
@@ -53,11 +52,9 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
             }
             tvSelection.setOnClickListener {
                 viewModel.changeMode()
-                Log.e("current mode ", viewModel.state().mode.value!!.name)
             }
             ivCancel.setOnClickListener {
                 viewModel.changeMode()
-                Log.e("current mode ", viewModel.state().mode.value!!.name)
             }
             imagePickerAdapter.setItemClickListener { _, _, _ ->
                 viewModel.updateSelected(imagePickerAdapter.getSelectedList())

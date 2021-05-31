@@ -75,6 +75,9 @@
     <string name="empty_screenshot">스크린샷을 \n캡쳐해보세요.</string>
     <string name="selection">선택</string>
     <string name="home_search">스크린샷 검색</string>
+    <string name="search_btn">스크린샷 검색하기</string>
+    <string name="result_title">검색한 스크린샷</string>
+    <string name="edit">편집</string>
     
     <!--  Settings  -->
     <string name="team_name">Team Fullstack</string>
