@@ -19,4 +19,15 @@ class HomeSearchResultFragment : BaseFragment<FragmentHomeSearchSearchBinding, H
             setVariable(BR.vm, viewModel)
         }
     }
+
+    companion object {
+        private var instance: HomeSearchResultFragment? = null
+        fun getInstance(): HomeSearchResultFragment {
+            if (instance == null) {
+                instance = HomeSearchResultFragment()
+            }
+            return instance!!
+        }
+    }
+
 }

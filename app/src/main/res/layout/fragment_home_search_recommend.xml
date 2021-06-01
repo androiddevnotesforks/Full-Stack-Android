@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="vm"
+            type="com.nexters.fullstack.viewmodel.HomeSearchRecommendViewModel" />
+        <import type="android.view.View" />
 
     </data>
 
@@ -11,44 +15,118 @@
         android:layout_height="match_parent"
         android:background="@color/depth3">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_selected_label"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_bar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/input_search_height"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/spacing_12"
+            android:background="@drawable/bg_search_bar"
+            android:paddingRight="@dimen/spacing_12"
+            android:paddingLeft="@dimen/spacing_12">
+
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="@dimen/icon_mini"
+                android:layout_height="@dimen/icon_mini"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_icon_search">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toRightOf="@id/iv_search"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="@dimen/spacing_8"
+                android:text="@string/search_hint"
+                android:textColor="@color/def_inactive"
+                android:textSize="@dimen/b1"
+                android:background="@drawable/bg_search_bar"
+                android:gravity="center_vertical">
+
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_selected_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/padding_default">
+            app:layout_constraintTop_toBottomOf="@id/search_bar"
+            android:visibility="@{vm.state().selectedLabel.size() == 0 ? View.GONE : View.VISIBLE}">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_selected_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/padding_default">
 
-        <View
-            android:id="@+id/border"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            app:layout_constraintTop_toBottomOf="@id/rv_selected_label"
-            android:background="@color/depth2"
-            android:layout_marginTop="@dimen/padding_default">
+            </androidx.recyclerview.widget.RecyclerView>
 
-        </View>
+            <View
+                android:id="@+id/border"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@id/rv_selected_label"
+                android:background="@color/depth2"
+                android:layout_marginTop="@dimen/padding_default">
+
+            </View>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_recently_search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/container_selected_label"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/spacing_40"
+            android:text="@string/recentlySearch_title"
+            android:textSize="@dimen/b2"
+            android:textColor="@color/def_secondary">
+
+        </TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_recently_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/border"
-            android:layout_marginTop="@dimen/spacing_40"
+            app:layout_constraintTop_toBottomOf="@id/tv_recently_search_title"
             app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
             >
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/tv_my_label_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rv_recently_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/spacing_40"
+            android:text="@string/myLabel_title"
+            android:textSize="@dimen/b2"
+            android:textColor="@color/def_secondary">
+
+        </TextView>
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_my_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/rv_recently_search"
-            android:layout_marginTop="@dimen/spacing_40">
+            app:layout_constraintTop_toBottomOf="@id/tv_my_label_title"
+            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager">
 
         </androidx.recyclerview.widget.RecyclerView>
 

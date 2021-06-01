@@ -18,5 +18,22 @@ class HomeSearchRecommendFragment : BaseFragment<FragmentHomeSearchRecommendBind
         bind {
             setVariable(BR.vm, viewModel)
         }
+        initListener()
+    }
+
+    fun initListener(){
+        binding.searchBar.setOnClickListener {
+            parentFragmentManager.beginTransaction().hide(this).show(HomeSearchResultFragment.getInstance()).commit()
+        }
+    }
+
+    companion object {
+        private var instance: HomeSearchRecommendFragment? = null
+        fun getInstance(): HomeSearchRecommendFragment {
+            if (instance == null) {
+                instance = HomeSearchRecommendFragment()
+            }
+            return instance!!
+        }
     }
 }

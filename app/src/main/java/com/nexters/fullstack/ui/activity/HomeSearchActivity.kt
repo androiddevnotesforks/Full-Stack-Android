@@ -5,6 +5,7 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSearchBinding
+import com.nexters.fullstack.ui.fragment.HomeSearchRecommendFragment
 import com.nexters.fullstack.viewmodel.HomeSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,11 +18,12 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
         bind {
             setVariable(BR.vm, viewModel)
         }
+        initView()
         initListener()
     }
 
     private fun initView(){
-
+        supportFragmentManager.beginTransaction().add(binding.frame.id, HomeSearchRecommendFragment.getInstance()).commit()
     }
 
     private fun initListener(){
