@@ -1,4 +1,4 @@
-package com.nexters.fullstack.ui.fragment
+package com.nexters.fullstack.ui.fragment.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.FragmentHomeBinding
-import com.nexters.fullstack.ui.activity.HomeScreenshotActivity
-import com.nexters.fullstack.ui.activity.HomeSearchActivity
+import com.nexters.fullstack.ui.activity.home.HomeScreenshotActivity
+import com.nexters.fullstack.ui.activity.home.HomeSearchActivity
 import com.nexters.fullstack.ui.activity.SettingActivity
 import com.nexters.fullstack.ui.adapter.HomeMainParentAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration

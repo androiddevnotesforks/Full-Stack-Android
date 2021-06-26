@@ -1,4 +1,4 @@
-package com.nexters.fullstack.ui.fragment
+package com.nexters.fullstack.ui.fragment.home
 
 import android.os.Bundle
 import android.view.View

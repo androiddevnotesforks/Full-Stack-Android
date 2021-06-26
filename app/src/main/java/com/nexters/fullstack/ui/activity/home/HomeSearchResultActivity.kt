@@ -1,4 +1,4 @@
-package com.nexters.fullstack.ui.activity
+package com.nexters.fullstack.ui.activity.home
 
 import android.os.Bundle
 import com.nexters.fullstack.BR

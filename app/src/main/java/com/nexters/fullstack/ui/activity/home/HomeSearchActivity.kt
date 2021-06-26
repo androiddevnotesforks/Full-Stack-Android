@@ -1,11 +1,11 @@
-package com.nexters.fullstack.ui.activity
+package com.nexters.fullstack.ui.activity.home
 
 import android.os.Bundle
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSearchBinding
-import com.nexters.fullstack.ui.fragment.HomeSearchRecommendFragment
+import com.nexters.fullstack.ui.fragment.home.HomeSearchRecommendFragment
 import com.nexters.fullstack.viewmodel.HomeSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

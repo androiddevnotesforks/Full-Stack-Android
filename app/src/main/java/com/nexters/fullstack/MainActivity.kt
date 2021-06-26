@@ -14,7 +14,7 @@ import com.nexters.fullstack.databinding.ActivityMainBinding
 import com.nexters.fullstack.ext.loadFragment
 import com.nexters.fullstack.ui.fragment.LabelManagerFragment
 import com.nexters.fullstack.ui.fragment.MyAlbumFragment
-import com.nexters.fullstack.ui.fragment.HomeFragment
+import com.nexters.fullstack.ui.fragment.home.HomeFragment
 import com.nexters.fullstack.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

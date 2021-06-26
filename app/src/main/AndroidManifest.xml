@@ -41,7 +41,7 @@ package="com.nexters.fullstack">
         android:name=".ui.activity.OnBoardingActivity"
         android:noHistory="true">
     </activity>
-    <activity android:name=".ui.activity.HomeSearchActivity">
+    <activity android:name=".ui.activity.home.HomeSearchActivity">
 
     </activity>
     <activity android:name=".MainActivity">
@@ -59,8 +59,8 @@ package="com.nexters.fullstack">
 
     <activity android:name=".ui.activity.SettingActivity" />
     <activity android:name=".ui.activity.ScreenshotDetailActivity"/>
-    <activity android:name=".ui.activity.HomeScreenshotActivity"/>
-    <activity android:name=".ui.activity.HomeSearchResultActivity" />
+    <activity android:name=".ui.activity.home.HomeScreenshotActivity"/>
+    <activity android:name=".ui.activity.home.HomeSearchResultActivity" />
 </application>
 
 </manifest>

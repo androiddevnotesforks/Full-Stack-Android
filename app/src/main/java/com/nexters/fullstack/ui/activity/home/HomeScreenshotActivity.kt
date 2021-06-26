@@ -1,14 +1,13 @@
-package com.nexters.fullstack.ui.activity
+package com.nexters.fullstack.ui.activity.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeScreenshotBinding
 import com.nexters.fullstack.source.HomeList
-import com.nexters.fullstack.source.HomeScreenshot
+import com.nexters.fullstack.ui.activity.ScreenshotDetailActivity
 import com.nexters.fullstack.ui.adapter.HomeScreenshotAdapter
 import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
