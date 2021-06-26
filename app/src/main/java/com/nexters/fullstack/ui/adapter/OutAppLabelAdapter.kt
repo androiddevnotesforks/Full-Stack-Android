@@ -8,13 +8,14 @@ import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemSearchAddBinding
 import com.nexters.fullstack.databinding.ItemTitleCountBinding
+import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.SearchAddLabelViewHolder
 import com.nexters.fullstack.ui.holder.TitleViewHolder
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 
-class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<LabelSource>() {
+class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<Label>() {
     var text = when (state){
         LabelOutAppViewModel.ViewState.MY_LABEL -> MY_LABEL_TITLE
         LabelOutAppViewModel.ViewState.RECENT_LABEL -> RECENT_SEARCH_TITLE
@@ -73,7 +74,7 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
 
     override fun getItemViewType(position: Int) : Int {
         return if(position == 0) TITLE
-        else items[position-1].type
+        else LabelSource.DEFAULT
     }
 
     override fun getItemCount(): Int {

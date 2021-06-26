@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import com.nexters.fullstack.base.BaseAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemLabelBinding
+import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 
-class HomeSearchAdapter : BaseAdapter<LabelSource>() {
+class HomeSearchAdapter : BaseAdapter<Label>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
             = MyLabelViewHolder(ItemLabelBinding.inflate(LayoutInflater.from(parent.context)))
 

@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
+import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.holder.SelectedLabelViewHolder
 
-class SelectedLabelAdapter : BaseAdapter<LabelSource>() {
+class SelectedLabelAdapter : BaseAdapter<Label>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
     = SelectedLabelViewHolder(ItemSelectedLabelBinding.inflate(LayoutInflater.from(parent.context)))

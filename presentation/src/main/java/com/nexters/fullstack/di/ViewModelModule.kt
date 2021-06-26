@@ -26,7 +26,5 @@ val viewModelModule = module {
     viewModel { HomeSearchViewModel() }
     viewModel { HomeScreenshotViewModel() }
     viewModel { ScreenshotDetailViewModel() }
-    viewModel { HomeSearchRecommendViewModel() }
-    viewModel { HomeSearchSearchViewModel() }
     viewModel { HomeSearchResultViewModel() }
 }

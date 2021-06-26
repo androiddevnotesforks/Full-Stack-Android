@@ -18,6 +18,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.hideKeyboard
+import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.adapter.OutAppLabelAdapter
@@ -148,14 +149,14 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun initObserver(){
         with(viewModel.state()){
             myLabels.observe(this@LabelOutAppActivity, {
-                myLabelAdapter.calDiff(it as MutableList<LabelSource>)
+                myLabelAdapter.calDiff(it as MutableList<Label>)
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
-                selectedLabelAdapter.calDiff(it as MutableList<LabelSource>)
+                selectedLabelAdapter.calDiff(it as MutableList<Label>)
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
             searchResult.observe(this@LabelOutAppActivity, {
-                searchResultAdapter.calDiff(it as MutableList<LabelSource>)
+                searchResultAdapter.calDiff(it as MutableList<Label>)
             })
             searchKeyword.observe(this@LabelOutAppActivity, {
                 if(it == "" || it == null){
@@ -170,7 +171,8 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     else {
                         viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_RESULT)
                         addLabelAdapter.clearItems()
-                        addLabelAdapter.addItem(LabelSource(type = 2002, color = "", name = it))
+                        // TODO
+                        //addLabelAdapter.addItem(Label(type = 2002, color = "", name = it))
                     }
                 }
             })
