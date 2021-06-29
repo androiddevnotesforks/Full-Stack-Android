@@ -102,9 +102,21 @@
             android:text="@string/search_btn"
             android:gravity="center"
             android:textSize="@dimen/b1"
-            android:textColor="@color/white">
+            android:textColor="@color/white"
+            android:clickable="@{vm.state().selectedLabel.size() == 0 ? false : true}">
 
         </TextView>
+
+        <View
+            android:id="@+id/container_disabled"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/padding_default"
+            android:background="@drawable/bg_btn_disabled_layer"
+            android:visibility="@{vm.state().selectedLabel.size() == 0 ? View.VISIBLE : View.GONE}">
+
+        </View>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

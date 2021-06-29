@@ -1,6 +1,8 @@
 package com.nexters.fullstack.ext
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment

@@ -44,7 +44,7 @@
                 android:layout_marginLeft="@dimen/spacing_8"
                 android:textSize="@dimen/b2"
                 android:textColor="@color/key_active"
-                android:text="@{vm.state().selectedLabel.size()}">
+                android:text="@{String.valueOf(vm.state().selectedLabel.size())}">
 
             </TextView>
 
