@@ -30,11 +30,11 @@
     <string name="label_add">생성</string>
 
     <!--    LabelManagerFragment    -->
-    <string name="label_title">지금 라벨링 할까요?</string>
+    <string name="label_title">스크린샷 라벨링</string>
     <string name="label_size">+%1$d</string>
 
     <!--    Labeling Activity   -->
-    <string name="label_activity_title">라벨 선택</string>
+    <string name="label_activity_title">라벨 생성</string>
 
     <string name="all_selected_finish">확인</string>
     <string name="request_finish">라벨링을 취소하고 나가시겠어요?</string>
@@ -52,7 +52,7 @@
     <string name="image_count">%1$d 개</string>
 
     <!--    SearchLabel Activity    -->
-    <string name="search_hint">라벨을 검색해보세요.</string>
+    <string name="search_hint">스크린샷 검색</string>
     <string name="cancel">취소</string>
     <string name="recentlySearch_title">최근 검색한 라벨</string>
     <string name="myLabel_title">라벨 목록</string>

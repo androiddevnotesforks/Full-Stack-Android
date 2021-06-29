@@ -1,12 +1,14 @@
 package com.nexters.fullstack.ext
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.PorterDuff
+import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 
 fun FragmentManager.loadFragment(fragmentId: Int, vararg fragments: Fragment) {
     fragments.forEachIndexed { index, fragment ->
@@ -26,5 +28,11 @@ fun View.hideKeyboard() {
 fun FragmentManager.removeFragment(vararg fragments: Fragment) {
     fragments.forEach { fragment ->
         this.beginTransaction().remove(fragment)
+    }
+}
+
+fun FirebaseAnalytics.setSettingEvents(view: View, bundle: Bundle) {
+    this.logEvent(view.transitionName) {
+        param(FirebaseAnalytics.Param.ITEM_ID, bundle)
     }
 }

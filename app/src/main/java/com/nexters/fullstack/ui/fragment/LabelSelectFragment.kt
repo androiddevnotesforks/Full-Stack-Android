@@ -135,16 +135,14 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     }
 
     companion object {
-        private var instance: LabelSelectFragment? = null
 
         fun getInstance(localFileData: LocalFile? = null): LabelSelectFragment {
-            if (localFileData == null) return LabelSelectFragment()
-            return instance ?: LabelSelectFragment().apply {
-                arguments =
-                    Bundle().apply {
-                        putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData)
-                    }
-            }.also { instance = it }
+            val fragment = LabelSelectFragment()
+            val bundle = Bundle().apply {
+                putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData)
+            }
+            fragment.arguments = bundle
+            return fragment
         }
     }
 
