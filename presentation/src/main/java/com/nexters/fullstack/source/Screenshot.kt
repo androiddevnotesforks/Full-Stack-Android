@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class HomeScreenshot (
+class Screenshot (
     val imageUrl : String,
     val labels : List<Label>?,
     val isFavorite : Boolean,

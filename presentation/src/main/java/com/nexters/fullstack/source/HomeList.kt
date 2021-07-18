@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class HomeList(
     val type : HomeListType,
     val title : String,
-    val images : List<HomeScreenshot>?
+    val images : List<Screenshot>?
 ) : Parcelable
+

@@ -7,18 +7,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.source.HomeScreenshot
+import com.nexters.fullstack.source.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
 import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
 
-class HomeScreenshotAdapter(private val mode : HomeScreenshotViewModel.Mode) : BaseAdapter<HomeScreenshot>() {
+class HomeScreenshotAdapter(private val mode : HomeScreenshotViewModel.Mode) : BaseAdapter<Screenshot>() {
     private val selectedIndex : ArrayList<Int> = ArrayList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HomeMainChildViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_home_screenshot,
+                R.layout.item_screenshot,
                 parent,
                 false
             ),
