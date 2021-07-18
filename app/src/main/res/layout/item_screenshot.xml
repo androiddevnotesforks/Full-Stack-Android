@@ -18,6 +18,19 @@
         </ImageView>
 
         <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="@dimen/icon_mini"
+            android:layout_height="@dimen/icon_mini"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/spacing_10"
+            android:layout_marginRight="@dimen/spacing_10"
+            android:background="@drawable/bg_checkbox"
+            android:visibility="gone">
+
+        </ImageView>
+
+        <ImageView
             android:id="@+id/iv_heart"
             android:layout_width="@dimen/icon_super_micro"
             android:layout_height="@dimen/icon_super_micro"

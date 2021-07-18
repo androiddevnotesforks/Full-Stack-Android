@@ -6,15 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.source.HomeScreenshot
+import com.nexters.fullstack.source.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
 
-class HomeScreenshotAdapter : BaseAdapter<HomeScreenshot>() {
+class HomeScreenshotAdapter : BaseAdapter<Screenshot>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return HomeMainChildViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_home_screenshot,
+                R.layout.item_screenshot,
                 parent,
                 false
             )

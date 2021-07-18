@@ -1,6 +1,5 @@
 package com.nexters.fullstack.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,12 +8,12 @@ import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.source.HomeListType
-import com.nexters.fullstack.source.HomeScreenshot
+import com.nexters.fullstack.source.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyFavoriteViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyRecentViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
 
-class HomeMainChildAdapter(private val type : HomeListType) : BaseAdapter<HomeScreenshot>(){
+class HomeMainChildAdapter(private val type : HomeListType) : BaseAdapter<Screenshot>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
 
         when(viewType){
@@ -22,7 +21,7 @@ class HomeMainChildAdapter(private val type : HomeListType) : BaseAdapter<HomeSc
                 HomeMainChildViewHolder(DataBindingUtil
                     .inflate(
                         LayoutInflater.from(parent.context),
-                        R.layout.item_home_screenshot,
+                        R.layout.item_screenshot,
                         parent,
                         false
                     )

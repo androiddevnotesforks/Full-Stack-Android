@@ -5,14 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.source.HomeList
 import com.nexters.fullstack.source.HomeListType
-import com.nexters.fullstack.source.HomeScreenshot
+import com.nexters.fullstack.source.Screenshot
 import kotlinx.coroutines.launch
 
 class HomeMainViewModel : BaseViewModel() {
     private val state: State = State()
     private val screenshotGroupList = mutableListOf<HomeList>()
-    private val recentScreenshotList = mutableListOf<HomeScreenshot>()
-    private val favoriteScreenshotList = mutableListOf<HomeScreenshot>()
+    private val recentScreenshotList = mutableListOf<Screenshot>()
+    private val favoriteScreenshotList = mutableListOf<Screenshot>()
 
     fun state(): State = state
 
