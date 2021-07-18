@@ -49,7 +49,7 @@ class ImagePicker(context: Context, attrs: AttributeSet) : RecyclerView(context,
     }
 
     fun selectImage(position : Int){
-        images[position].isChecked = true
+        images[position].isChecked = !images[position].isChecked
         selectedImages.add(images[position])
         imagePickerAdapter.addItems(images)
     }
