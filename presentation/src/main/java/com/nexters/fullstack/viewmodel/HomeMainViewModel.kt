@@ -19,14 +19,14 @@ class HomeMainViewModel : BaseViewModel() {
     init {
         // TODO load screenshots..!
         viewModelScope.launch {
-//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-//            recentScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, false))
-//            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
-//            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
-//            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
-//            favoriteScreenshotList.add(HomeScreenshot("https://t1.daumcdn.net/cfile/tistory/0138F14A517F77713A", null, true))
+            recentScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/arctichare.png", null, false))
+            recentScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/airplane.png", null, false))
+            recentScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/airplane.png", null, false))
+            recentScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/airplane.png", null, false))
+            favoriteScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/airplane.png", null, true))
+            favoriteScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/airplane.png", null, true))
+            favoriteScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/airplane.png", null, true))
+            favoriteScreenshotList.add(Screenshot("https://homepages.cae.wisc.edu/~ece533/images/airplane.png", null, true))
             screenshotGroupList.add(HomeList(HomeListType.RECENT, HomeListType.RECENT.title, recentScreenshotList))
             screenshotGroupList.add(HomeList(HomeListType.FAVORITE, HomeListType.FAVORITE.title,favoriteScreenshotList))
         }

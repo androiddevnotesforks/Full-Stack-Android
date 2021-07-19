@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.mapper.LabelSourceMapper
+import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.usecase.GetLabelManagementUseCase
 import kotlinx.coroutines.launch
@@ -14,10 +15,10 @@ class LabelOutAppViewModel(
     private val loadLabelUseCase: GetLabelManagementUseCase
 ) : BaseViewModel() {
     private val state: State = State()
-    private val myLabelList = mutableListOf<LabelSource>()
-    private val selectedLabelList = mutableListOf<LabelSource>()
-    private val recentlySearchList = mutableListOf<LabelSource>()
-    private val searchResultList = mutableListOf<LabelSource>()
+    private val myLabelList = mutableListOf<Label>()
+    private val selectedLabelList = mutableListOf<Label>()
+    private val recentlySearchList = mutableListOf<Label>()
+    private val searchResultList = mutableListOf<Label>()
 
     fun state(): State = state
 
@@ -84,28 +85,21 @@ class LabelOutAppViewModel(
     init {
 
         // TODO init my label list using usecase
-        viewModelScope.launch {
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Yellow", "인테리어"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Green", "OOTD"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Orange", "컬러 팔레트"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Red", "UI 레퍼런스"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Pink", "편집디자인"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Violet", "채팅"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Purple Blue", "memo모음"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Blue", "글귀"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Peacock Green", "장소(공연,전시 등)"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Green", "영화"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Gray", "네일"))
-            myLabelList.add(LabelSource(LabelSource.DEFAULT, "Purple Blue", "맛집"))
-        }
-        state.myLabels.value = myLabelList
+        myLabelList.add(Label("label1", "Yellow"))
+        myLabelList.add(Label("label2", "Red"))
+        myLabelList.add(Label("label3", "Pink"))
+        myLabelList.add(Label("label4", "Purple Blue"))
+        myLabelList.add(Label("label5", "Green"))
+        myLabelList.add(Label("label6", "Gray"))
+        myLabelList.add(Label("label7", "Orange"))
 
-        viewModelScope.launch {
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Yellow", "OOTD"))
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Red", "UI 레퍼런스"))
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Violet", "채팅"))
-            recentlySearchList.add(LabelSource(LabelSource.DEFAULT, "Yellow", "인테리어"))
-        }
+        recentlySearchList.add(Label("label1", "Yellow"))
+        recentlySearchList.add(Label("label2", "Red"))
+        recentlySearchList.add(Label("label3", "Pink"))
+        recentlySearchList.add(Label("label4", "Purple Blue"))
+        recentlySearchList.add(Label("label5", "Green"))
+
+        state.myLabels.value = myLabelList
         state.recentlySearch.value = recentlySearchList
 
 //        viewModelScope.launch {
@@ -119,11 +113,11 @@ class LabelOutAppViewModel(
 
     data class State(
         val imageUri: MutableLiveData<Uri> = MutableLiveData(),
-        val myLabels: MutableLiveData<List<LabelSource>> = MutableLiveData(),
-        val selectedLabels: MutableLiveData<List<LabelSource>> = MutableLiveData(),
+        val myLabels: MutableLiveData<List<Label>> = MutableLiveData(),
+        val selectedLabels: MutableLiveData<List<Label>> = MutableLiveData(),
         val searchKeyword: MutableLiveData<String> = MutableLiveData(),
-        val searchResult: MutableLiveData<List<LabelSource>> = MutableLiveData(),
-        val recentlySearch: MutableLiveData<List<LabelSource>> = MutableLiveData(),
+        val searchResult: MutableLiveData<List<Label>> = MutableLiveData(),
+        val recentlySearch: MutableLiveData<List<Label>> = MutableLiveData(),
         val viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.MY_LABEL)
     )
 

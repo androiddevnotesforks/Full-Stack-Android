@@ -1,4 +1,4 @@
-package com.nexters.fullstack.ui.fragment
+package com.nexters.fullstack.ui.fragment.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.FragmentHomeBinding
-import com.nexters.fullstack.ui.activity.HomeScreenshotActivity
-import com.nexters.fullstack.ui.activity.HomeSearchActivity
+import com.nexters.fullstack.ui.activity.home.HomeScreenshotActivity
+import com.nexters.fullstack.ui.activity.home.HomeSearchActivity
 import com.nexters.fullstack.ui.activity.SettingActivity
 import com.nexters.fullstack.ui.adapter.HomeMainParentAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -45,15 +45,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
     }
 
     private fun initListener(){
-        homeMainAdapter.setItemClickListener { _, count, data ->
+        homeMainAdapter.setItemClickListener { _, position, data ->
             val intent : Intent
-            if(count == 0){
+            if(position == 0){
                 intent = Intent(this.context, HomeSearchActivity::class.java)
             }
             else{
                 intent = Intent(this.context, HomeScreenshotActivity::class.java)
-                intent.putExtra(LIST_TITLE_KEY, data?.title)
-                // TODO put image list
+                intent.putExtra(LIST_KEY, data)
             }
             startActivity(intent)
         }
@@ -65,8 +64,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
 
     companion object {
         const val VERTICAL_SPACING = 10
-        const val LIST_TITLE_KEY = "title"
-        const val LIST_IMAGES_KEY = "images"
+        const val LIST_KEY = "home_list"
 
         private var instance: HomeFragment? = null
         fun getInstance(): HomeFragment {

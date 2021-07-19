@@ -11,7 +11,7 @@
         android:id="@+id/container_input_search"
         android:layout_width="match_parent"
         android:layout_height="@dimen/input_search_height"
-        android:background="@drawable/bg_search_bar"
+        android:background="@drawable/bg_search_bar_light"
         android:paddingLeft="@dimen/spacing_10"
         android:paddingRight="@dimen/spacing_10"
         >
@@ -29,12 +29,13 @@
             android:id="@+id/et_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/iv_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginLeft="@dimen/spacing_8"
             android:textColor="@color/def_inactive"
-            android:text="@string/placeholder_label_search"
+            android:text="@string/home_search"
             android:textSize="@dimen/b1"
             >
 

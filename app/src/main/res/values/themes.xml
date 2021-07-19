@@ -76,4 +76,8 @@
         <item name="android:textSize">@dimen/b2</item>
         <item name="android:textColor">@color/def_inactive</item>
     </style>
+
+    <style name="RoundedActivity" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@drawable/rounded_bottom_sheet</item>
+    </style>
 </resources>
