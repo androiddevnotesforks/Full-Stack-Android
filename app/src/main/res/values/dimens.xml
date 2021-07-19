@@ -10,6 +10,7 @@
     <dimen name="icon_mini">20dp</dimen>
     <dimen name="icon_micro">18dp</dimen>
     <dimen name="icon_super_micro">12dp</dimen>
+    <dimen name="icon_super_large">70dp</dimen>
 
     <dimen name="ss_small_width">90dp</dimen>
     <dimen name="ss_small_height">195dp</dimen>

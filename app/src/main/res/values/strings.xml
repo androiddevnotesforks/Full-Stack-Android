@@ -79,6 +79,7 @@
     <string name="result_title">검색한 스크린샷</string>
     <string name="edit">편집</string>
     <string name="search_result">검색 결과</string>
+    <string name="screenshot_no_result">검색 결과가 없습니다.</string>
     
     <!--  Settings  -->
     <string name="team_name">Team Fullstack</string>

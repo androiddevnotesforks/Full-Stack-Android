@@ -9,6 +9,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.source.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
 import com.nexters.fullstack.ui.holder.ScreenshotSearchNoResultViewHolder
+import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
 
 class HomeScreenshotResultAdapter: BaseAdapter<Screenshot>() {
 
@@ -29,7 +30,7 @@ class HomeScreenshotResultAdapter: BaseAdapter<Screenshot>() {
                     parent,
                     false
                 ),
-                null
+                HomeScreenshotViewModel.Mode.DEFAULT
             )
         }
     }
