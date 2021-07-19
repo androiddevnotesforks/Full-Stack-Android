@@ -77,6 +77,7 @@ class ImagePickerAdapter : BaseAdapter<Screenshot>() {
                 if (isFavorite) binding.ivHeart.visibility = View.VISIBLE
                 if (!labels.isNullOrEmpty()) binding.ivLabel.visibility = View.VISIBLE
                 if (mode == Mode.SELECT) binding.ivSelect.visibility = View.VISIBLE
+                else binding.ivSelect.visibility = View.GONE
                 binding.ivSelect.isSelected = item.isChecked
             }
         }
