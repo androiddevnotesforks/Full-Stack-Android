@@ -23,13 +23,9 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
     override val viewModel: OnBoardingViewModel by viewModel()
 
     private val prefDataStoreManager = PrefDataStoreManager()
-//    <  using shared preference  >
-//    private lateinit var sharedPref : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        <  using shared preference  >
-//        sharedPref = this.getPreferences(MODE_PRIVATE)
         initView()
         initListener()
     }
@@ -37,6 +33,7 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
     private fun initView(){
         binding.pager.adapter = PagerAdapter(this)
         setIndicator(0)
+        setMessage(0)
     }
 
     private fun initListener(){
@@ -58,8 +55,17 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     setIndicator(position)
+                    setMessage(position)
                 }
             })
+        }
+    }
+
+    private fun setMessage(position: Int){
+        with(binding){
+            val item = viewModel.getItem(position)
+            tvMain.text = item.main
+            tvSub.text = item.sub
         }
     }
 
@@ -78,8 +84,6 @@ class OnBoardingActivity : BaseActivity<ActivityOnboardingBinding, OnBoardingVie
     }
 
     private fun startMainActivity(){
-//        <  using shared preference  >
-//        sharedPref.edit().putBoolean(Constants.FIRST_LOADING, false).apply()
         CoroutineScope(Dispatchers.IO).launch {
             prefDataStoreManager.updateIsFirst(false)
             startActivity(Intent(this@OnBoardingActivity, MainActivity::class.java))
