@@ -23,8 +23,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding, OnBoardingVie
     private fun bindView() {
         val data : OnBoardingViewModel.OnBoardingData = viewModel.getItem(requireArguments().getInt(BUNDLE_KEY))
 
-        binding.tvMain.text = data.main
-        binding.tvSub.text = data.sub
         binding.lottie.setAnimation(LOTTIE_PREFIX + data.order + LOTTIE_SUFFIX)
         binding.lottie.playAnimation()
         binding.lottie.repeatCount = LottieDrawable.INFINITE
