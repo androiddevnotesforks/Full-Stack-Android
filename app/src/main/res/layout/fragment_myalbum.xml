@@ -16,6 +16,8 @@
         <variable
             name="delegate"
             type="com.nexters.fullstack.ui.adapter.listener.OnClickItemDelegate" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +26,7 @@
         android:background="@color/depth4">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,10 +37,10 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
-                android:fitsSystemWindows="true"
                 android:layout_height="wrap_content"
+                android:background="@color/depth4"
                 android:elevation="0dp"
-                android:background="@color/depth4">
+                android:fitsSystemWindows="true">
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/toolbar"
@@ -109,13 +112,72 @@
                 android:id="@+id/rv_user_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{vm.output.images.size() &lt;= 0 ? View.GONE : View.VISIBLE}"
                 app:eventAction="@{event}"
-                app:onClickDelegate="@{delegate}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:localImages="@{vm.output.images}"
+                app:onClickDelegate="@{delegate}"
                 app:spanCount="2"
-                tools:listitem="@layout/item_album_with_label" />
+                tools:listitem="@layout/item_album_with_label"
+                tools:visibility="gone" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_ico_album"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_label_empty_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="라벨이 없습니다."
+            android:textColor="@color/text_white"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="라벨을 생성하여\n 스크린샷에 라벨을 추가해보세요."
+            android:textColor="@color/font2"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_empty_title" />
+
+        <TextView
+            android:id="@+id/tv_add_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_corner8_key_color"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="14dp"
+            android:text="라벨 생성하기"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <androidx.constraintlayout.widget.Group
+            android:visibility="@{vm.output.images.size() >= 0}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="imageView2,tv_label_empty_title,textView11,tv_add_label" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
