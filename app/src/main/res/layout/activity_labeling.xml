@@ -26,7 +26,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:title="@string/label_activity_title"
                 app:titleTextColor="@color/white">
 
                 <FrameLayout
@@ -53,7 +52,7 @@
                             android:gravity="center"
                             android:text="@string/label_activity_title"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/h3"
+                            android:textSize="@dimen/b1"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/button_start_guide_line"
                             app:layout_constraintStart_toStartOf="parent"
