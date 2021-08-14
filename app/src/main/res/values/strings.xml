@@ -34,7 +34,7 @@
     <string name="label_size">+%1$d</string>
 
     <!--    Labeling Activity   -->
-    <string name="label_activity_title">라벨 생성</string>
+    <string name="label_activity_title">스크린샷 라벨 추가</string>
 
     <string name="all_selected_finish">확인</string>
     <string name="request_finish">라벨링을 취소하고 나가시겠어요?</string>
