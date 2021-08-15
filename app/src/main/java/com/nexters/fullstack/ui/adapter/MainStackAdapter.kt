@@ -15,7 +15,13 @@ class MainStackAdapter : BaseAdapter<LocalFile>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             LabelViewType.STACK_VIEW -> {
-                MainStackItemHolder(ItemStackViewBinding.inflate(LayoutInflater.from(parent.context)))
+                MainStackItemHolder(
+                    ItemStackViewBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    ),
+                )
             }
             else -> throw NotFoundViewType
         }

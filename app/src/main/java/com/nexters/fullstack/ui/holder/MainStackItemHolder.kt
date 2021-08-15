@@ -9,6 +9,7 @@ class MainStackItemHolder(private val binding: ItemStackViewBinding) : RecyclerV
     fun bind(item: LocalFile) {
         Glide.with(binding.screenShot)
             .load(item.url)
+//            .thumbnail(0.7f)
             .into(binding.screenShot)
     }
 }

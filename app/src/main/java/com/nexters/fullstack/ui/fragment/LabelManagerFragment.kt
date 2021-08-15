@@ -3,6 +3,7 @@ package com.nexters.fullstack.ui.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.os.bundleOf
@@ -82,6 +83,11 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {
         //no-op
+        Log.e("ratio ->", ratio.toString())
+
+        binding.skipButton.visibility = View.GONE
+        binding.labeledButton.visibility = View.GONE
+
     }
 
     override fun onCardSwiped(direction: Direction?) {
@@ -97,11 +103,13 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     override fun onCardCanceled() {
-
+        binding.skipButton.visibility = View.VISIBLE
+        binding.labeledButton.visibility = View.VISIBLE
     }
 
     override fun onCardAppeared(view: View?, position: Int) {
-
+        binding.skipButton.visibility = View.VISIBLE
+        binding.labeledButton.visibility = View.VISIBLE
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
@@ -112,7 +120,7 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         val intent = Intent(this@LabelManagerFragment.context, LabelingActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
-        intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition)))
+        intent.putExtras(bundleOf(LABEL_BUNDLE_KEY to stackAdapter.getItem(manager.topPosition - 1)))
         startActivityForResult(intent, 2000)
     }
 
