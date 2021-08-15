@@ -25,10 +25,10 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="68dp"
-            android:layout_height="63dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginBottom="@dimen/spacing_xx_large"
-            android:src="@drawable/ic_ico_album"
+            android:src="@drawable/ic_ico_empty_album"
             android:visibility="@{vm.output.isEmptyLocalLabel() ? View.VISIBLE: View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xx_large"
-            android:background="@drawable/btn_select_mini"
+            android:background="@drawable/bg_key_active_radius_normal"
             android:gravity="center"
             android:padding="@dimen/spacing_normal"
             android:text="@string/add_label"
