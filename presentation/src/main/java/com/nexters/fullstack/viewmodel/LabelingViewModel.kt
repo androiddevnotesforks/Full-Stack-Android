@@ -59,7 +59,7 @@ class LabelingViewModel(
         override fun viewState(): LiveData<ViewState> = _viewState
         override fun finish(): LiveData<Unit> = _finish
         override fun isEmptyLocalLabel(): LiveData<Boolean> = _isEmptyLabel
-        override fun labels(): LiveData<LocalLabel> = _labels
+        override fun getLocalLabels(): LiveData<LocalLabel> = _labels
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
         override fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>> =
@@ -242,7 +242,7 @@ class LabelingViewModel(
 
         fun isEmptyLocalLabel(): LiveData<Boolean>
 
-        fun labels(): LiveData<LocalLabel>
+        fun getLocalLabels(): LiveData<LocalLabel>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
 

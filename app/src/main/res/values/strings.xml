@@ -80,7 +80,7 @@
     <string name="edit">편집</string>
     <string name="search_result">검색 결과</string>
     <string name="screenshot_no_result">검색 결과가 없습니다.</string>
-    
+
     <!--  Settings  -->
     <string name="team_name">Team Fullstack</string>
     <string name="purchase_premium">프리미엄 구매</string>
@@ -91,4 +91,7 @@
     <string name="setting_feedback">피드백 보내기</string>
     <string name="setting_label_clear">라벨 초기화하기</string>
     <string name="setting_label_clear_description">라벨 내역이 초기화되며, 스크린샷은 삭제되지 않습니다.</string>
+
+    <!--    LabelSelectFragment     -->
+    <string name="label_select_fragment_title">추가한 라벨 %1$d</string>
 </resources>

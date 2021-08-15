@@ -1,7 +1,11 @@
 package com.nexters.fullstack.ui.fragment
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -51,7 +55,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
     override fun onResume() {
         super.onResume()
-        viewModel.output.labels().observe(this.viewLifecycleOwner) {
+        viewModel.output.getLocalLabels().observe(this.viewLifecycleOwner) {
 
             val mapper = it.items.map { domainUserLabel ->
                 LabelSource(color = domainUserLabel.color ?: "", name = domainUserLabel.text)
@@ -84,13 +88,29 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     }
 
     private fun updateView(labels: MutableList<LabelSource>) {
+        val visibility = if (labels.isEmpty()) View.GONE else View.VISIBLE
+
+
+        binding.selectLinearLayout.visibility = visibility
+        binding.tvSelectedTitle.visibility = visibility
+
+        binding.tvSelectedTitle.text = getString(R.string.label_select_fragment_title, labels.size)
+
+
         if (labels.isEmpty()) {
             binding.selectLinearLayout.fadeOutAnimation()
-            binding.selectLinearLayout.visibility = View.GONE
         } else {
             binding.selectLinearLayout.fadeInAnimation()
-            binding.selectLinearLayout.visibility = View.VISIBLE
+
             binding.selectLinearLayout.removeAllViews()
+
+            val spannableString = SpannableString(binding.tvSelectedTitle.text)
+
+            val spanColor = ForegroundColorSpan(Color.parseColor("#66387CFF"))
+
+            spannableString.setSpan(spanColor, binding.tvSelectedTitle.text.lastIndex, binding.tvSelectedTitle.text.lastIndex + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            binding.tvSelectedTitle.text = spannableString
 
             for (i in labels.indices) {
                 val layout = LayoutInflater.from(requireContext())
@@ -114,6 +134,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
                 setBackgroundTint(cancelButton, title, frameLayout, color = labels[i].color)
                 binding.selectLinearLayout.addView(layout, 0)
             }
+
         }
     }
 

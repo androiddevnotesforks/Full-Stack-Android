@@ -99,13 +99,29 @@
 
         <!--        라벨이 있을 때        -->
 
+        <TextView
+            android:id="@+id/tv_selected_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textColor="@color/depth2"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/spacing_normal"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="선택한 라벨 N" />
+
         <HorizontalScrollView
             android:id="@+id/rv_selected"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/spacing_normal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_selected_title">
 
             <LinearLayout
                 android:id="@+id/select_linear_layout"
@@ -128,7 +144,7 @@
             app:layout_constraintEnd_toStartOf="@+id/select_button_guide_line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_selected"
-            app:localLabels="@{vm.output.labels()}" />
+            app:localLabels="@{vm.output.localLabels}" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/select_button_guide_line"

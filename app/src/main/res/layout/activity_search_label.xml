@@ -130,7 +130,7 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="@dimen/spacing_40"
             android:includeFontPadding="false"
-            android:text="@{String.valueOf(vm.output.labels().items.size())}"
+            android:text="@{String.valueOf(vm.output.localLabels.items.size())}"
             android:textColor="@color/key_active"
             android:textSize="@dimen/b2"
             app:layout_constraintEnd_toStartOf="@+id/right_guide_line"
@@ -146,7 +146,7 @@
             app:layout_constraintEnd_toStartOf="@+id/right_guide_line"
             app:layout_constraintStart_toStartOf="@+id/left_guide_line"
             app:layout_constraintTop_toBottomOf="@+id/tv_my_label_title"
-            app:localLabels="@{vm.output.labels()}" />
+            app:localLabels="@{vm.output.localLabels}" />
 
         <!--     label Query 값 존재 뷰  -->
 
