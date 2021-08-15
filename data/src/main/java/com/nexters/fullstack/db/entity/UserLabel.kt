@@ -17,5 +17,8 @@ data class UserLabel(
     val color: String,
 
     @ColumnInfo(name = "text")
-    val text: String
+    val text: String,
+
+    @ColumnInfo(name = "isLike")
+    var isLike: Boolean = false
 ) : Parcelable
