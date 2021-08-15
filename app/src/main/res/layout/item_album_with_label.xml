@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 app:localImage="@{image.originUrl}"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 tools:src="@mipmap/ic_launcher" />
 
 
@@ -74,7 +74,7 @@
             android:padding="@dimen/spacing_normal"
             android:text="@{labelingImage.domainLabel.text}"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/thumbnail"
             app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
         <TextView
@@ -83,12 +83,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_8"
             android:gravity="start"
-            tools:text="n개"
             android:textColor="@color/gray"
             android:textSize="@dimen/b3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label" />
+            app:layout_constraintEnd_toEndOf="@+id/thumbnail"
+            app:layout_constraintStart_toStartOf="@+id/thumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/label"
+            tools:text="n개" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

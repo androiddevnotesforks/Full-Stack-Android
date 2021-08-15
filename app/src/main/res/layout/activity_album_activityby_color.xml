@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/depth_4"
-            tools:context=".ui.activity.AlbumActivitybyColor">
+            tools:context=".ui.activity.AlbumActivityByColor">
 
 
             <com.google.android.material.appbar.AppBarLayout
@@ -65,7 +65,7 @@
                             android:gravity="start|center"
                             android:text="@{vm.output.labelName}"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -94,9 +94,9 @@
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
-                                android:text="선택"
+                                android:text="@string/selection"
                                 android:textColor="@{colorUtil.active}"
-                                android:textSize="20sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 tools:textColor="@color/white" />
                         </FrameLayout>
@@ -112,7 +112,7 @@
                 app:spanCount="3"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:labelAlbumItems="@{vm.output.images}"
-                tools:listitem="@layout/item_bottom_sheet_label_delete" />
+                tools:listitem="@layout/label_album_item" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

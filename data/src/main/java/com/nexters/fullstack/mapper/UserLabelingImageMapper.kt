@@ -10,7 +10,7 @@ object UserLabelingImageMapper : Mapper<DomainUserImage, UserLabelingImage> {
 
         val imageMapper = LocalImageMapper.toDomain(data.image)
 
-        return UserLabelingImage(labelMapper, imageMapper)
+        return UserLabelingImage(label = labelMapper, image = imageMapper)
     }
 
     override fun fromDomain(data: UserLabelingImage): DomainUserImage {

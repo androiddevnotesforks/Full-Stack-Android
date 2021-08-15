@@ -94,4 +94,8 @@
 
     <!--    LabelSelectFragment     -->
     <string name="label_select_fragment_title">추가한 라벨 %1$d</string>
+
+    <!--    MyAlbumFragment     -->
+    <string name="my_album_fragment_create_label_title">라벨 생성하기</string>
+    <string name="my_album_fragment_create_description">라벨을 생성하여\n 스크린샷에 라벨을 추가해보세요.</string>
 </resources>

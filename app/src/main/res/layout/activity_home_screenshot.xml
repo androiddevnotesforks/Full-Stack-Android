@@ -86,8 +86,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:src="@drawable/ic_back"
-                    >
+                    android:src="@drawable/ic_back">
 
                 </ImageView>
 
@@ -132,8 +131,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:orientation="vertical"
-            app:spanCount="3"
-            >
+            app:spanCount="3">
 
         </androidx.recyclerview.widget.RecyclerView>
 

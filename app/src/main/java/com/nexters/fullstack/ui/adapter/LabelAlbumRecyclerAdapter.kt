@@ -14,7 +14,9 @@ class LabelAlbumRecyclerAdapter : BaseAdapter<LocalImageDomain>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LabelAlbumViewHolder(
             LabelAlbumItemBinding.inflate(
-                LayoutInflater.from(parent.context)
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
         )
     }

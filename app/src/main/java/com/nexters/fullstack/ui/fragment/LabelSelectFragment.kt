@@ -151,8 +151,8 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         labelAdapter.selectedLabelClear()
+        super.onDestroyView()
     }
 
     companion object {

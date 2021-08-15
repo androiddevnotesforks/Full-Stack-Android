@@ -94,8 +94,8 @@ fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, onClickEvent
                 notifyDataSetChanged()
             }
         }
-    } ?: LabelAlbumRecyclerAdapter().also {
-        adapter = it
-        addItemDecoration(SpaceBetweenRecyclerDecoration(16.toPx, 14.toPx))
+    } ?: run {
+        adapter = LabelAlbumRecyclerAdapter()
+        addItemDecoration(SpaceBetweenRecyclerDecoration(vertical = 16, horizontal = 14))
     }
 }

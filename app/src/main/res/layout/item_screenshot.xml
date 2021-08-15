@@ -7,11 +7,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/ss_small_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/ss_small_height">
 
         <ImageView
             android:id="@+id/iv_screenshot"
+            android:adjustViewBounds="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

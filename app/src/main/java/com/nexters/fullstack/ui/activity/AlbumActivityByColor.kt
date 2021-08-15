@@ -13,7 +13,7 @@ import com.nexters.fullstack.viewmodel.AlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 //todo 리사이클러 뷰 데코레이션 적용.
-class AlbumActivitybyColor : BaseActivity<ActivityAlbumActivitybyColorBinding, AlbumViewModel>() {
+class AlbumActivityByColor : BaseActivity<ActivityAlbumActivitybyColorBinding, AlbumViewModel>() {
 
     override val layoutRes: Int = R.layout.activity_album_activityby_color
     override val viewModel: AlbumViewModel by viewModel()
@@ -51,7 +51,7 @@ class AlbumActivitybyColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
 
     private fun setObserve() {
         with(viewModel.output) {
-            finishActivity().observe(this@AlbumActivitybyColor) {
+            finishActivity().observe(this@AlbumActivityByColor) {
                 finish()
             }
         }

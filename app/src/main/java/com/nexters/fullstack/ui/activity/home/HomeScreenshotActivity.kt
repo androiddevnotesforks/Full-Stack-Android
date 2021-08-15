@@ -32,7 +32,6 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
 
     private fun initView(){
         binding.rvImages.adapter = screenshotAdapter
-
     }
 
     private fun initData(){

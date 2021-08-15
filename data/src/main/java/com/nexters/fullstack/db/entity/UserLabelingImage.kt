@@ -11,7 +11,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = TableName.IMAGE)
 data class UserLabelingImage(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Int = 0,
+
     @ColumnInfo(name = "label")
     val label: List<UserLabel>,
 

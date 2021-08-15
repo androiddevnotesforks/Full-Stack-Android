@@ -20,7 +20,7 @@ package="com.nexters.fullstack">
         android:theme="@style/Transparent"
         android:windowSoftInputMode="adjustResize" />
 
-    <activity android:name=".ui.activity.AlbumActivitybyColor"/>
+    <activity android:name=".ui.activity.AlbumActivityByColor"/>
     <activity
         android:name=".ui.activity.CreateLabelActivity"
         android:theme="@style/Transparent"

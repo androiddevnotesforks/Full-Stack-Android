@@ -14,14 +14,11 @@ import com.nexters.fullstack.mapper.LocalImageMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.mapper.local.LocalLabelMapper
 import com.nexters.fullstack.source.LabelingImage
-import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.source.local.DomainUserLabel
-import com.nexters.fullstack.ui.activity.AlbumActivitybyColor
+import com.nexters.fullstack.ui.activity.AlbumActivityByColor
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
-import com.nexters.fullstack.ui.adapter.LocalImageAdapter
 import com.nexters.fullstack.ui.adapter.listener.ItemClickListener
 import com.nexters.fullstack.ui.adapter.listener.OnClickItemDelegate
-import com.nexters.fullstack.ui.holder.LocalImageViewHolder
 import com.nexters.fullstack.ui.widget.bottomsheet.LabelManagerBottomSheetDialog
 import com.nexters.fullstack.ui.widget.bottomsheet.recyclerview.GridLayoutRecyclerOnScrollListener
 import com.nexters.fullstack.viewmodel.LabelingViewModel
@@ -111,7 +108,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     }
 
     override fun onClickItem(item: LabelingImage) {
-        val intent = Intent(context, AlbumActivitybyColor::class.java)
+        val intent = Intent(context, AlbumActivityByColor::class.java)
         val imageMapper = item.localImages.map(LocalImageMapper::toDomain)
         val labelMapper = LocalMainLabelMapper.toData(item.domainLabel)
         Log.e("pass Images", imageMapper.toString())
