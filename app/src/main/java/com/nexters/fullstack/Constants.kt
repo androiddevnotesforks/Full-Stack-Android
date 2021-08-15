@@ -16,6 +16,8 @@ object Constants {
 
     const val BOTTOM_SHEET_KEY = "data"
 
+    const val DETAIL_IMAGE = "detail_image"
+
     // shared Preference Key
     const val FIRST_LOADING = "first_loading"
 

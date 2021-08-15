@@ -10,8 +10,8 @@
             type="com.nexters.fullstack.viewmodel.AlbumViewModel" />
 
         <variable
-            name="colorUtil"
-            type="com.nexters.fullstack.util.ColorUtil" />
+            name="onClickEvent"
+            type="com.nexters.fullstack.binding.LabelAlbumDelegate" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,13 +89,14 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
+                                android:id="@+id/tv_select_image"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
                                 android:text="@string/selection"
-                                android:textColor="@{colorUtil.active}"
+
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 tools:textColor="@color/white" />
@@ -109,6 +110,7 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 tools:itemCount="3"
+                app:onClickLabelItemEvent="@{onClickEvent}"
                 app:spanCount="3"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:labelAlbumItems="@{vm.output.images}"

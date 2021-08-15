@@ -49,7 +49,7 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
         super.onCreate(savedInstanceState)
 
         bind {
-            setVariable(BR.vm, viewModel)
+            it.vm = viewModel
         }
 
         onViewInit()

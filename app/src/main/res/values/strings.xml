@@ -98,4 +98,7 @@
     <!--    MyAlbumFragment     -->
     <string name="my_album_fragment_create_label_title">라벨 생성하기</string>
     <string name="my_album_fragment_create_description">라벨을 생성하여\n 스크린샷에 라벨을 추가해보세요.</string>
+
+    <!--    DetailAlbumActivity     -->
+    <string name="detail_album_activity_title">%1$s년 %2$s월 %3$s일</string>
 </resources>

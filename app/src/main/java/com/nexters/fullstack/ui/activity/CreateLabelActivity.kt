@@ -27,7 +27,7 @@ class CreateLabelActivity : BaseActivity<ActivityCreateLabelBinding, LabelingVie
         initToolbar()
         setIntiView()
         bind {
-            setVariable(BR.vm, viewModel)
+            it.vm = viewModel
         }
 
 
