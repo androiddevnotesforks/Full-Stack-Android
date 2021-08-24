@@ -24,6 +24,13 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
         else -> ""
     }
 
+    var isWithCount = when(state){
+        LabelOutAppViewModel.ViewState.MY_LABEL -> true
+        LabelOutAppViewModel.ViewState.RECENT_LABEL -> false
+        LabelOutAppViewModel.ViewState.SEARCH_RESULT -> true
+        LabelOutAppViewModel.ViewState.NO_RESULT -> false
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when(viewType){
             2002 -> SearchAddLabelViewHolder(
@@ -38,8 +45,7 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
                     LayoutInflater.from(
                         parent.context
                     )
-                ),
-                text
+                )
             )
             LabelSource.DEFAULT -> MyLabelViewHolder(
                 ItemLabelBinding.inflate(
@@ -64,7 +70,8 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
                 }
             }
             is TitleViewHolder -> {
-                holder.bind()
+                if(isWithCount) holder.bind(text, itemCount)
+                else holder.bind(text)
             }
             is SearchAddLabelViewHolder -> {
                 holder.bind(items[position-1])
@@ -85,9 +92,9 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
     companion object{
         const val TITLE = 2000
 
-        const val MY_LABEL_TITLE = "내 라벨"
+        const val MY_LABEL_TITLE = "라벨 목록" // with count
         const val RECENT_SEARCH_TITLE = "최근 검색한 라벨"
-        const val SEARCH_RESULT_TITLE = "검색결과"
+        const val SEARCH_RESULT_TITLE = "검색결과" // with count
         const val NO_SEARCH_RESULT = "검색 결과가 없습니다."
     }
 }

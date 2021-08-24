@@ -7,6 +7,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,6 +17,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:textSize="@dimen/b2"
             android:textColor="@color/def_secondary">
         </TextView>
@@ -25,13 +27,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@+id/tv_title"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:paddingRight="400dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:textSize="@dimen/b2"
-            android:textColor="@color/key_active">
+            android:textColor="@color/key_active"
+            android:layout_marginLeft="@dimen/spacing_8"
+            android:layout_marginRight="200dp">
 
         </TextView>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
