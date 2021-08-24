@@ -92,9 +92,9 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
     companion object{
         const val TITLE = 2000
 
-        const val MY_LABEL_TITLE = "라벨 목록" // with count
+        const val MY_LABEL_TITLE = "라벨 목록"
         const val RECENT_SEARCH_TITLE = "최근 검색한 라벨"
-        const val SEARCH_RESULT_TITLE = "검색결과" // with count
+        const val SEARCH_RESULT_TITLE = "검색결과"
         const val NO_SEARCH_RESULT = "검색 결과가 없습니다."
     }
 }
