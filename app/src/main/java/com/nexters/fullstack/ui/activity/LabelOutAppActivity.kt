@@ -101,7 +101,6 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             }
             tvDone.setOnClickListener {
                 viewModel.completeLabeling()
-                // TODO finish activity and show toast
                 finish()
             }
             etSearch.setOnFocusChangeListener { _, isFocused ->
@@ -123,14 +122,16 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             }
         }
         myLabelAdapter.setItemClickListener { _, i, _ ->
-            Log.e("index", i.toString())
             viewModel.selectLabel(i)
             myLabelAdapter.notifyDataSetChanged()
         }
-        recentlyLabelAdapter.setItemClickListener { view, i, labelSource ->
-            Log.e("test", "recent")
+        recentlyLabelAdapter.setItemClickListener { _, _, labelSource ->
+            labelSource?.let {
+                viewModel.selectLabel(it.name)
+            }
+            viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
         }
-        searchResultAdapter.setItemClickListener { view, i, labelSource ->
+        searchResultAdapter.setItemClickListener { _, _, labelSource ->
             labelSource?.let {
                 viewModel.selectLabel(it.name)
             }

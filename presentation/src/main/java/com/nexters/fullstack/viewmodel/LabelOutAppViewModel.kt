@@ -48,11 +48,8 @@ class LabelOutAppViewModel(
 
     fun deselectLabel(position: Int) {
         val selectedLabel = selectedLabelList[position]
-        Log.e("item $position", selectedLabel.name)
-        for(label: Label in myLabelList) Log.e("my label ", label.name)
         selectedLabelList.removeAt(position)
         myLabelList.add(selectedLabel)
-        for(label: Label in myLabelList) Log.e("my label ", label.name)
         state.myLabels.value = myLabelList
         state.selectedLabels.value = selectedLabelList
     }
@@ -104,14 +101,6 @@ class LabelOutAppViewModel(
 
         state.myLabels.value = myLabelList
         state.recentlySearch.value = recentlySearchList
-
-//        viewModelScope.launch {
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//        }
-//        state.searchResult.value = searchResultList
     }
 
     data class State(
