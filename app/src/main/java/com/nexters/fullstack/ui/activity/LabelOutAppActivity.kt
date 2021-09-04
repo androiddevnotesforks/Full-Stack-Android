@@ -149,6 +149,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun initObserver(){
         with(viewModel.state()){
             myLabels.observe(this@LabelOutAppActivity, {
+                for((count, label : Label) in it.withIndex()){
+                    Log.e("item $count", it[count].name)
+                }
                 myLabelAdapter.calDiff(it as MutableList<Label>)
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
