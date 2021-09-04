@@ -1,5 +1,6 @@
 package com.nexters.fullstack.ui.holder
 
+import android.util.Log
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemLabelBinding

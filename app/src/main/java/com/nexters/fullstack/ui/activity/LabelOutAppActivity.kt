@@ -5,13 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
-
 import android.view.inputmethod.EditorInfo
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.nexters.fullstack.BR
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.NotFoundViewState
 import com.nexters.fullstack.R
@@ -19,8 +17,6 @@ import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.hideKeyboard
 import com.nexters.fullstack.source.Label
-import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.adapter.OutAppLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -127,7 +123,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             }
         }
         myLabelAdapter.setItemClickListener { _, i, _ ->
+            Log.e("index", i.toString())
             viewModel.selectLabel(i)
+            myLabelAdapter.notifyDataSetChanged()
         }
         recentlyLabelAdapter.setItemClickListener { view, i, labelSource ->
             Log.e("test", "recent")
@@ -140,6 +138,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
         selectedLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.deselectLabel(i)
+            myLabelAdapter.notifyDataSetChanged()
         }
         addLabelAdapter.setItemClickListener { view, i, labelSource ->
             // TODO start add label activity and update my labels
@@ -149,9 +148,6 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun initObserver(){
         with(viewModel.state()){
             myLabels.observe(this@LabelOutAppActivity, {
-                for((count, label : Label) in it.withIndex()){
-                    Log.e("item $count", it[count].name)
-                }
                 myLabelAdapter.calDiff(it as MutableList<Label>)
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
@@ -174,8 +170,6 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     else {
                         viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_RESULT)
                         addLabelAdapter.clearItems()
-                        // TODO
-                        //addLabelAdapter.addItem(Label(type = 2002, color = "", name = it))
                     }
                 }
             })

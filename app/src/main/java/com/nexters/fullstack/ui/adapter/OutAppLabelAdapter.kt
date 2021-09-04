@@ -1,6 +1,5 @@
 package com.nexters.fullstack.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -75,7 +74,7 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
                 else holder.bind(text)
             }
             is SearchAddLabelViewHolder -> {
-                holder.bind(items[position-1])
+                holder.bind(items[position])
             }
         }
     }
@@ -83,13 +82,6 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
     override fun getItemViewType(position: Int) : Int {
         return if(position == 0) TITLE
         else LabelSource.DEFAULT
-    }
-
-    override fun addItems(items : List<Label>){
-        this.items.clear()
-        this.items.add(titleLabel)
-        this.items.addAll(items)
-        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -103,7 +95,5 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
         const val RECENT_SEARCH_TITLE = "최근 검색한 라벨"
         const val SEARCH_RESULT_TITLE = "검색결과"
         const val NO_SEARCH_RESULT = "검색 결과가 없습니다."
-
-        val titleLabel = Label("ignored", "ignored")
     }
 }
