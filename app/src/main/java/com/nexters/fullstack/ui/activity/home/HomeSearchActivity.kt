@@ -20,7 +20,7 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind {
-            setVariable(BR.vm, viewModel)
+            it.vm = viewModel
         }
         initView()
         initListener()

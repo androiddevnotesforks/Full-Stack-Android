@@ -39,10 +39,9 @@ abstract class BaseActivity<VB : ViewDataBinding, VM : BaseViewModel> : AppCompa
     private fun initView() {
         binding = DataBindingUtil.setContentView(this, layoutRes)
         binding.lifecycleOwner = this
-        binding.executePendingBindings()
     }
 
-    fun bind(body: VB.() -> Unit) {
+    fun bind(body: (VB) -> Unit) {
         binding.run(body)
     }
 

@@ -1,19 +1,23 @@
 package com.nexters.fullstack.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import com.nexters.fullstack.Constants
+import com.nexters.fullstack.Constants.DETAIL_IMAGE
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
+import com.nexters.fullstack.binding.LabelAlbumDelegate
 import com.nexters.fullstack.databinding.ActivityAlbumActivitybyColorBinding
 import com.nexters.fullstack.mapper.LocalImageMapper
 import com.nexters.fullstack.source.LabelSource
 import com.nexters.fullstack.source.LocalImageData
+import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.ui.activity.detail.DetailAlbumActivity
 import com.nexters.fullstack.util.ColorUtil
 import com.nexters.fullstack.viewmodel.AlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//todo 리사이클러 뷰 데코레이션 적용.
-class AlbumActivitybyColor : BaseActivity<ActivityAlbumActivitybyColorBinding, AlbumViewModel>() {
+class AlbumActivityByColor : BaseActivity<ActivityAlbumActivitybyColorBinding, AlbumViewModel>() {
 
     override val layoutRes: Int = R.layout.activity_album_activityby_color
     override val viewModel: AlbumViewModel by viewModel()
@@ -22,13 +26,25 @@ class AlbumActivitybyColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
     lateinit var labelColor: String
     lateinit var images: List<LocalImageData>
 
+
+    private val albumItemClickListener = object : LabelAlbumDelegate {
+        override fun onClick(item: LocalImageDomain) {
+            val intent = Intent(this@AlbumActivityByColor, DetailAlbumActivity::class.java)
+            intent.putExtra(DETAIL_IMAGE, item)
+            startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setInitData()
+
         bind {
-            vm = viewModel
-            colorUtil = ColorUtil(viewModel.output.getLabelColor().value ?: labelColor)
+            it.onClickEvent = albumItemClickListener
+            it.vm = viewModel
+            it.executePendingBindings()
         }
+
+        setInitData()
         setObserve()
     }
 
@@ -47,11 +63,13 @@ class AlbumActivitybyColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
             setLabelName(labelName.name)
             setImages(localImage)
         }
+
+        binding.tvSelectImage.setTextColor(ColorUtil(viewModel.output.getLabelColor().value ?: labelColor).getActive())
     }
 
     private fun setObserve() {
         with(viewModel.output) {
-            finishActivity().observe(this@AlbumActivitybyColor) {
+            finishActivity().observe(this@AlbumActivityByColor) {
                 finish()
             }
         }

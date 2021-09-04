@@ -42,7 +42,7 @@ class MainViewModel(
     }
 
     val output = object : MainOutput {
-        override fun state(): LiveData<MainLabel> {
+        override fun getLabelList(): LiveData<MainLabel> {
             return mainLabel
         }
 
@@ -103,7 +103,7 @@ class MainViewModel(
     }
 
     interface MainOutput : Output {
-        fun state(): LiveData<MainLabel>
+        fun getLabelList(): LiveData<MainLabel>
 
         fun getLocalImageCount(): LiveData<Int>
 

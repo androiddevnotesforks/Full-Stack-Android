@@ -22,7 +22,7 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind {
-            setVariable(BR.vm, viewModel)
+            it.vm = viewModel
         }
         initView()
         initData()
@@ -32,7 +32,6 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
 
     private fun initView(){
         binding.rvImages.adapter = screenshotAdapter
-
     }
 
     private fun initData(){

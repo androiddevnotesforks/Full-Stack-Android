@@ -40,7 +40,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind {
-            setVariable(BR.vm, viewModel)
+            it.vm = viewModel
         }
         initData()
         initView()

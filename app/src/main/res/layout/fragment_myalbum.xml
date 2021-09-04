@@ -152,9 +152,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="라벨을 생성하여\n 스크린샷에 라벨을 추가해보세요."
+            android:text="@string/my_album_fragment_create_description"
             android:textColor="@color/font2"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_label_empty_title" />
@@ -167,7 +167,7 @@
             android:background="@drawable/shape_corner8_key_color"
             android:paddingHorizontal="30dp"
             android:paddingVertical="14dp"
-            android:text="라벨 생성하기"
+            android:text="@string/my_album_fragment_create_label_title"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +175,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         <androidx.constraintlayout.widget.Group
-            android:visibility="@{vm.output.images.size() >= 0}"
+            android:visibility="@{vm.output.images.size() &lt;= 0 ? View.VISIBLE : View.GONE}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="imageView2,tv_label_empty_title,textView11,tv_add_label" />

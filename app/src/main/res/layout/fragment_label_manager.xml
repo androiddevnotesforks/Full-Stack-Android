@@ -77,10 +77,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginHorizontal="75dp"
-                android:clipToPadding="false"
                 android:layout_marginVertical="24dp"
-                app:setStackItems="@{vm.output.state()}" />
+                android:clipToPadding="true"
+                app:setStackItems="@{vm.output.labelList}" />
 
             <RelativeLayout
                 android:id="@+id/fab_layout"
@@ -98,9 +97,11 @@
                     android:layout_marginStart="@dimen/spacing_xx_large"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:contentDescription="skip"
-                    android:src="@drawable/ic_group_473_3x"
+                    android:src="@drawable/ic_later_btn_3x"
+                    android:visibility="gone"
                     app:fabSize="normal"
-                    app:onRejectButtonClickListener="@{vm.input}" />
+                    app:onRejectButtonClickListener="@{vm.input}"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/labeled_button"
@@ -112,14 +113,16 @@
                     android:layout_marginEnd="@dimen/spacing_xx_large"
                     android:layout_marginBottom="@dimen/spacing_large"
                     android:foregroundGravity="center"
-                    android:src="@drawable/ic_btn_labeling_2x"
+                    android:src="@drawable/ic_labeling_btn"
+                    android:visibility="gone"
                     app:approve="@{true}"
                     app:backgroundTint="@color/indigo"
                     app:fabCustomSize="@dimen/spacing_huge"
                     app:fabSize="normal"
                     app:maxImageSize="@dimen/spacing_xxx_large"
                     app:onApproveButtonClickListener="@{vm.input}"
-                    app:targetView="@{cardStackView}" />
+                    app:targetView="@{cardStackView}"
+                    tools:visibility="visible" />
             </RelativeLayout>
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

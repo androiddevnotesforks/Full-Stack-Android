@@ -6,6 +6,7 @@ import com.nexters.fullstack.mapper.Mapper
 import com.nexters.fullstack.source.PresentLocalFile
 import com.nexters.fullstack.source.data.LocalImageDomain
 import com.nexters.fullstack.viewmodel.*
+import com.nexters.fullstack.viewmodel.detail.DetailAlbumViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -27,4 +28,5 @@ val viewModelModule = module {
     viewModel { HomeScreenshotViewModel() }
     viewModel { ScreenshotDetailViewModel() }
     viewModel { HomeSearchResultViewModel() }
+    viewModel { DetailAlbumViewModel() }
 }

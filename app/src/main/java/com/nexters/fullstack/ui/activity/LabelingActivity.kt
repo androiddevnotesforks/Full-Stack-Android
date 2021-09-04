@@ -119,13 +119,4 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
         dialog.show(supportFragmentManager, "")
         return true
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (resultCode == Activity.RESULT_OK) {
-//            BusImpl.sendData(resultCode)
-//        }
-//
-//    }
 }

@@ -15,7 +15,7 @@ class HomeSearchResultActivity : BaseActivity<ActivityHomeSearchResultBinding, H
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind {
-            setVariable(BR.vm, viewModel)
+//            it.vm = viewModel
         }
     }
 }

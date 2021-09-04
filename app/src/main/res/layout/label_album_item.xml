@@ -12,6 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/transparent"
         android:layout_height="wrap_content">
 
         <FrameLayout
@@ -28,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:labelAlbumImage="@{data.originUrl}"
-                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 tools:src="@mipmap/ic_launcher" />
 
             <RelativeLayout

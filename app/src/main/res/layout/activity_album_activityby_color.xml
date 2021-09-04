@@ -10,8 +10,8 @@
             type="com.nexters.fullstack.viewmodel.AlbumViewModel" />
 
         <variable
-            name="colorUtil"
-            type="com.nexters.fullstack.util.ColorUtil" />
+            name="onClickEvent"
+            type="com.nexters.fullstack.binding.LabelAlbumDelegate" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/depth_4"
-            tools:context=".ui.activity.AlbumActivitybyColor">
+            tools:context=".ui.activity.AlbumActivityByColor">
 
 
             <com.google.android.material.appbar.AppBarLayout
@@ -65,7 +65,7 @@
                             android:gravity="start|center"
                             android:text="@{vm.output.labelName}"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -89,14 +89,15 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
+                                android:id="@+id/tv_select_image"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 android:includeFontPadding="false"
-                                android:text="선택"
-                                android:textColor="@{colorUtil.active}"
-                                android:textSize="20sp"
+                                android:text="@string/selection"
+
+                                android:textSize="16sp"
                                 android:textStyle="bold"
                                 tools:textColor="@color/white" />
                         </FrameLayout>
@@ -109,10 +110,11 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 tools:itemCount="3"
+                app:onClickLabelItemEvent="@{onClickEvent}"
                 app:spanCount="3"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:labelAlbumItems="@{vm.output.images}"
-                tools:listitem="@layout/item_bottom_sheet_label_delete" />
+                tools:listitem="@layout/label_album_item" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

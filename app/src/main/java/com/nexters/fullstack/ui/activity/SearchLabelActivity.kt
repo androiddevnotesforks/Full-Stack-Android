@@ -49,7 +49,7 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
         super.onCreate(savedInstanceState)
 
         bind {
-            setVariable(BR.vm, viewModel)
+            it.vm = viewModel
         }
 
         onViewInit()
@@ -121,7 +121,7 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
                 }
             }
             getLabelQuery().observe(this@SearchLabelActivity) { query ->
-                val filterItems = labels().value?.items?.filter {
+                val filterItems = getLocalLabels().value?.items?.filter {
                     it.text.startsWith(query)
                 }?.map {
                     LabelSource(color = it.color ?: "", name = it.text)
