@@ -141,8 +141,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             viewModel.deselectLabel(i)
             myLabelAdapter.notifyDataSetChanged()
         }
-        addLabelAdapter.setItemClickListener { view, i, labelSource ->
-            // TODO start add label activity and update my labels
+        addLabelAdapter.setItemClickListener { _, _, labelSource ->
+            val intent = Intent(this, CreateLabelActivity::class.java)
+            intent.putExtra("title", labelSource?.name)
+            startActivity(Intent(this, CreateLabelActivity::class.java))
         }
     }
 

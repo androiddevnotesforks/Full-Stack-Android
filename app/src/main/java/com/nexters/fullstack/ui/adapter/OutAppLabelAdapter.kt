@@ -75,6 +75,11 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
             }
             is SearchAddLabelViewHolder -> {
                 holder.bind(items[position-1])
+                holder.itemView.setOnClickListener {
+                    getItemClickListener()?.invoke(
+                        it, holder.adapterPosition-1, items[holder.adapterPosition-1]
+                    )
+                }
             }
         }
     }
