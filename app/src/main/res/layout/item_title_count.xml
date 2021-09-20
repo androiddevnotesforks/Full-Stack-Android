@@ -33,7 +33,7 @@
             android:textSize="@dimen/b2"
             android:textColor="@color/key_active"
             android:layout_marginLeft="@dimen/spacing_8"
-            android:layout_marginRight="200dp">
+            android:layout_marginRight="300dp">
 
         </TextView>
 

@@ -171,6 +171,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     else {
                         viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_RESULT)
                         addLabelAdapter.clearItems()
+                        addLabelAdapter.addItems(listOf(Label(it, "ignored")))
                     }
                 }
             })

@@ -15,7 +15,7 @@ import com.nexters.fullstack.ui.holder.SearchAddLabelViewHolder
 import com.nexters.fullstack.ui.holder.TitleViewHolder
 import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
 
-class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<Label>() {
+class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : BaseAdapter<Label>() {
     var text = when (state){
         LabelOutAppViewModel.ViewState.MY_LABEL -> MY_LABEL_TITLE
         LabelOutAppViewModel.ViewState.RECENT_LABEL -> RECENT_SEARCH_TITLE
@@ -33,7 +33,7 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when(viewType){
-            2002 -> SearchAddLabelViewHolder(
+            ADD_LABEL -> SearchAddLabelViewHolder(
                 ItemSearchAddBinding.inflate(
                     LayoutInflater.from(
                         parent.context
@@ -74,14 +74,18 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
                 else holder.bind(text)
             }
             is SearchAddLabelViewHolder -> {
-                holder.bind(items[position])
+                holder.bind(items[position-1])
             }
         }
     }
 
     override fun getItemViewType(position: Int) : Int {
-        return if(position == 0) TITLE
-        else LabelSource.DEFAULT
+        var viewType = LabelSource.DEFAULT
+        if(position == 0) viewType = TITLE
+        else{
+            if(state == LabelOutAppViewModel.ViewState.NO_RESULT) viewType = ADD_LABEL
+        }
+        return viewType
     }
 
     override fun getItemCount(): Int {
@@ -90,6 +94,7 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
 
     companion object{
         const val TITLE = 2000
+        const val ADD_LABEL = 2001
 
         const val MY_LABEL_TITLE = "라벨 목록"
         const val RECENT_SEARCH_TITLE = "최근 검색한 라벨"

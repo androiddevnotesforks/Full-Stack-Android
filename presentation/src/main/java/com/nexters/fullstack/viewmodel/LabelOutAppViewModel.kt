@@ -113,7 +113,6 @@ class LabelOutAppViewModel(
         val viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.MY_LABEL)
     )
 
-    // TODO refactor : state가 list를 가지고 있어서 activity에서 분기 처리 안하고 일괄적으로 처리해줄 수 있도록 ?
     enum class ViewState {
         MY_LABEL,
         RECENT_LABEL,
