@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.feature.BR
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.binding.LabelAlbumDelegate
 import com.nexters.fullstack.databinding.LabelAlbumItemBinding
-import com.nexters.fullstack.source.LocalImageData
-import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.source.data.LocalImageDomain
 
 class LabelAlbumRecyclerAdapter(private val onClickItem: (LocalImageDomain) -> Unit) :
     BaseAdapter<LocalImageDomain>() {

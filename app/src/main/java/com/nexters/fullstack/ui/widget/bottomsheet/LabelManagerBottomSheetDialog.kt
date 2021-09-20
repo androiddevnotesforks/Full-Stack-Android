@@ -1,7 +1,6 @@
 package com.nexters.fullstack.ui.widget.bottomsheet
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,13 +15,9 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
-import com.nexters.fullstack.db.entity.UserLabel
-import com.nexters.fullstack.db.entity.UserLabelingImage
-import com.nexters.fullstack.mapper.UserLabelingImageMapper
-import com.nexters.fullstack.source.dialog.DeleteDialogItem
-import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.data.db.entity.UserLabel
+import com.nexters.fullstack.presentaion.source.dialog.DeleteDialogItem
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
-import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
 import com.nexters.fullstack.ui.adapter.source.ItemType
 import com.nexters.fullstack.viewmodel.BottomSheetViewModel

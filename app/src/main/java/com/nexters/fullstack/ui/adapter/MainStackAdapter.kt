@@ -7,7 +7,7 @@ import com.nexters.fullstack.LabelViewType
 import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemStackViewBinding
-import com.nexters.fullstack.source.LocalFile
+import com.nexters.fullstack.presentaion.source.LocalFile
 import com.nexters.fullstack.ui.holder.MainStackItemHolder
 
 class MainStackAdapter : BaseAdapter<LocalFile>() {

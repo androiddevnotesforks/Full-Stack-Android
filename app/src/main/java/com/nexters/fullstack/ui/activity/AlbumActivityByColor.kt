@@ -8,10 +8,10 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.binding.LabelAlbumDelegate
 import com.nexters.fullstack.databinding.ActivityAlbumActivitybyColorBinding
-import com.nexters.fullstack.mapper.LocalImageMapper
-import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.source.LocalImageData
-import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.data.mapper.LocalImageMapper
+import com.nexters.fullstack.presentaion.source.LabelSource
+import com.nexters.fullstack.data.source.LocalImageData
+import com.nexters.fullstack.domain.source.data.LocalImageDomain
 import com.nexters.fullstack.ui.activity.detail.DetailAlbumActivity
 import com.nexters.fullstack.util.ColorUtil
 import com.nexters.fullstack.viewmodel.AlbumViewModel

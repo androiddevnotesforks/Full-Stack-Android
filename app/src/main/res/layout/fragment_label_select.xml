@@ -10,8 +10,6 @@
             type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
 
         <import type="android.view.View" />
-
-        <import type="com.nexters.fullstack.source.ViewState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
