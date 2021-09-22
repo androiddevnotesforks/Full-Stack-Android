@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
+import com.airbnb.lottie.utils.Logger
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
@@ -84,12 +87,26 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
             getToastMessage().observe(this@MyAlbumFragment.viewLifecycleOwner) { message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
             }
+            goToCreateLabel().observe(viewLifecycleOwner) {
+                requireContext().startActivity(
+                    Intent(
+                        this@MyAlbumFragment.requireContext(),
+                        CreateLabelActivity::class.java
+                    )
+                )
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchImages()
     }
 
     companion object {
         fun getInstance(): MyAlbumFragment {
-            return MyAlbumFragment()
+            val fragment = MyAlbumFragment().apply { bundleOf("tag" to "myAlbumFragment") }
+            return fragment
         }
     }
 
@@ -111,7 +128,6 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
         val intent = Intent(context, AlbumActivityByColor::class.java)
         val imageMapper = item.localImages.map(LocalImageMapper::toDomain)
         val labelMapper = LocalMainLabelMapper.toData(item.domainLabel)
-        Log.e("pass Images", imageMapper.toString())
         intent.putParcelableArrayListExtra(Constants.KEY_IMAGES, ArrayList(imageMapper))
         intent.putExtra(Constants.LABEL, labelMapper)
         startActivity(intent)

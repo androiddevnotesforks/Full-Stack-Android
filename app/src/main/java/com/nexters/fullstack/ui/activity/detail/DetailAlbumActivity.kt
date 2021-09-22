@@ -1,7 +1,6 @@
 package com.nexters.fullstack.ui.activity.detail
 
 import android.os.Bundle
-import android.util.Log
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity

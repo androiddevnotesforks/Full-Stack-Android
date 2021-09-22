@@ -1,22 +1,17 @@
 package com.nexters.fullstack.binding
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.ext.toPx
 import com.nexters.fullstack.mapper.LocalFileMapper
 import com.nexters.fullstack.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.source.LabelingImage
-import com.nexters.fullstack.source.LocalImageData
 import com.nexters.fullstack.source.LocalLabel
 import com.nexters.fullstack.source.MainLabel
 import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.source.data.LocalImageDomain
-import com.nexters.fullstack.source.local.DomainUserImage
 import com.nexters.fullstack.source.local.DomainUserLabel
 import com.nexters.fullstack.ui.adapter.*
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
-import com.nexters.fullstack.ui.holder.LocalImageViewHolder
 
 @BindingAdapter("app:setStackItems")
 fun RecyclerView.setStackBinding(items: MainLabel?) {
@@ -88,7 +83,6 @@ fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent:
 @BindingAdapter(requireAll = false, value = ["app:labelAlbumItems", "app:onClickLabelItemEvent"])
 fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, event: LabelAlbumDelegate?) {
     adapter?.let { labelAdapter ->
-        Log.e("adapter", "call")
         if (labelAdapter is LabelAlbumRecyclerAdapter) {
             items?.let {
                 labelAdapter.addItems(it)
@@ -96,9 +90,7 @@ fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, event: Label
             }
         }
     } ?: run {
-        Log.e("run", "call")
         event?.let {
-            Log.e("event", "call")
             val labelAlbumAdapter = LabelAlbumRecyclerAdapter(it::onClick)
 
             addItemDecoration(SpaceBetweenRecyclerDecoration(vertical = 16, horizontal = 14))
