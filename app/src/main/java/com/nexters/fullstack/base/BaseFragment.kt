@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import com.nexters.fullstack.source.ActivityResultData
+import com.nexters.fullstack.presentaion.source.ActivityResultData
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : Fragment() {

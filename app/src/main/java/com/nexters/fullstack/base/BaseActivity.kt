@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.helper.PermissionHelper
-import com.nexters.fullstack.source.ActivityResultData
+import com.nexters.fullstack.presentaion.source.ActivityResultData
 import io.reactivex.processors.PublishProcessor
 import org.koin.android.ext.android.inject
 

@@ -11,20 +11,17 @@ import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.nexters.fullstack.BR
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.NotFoundViewState
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.ext.hideKeyboard
-import com.nexters.fullstack.source.Label
-import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.ui.adapter.MyLabelAdapter
+import com.nexters.fullstack.presentaion.source.Label
 import com.nexters.fullstack.ui.adapter.OutAppLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
-import com.nexters.fullstack.viewmodel.LabelOutAppViewModel
+import com.nexters.fullstack.presentaion.viewmodel.LabelOutAppViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutAppViewModel>() {

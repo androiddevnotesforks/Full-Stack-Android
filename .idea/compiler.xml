@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.7">
-      <module name="CaptureBox.app" target="11" />
-      <module name="CaptureBox.data" target="11" />
-      <module name="CaptureBox.feature" target="11" />
+    <bytecodeTargetLevel target="11">
       <module name="CaptureBox.helper" target="1.8" />
-      <module name="CaptureBox.presentation" target="11" />
       <module name="nexters.CaptureBox.app" target="1.8" />
       <module name="nexters.CaptureBox.data" target="1.8" />
       <module name="nexters.CaptureBox.feature" target="1.8" />

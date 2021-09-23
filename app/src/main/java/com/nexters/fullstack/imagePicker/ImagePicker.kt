@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.R
-import com.nexters.fullstack.source.Screenshot
+import com.nexters.fullstack.presentaion.source.Screenshot
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 
 class ImagePicker(context: Context, attrs: AttributeSet) : RecyclerView(context, attrs) {

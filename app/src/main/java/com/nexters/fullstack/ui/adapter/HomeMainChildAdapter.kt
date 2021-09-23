@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.source.HomeListType
-import com.nexters.fullstack.source.Screenshot
+import com.nexters.fullstack.presentaion.source.HomeListType
+import com.nexters.fullstack.presentaion.source.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyFavoriteViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyRecentViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder

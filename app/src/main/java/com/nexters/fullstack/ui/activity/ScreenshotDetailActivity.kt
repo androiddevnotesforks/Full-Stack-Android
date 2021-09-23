@@ -1,7 +1,6 @@
 package com.nexters.fullstack.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import com.bumptech.glide.Glide
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity

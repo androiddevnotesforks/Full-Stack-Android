@@ -3,7 +3,6 @@ package com.nexters.fullstack.ui.activity
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
-import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSearchBinding

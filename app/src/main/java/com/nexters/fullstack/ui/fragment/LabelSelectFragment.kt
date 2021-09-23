@@ -19,11 +19,11 @@ import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.ext.toPx
-import com.nexters.fullstack.mapper.LocalFileMapper
-import com.nexters.fullstack.source.ActivityResultData
-import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.source.LocalFile
-import com.nexters.fullstack.source.ViewState
+import com.nexters.fullstack.presentaion.mapper.LocalFileMapper
+import com.nexters.fullstack.presentaion.source.ActivityResultData
+import com.nexters.fullstack.presentaion.source.LabelSource
+import com.nexters.fullstack.presentaion.source.LocalFile
+import com.nexters.fullstack.presentaion.source.ViewState
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.util.fadeInAnimation
