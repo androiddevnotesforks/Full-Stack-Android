@@ -10,8 +10,8 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.ActivityLabelingBinding
 import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.nexters.fullstack.ext.loadFragment
 import com.nexters.fullstack.ext.removeFragment
+import com.nexters.fullstack.ext.replace
 import com.nexters.fullstack.presentaion.source.ViewState
 import com.nexters.fullstack.widget.RequestExitDialog
 import com.nexters.fullstack.ui.fragment.LabelSelectFragment
@@ -67,7 +67,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
          *      ...
          *   }
          **/
-        supportFragmentManager.loadFragment(
+        supportFragmentManager.replace(
             binding.frame.id,
             labelSelectFragment
         )
@@ -108,6 +108,11 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
             labelSelectFragment
         )
         super.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchLabels()
     }
 
     private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {

@@ -1,6 +1,5 @@
 package com.nexters.fullstack.binding
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.presentaion.mapper.LocalFileMapper
@@ -84,7 +83,6 @@ fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent:
 @BindingAdapter(requireAll = false, value = ["app:labelAlbumItems", "app:onClickLabelItemEvent"])
 fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, event: LabelAlbumDelegate?) {
     adapter?.let { labelAdapter ->
-        Log.e("adapter", "call")
         if (labelAdapter is LabelAlbumRecyclerAdapter) {
             items?.let {
                 labelAdapter.addItems(it)
@@ -92,9 +90,7 @@ fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, event: Label
             }
         }
     } ?: run {
-        Log.e("run", "call")
         event?.let {
-            Log.e("event", "call")
             val labelAlbumAdapter = LabelAlbumRecyclerAdapter(it::onClick)
 
             addItemDecoration(SpaceBetweenRecyclerDecoration(vertical = 16, horizontal = 14))
