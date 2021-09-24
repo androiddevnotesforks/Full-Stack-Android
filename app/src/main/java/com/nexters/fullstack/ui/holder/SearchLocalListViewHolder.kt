@@ -2,7 +2,7 @@ package com.nexters.fullstack.ui.holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemLocalSearchViewBinding
-import com.nexters.fullstack.source.LabelSource
+import com.nexters.fullstack.presentaion.source.LabelSource
 import com.nexters.feature.util.ColorUtils
 
 class SearchLocalListViewHolder(

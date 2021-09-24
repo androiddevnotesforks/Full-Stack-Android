@@ -8,8 +8,6 @@
         <variable
             name="vm"
             type="com.nexters.fullstack.viewmodel.MainViewModel" />
-
-        <import type="com.nexters.fullstack.source.State" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -3,17 +3,15 @@ package com.nexters.fullstack.imagePicker
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.nexters.fullstack.NotFoundViewType
-import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemScreenshotBinding
-import com.nexters.fullstack.source.Screenshot
+import com.nexters.fullstack.presentaion.source.Screenshot
 
 class ImagePickerAdapter : BaseAdapter<Screenshot>() {
     private var mode : Mode = Mode.DEFAULT

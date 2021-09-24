@@ -2,14 +2,14 @@ package com.nexters.fullstack.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.mapper.LocalFileMapper
-import com.nexters.fullstack.mapper.LocalMainLabelMapper
-import com.nexters.fullstack.source.LabelingImage
-import com.nexters.fullstack.source.LocalLabel
-import com.nexters.fullstack.source.MainLabel
-import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
-import com.nexters.fullstack.source.data.LocalImageDomain
-import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.presentaion.mapper.LocalFileMapper
+import com.nexters.fullstack.presentaion.mapper.LocalMainLabelMapper
+import com.nexters.fullstack.presentaion.source.LabelingImage
+import com.nexters.fullstack.presentaion.source.LocalLabel
+import com.nexters.fullstack.presentaion.source.MainLabel
+import com.nexters.fullstack.presentaion.source.bottomsheet.BottomSheetItem
+import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.source.local.DomainUserLabel
 import com.nexters.fullstack.ui.adapter.*
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 

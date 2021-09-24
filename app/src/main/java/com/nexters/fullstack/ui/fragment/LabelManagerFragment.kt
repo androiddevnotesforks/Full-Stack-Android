@@ -11,7 +11,7 @@ import com.nexters.fullstack.Constants.LABEL_BUNDLE_KEY
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelManagerBinding
-import com.nexters.fullstack.source.ActivityResultData
+import com.nexters.fullstack.presentaion.source.ActivityResultData
 import com.nexters.fullstack.viewmodel.MainViewModel
 import com.nexters.fullstack.ui.activity.LabelingActivity
 import com.nexters.fullstack.ui.adapter.MainStackAdapter

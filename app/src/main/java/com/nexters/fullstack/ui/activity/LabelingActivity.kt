@@ -12,7 +12,7 @@ import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.nexters.fullstack.ext.removeFragment
 import com.nexters.fullstack.ext.replace
-import com.nexters.fullstack.source.ViewState
+import com.nexters.fullstack.presentaion.source.ViewState
 import com.nexters.fullstack.widget.RequestExitDialog
 import com.nexters.fullstack.ui.fragment.LabelSelectFragment
 

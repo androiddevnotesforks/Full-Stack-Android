@@ -8,7 +8,7 @@ import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemBottomSheetLabelDeleteBinding
 import com.nexters.fullstack.databinding.ItemBottomSheetLabelUpdateBinding
-import com.nexters.fullstack.source.bottomsheet.BottomSheetItem
+import com.nexters.fullstack.presentaion.source.bottomsheet.BottomSheetItem
 
 class BottomSheetAdapter(private val event: Any? = null) : BaseAdapter<BottomSheetItem>() {
 

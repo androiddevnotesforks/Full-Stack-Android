@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.databinding.ItemHomeGroupBinding
-import com.nexters.fullstack.databinding.ItemHomeSearchBinding
-import com.nexters.fullstack.source.HomeList
+import com.nexters.fullstack.presentaion.source.HomeList
 import com.nexters.fullstack.ui.holder.HomeMainParentViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainSearchViewHolder
 

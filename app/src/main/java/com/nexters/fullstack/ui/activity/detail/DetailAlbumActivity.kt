@@ -5,7 +5,7 @@ import com.nexters.fullstack.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityDetailAlbumBinding
-import com.nexters.fullstack.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.source.data.LocalImageDomain
 import com.nexters.fullstack.viewmodel.detail.DetailAlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

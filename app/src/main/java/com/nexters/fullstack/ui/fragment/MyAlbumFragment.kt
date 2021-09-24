@@ -2,22 +2,18 @@ package com.nexters.fullstack.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
-import com.airbnb.lottie.utils.Logger
-import com.nexters.fullstack.BR
 import com.nexters.fullstack.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.mapper.LocalImageMapper
-import com.nexters.fullstack.mapper.LocalMainLabelMapper
-import com.nexters.fullstack.mapper.local.LocalLabelMapper
-import com.nexters.fullstack.source.LabelingImage
-import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.data.mapper.LocalImageMapper
+import com.nexters.fullstack.presentaion.mapper.LocalMainLabelMapper
+import com.nexters.fullstack.data.mapper.local.LocalLabelMapper
+import com.nexters.fullstack.presentaion.source.LabelingImage
+import com.nexters.fullstack.domain.source.local.DomainUserLabel
 import com.nexters.fullstack.ui.activity.AlbumActivityByColor
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.listener.ItemClickListener
@@ -28,6 +24,7 @@ import com.nexters.fullstack.viewmodel.LabelingViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import com.nexters.fullstack.BR
 import java.util.concurrent.TimeUnit
 
 class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(),
