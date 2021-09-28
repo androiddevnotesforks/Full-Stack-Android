@@ -3,9 +3,9 @@ package com.nexters.fullstack.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.presentaion.source.HomeList
-import com.nexters.fullstack.presentaion.source.HomeListType
-import com.nexters.fullstack.presentaion.source.Screenshot
+import com.nexters.fullstack.presentaion.model.HomeList
+import com.nexters.fullstack.presentaion.model.HomeListType
+import com.nexters.fullstack.presentaion.model.Screenshot
 import kotlinx.coroutines.launch
 
 class HomeMainViewModel : BaseViewModel() {

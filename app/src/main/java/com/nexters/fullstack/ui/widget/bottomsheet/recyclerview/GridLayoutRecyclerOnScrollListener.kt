@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.nexters.fullstack.R
-import com.nexters.fullstack.ext.toPx
+import com.nexters.fullstack.util.extension.toPx
 
 class GridLayoutRecyclerOnScrollListener(
     private val toolbar: CollapsingToolbarLayout,

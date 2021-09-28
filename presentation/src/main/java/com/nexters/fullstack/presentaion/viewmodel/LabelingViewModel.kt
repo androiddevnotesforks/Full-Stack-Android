@@ -1,4 +1,4 @@
-package com.nexters.fullstack.viewmodel
+package com.nexters.fullstack.presentaion.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,14 +9,15 @@ import com.nexters.fullstack.Output
 import com.nexters.fullstack.presentaion.mapper.LabelSourceMapper
 import com.nexters.fullstack.presentaion.mapper.LabelingMapper
 import com.nexters.fullstack.presentaion.mapper.PresenterLocalFileMapper
-import com.nexters.fullstack.presentaion.source.*
-import com.nexters.fullstack.domain.source.local.DomainUserImage
+import com.nexters.fullstack.presentaion.model.*
+import com.nexters.fullstack.domain.entity.DomainUserImage
 import com.nexters.fullstack.domain.usecase.ImageLabelingUseCase
 import com.nexters.feature.ui.data.pallet.PalletItem
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
-import com.nexters.fullstack.domain.source.local.DomainUserLabel
+import com.nexters.fullstack.domain.entity.LocalImageDomain
+import com.nexters.fullstack.domain.entity.DomainUserLabel
 import com.nexters.fullstack.domain.usecase.GetLabelManagementUseCase
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
+import com.nexters.fullstack.presentaion.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.util.SingleLiveData
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -35,7 +36,7 @@ class LabelingViewModel(
     private val _viewState = MutableLiveData<ViewState>()
     private val _finish = MutableLiveData<Unit>()
     private val _isEmptyLabel = MutableLiveData(true)
-    private val _labels = MutableLiveData<LocalLabel>()
+    private val _labels = MutableLiveData<List<LabelSource>>()
     private val _toastMessage = SingleLiveData<String>()
 
     private val _images = MutableLiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>()
@@ -59,7 +60,7 @@ class LabelingViewModel(
         override fun viewState(): LiveData<ViewState> = _viewState
         override fun finish(): LiveData<Unit> = _finish
         override fun isEmptyLocalLabel(): LiveData<Boolean> = _isEmptyLabel
-        override fun getLocalLabels(): LiveData<LocalLabel> = _labels
+        override fun getLocalLabels(): LiveData<List<LabelSource>> = _labels
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
         override fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>> =
@@ -77,11 +78,11 @@ class LabelingViewModel(
 
         override fun clickSaveButton(labelingState: LabelingState) {
             makeMainLabelSource?.let { source ->
-                val mapper = LabelingMapper().fromData(source)
+                val mapper = LabelingMapper.fromData(source)
 
                 val labeling = when (labelingState) {
                     LabelingState.CREATE -> {
-                        getLabelManagementUseCase.create(mapper)
+                        getLabelManagementUseCase.insertOrUpdate(mapper)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
@@ -92,7 +93,7 @@ class LabelingViewModel(
                             })
                     }
                     LabelingState.UPDATE -> {
-                        getLabelManagementUseCase.update(mapper)
+                        getLabelManagementUseCase.insertOrUpdate(mapper)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
@@ -112,7 +113,9 @@ class LabelingViewModel(
                         .subscribe({ localLabels ->
                             if (localLabels.isNotEmpty()) {
                                 _isEmptyLabel.value = false
-                                _labels.value = LocalLabel(localLabels)
+                                _labels.value = localLabels.map {
+                                    LocalMainLabelMapper.fromData(it)
+                                }
                             } else {
                                 _isEmptyLabel.value = true
                             }
@@ -174,7 +177,9 @@ class LabelingViewModel(
                     if (localLabels.isNotEmpty()) {
                         _isEmptyLabel.value = false
                         Log.e("라벨스", localLabels.toString())
-                        _labels.value = LocalLabel(localLabels)
+                        _labels.value = localLabels.map {
+                            LocalMainLabelMapper.fromData(it)
+                        }
                     } else {
                         _isEmptyLabel.value = true
                     }
@@ -242,7 +247,7 @@ class LabelingViewModel(
 
         fun isEmptyLocalLabel(): LiveData<Boolean>
 
-        fun getLocalLabels(): LiveData<LocalLabel>
+        fun getLocalLabels(): LiveData<List<LabelSource>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
 

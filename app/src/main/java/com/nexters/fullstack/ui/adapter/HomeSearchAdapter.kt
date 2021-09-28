@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.nexters.fullstack.base.BaseAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemLabelBinding
-import com.nexters.fullstack.presentaion.source.Label
+import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 
 class HomeSearchAdapter : BaseAdapter<Label>() {

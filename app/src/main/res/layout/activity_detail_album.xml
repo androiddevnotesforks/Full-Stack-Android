@@ -7,7 +7,7 @@
 
         <variable
             name="localImageData"
-            type="com.nexters.fullstack.domain.source.data.LocalImageDomain" />
+            type="com.nexters.fullstack.domain.entity.LocalImageDomain" />
 
         <variable
             name="viewModels"

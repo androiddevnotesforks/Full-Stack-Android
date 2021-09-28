@@ -8,14 +8,11 @@ import io.reactivex.Maybe
 @Dao
 interface ImageDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(image: UserLabelingImage): Completable
+    fun insertOrUpdate(image: UserLabelingImage): Completable
 
     @Query("select * from userImage")
     fun load(): Maybe<List<UserLabelingImage>>
 
     @Delete
     fun delete(image: UserLabelingImage): Completable
-
-    @Update
-    fun update(image: UserLabelingImage): Completable
 }

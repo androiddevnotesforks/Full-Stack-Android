@@ -1,14 +1,15 @@
 package com.nexters.fullstack.data.mapper
 
-import com.nexters.fullstack.data.source.LocalImageData
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.data.model.LocalImageData
+import com.nexters.fullstack.domain.Mapper
+import com.nexters.fullstack.domain.entity.LocalImageDomain
 
 object LocalImageMapper : Mapper<LocalImageDomain, LocalImageData> {
-    override fun toDomain(data: LocalImageDomain): LocalImageData {
+    override fun toData(data: LocalImageDomain): LocalImageData {
         return LocalImageData(data.id, data.originUrl)
     }
 
-    override fun fromDomain(data: LocalImageData): LocalImageDomain {
+    override fun fromData(data: LocalImageData): LocalImageDomain {
         return LocalImageDomain(data.id, data.originUrl)
     }
 }

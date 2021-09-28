@@ -1,9 +1,9 @@
 package com.nexters.fullstack.domain.di
 
 import com.nexters.fullstack.domain.constants.KoinNamed
-import com.nexters.fullstack.domain.source.LabellingState
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
-import com.nexters.fullstack.domain.source.local.DomainUserImage
+import com.nexters.fullstack.domain.entity.LabellingState
+import com.nexters.fullstack.domain.entity.LocalImageDomain
+import com.nexters.fullstack.domain.entity.DomainUserImage
 import com.nexters.fullstack.domain.usecase.*
 import com.nexters.fullstack.domain.usecase.AlbumLoadUseCase
 import com.nexters.fullstack.domain.usecase.FlippingUseCase

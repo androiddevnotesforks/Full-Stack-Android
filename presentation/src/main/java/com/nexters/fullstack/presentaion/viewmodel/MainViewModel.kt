@@ -1,15 +1,15 @@
-package com.nexters.fullstack.viewmodel
+package com.nexters.fullstack.presentaion.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
-import com.nexters.fullstack.domain.source.LabellingState
-import com.nexters.fullstack.presentaion.mapper.Mapper
-import com.nexters.fullstack.presentaion.source.*
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
-import com.nexters.fullstack.domain.source.local.DomainUserImage
+import com.nexters.fullstack.domain.Mapper
+import com.nexters.fullstack.domain.entity.LabellingState
+import com.nexters.fullstack.presentaion.model.*
+import com.nexters.fullstack.domain.entity.LocalImageDomain
+import com.nexters.fullstack.domain.entity.DomainUserImage
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -28,7 +28,7 @@ class MainViewModel(
 
     private val disposable = CompositeDisposable()
     private val flipStateSubject = PublishSubject.create<LabellingState>()
-    private val onClickButton = PublishSubject.create<State>()
+    private val onClickButton = PublishSubject.create<MainLabelState>()
 
     private val mainLabel = MutableLiveData<MainLabel>()
     private val startLabeling = MutableLiveData<Unit>()
@@ -36,7 +36,7 @@ class MainViewModel(
     private val _imageItemCount = MutableLiveData<Int>()
 
     val input = object : MainInput {
-        override fun onClickedButton(state: State) = onClickButton.onNext(state)
+        override fun onClickedButton(state: MainLabelState) = onClickButton.onNext(state)
 
         override fun emitLabellingState(state: LabellingState) = flipStateSubject.onNext(state)
     }
@@ -87,7 +87,7 @@ class MainViewModel(
                 state,
                 ::MainLabel
             ).subscribe({ response ->
-                if (response.state == State.Approve) {
+                if (response.state == MainLabelState.Approve) {
                     startLabeling.value = Unit
                 }
                 mainLabel.value = response
@@ -98,7 +98,7 @@ class MainViewModel(
     }
 
     interface MainInput : Input {
-        fun onClickedButton(state: State)
+        fun onClickedButton(state: MainLabelState)
         fun emitLabellingState(state: LabellingState)
     }
 

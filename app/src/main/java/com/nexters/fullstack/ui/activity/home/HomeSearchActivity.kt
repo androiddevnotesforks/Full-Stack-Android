@@ -44,8 +44,9 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
 
     private fun initObserver(){
         with(viewModel.state()){
-            mode.observe(this@HomeSearchActivity,{
-                currentFragment = when(it){
+            mode.observe(this@HomeSearchActivity,{ mode ->
+                mode ?: return@observe
+                currentFragment = when(mode){
                     HomeSearchViewModel.ViewMode.RECOMMEND -> HomeSearchRecommendFragment.getInstance()
                     HomeSearchViewModel.ViewMode.SEARCH -> HomeSearchResultFragment.getInstance()
                 }

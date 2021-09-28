@@ -3,8 +3,8 @@ package com.nexters.fullstack.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.presentaion.source.bottomsheet.BottomSheetItem
-import com.nexters.fullstack.presentaion.source.dialog.DeleteDialogItem
+import com.nexters.fullstack.presentaion.model.bottomsheet.BottomSheetItem
+import com.nexters.fullstack.presentaion.model.dialog.DeleteDialogItem
 import com.nexters.fullstack.util.SingleLiveData
 
 class BottomSheetViewModel : BaseViewModel() {

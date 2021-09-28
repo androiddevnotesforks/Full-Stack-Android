@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.nexters.fullstack.data.db.converter.LocalImageDataConverter
 import com.nexters.fullstack.data.db.converter.UserLabelConverter
-import com.nexters.fullstack.data.db.dao.FavoriteDAO
 import com.nexters.fullstack.data.db.dao.ImageDAO
 import com.nexters.fullstack.data.db.dao.LabelDAO
 import com.nexters.fullstack.data.db.entity.UserLabel
@@ -24,8 +23,6 @@ internal abstract class AppDatabase : RoomDatabase() {
 
     abstract fun imageDAO(): ImageDAO
 
-    abstract fun favoriteDAO(): FavoriteDAO
-
     companion object {
         private const val DB_NAME = "search_history_db"
 
@@ -39,4 +36,12 @@ internal abstract class AppDatabase : RoomDatabase() {
                 .also { instance = it }
         }
     }
+}
+
+object TableName {
+    const val LABEL = "userLabel"
+
+    const val IMAGE = "userImage"
+
+    const val FAVORITE = "favorite"
 }

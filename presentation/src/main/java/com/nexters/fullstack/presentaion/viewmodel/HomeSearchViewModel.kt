@@ -2,7 +2,7 @@ package com.nexters.fullstack.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.presentaion.source.Label
+import com.nexters.fullstack.presentaion.model.Label
 
 class HomeSearchViewModel : BaseViewModel() {
     private val state = State()

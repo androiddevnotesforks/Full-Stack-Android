@@ -7,15 +7,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import com.nexters.fullstack.Constants.BOTTOM_SHEET_ITEM
-import com.nexters.fullstack.Constants.BOTTOM_SHEET_KEY
+import com.nexters.fullstack.util.Constants.BOTTOM_SHEET_ITEM
+import com.nexters.fullstack.util.Constants.BOTTOM_SHEET_KEY
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityMainBinding
-import com.nexters.fullstack.ext.loadFragment
+import com.nexters.fullstack.util.extension.loadFragment
 import com.nexters.fullstack.ui.fragment.LabelManagerFragment
 import com.nexters.fullstack.ui.fragment.MyAlbumFragment
 import com.nexters.fullstack.ui.fragment.home.HomeFragment
-import com.nexters.fullstack.viewmodel.MainViewModel
+import com.nexters.fullstack.presentaion.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {

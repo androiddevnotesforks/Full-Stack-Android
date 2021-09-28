@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.presentaion.source.Label
+import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.domain.usecase.GetLabelManagementUseCase
 import kotlinx.coroutines.launch
 

@@ -1,7 +1,7 @@
 package com.nexters.fullstack.domain.remote
 
-import com.nexters.fullstack.domain.source.DomainLabel
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.entity.DomainLabel
+import com.nexters.fullstack.domain.entity.LocalImageDomain
 import io.reactivex.Completable
 import io.reactivex.Single
 

@@ -5,7 +5,7 @@ import com.nexters.feature.BR
 import com.nexters.feature.util.ColorUtils
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.ItemAlbumWithLabelBinding
-import com.nexters.fullstack.presentaion.source.LabelingImage
+import com.nexters.fullstack.presentaion.model.LabelingImage
 
 class LocalImageViewHolder(
     private val binding: ItemAlbumWithLabelBinding,

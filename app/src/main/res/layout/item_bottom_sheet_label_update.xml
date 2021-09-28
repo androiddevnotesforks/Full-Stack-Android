@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.nexters.fullstack.presentaion.source.bottomsheet.BottomSheetItem" />
+            type="com.nexters.fullstack.presentaion.model.bottomsheet.BottomSheetItem" />
 
         <variable
             name="onClickEvent"

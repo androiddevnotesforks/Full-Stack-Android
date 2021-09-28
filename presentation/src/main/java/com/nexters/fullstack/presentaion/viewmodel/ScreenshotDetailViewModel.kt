@@ -2,7 +2,7 @@ package com.nexters.fullstack.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.presentaion.source.Screenshot
+import com.nexters.fullstack.presentaion.model.Screenshot
 
 class ScreenshotDetailViewModel : BaseViewModel() {
     private val state: State = State()

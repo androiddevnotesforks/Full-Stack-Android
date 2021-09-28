@@ -8,7 +8,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivitySplashBinding
 import com.nexters.fullstack.util.PrefDataStoreManager
-import com.nexters.fullstack.viewmodel.MainViewModel
+import com.nexters.fullstack.presentaion.viewmodel.MainViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel

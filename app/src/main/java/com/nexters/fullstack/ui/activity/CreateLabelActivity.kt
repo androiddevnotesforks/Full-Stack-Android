@@ -2,15 +2,15 @@ package com.nexters.fullstack.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
-import com.nexters.fullstack.Constants
+import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityCreateLabelBinding
 import com.nexters.fullstack.data.db.entity.UserLabel
-import com.nexters.fullstack.presentaion.source.LabelingState
-import com.nexters.fullstack.presentaion.source.MainMakeLabelSource
+import com.nexters.fullstack.presentaion.model.LabelingState
+import com.nexters.fullstack.presentaion.model.MainMakeLabelSource
 import com.nexters.fullstack.ui.widget.bottomsheet.mapper.mapToPallet
-import com.nexters.fullstack.viewmodel.LabelingViewModel
+import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateLabelActivity : BaseActivity<ActivityCreateLabelBinding, LabelingViewModel>() {

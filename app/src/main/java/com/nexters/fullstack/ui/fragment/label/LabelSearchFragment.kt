@@ -5,8 +5,8 @@ import android.view.View
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSearchBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.presentaion.source.ActivityResultData
-import com.nexters.fullstack.viewmodel.LabelingViewModel
+import com.nexters.fullstack.model.ActivityResultData
+import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelSearchFragment : BaseFragment<FragmentLabelSearchBinding, LabelingViewModel>() {

@@ -2,16 +2,16 @@ package com.nexters.fullstack.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import com.nexters.fullstack.Constants
-import com.nexters.fullstack.Constants.DETAIL_IMAGE
+import com.nexters.fullstack.util.Constants
+import com.nexters.fullstack.util.Constants.DETAIL_IMAGE
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
-import com.nexters.fullstack.binding.LabelAlbumDelegate
+import com.nexters.fullstack.databinding.LabelAlbumDelegate
 import com.nexters.fullstack.databinding.ActivityAlbumActivitybyColorBinding
 import com.nexters.fullstack.data.mapper.LocalImageMapper
-import com.nexters.fullstack.presentaion.source.LabelSource
-import com.nexters.fullstack.data.source.LocalImageData
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.data.model.LocalImageData
+import com.nexters.fullstack.domain.entity.LocalImageDomain
 import com.nexters.fullstack.ui.activity.detail.DetailAlbumActivity
 import com.nexters.fullstack.util.ColorUtil
 import com.nexters.fullstack.viewmodel.AlbumViewModel
@@ -58,7 +58,7 @@ class AlbumActivityByColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
         labelColor = labelSource.color
         images = (intentImages?.toList() ?: emptyList())
 
-        val localImage = images.map(LocalImageMapper::fromDomain)
+        val localImage = images.map(LocalImageMapper::fromData)
         with(viewModel.input) {
             setLabelName(labelName.name)
             setImages(localImage)

@@ -8,10 +8,7 @@ import io.reactivex.Maybe
 @Dao
 interface LabelDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(label: UserLabel): Completable
-
-    @Update
-    fun update(label: UserLabel): Completable
+    fun insertOrUpdate(label: UserLabel): Completable
 
     @Delete
     fun delete(label: UserLabel): Completable

@@ -1,7 +1,8 @@
 package com.nexters.fullstack.presentaion.mapper
 
-import com.nexters.fullstack.presentaion.source.LabelSource
-import com.nexters.fullstack.domain.source.local.DomainUserLabel
+import com.nexters.fullstack.domain.Mapper
+import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.domain.entity.DomainUserLabel
 
 object LabelSourceMapper : Mapper<List<LabelSource>, List<DomainUserLabel>> {
     override fun toData(data: List<LabelSource>): List<DomainUserLabel> {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nexters.feature.BR
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.LabelAlbumItemBinding
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.entity.LocalImageDomain
 
 class LabelAlbumRecyclerAdapter(private val onClickItem: (LocalImageDomain) -> Unit) :
     BaseAdapter<LocalImageDomain>() {
@@ -31,7 +31,7 @@ class LabelAlbumRecyclerAdapter(private val onClickItem: (LocalImageDomain) -> U
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.album.setOnClickListener { onClickItem?.invoke(items[adapterPosition]) }
+            binding.album.setOnClickListener { onClickItem.invoke(items[adapterPosition]) }
         }
 
         fun onBind(item: LocalImageDomain) {

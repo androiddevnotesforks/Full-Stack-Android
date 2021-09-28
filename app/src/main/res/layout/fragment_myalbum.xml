@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
+            type="com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel" />
 
         <variable
             name="event"

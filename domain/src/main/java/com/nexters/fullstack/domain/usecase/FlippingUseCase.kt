@@ -1,6 +1,6 @@
 package com.nexters.fullstack.domain.usecase
 
-import com.nexters.fullstack.domain.source.LabellingState
+import com.nexters.fullstack.domain.entity.LabellingState
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 
 internal class FlippingUseCase : BaseUseCase<LabellingState, Boolean> {

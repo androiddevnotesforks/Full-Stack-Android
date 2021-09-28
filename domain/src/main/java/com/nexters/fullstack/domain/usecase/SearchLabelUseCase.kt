@@ -1,6 +1,6 @@
 package com.nexters.fullstack.domain.usecase
 
-import com.nexters.fullstack.domain.source.DomainLabel
+import com.nexters.fullstack.domain.entity.DomainLabel
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

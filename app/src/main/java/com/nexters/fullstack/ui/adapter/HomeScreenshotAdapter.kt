@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.presentaion.source.Screenshot
+import com.nexters.fullstack.presentaion.model.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
 import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
 

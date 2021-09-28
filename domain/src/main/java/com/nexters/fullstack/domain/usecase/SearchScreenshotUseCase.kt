@@ -1,7 +1,7 @@
 package com.nexters.fullstack.domain.usecase
 
 import com.nexters.fullstack.domain.repository.ImageRepository
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.entity.LocalImageDomain
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 import kotlinx.coroutines.flow.Flow
 

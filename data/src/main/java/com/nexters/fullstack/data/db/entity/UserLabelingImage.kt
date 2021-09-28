@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.nexters.fullstack.data.db.TableName
-import com.nexters.fullstack.data.source.LocalImageData
+import com.nexters.fullstack.data.model.LocalImageData
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

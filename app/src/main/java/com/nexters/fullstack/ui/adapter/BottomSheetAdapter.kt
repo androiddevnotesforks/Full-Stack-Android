@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.NotFoundViewType
+import com.nexters.fullstack.util.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemBottomSheetLabelDeleteBinding
 import com.nexters.fullstack.databinding.ItemBottomSheetLabelUpdateBinding
-import com.nexters.fullstack.presentaion.source.bottomsheet.BottomSheetItem
+import com.nexters.fullstack.presentaion.model.bottomsheet.BottomSheetItem
 
 class BottomSheetAdapter(private val event: Any? = null) : BaseAdapter<BottomSheetItem>() {
 

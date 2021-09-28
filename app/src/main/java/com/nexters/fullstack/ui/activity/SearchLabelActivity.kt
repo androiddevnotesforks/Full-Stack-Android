@@ -8,11 +8,11 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivitySearchLabelBinding
-import com.nexters.fullstack.presentaion.source.ActivityResultData
-import com.nexters.fullstack.presentaion.source.LabelSource
+import com.nexters.fullstack.model.ActivityResultData
+import com.nexters.fullstack.presentaion.model.LabelSource
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
+import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
-import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingViewModel>() {
@@ -120,10 +120,8 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
                 }
             }
             getLabelQuery().observe(this@SearchLabelActivity) { query ->
-                val filterItems = getLocalLabels().value?.items?.filter {
-                    it.text.startsWith(query)
-                }?.map {
-                    LabelSource(color = it.color ?: "", name = it.text)
+                val filterItems = getLocalLabels().value?.filter {
+                    it.name.startsWith(query)
                 }
                 searchAdapter.addItems(filterItems ?: listOf())
                 binding.tvMyLabelResultCount.text = searchAdapter.itemCount.toString()

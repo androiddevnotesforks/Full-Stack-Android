@@ -12,11 +12,11 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.Constants
+import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
 import com.nexters.fullstack.data.db.entity.UserLabel
-import com.nexters.fullstack.presentaion.source.dialog.DeleteDialogItem
+import com.nexters.fullstack.presentaion.model.dialog.DeleteDialogItem
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
 import com.nexters.fullstack.ui.adapter.source.ItemType
@@ -88,7 +88,7 @@ class LabelManagerBottomSheetDialog(
                 dialog
                     .setTitle(it.title)
                     .setMessage(it.message)
-                    .setNegativeButton(it.cancel) { dialogInterface, i ->
+                    .setNegativeButton(it.cancel) { _, _ ->
 
                         Log.e("negative", "click")
                     }

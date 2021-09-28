@@ -3,7 +3,7 @@ package com.nexters.fullstack.ui.holder
 import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemHomeGroupBinding
-import com.nexters.fullstack.presentaion.source.HomeList
+import com.nexters.fullstack.presentaion.model.HomeList
 import com.nexters.fullstack.ui.activity.ScreenshotDetailActivity
 import com.nexters.fullstack.ui.adapter.HomeMainChildAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration

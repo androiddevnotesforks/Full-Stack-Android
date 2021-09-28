@@ -10,6 +10,4 @@ val databaseModule = module {
     single { get<AppDatabase>().labelDAO() }
 
     single { get<AppDatabase>().imageDAO() }
-
-    single { get<AppDatabase>().favoriteDAO() }
 }

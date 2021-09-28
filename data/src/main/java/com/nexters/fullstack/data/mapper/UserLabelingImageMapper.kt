@@ -1,25 +1,24 @@
 package com.nexters.fullstack.data.mapper
 
 import com.nexters.fullstack.data.db.entity.UserLabelingImage
-import com.nexters.fullstack.data.mapper.local.LocalLabelMapper
-import com.nexters.fullstack.domain.source.local.DomainUserImage
+import com.nexters.fullstack.domain.Mapper
+import com.nexters.fullstack.domain.entity.DomainUserImage
 
-object UserLabelingImageMapper : Mapper<DomainUserImage, UserLabelingImage> {
-    override fun toDomain(data: DomainUserImage): UserLabelingImage {
-        val labelMapper = data.labels.map(LocalLabelMapper::toDomain)
+object UserLabelingImageMapper : Mapper<UserLabelingImage, DomainUserImage> {
+    override fun fromData(data: DomainUserImage): UserLabelingImage {
+        val labelMapper = data.labels.map(LocalLabelMapper::toData)
 
-        val imageMapper = LocalImageMapper.toDomain(data.image)
+        val imageMapper = LocalImageMapper.toData(data.image)
 
         return UserLabelingImage(id = imageMapper.id, label = labelMapper, image = imageMapper)
     }
 
-    override fun fromDomain(data: UserLabelingImage): DomainUserImage {
+    override fun toData(data: UserLabelingImage): DomainUserImage {
 
-        val labelMapper = data.label.map(LocalLabelMapper::fromDomain)
+        val labelMapper = data.label.map(LocalLabelMapper::fromData)
 
-        val imageMapper = LocalImageMapper.fromDomain(data.image)
+        val imageMapper = LocalImageMapper.fromData(data.image)
 
         return DomainUserImage(labelMapper, imageMapper)
     }
-
 }

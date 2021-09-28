@@ -7,11 +7,11 @@
 
         <variable
             name="labelingImage"
-            type="com.nexters.fullstack.presentaion.source.LabelingImage" />
+            type="com.nexters.fullstack.presentaion.model.LabelingImage" />
 
         <variable
             name="image"
-            type="com.nexters.fullstack.domain.source.data.LocalImageDomain" />
+            type="com.nexters.fullstack.domain.entity.LocalImageDomain" />
 
         <variable
             name="event"

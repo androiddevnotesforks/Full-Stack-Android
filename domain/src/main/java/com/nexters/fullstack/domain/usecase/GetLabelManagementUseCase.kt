@@ -1,7 +1,7 @@
 package com.nexters.fullstack.domain.usecase
 
 import com.nexters.fullstack.domain.repository.LabelRepository
-import com.nexters.fullstack.domain.source.local.DomainUserLabel
+import com.nexters.fullstack.domain.entity.DomainUserLabel
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 import io.reactivex.Completable
 import io.reactivex.Maybe
@@ -12,11 +12,8 @@ class GetLabelManagementUseCase(private val labelRepository: LabelRepository) :
         return labelRepository.load()
     }
 
-    fun update(label: DomainUserLabel): Completable {
-        return labelRepository.update(label)
-    }
 
-    fun create(label: DomainUserLabel): Completable {
-        return labelRepository.save(label)
+    fun insertOrUpdate(label: DomainUserLabel): Completable {
+        return labelRepository.insertOrUpdate(label)
     }
 }

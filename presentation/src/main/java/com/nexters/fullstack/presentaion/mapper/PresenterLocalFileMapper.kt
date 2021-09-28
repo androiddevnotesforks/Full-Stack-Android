@@ -1,7 +1,8 @@
 package com.nexters.fullstack.presentaion.mapper
 
-import com.nexters.fullstack.presentaion.source.PresentLocalFile
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.Mapper
+import com.nexters.fullstack.presentaion.model.PresentLocalFile
+import com.nexters.fullstack.domain.entity.LocalImageDomain
 
 object PresenterLocalFileMapper : Mapper<PresentLocalFile, LocalImageDomain> {
     override fun toData(data: PresentLocalFile): LocalImageDomain {

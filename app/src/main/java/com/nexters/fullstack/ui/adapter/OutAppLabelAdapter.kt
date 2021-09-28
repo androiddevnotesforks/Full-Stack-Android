@@ -3,13 +3,13 @@ package com.nexters.fullstack.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.NotFoundViewType
+import com.nexters.fullstack.util.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemSearchAddBinding
 import com.nexters.fullstack.databinding.ItemTitleCountBinding
-import com.nexters.fullstack.presentaion.source.Label
-import com.nexters.fullstack.presentaion.source.LabelSource
+import com.nexters.fullstack.presentaion.model.Label
+import com.nexters.fullstack.presentaion.model.LabelSource
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.SearchAddLabelViewHolder
 import com.nexters.fullstack.ui.holder.TitleViewHolder

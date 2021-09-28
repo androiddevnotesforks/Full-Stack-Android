@@ -11,13 +11,13 @@ import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.nexters.fullstack.Constants
-import com.nexters.fullstack.NotFoundViewState
+import com.nexters.fullstack.util.Constants
+import com.nexters.fullstack.util.NotFoundViewState
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
-import com.nexters.fullstack.ext.hideKeyboard
-import com.nexters.fullstack.presentaion.source.Label
+import com.nexters.fullstack.util.extension.hideKeyboard
+import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.ui.adapter.OutAppLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -126,10 +126,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         myLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.selectLabel(i)
         }
-        recentlyLabelAdapter.setItemClickListener { view, i, labelSource ->
+        recentlyLabelAdapter.setItemClickListener { _, _, _ ->
             Log.e("test", "recent")
         }
-        searchResultAdapter.setItemClickListener { view, i, labelSource ->
+        searchResultAdapter.setItemClickListener { _, _, labelSource ->
             labelSource?.let {
                 viewModel.selectLabel(it.name)
             }
@@ -138,7 +138,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         selectedLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.deselectLabel(i)
         }
-        addLabelAdapter.setItemClickListener { view, i, labelSource ->
+        addLabelAdapter.setItemClickListener { _, _, _ ->
             // TODO start add label activity and update my labels
         }
     }

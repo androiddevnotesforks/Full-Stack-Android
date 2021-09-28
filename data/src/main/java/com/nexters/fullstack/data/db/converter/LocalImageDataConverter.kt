@@ -3,7 +3,7 @@ package com.nexters.fullstack.data.db.converter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.nexters.fullstack.data.source.LocalImageData
+import com.nexters.fullstack.data.model.LocalImageData
 
 class LocalImageDataConverter {
     @TypeConverter

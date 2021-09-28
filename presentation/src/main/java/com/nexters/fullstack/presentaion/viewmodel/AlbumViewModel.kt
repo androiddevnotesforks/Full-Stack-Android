@@ -3,7 +3,7 @@ package com.nexters.fullstack.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.domain.source.data.LocalImageDomain
+import com.nexters.fullstack.domain.entity.LocalImageDomain
 import com.nexters.fullstack.util.SingleLiveData
 
 class AlbumViewModel : BaseViewModel() {

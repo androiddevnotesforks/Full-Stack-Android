@@ -3,13 +3,13 @@ package com.nexters.fullstack.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.NotFoundViewType
+import com.nexters.fullstack.util.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemListLabelBinding
 import com.nexters.fullstack.databinding.ItemLocalSearchViewBinding
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
-import com.nexters.fullstack.presentaion.source.LabelSource
+import com.nexters.fullstack.presentaion.model.LabelSource
 import com.nexters.fullstack.ui.holder.*
 
 class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdapter<LabelSource>() {
