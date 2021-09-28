@@ -3,7 +3,6 @@ package com.nexters.fullstack.ui.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.core.os.bundleOf
@@ -28,7 +27,12 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         MainStackAdapter()
     }
 
-    private val manager by lazy { CardStackLayoutManager(requireContext(), this) }
+    private val manager: CardStackLayoutManager by lazy {
+        CardStackLayoutManager(
+            requireContext(),
+            this
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,8 +60,8 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
             setSwipeableMethod(SwipeableMethod.AutomaticAndManual)
             setOverlayInterpolator(LinearInterpolator())
         }
-        binding.cardStackView.adapter = stackAdapter
         binding.cardStackView.layoutManager = manager
+        binding.cardStackView.adapter = stackAdapter
     }
 
 
@@ -72,18 +76,15 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
     }
 
     companion object {
-        private var instance: LabelManagerFragment? = null
         fun getInstance(): LabelManagerFragment {
-            if (instance == null) {
-                instance = LabelManagerFragment()
-            }
-            return LabelManagerFragment()
+            val fragment =
+                LabelManagerFragment().apply { bundleOf("tag" to "LabelManagerFragment") }
+            return fragment
         }
     }
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {
         //no-op
-        Log.e("ratio ->", ratio.toString())
 
         binding.skipButton.visibility = View.GONE
         binding.labeledButton.visibility = View.GONE
@@ -114,6 +115,11 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
 
     override fun onCardDisappeared(view: View?, position: Int) {
 
+    }
+
+    override fun onDestroyView() {
+        binding.cardStackView.layoutManager = CardStackLayoutManager(requireContext(), this)
+        super.onDestroyView()
     }
 
     private fun startActivityWithData() {

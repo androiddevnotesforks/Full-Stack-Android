@@ -28,9 +28,8 @@ import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class LabelingViewModel(
-//    private val labelingUseCase: LabelingUseCase,
     private val getLabelManagementUseCase: GetLabelManagementUseCase,
-    loadImageUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
+    private val loadImageUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
     private val imageLabelingUseCase: ImageLabelingUseCase
 ) : BaseViewModel() {
     private val _viewState = MutableLiveData<ViewState>()
@@ -42,6 +41,8 @@ class LabelingViewModel(
     private val _images = MutableLiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>()
 
     private val items = mutableListOf<MutableMap<DomainUserLabel, MutableList<LocalImageDomain>>>()
+
+    private val _createLabel = SingleLiveData<Unit>()
 
     val labelingMap = mutableMapOf<DomainUserLabel, MutableList<LocalImageDomain>>()
 
@@ -67,6 +68,7 @@ class LabelingViewModel(
             _images
 
         override fun getToastMessage(): LiveData<String> = _toastMessage
+        override fun goToCreateLabel(): LiveData<Unit> = _createLabel
     }
 
     val input = object : LabelingInput {
@@ -160,6 +162,8 @@ class LabelingViewModel(
         override fun setToastMessage(message: String) {
             _toastMessage.value = message
         }
+
+        override fun goToCreateLabel() = _createLabel.call()
     }
 
     init {
@@ -176,7 +180,6 @@ class LabelingViewModel(
                 .subscribe({ localLabels ->
                     if (localLabels.isNotEmpty()) {
                         _isEmptyLabel.value = false
-                        Log.e("라벨스", localLabels.toString())
                         _labels.value = localLabels.map {
                             LocalMainLabelMapper.fromData(it)
                         }
@@ -220,12 +223,6 @@ class LabelingViewModel(
                     makeMainLabelSource = labelSource
                     _didWriteLabelInfo.value = result
                 }, { it.printStackTrace() }),
-
-//            clickLabelCache
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//                }, { it.printStackTrace() })
         )
         _viewState.value = ViewState.Selected
     }
@@ -238,6 +235,51 @@ class LabelingViewModel(
             result = true
             result
         }
+    }
+
+    fun fetchImages() {
+        disposable.addAll(
+            loadImageUseCase.buildUseCase(Unit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    it.forEach { domainUserImage ->
+                        domainUserImage.labels.forEach { label ->
+                            if (labelingMap.containsKey(label)) {
+                                val images = labelingMap[label]
+                                images?.let { mutableImage ->
+                                    if (!mutableImage.contains(domainUserImage.image)) {
+                                        mutableImage.add(domainUserImage.image)
+                                    }
+                                } ?: run {
+                                    labelingMap[label] = mutableListOf(domainUserImage.image)
+                                }
+                            } else {
+                                labelingMap[label] = mutableListOf(domainUserImage.image)
+                            }
+                        }
+                        items.add(labelingMap)
+                    }
+                    _images.value = items
+                }, { it.printStackTrace() })
+        )
+    }
+
+    fun fetchLabels() {
+        disposable.add(getLabelManagementUseCase.buildUseCase(Unit)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ localLabels ->
+                if (localLabels.isNotEmpty()) {
+                    _isEmptyLabel.value = false
+                    _labels.value =  localLabels.map {
+                        LocalMainLabelMapper.fromData(it)
+                    }
+                } else {
+                    _isEmptyLabel.value = true
+                }
+            }, { it.printStackTrace() })
+        )
     }
 
     interface LabelingOutput : Output {
@@ -255,6 +297,7 @@ class LabelingViewModel(
 
         fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>
         fun getToastMessage(): LiveData<String>
+        fun goToCreateLabel(): LiveData<Unit>
     }
 
     interface LabelingInput : Input {
@@ -272,6 +315,8 @@ class LabelingViewModel(
 
         fun setDidLabelingState(isDidLabeled: Boolean)
         fun setToastMessage(message: String)
+
+        fun goToCreateLabel()
     }
 
     fun onCreateView(data: MainMakeLabelSource) {

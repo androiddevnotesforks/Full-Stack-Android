@@ -3,6 +3,7 @@ package com.nexters.fullstack.ui.fragment.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import com.nexters.fullstack.BR
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.R
@@ -66,12 +67,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {
         const val VERTICAL_SPACING = 10
         const val LIST_KEY = "home_list"
 
-        private var instance: HomeFragment? = null
         fun getInstance(): HomeFragment {
-            if (instance == null) {
-                instance = HomeFragment()
-            }
-            return HomeFragment()
+            val instance = HomeFragment().apply { bundleOf("tag" to "homeFragment") }
+            return instance
         }
     }
 
