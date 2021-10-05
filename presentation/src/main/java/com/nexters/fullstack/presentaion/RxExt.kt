@@ -1,4 +1,4 @@
-package com.nexters.fullstack.util.extension
+package com.nexters.fullstack.presentaion
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -32,4 +32,4 @@ fun <T1, T2, R> Observable<T1>.takeWhen(observable: Observable<T2>, biFunction: 
     observable.withLatestFrom(it, BiFunction { t1, t2 -> biFunction.invoke(t1, t2) })
 }
 
-fun printStackTrace(t : Throwable) = t.printStackTrace()
+fun printSt(t : Throwable) = t.printStackTrace()

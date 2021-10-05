@@ -8,7 +8,7 @@ import com.nexters.fullstack.domain.entity.LabelEntity
 
 object LabelModelMapper : Mapper<LabelEntity, LabelModel> {
     override fun toData(data: LabelEntity): LabelModel {
-        return LabelModel(labelId = data.id, color = data.color ?: "", text = data.text)
+        return LabelModel(labelId = data.id.takeIf { it != -1L } ?: 0, color = data.color ?: "", text = data.text)
     }
 
     override fun fromData(data: LabelModel): LabelEntity {

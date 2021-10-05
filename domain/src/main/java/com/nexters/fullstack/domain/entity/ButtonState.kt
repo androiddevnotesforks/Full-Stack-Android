@@ -1,9 +1,6 @@
 package com.nexters.fullstack.domain.entity
 
-sealed class LabellingState {
-    object Pending : LabellingState()
-
-    object Approve : LabellingState()
-
-    object Rejected : LabellingState()
+sealed class LabelSwipeState {
+    object Approve : LabelSwipeState()
+    object Reject : LabelSwipeState()
 }

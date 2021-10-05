@@ -16,7 +16,7 @@ class GetUnlabeledImages(
             .map { dbImages ->
                 images.filter { localImage ->
                     dbImages.find {
-                        it.labels.isNotEmpty() && it.image.id == localImage.id
+                        it.image.id == localImage.id
                     } == null
                 }
             }.toSingle(emptyList())

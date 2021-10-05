@@ -14,10 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.nexters.fullstack.R
 import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.domain.entity.FileImageEntity
-import com.nexters.fullstack.presentaion.model.LabelViewData
-import com.nexters.fullstack.presentaion.model.LabelingImage
-import com.nexters.fullstack.presentaion.model.MainLabel
-import com.nexters.fullstack.presentaion.model.MainLabelState
+import com.nexters.fullstack.presentaion.model.*
 import com.nexters.fullstack.presentaion.model.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.presentaion.viewmodel.MainViewModel
 import com.nexters.fullstack.ui.adapter.*
@@ -84,11 +81,11 @@ object BindingAdapters {
 }
 
 @BindingAdapter("app:setStackItems")
-fun RecyclerView.setStackBinding(items: MainLabel?) {
+fun RecyclerView.setStackBinding(items: List<FileImageViewData>?) {
     val stackAdapter = adapter as? MainStackAdapter
 
-    items?.let { presenterList ->
-        stackAdapter?.addItems(presenterList.images)
+    items?.let {
+        stackAdapter?.addItems(it)
     }
 
     stackAdapter?.notifyDataSetChanged()
@@ -189,15 +186,13 @@ fun ImageView.setOnApproveButtonClickListener(
         if (data != false) {
             return@setOnClickListener
         }
-        cardStackView?.swipe()
-        emit?.onClickedButton(MainLabelState.Approve)
     }
 }
 
 @BindingAdapter("app:onRejectButtonClickListener")
 fun ImageView.setOnRejectButtonClickListener(emit: MainViewModel.MainInput?) {
     setOnClickListener {
-        emit?.onClickedButton(MainLabelState.Reject)
+        emit?.clickButton(MainLabelState.Reject)
     }
 }
 

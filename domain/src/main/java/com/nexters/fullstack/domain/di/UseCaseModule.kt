@@ -11,13 +11,14 @@ val useCaseModule = module {
             get()
         )
     }
-    single { LabelingUseCase(get()) }
 
     single { CreateLabel(get()) }
 
     single { GetLabels(get()) }
 
     single { RequestLabeling(get(), get()) }
+
+    single { RequestUnLabeling(get()) }
 
     single {
         LoadImageUseCase(
