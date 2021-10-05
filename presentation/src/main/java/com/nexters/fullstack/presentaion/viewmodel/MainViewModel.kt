@@ -30,6 +30,8 @@ class MainViewModel(
     private val disposable = CompositeDisposable()
     private val flipStateSubject = PublishSubject.create<LabellingState>()
     private val onClickButton = PublishSubject.create<MainLabelState>()
+    private val refreshImages = PublishSubject.create<Unit>()
+
     private val mainLabel = MutableLiveData<MainLabel>()
     private val startLabeling = MutableLiveData<Unit>()
     private val _localImage = MutableLiveData<List<ImageEntity>>()
@@ -37,6 +39,8 @@ class MainViewModel(
 
 
     val input = object : MainInput {
+        override fun refreshImages() = refreshImages.onNext(Unit)
+
         override fun onClickedButton(state: MainLabelState) = onClickButton.onNext(state)
 
         override fun emitLabellingState(state: LabellingState) = flipStateSubject.onNext(state)
@@ -53,13 +57,16 @@ class MainViewModel(
     }
 
     init {
-        val images: Single<List<FileImageViewData>> =
-            getUnlabeledImages.buildUseCase(SCREEN_SHOT_PRIFIX)
-                .map {
-                    it.map { localLabel ->
-                        mapper.toData(localLabel)
+        val images: Observable<List<FileImageViewData>> = refreshImages
+            .observeOn(Schedulers.io())
+            .flatMapSingle {
+                getUnlabeledImages.buildUseCase(SCREEN_SHOT_PRIFIX)
+                    .map {
+                        it.map { localLabel ->
+                            mapper.toData(localLabel)
+                        }
                     }
-                }.cache()
+            }.share()
 
         val state = onClickButton.cache()
 
@@ -69,7 +76,6 @@ class MainViewModel(
 
         disposable.addAll(
             images
-                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     mainLabel.value = MainLabel(images = response)
@@ -84,7 +90,7 @@ class MainViewModel(
                 }, {}),
 
             Observable.combineLatest(
-                images.toObservable(),
+                images,
                 state,
                 ::MainLabel
             ).subscribe({ response ->
@@ -99,9 +105,8 @@ class MainViewModel(
     }
 
 
-
-
     interface MainInput : Input {
+        fun refreshImages()
         fun onClickedButton(state: MainLabelState)
         fun emitLabellingState(state: LabellingState)
     }

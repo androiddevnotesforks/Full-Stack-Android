@@ -75,6 +75,11 @@ class LabelManagerFragment : BaseFragment<FragmentLabelManagerBinding, MainViewM
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.input.refreshImages()
+    }
+
     companion object {
         fun getInstance(): LabelManagerFragment {
             val fragment =
