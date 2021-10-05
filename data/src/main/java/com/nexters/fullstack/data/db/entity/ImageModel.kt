@@ -5,19 +5,17 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.nexters.fullstack.data.db.TableName
-import com.nexters.fullstack.data.model.LocalImageData
+import com.nexters.fullstack.data.model.FileImage
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = TableName.IMAGE)
-data class UserLabelingImage(
+data class ImageModel(
     @PrimaryKey(autoGenerate = false)
-    @ColumnInfo(name = "id")
-    var id: String,
-
-    @ColumnInfo(name = "label")
-    val label: List<UserLabel>,
-
+    @ColumnInfo(name = "imageId")
+    var imageId: String,
     @ColumnInfo(name = "image")
-    val image: LocalImageData
+    val image: FileImage,
+    @ColumnInfo(name = "liked")
+    var liked: Boolean = false
 ) : Parcelable

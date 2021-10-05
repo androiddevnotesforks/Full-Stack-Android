@@ -19,13 +19,13 @@ import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
 import com.nexters.fullstack.util.extension.toPx
 import com.nexters.fullstack.model.ActivityResultData
-import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.fullstack.presentaion.model.ViewState
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
 import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.presentaion.model.PresentLocalFile
+import com.nexters.fullstack.presentaion.model.FileImageViewData
 import com.nexters.fullstack.util.fadeInAnimation
 import com.nexters.fullstack.util.fadeOutAnimation
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -73,13 +73,13 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             binding.saveButton.setOnClickListener {
                 clickLabelingButton(
                     labelAdapter.selectedLabel,
-                    arguments?.getParcelable(Constants.LABEL_BUNDLE_KEY) ?: PresentLocalFile("")
+                    arguments?.getParcelable(Constants.LABEL_BUNDLE_KEY) ?: FileImageViewData("")
                 )
             }
         }
     }
 
-    private fun updateView(labels: MutableList<LabelSource>) {
+    private fun updateView(labels: MutableList<LabelViewData>) {
         val visibility = if (labels.isEmpty()) View.GONE else View.VISIBLE
 
 
@@ -154,7 +154,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
     companion object {
 
-        fun getInstance(localFileData: PresentLocalFile? = null): LabelSelectFragment {
+        fun getInstance(localFileData: FileImageViewData? = null): LabelSelectFragment {
             val fragment = LabelSelectFragment()
             val bundle = Bundle().apply {
                 putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData)
@@ -167,7 +167,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     override fun onActivityResult(activityResultData: ActivityResultData) {
         if (activityResultData.resultCode == Activity.RESULT_OK) {
             labelAdapter.notifyDataSetChanged()
-        } else if (activityResultData.result != null && activityResultData.result is LabelSource) {
+        } else if (activityResultData.result != null && activityResultData.result is LabelViewData) {
             val labelSource = activityResultData.result
             labelAdapter.addSelectedItem(labelSource)
             labelAdapter.notifyDataSetChanged()

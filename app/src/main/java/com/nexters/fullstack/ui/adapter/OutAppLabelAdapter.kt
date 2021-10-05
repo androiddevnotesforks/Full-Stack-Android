@@ -9,7 +9,7 @@ import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemSearchAddBinding
 import com.nexters.fullstack.databinding.ItemTitleCountBinding
 import com.nexters.fullstack.presentaion.model.Label
-import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.SearchAddLabelViewHolder
 import com.nexters.fullstack.ui.holder.TitleViewHolder
@@ -41,7 +41,7 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
                 ),
                 text
             )
-            LabelSource.DEFAULT -> MyLabelViewHolder(
+            LabelViewData.DEFAULT -> MyLabelViewHolder(
                 ItemLabelBinding.inflate(
                     LayoutInflater.from(
                         parent.context
@@ -74,7 +74,7 @@ class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<L
 
     override fun getItemViewType(position: Int) : Int {
         return if(position == 0) TITLE
-        else LabelSource.DEFAULT
+        else LabelViewData.DEFAULT
     }
 
     override fun getItemCount(): Int {

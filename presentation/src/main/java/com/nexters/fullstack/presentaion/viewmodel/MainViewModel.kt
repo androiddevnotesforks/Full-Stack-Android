@@ -8,8 +8,10 @@ import com.nexters.fullstack.Output
 import com.nexters.fullstack.domain.Mapper
 import com.nexters.fullstack.domain.entity.LabellingState
 import com.nexters.fullstack.presentaion.model.*
-import com.nexters.fullstack.domain.entity.LocalImageDomain
-import com.nexters.fullstack.domain.entity.DomainUserImage
+import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.domain.entity.ImageEntity
+import com.nexters.fullstack.domain.usecase.GetUnlabeledImages
+import com.nexters.fullstack.domain.usecase.LoadImageUseCase
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -20,20 +22,19 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
 class MainViewModel(
-    private val flipUseCase: BaseUseCase<LabellingState, Boolean>,
-    albumLoadUseCase: BaseUseCase<String, Single<List<LocalImageDomain>>>,
-    localImageDBUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
-    mapper: Mapper<LocalImageDomain, PresentLocalFile>
+    getUnlabeledImages: GetUnlabeledImages,
+    localImageDBUseCase: LoadImageUseCase,
+    mapper: Mapper<FileImageEntity, FileImageViewData>
 ) : BaseViewModel() {
 
     private val disposable = CompositeDisposable()
     private val flipStateSubject = PublishSubject.create<LabellingState>()
     private val onClickButton = PublishSubject.create<MainLabelState>()
-
     private val mainLabel = MutableLiveData<MainLabel>()
     private val startLabeling = MutableLiveData<Unit>()
-    private val _localImage = MutableLiveData<List<DomainUserImage>>()
+    private val _localImage = MutableLiveData<List<ImageEntity>>()
     private val _imageItemCount = MutableLiveData<Int>()
+
 
     val input = object : MainInput {
         override fun onClickedButton(state: MainLabelState) = onClickButton.onNext(state)
@@ -52,8 +53,8 @@ class MainViewModel(
     }
 
     init {
-        val images: Single<List<PresentLocalFile>> =
-            albumLoadUseCase.buildUseCase(SCREEN_SHOT_PRIFIX)
+        val images: Single<List<FileImageViewData>> =
+            getUnlabeledImages.buildUseCase(SCREEN_SHOT_PRIFIX)
                 .map {
                     it.map { localLabel ->
                         mapper.toData(localLabel)
@@ -62,7 +63,7 @@ class MainViewModel(
 
         val state = onClickButton.cache()
 
-        val localImage: Maybe<List<DomainUserImage>> =
+        val localImage: Maybe<List<ImageEntity>> =
             localImageDBUseCase.buildUseCase(Unit)
                 .cache()
 
@@ -96,6 +97,9 @@ class MainViewModel(
             })
         )
     }
+
+
+
 
     interface MainInput : Input {
         fun onClickedButton(state: MainLabelState)

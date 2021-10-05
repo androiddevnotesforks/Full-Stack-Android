@@ -2,16 +2,15 @@ package com.nexters.fullstack.domain.usecase
 
 import com.nexters.fullstack.domain.repository.AlbumRepository
 import com.nexters.fullstack.domain.repository.ImageRepository
-import com.nexters.fullstack.domain.entity.LocalImageDomain
+import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 import io.reactivex.Single
 
-internal class AlbumLoadUseCase(
+class GetUnlabeledImages(
     private val albumRepository: AlbumRepository,
     private val imageRepository: ImageRepository
-) :
-    BaseUseCase<String, Single<List<LocalImageDomain>?>> {
-    override fun buildUseCase(params: String): Single<List<LocalImageDomain>?> {
+) : BaseUseCase<String, Single<List<FileImageEntity>>> {
+    override fun buildUseCase(params: String): Single<List<FileImageEntity>> {
         val images = albumRepository.getUnLabeling(params)
         return imageRepository.load()
             .map { dbImages ->

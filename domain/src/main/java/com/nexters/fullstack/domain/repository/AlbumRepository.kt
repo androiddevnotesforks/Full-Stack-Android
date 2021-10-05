@@ -1,7 +1,7 @@
 package com.nexters.fullstack.domain.repository
 
-import com.nexters.fullstack.domain.entity.LocalImageDomain
+import com.nexters.fullstack.domain.entity.FileImageEntity
 
 interface AlbumRepository {
-    fun getUnLabeling(pathFilter: String): List<LocalImageDomain>
+    fun getUnLabeling(pathFilter: String): List<FileImageEntity>
 }

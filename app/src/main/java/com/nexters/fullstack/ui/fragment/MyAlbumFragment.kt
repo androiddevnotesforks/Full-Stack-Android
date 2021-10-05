@@ -9,11 +9,11 @@ import androidx.core.os.bundleOf
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.data.mapper.LocalImageMapper
+import com.nexters.fullstack.data.mapper.FileImageMapper
 import com.nexters.fullstack.presentaion.mapper.LocalMainLabelMapper
-import com.nexters.fullstack.data.mapper.LocalLabelMapper
+import com.nexters.fullstack.data.mapper.LabelModelMapper
 import com.nexters.fullstack.presentaion.model.LabelingImage
-import com.nexters.fullstack.domain.entity.DomainUserLabel
+import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.ui.activity.AlbumActivityByColor
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.listener.ItemClickListener
@@ -115,15 +115,15 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     /**
      * Album Lead More Click Event
      **/
-    override fun onClick(item: DomainUserLabel) {
+    override fun onClick(item: LabelEntity) {
         LabelManagerBottomSheetDialog.getInstance(
-            LocalLabelMapper.toData(item)
+            LabelModelMapper.toData(item)
         ).show(requireActivity().supportFragmentManager, this.tag)
     }
 
     override fun onClickItem(item: LabelingImage) {
         val intent = Intent(context, AlbumActivityByColor::class.java)
-        val imageMapper = item.localImages.map(LocalImageMapper::toData)
+        val imageMapper = item.localImages.map(FileImageMapper::toData)
         val labelMapper = LocalMainLabelMapper.fromData(item.domainLabel)
         intent.putParcelableArrayListExtra(Constants.KEY_IMAGES, ArrayList(imageMapper))
         intent.putExtra(Constants.LABEL, labelMapper)

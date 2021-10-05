@@ -6,8 +6,7 @@ import org.koin.dsl.module
 
 val databaseModule = module {
     single { AppDatabase.getInstance(androidContext()) }
-
     single { get<AppDatabase>().labelDAO() }
-
     single { get<AppDatabase>().imageDAO() }
+    single { get<AppDatabase>().labelingDAO() }
 }

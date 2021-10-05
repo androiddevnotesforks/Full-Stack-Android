@@ -15,7 +15,7 @@ import com.nexters.fullstack.BR
 import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
-import com.nexters.fullstack.data.db.entity.UserLabel
+import com.nexters.fullstack.data.db.entity.LabelModel
 import com.nexters.fullstack.presentaion.model.dialog.DeleteDialogItem
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
@@ -25,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 class LabelManagerBottomSheetDialog(
-    private val data: UserLabel
+    private val data: LabelModel
 ) :
     BottomSheetDialogFragment(), KoinComponent, BottomSheetClickListener {
 
@@ -72,7 +72,7 @@ class LabelManagerBottomSheetDialog(
 
     companion object {
         fun getInstance(
-            data: UserLabel
+            data: LabelModel
         ): LabelManagerBottomSheetDialog {
             return LabelManagerBottomSheetDialog(data).apply {
                 arguments = Bundle().apply {

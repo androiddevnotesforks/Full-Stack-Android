@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.nexters.fullstack.R
-import com.nexters.fullstack.domain.entity.DomainUserLabel
-import com.nexters.fullstack.domain.entity.LocalImageDomain
-import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.domain.entity.LabelEntity
+import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.fullstack.presentaion.model.LabelingImage
 import com.nexters.fullstack.presentaion.model.MainLabel
 import com.nexters.fullstack.presentaion.model.MainLabelState
@@ -95,7 +95,7 @@ fun RecyclerView.setStackBinding(items: MainLabel?) {
 }
 
 @BindingAdapter("app:localLabels")
-fun RecyclerView.setLocalLabel(items: List<LabelSource>?) {
+fun RecyclerView.setLocalLabel(items: List<LabelViewData>?) {
     val localAdapter = adapter as? MyLabelAdapter
 
     items?.let {
@@ -107,7 +107,7 @@ fun RecyclerView.setLocalLabel(items: List<LabelSource>?) {
 
 @BindingAdapter("app:localImages", "app:eventAction", "app:onClickDelegate")
 fun RecyclerView.setLocalImage(
-    items: List<Map<DomainUserLabel, List<LocalImageDomain>>>?,
+    items: List<Map<LabelEntity, List<FileImageEntity>>>?,
     event: Any?,
     onClickItemDelegate: Any?
 ) {
@@ -151,7 +151,7 @@ fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent:
 }
 
 @BindingAdapter(requireAll = false, value = ["app:labelAlbumItems", "app:onClickLabelItemEvent"])
-fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, event: LabelAlbumDelegate?) {
+fun RecyclerView.setLabelAlbumItems(items: List<FileImageEntity>?, event: LabelAlbumDelegate?) {
     adapter?.let { labelAdapter ->
         Log.e("adapter", "call")
         if (labelAdapter is LabelAlbumRecyclerAdapter) {
@@ -203,5 +203,5 @@ fun ImageView.setOnRejectButtonClickListener(emit: MainViewModel.MainInput?) {
 
 
 interface LabelAlbumDelegate {
-    fun onClick(item: LocalImageDomain)
+    fun onClick(item: FileImageEntity)
 }

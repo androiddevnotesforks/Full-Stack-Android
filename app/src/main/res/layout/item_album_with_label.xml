@@ -11,7 +11,7 @@
 
         <variable
             name="image"
-            type="com.nexters.fullstack.domain.entity.LocalImageDomain" />
+            type="com.nexters.fullstack.domain.entity.FileImageEntity" />
 
         <variable
             name="event"

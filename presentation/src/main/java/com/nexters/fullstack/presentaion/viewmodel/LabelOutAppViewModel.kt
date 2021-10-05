@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.presentaion.model.Label
-import com.nexters.fullstack.domain.usecase.GetLabelManagementUseCase
+import com.nexters.fullstack.domain.usecase.GetLabels
 import kotlinx.coroutines.launch
 
 class LabelOutAppViewModel(
-    private val loadLabelUseCase: GetLabelManagementUseCase
+    private val loadLabelUseCase: GetLabels
 ) : BaseViewModel() {
     private val state: State = State()
     private val myLabelList = mutableListOf<Label>()

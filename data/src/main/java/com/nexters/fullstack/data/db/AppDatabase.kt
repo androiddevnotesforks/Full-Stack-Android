@@ -9,11 +9,11 @@ import com.nexters.fullstack.data.db.converter.LocalImageDataConverter
 import com.nexters.fullstack.data.db.converter.UserLabelConverter
 import com.nexters.fullstack.data.db.dao.ImageDAO
 import com.nexters.fullstack.data.db.dao.LabelDAO
-import com.nexters.fullstack.data.db.entity.UserLabel
-import com.nexters.fullstack.data.db.entity.UserLabelingImage
+import com.nexters.fullstack.data.db.dao.LabelingDAO
+import com.nexters.fullstack.data.db.entity.*
 
 @Database(
-    entities = [UserLabel::class, UserLabelingImage::class],
+    entities = [LabelModel::class, ImageModel::class, LabelingRelationRef::class],
     version = 2,
     exportSchema = false
 )
@@ -22,6 +22,8 @@ internal abstract class AppDatabase : RoomDatabase() {
     abstract fun labelDAO(): LabelDAO
 
     abstract fun imageDAO(): ImageDAO
+
+    abstract fun labelingDAO(): LabelingDAO
 
     companion object {
         private const val DB_NAME = "search_history_db"
@@ -42,6 +44,4 @@ object TableName {
     const val LABEL = "userLabel"
 
     const val IMAGE = "userImage"
-
-    const val FAVORITE = "favorite"
 }

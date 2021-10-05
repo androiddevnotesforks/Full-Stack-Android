@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class LocalImageData(
+data class FileImage(
     val id: String,
     val originUrl: String
 ) : Parcelable

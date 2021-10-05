@@ -7,19 +7,19 @@ import com.nexters.fullstack.BaseViewModel
 import com.nexters.fullstack.Input
 import com.nexters.fullstack.Output
 import com.nexters.fullstack.presentaion.mapper.LabelSourceMapper
-import com.nexters.fullstack.presentaion.mapper.LabelingMapper
 import com.nexters.fullstack.presentaion.mapper.PresenterLocalFileMapper
 import com.nexters.fullstack.presentaion.model.*
-import com.nexters.fullstack.domain.entity.DomainUserImage
-import com.nexters.fullstack.domain.usecase.ImageLabelingUseCase
+import com.nexters.fullstack.domain.entity.ImageEntity
+import com.nexters.fullstack.domain.usecase.RequestLabeling
 import com.nexters.feature.ui.data.pallet.PalletItem
-import com.nexters.fullstack.domain.entity.LocalImageDomain
-import com.nexters.fullstack.domain.entity.DomainUserLabel
-import com.nexters.fullstack.domain.usecase.GetLabelManagementUseCase
-import com.nexters.fullstack.domain.usecase.base.BaseUseCase
+import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.domain.entity.LabelEntity
+import com.nexters.fullstack.domain.usecase.CreateLabel
+import com.nexters.fullstack.domain.usecase.GetLabels
+import com.nexters.fullstack.domain.usecase.LoadImageUseCase
+import com.nexters.fullstack.presentaion.mapper.LabelingMapper
 import com.nexters.fullstack.presentaion.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.util.SingleLiveData
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,23 +28,24 @@ import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class LabelingViewModel(
-    private val getLabelManagementUseCase: GetLabelManagementUseCase,
-    private val loadImageUseCase: BaseUseCase<Unit, Maybe<List<DomainUserImage>>>,
-    private val imageLabelingUseCase: ImageLabelingUseCase
+    private val getLabels: GetLabels,
+    private val createLabel : CreateLabel,
+    private val loadImageUseCase: LoadImageUseCase,
+    private val requestLabeling: RequestLabeling
 ) : BaseViewModel() {
     private val _viewState = MutableLiveData<ViewState>()
     private val _finish = MutableLiveData<Unit>()
     private val _isEmptyLabel = MutableLiveData(true)
-    private val _labels = MutableLiveData<List<LabelSource>>()
+    private val _labels = MutableLiveData<List<LabelViewData>>()
     private val _toastMessage = SingleLiveData<String>()
 
-    private val _images = MutableLiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>()
+    private val _images = MutableLiveData<List<Map<LabelEntity, List<FileImageEntity>>>>()
 
-    private val items = mutableListOf<MutableMap<DomainUserLabel, MutableList<LocalImageDomain>>>()
+    private val items = mutableListOf<MutableMap<LabelEntity, MutableList<FileImageEntity>>>()
 
     private val _createLabel = SingleLiveData<Unit>()
 
-    val labelingMap = mutableMapOf<DomainUserLabel, MutableList<LocalImageDomain>>()
+    val labelingMap = mutableMapOf<LabelEntity, MutableList<FileImageEntity>>()
 
     val _didWriteLabelInfo = MutableLiveData(false)
     private var makeMainLabelSource: MainMakeLabelSource? = null
@@ -56,15 +57,14 @@ class LabelingViewModel(
 
     fun onTextChanged(s: CharSequence) = _labelText.onNext(s.toString())
 
-
     val output = object : LabelingOutput {
         override fun viewState(): LiveData<ViewState> = _viewState
         override fun finish(): LiveData<Unit> = _finish
         override fun isEmptyLocalLabel(): LiveData<Boolean> = _isEmptyLabel
-        override fun getLocalLabels(): LiveData<List<LabelSource>> = _labels
+        override fun getLocalLabels(): LiveData<List<LabelViewData>> = _labels
         override fun didWriteCreateLabelForm(): LiveData<Boolean> = _didWriteLabelInfo
         override fun getLabelQuery(): LiveData<String> = labelQuery
-        override fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>> =
+        override fun getImages(): LiveData<List<Map<LabelEntity, List<FileImageEntity>>>> =
             _images
 
         override fun getToastMessage(): LiveData<String> = _toastMessage
@@ -84,7 +84,7 @@ class LabelingViewModel(
 
                 val labeling = when (labelingState) {
                     LabelingState.CREATE -> {
-                        getLabelManagementUseCase.insertOrUpdate(mapper)
+                        createLabel.buildUseCase(mapper)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
@@ -95,7 +95,7 @@ class LabelingViewModel(
                             })
                     }
                     LabelingState.UPDATE -> {
-                        getLabelManagementUseCase.insertOrUpdate(mapper)
+                        createLabel.buildUseCase(mapper)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe({
@@ -109,7 +109,7 @@ class LabelingViewModel(
 
                 disposable.addAll(
                     labeling,
-                    getLabelManagementUseCase.buildUseCase(Unit)
+                    getLabels.buildUseCase(Unit)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ localLabels ->
@@ -134,19 +134,19 @@ class LabelingViewModel(
             _finish.value = Unit
         }
 
-        override fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile) {
-            if (file.url.isEmpty()) {
+        override fun clickLabelingButton(didClickList: List<LabelViewData>, image: FileImageViewData) {
+            if (image.url.isEmpty()) {
                 return
             }
             if (didClickList.isNullOrEmpty()) {
                 return
             }
-            val localFileMapper = PresenterLocalFileMapper.toData(file)
+            val localFileMapper = PresenterLocalFileMapper.toData(image)
             val labelMapper = LabelSourceMapper.toData(didClickList)
 
             disposable.add(
-                imageLabelingUseCase.buildUseCase(
-                    DomainUserImage(labelMapper, localFileMapper)
+                requestLabeling.buildUseCase(
+                    ImageEntity(labelMapper, localFileMapper)
                 ).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
@@ -167,7 +167,7 @@ class LabelingViewModel(
     }
 
     init {
-        val labels = getLabelManagementUseCase.buildUseCase(Unit).cache()
+        val labels = getLabels.buildUseCase(Unit).cache()
 
         val labelTextCache = _labelText.debounce(1000L, TimeUnit.MILLISECONDS).cache()
 
@@ -266,7 +266,7 @@ class LabelingViewModel(
     }
 
     fun fetchLabels() {
-        disposable.add(getLabelManagementUseCase.buildUseCase(Unit)
+        disposable.add(getLabels.buildUseCase(Unit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ localLabels ->
@@ -289,13 +289,13 @@ class LabelingViewModel(
 
         fun isEmptyLocalLabel(): LiveData<Boolean>
 
-        fun getLocalLabels(): LiveData<List<LabelSource>>
+        fun getLocalLabels(): LiveData<List<LabelViewData>>
 
         fun didWriteCreateLabelForm(): LiveData<Boolean>
 
         fun getLabelQuery(): LiveData<String>
 
-        fun getImages(): LiveData<List<Map<DomainUserLabel, List<LocalImageDomain>>>>
+        fun getImages(): LiveData<List<Map<LabelEntity, List<FileImageEntity>>>>
         fun getToastMessage(): LiveData<String>
         fun goToCreateLabel(): LiveData<Unit>
     }
@@ -311,7 +311,7 @@ class LabelingViewModel(
 
         fun clickCancelButton()
 
-        fun clickLabelingButton(didClickList: List<LabelSource>, file: PresentLocalFile)
+        fun clickLabelingButton(didClickList: List<LabelViewData>, file: FileImageViewData)
 
         fun setDidLabelingState(isDidLabeled: Boolean)
         fun setToastMessage(message: String)

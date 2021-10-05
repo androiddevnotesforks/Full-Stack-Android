@@ -6,7 +6,7 @@ import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityCreateLabelBinding
-import com.nexters.fullstack.data.db.entity.UserLabel
+import com.nexters.fullstack.data.db.entity.LabelModel
 import com.nexters.fullstack.presentaion.model.LabelingState
 import com.nexters.fullstack.presentaion.model.MainMakeLabelSource
 import com.nexters.fullstack.ui.widget.bottomsheet.mapper.mapToPallet
@@ -17,7 +17,7 @@ class CreateLabelActivity : BaseActivity<ActivityCreateLabelBinding, LabelingVie
     override val layoutRes: Int = R.layout.activity_create_label
 
     override val viewModel: LabelingViewModel by viewModel()
-    var viaLabelData: UserLabel? = null
+    var viaLabelData: LabelModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

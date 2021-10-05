@@ -1,13 +1,13 @@
 package com.nexters.fullstack.domain.repository
 
-import com.nexters.fullstack.domain.entity.DomainUserLabel
+import com.nexters.fullstack.domain.entity.LabelEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
 
 interface LabelRepository {
-    fun insertOrUpdate(label: DomainUserLabel): Completable
+    fun insertOrUpdate(label: LabelEntity): Completable
 
-    fun delete(label: DomainUserLabel): Completable
+    fun delete(label: LabelEntity): Completable
 
-    fun load(): Maybe<List<DomainUserLabel>>
+    fun load(): Maybe<List<LabelEntity>>
 }

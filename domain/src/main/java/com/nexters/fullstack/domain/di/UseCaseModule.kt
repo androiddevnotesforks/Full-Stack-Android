@@ -1,34 +1,25 @@
 package com.nexters.fullstack.domain.di
 
-import com.nexters.fullstack.domain.constants.KoinNamed
-import com.nexters.fullstack.domain.entity.LabellingState
-import com.nexters.fullstack.domain.entity.LocalImageDomain
-import com.nexters.fullstack.domain.entity.DomainUserImage
 import com.nexters.fullstack.domain.usecase.*
-import com.nexters.fullstack.domain.usecase.AlbumLoadUseCase
-import com.nexters.fullstack.domain.usecase.FlippingUseCase
-import com.nexters.fullstack.domain.usecase.base.BaseUseCase
-import io.reactivex.Maybe
-import io.reactivex.Single
-import org.koin.core.qualifier.named
+import com.nexters.fullstack.domain.usecase.GetUnlabeledImages
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    single<BaseUseCase<LabellingState, Boolean>> { FlippingUseCase() }
-
-    single<BaseUseCase<String, Single<List<LocalImageDomain>?>>>(named(KoinNamed.LABEL)) {
-        AlbumLoadUseCase(
+    single {
+        GetUnlabeledImages(
             get(),
             get()
         )
     }
     single { LabelingUseCase(get()) }
 
-    single { GetLabelManagementUseCase(get()) }
+    single { CreateLabel(get()) }
 
-    single { ImageLabelingUseCase(get()) }
+    single { GetLabels(get()) }
 
-    single<BaseUseCase<Unit, Maybe<List<DomainUserImage>>>>(named(KoinNamed.IMAGE)) {
+    single { RequestLabeling(get(), get()) }
+
+    single {
         LoadImageUseCase(
             get()
         )

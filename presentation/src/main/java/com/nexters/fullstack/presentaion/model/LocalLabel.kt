@@ -1,5 +1,5 @@
 package com.nexters.fullstack.presentaion.model
 
-import com.nexters.fullstack.domain.entity.DomainUserLabel
+import com.nexters.fullstack.domain.entity.LabelEntity
 
-data class LocalLabel(val items: List<DomainUserLabel>)
+data class LocalLabel(val items: List<LabelEntity>)
