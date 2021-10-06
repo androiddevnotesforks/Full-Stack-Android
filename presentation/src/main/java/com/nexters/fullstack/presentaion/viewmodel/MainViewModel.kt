@@ -10,7 +10,7 @@ import com.nexters.fullstack.domain.entity.LabelSwipeState
 import com.nexters.fullstack.presentaion.model.*
 import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.domain.usecase.GetUnlabeledImages
-import com.nexters.fullstack.domain.usecase.RequestUnLabeling
+import com.nexters.fullstack.domain.usecase.RejctLabeling
 import com.nexters.fullstack.presentaion.mapper.FileImageViewDataToEntityMapper
 import com.nexters.fullstack.presentaion.mapper.PresenterLocalFileMapper
 import io.reactivex.Observable
@@ -22,7 +22,7 @@ import com.nexters.fullstack.presentaion.takeWhen
 
 class MainViewModel(
     getUnlabeledImages: GetUnlabeledImages,
-    requestUnLabeling: RequestUnLabeling,
+    rejctLabeling: RejctLabeling,
     mapper: Mapper<FileImageEntity, FileImageViewData>
 ) : BaseViewModel() {
 
@@ -74,7 +74,7 @@ class MainViewModel(
                 )
             }.observeOn(Schedulers.io())
             .flatMap {
-                requestUnLabeling.buildUseCase(it)
+                rejctLabeling.buildUseCase(it)
                     .andThen(Observable.just(Unit))
             }
 

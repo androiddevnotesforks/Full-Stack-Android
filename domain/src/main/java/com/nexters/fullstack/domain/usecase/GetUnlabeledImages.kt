@@ -19,6 +19,6 @@ class GetUnlabeledImages(
                         it.image.id == localImage.id
                     } == null
                 }
-            }.toSingle(emptyList())
+            }
     }
 }

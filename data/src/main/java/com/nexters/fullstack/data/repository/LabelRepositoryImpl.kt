@@ -1,10 +1,11 @@
 package com.nexters.fullstack.data.repository
 
+import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.domain.local.LabelaryLocalDataSource
 import com.nexters.fullstack.domain.repository.LabelRepository
-import com.nexters.fullstack.domain.entity.LabelEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 class LabelRepositoryImpl(
     private val labelaryLocalDataSourceLabel: LabelaryLocalDataSource.Label
@@ -14,11 +15,26 @@ class LabelRepositoryImpl(
         return labelaryLocalDataSourceLabel.insertOrUpdate(label)
     }
 
+    override fun searchLabel(keyword: String): Single<List<LabelEntity>> {
+        return labelaryLocalDataSourceLabel.searchLabel(keyword)
+    }
+
     override fun delete(label: LabelEntity): Completable {
         return labelaryLocalDataSourceLabel.delete(label)
     }
 
-    override fun load(): Maybe<List<LabelEntity>> {
+    override fun delete(labels: List<LabelEntity>): Completable =
+        Completable.concat(labels.map(::delete))
+
+    override fun loadAll(): Single<List<LabelEntity>> {
         return labelaryLocalDataSourceLabel.labelLoad()
+    }
+
+    override fun loadWithImages(): Single<List<Pair<LabelEntity,Int>>> {
+        return labelaryLocalDataSourceLabel.loadWithImages()
+    }
+
+    override fun loadRecentlyLabels(): Single<List<LabelEntity>> {
+        return labelaryLocalDataSourceLabel.loadRecentlyLabels()
     }
 }

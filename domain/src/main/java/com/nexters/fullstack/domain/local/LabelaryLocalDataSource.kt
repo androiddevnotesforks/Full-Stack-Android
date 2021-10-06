@@ -4,22 +4,24 @@ import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.domain.entity.LabelEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 
 interface LabelaryLocalDataSource {
     interface Label {
         fun insertOrUpdate(label: LabelEntity): Completable
-
         fun delete(label: LabelEntity): Completable
-
-        fun labelLoad(): Maybe<List<LabelEntity>>
+        fun labelLoad(): Single<List<LabelEntity>>
+        fun searchLabel(keyword: String): Single<List<LabelEntity>>
+        fun loadRecentlyLabels(): Single<List<LabelEntity>>
+        fun loadWithImages(): Single<List<Pair<LabelEntity, Int>>>
     }
 
     interface Image {
         fun insertOrUpdate(image: ImageEntity): Completable
-
+        fun insertOrUpdate(image: List<ImageEntity>): Completable
         fun delete(image: ImageEntity): Completable
-
-        fun imageLoad(): Maybe<List<ImageEntity>>
+        fun imageLoad(): Single<List<ImageEntity>>
+        fun searchByLabels(labels: List<LabelEntity>): Single<List<ImageEntity>>
     }
 }

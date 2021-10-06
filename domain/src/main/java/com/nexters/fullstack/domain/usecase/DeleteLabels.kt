@@ -3,13 +3,12 @@ package com.nexters.fullstack.domain.usecase
 import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.domain.repository.LabelRepository
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
-import io.reactivex.Single
+import io.reactivex.Completable
 
-class SearchLabelUseCase(
+class DeleteLabels(
     private val labelRepository: LabelRepository
-) : BaseUseCase<String, Single<List<LabelEntity>>> {
-
-    override fun buildUseCase(params: String): Single<List<LabelEntity>> {
-        return labelRepository.searchLabel(params)
+) : BaseUseCase<List<LabelEntity>, Completable> {
+    override fun buildUseCase(params: List<LabelEntity>): Completable {
+        return labelRepository.delete(params)
     }
 }
