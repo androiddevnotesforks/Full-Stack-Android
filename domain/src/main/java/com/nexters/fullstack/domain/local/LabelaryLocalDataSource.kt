@@ -23,5 +23,7 @@ interface LabelaryLocalDataSource {
         fun delete(image: ImageEntity): Completable
         fun imageLoad(): Single<List<ImageEntity>>
         fun searchByLabels(labels: List<LabelEntity>): Single<List<ImageEntity>>
+        fun loadByBookMark(bookmark: Boolean): Single<List<ImageEntity>>
+        fun find(id: String): Single<ImageEntity>
     }
 }

@@ -17,6 +17,14 @@ internal class AlbumRepositoryImpl(private val fileSystemImages: FileSystemImage
         }.distinctBy { it.id }
     }
 
+    override fun getAll(pathFilter: String): List<FileImageEntity> {
+        return fileSystemImages.fetch(DOWNLOAD_POSTFIX).map { filePath ->
+            FileImageMapper.fromData(
+                FileImage(id = filePath, originUrl = filePath)
+            )
+        }.distinctBy { it.id }
+    }
+
     companion object {
         private const val SCREENSHOT_POSTFIX = "Screenshot"
         private const val DOWNLOAD_POSTFIX = "Download"

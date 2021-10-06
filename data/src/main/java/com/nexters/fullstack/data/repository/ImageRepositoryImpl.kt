@@ -7,6 +7,7 @@ import com.nexters.fullstack.domain.entity.LabelEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
+import io.reactivex.SingleSource
 
 class ImageRepositoryImpl(private val labelaryLocalDataSource: LabelaryLocalDataSource.Image) :
     ImageRepository {
@@ -27,6 +28,14 @@ class ImageRepositoryImpl(private val labelaryLocalDataSource: LabelaryLocalData
 
     override fun load(): Single<List<ImageEntity>> {
         return labelaryLocalDataSource.imageLoad()
+    }
+
+    override fun find(id: String): Single<ImageEntity> {
+        return labelaryLocalDataSource.find(id)
+    }
+
+    override fun loadByBookmark(bookmark: Boolean): Single<List<ImageEntity>> {
+        return labelaryLocalDataSource.loadByBookMark(bookmark)
     }
 
     override fun searchByLabels(labels: List<LabelEntity>): Single<List<ImageEntity>> {

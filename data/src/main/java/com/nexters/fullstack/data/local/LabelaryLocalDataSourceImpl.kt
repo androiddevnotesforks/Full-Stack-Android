@@ -76,6 +76,18 @@ class LabelaryLocalDataSourceImpl(
         }
     }
 
+    override fun loadByBookMark(bookmark: Boolean): Single<List<ImageEntity>> {
+        return (if (bookmark) imageDAO.loadLikes() else imageDAO.loadUnLikes()).map { userImages ->
+            userImages.map { ImageModelMapper.toData(it) }
+        }
+    }
+
+    override fun find(id: String): Single<ImageEntity> {
+        return imageDAO.find(id).map {
+            ImageModelMapper.toData(it)
+        }
+    }
+
     override fun searchByLabels(labels: List<LabelEntity>): Single<List<ImageEntity>> {
         return imageDAO.searchByLabels(labels.map { it.id }).map { userImages ->
             userImages.map { ImageModelMapper.toData(it) }

@@ -5,21 +5,15 @@ import com.nexters.fullstack.domain.repository.LabelRepository
 import com.nexters.fullstack.domain.usecase.base.BaseUseCase
 import io.reactivex.Single
 
-class GetSearchHomData(
+class GetLabelHomeData(
     private val labelRepository: LabelRepository
-) : BaseUseCase<String, Single<GetSearchHomData.Result>> {
-
+) : BaseUseCase<String, Single<GetLabelHomeData.Result>> {
     override fun buildUseCase(params: String): Single<Result> {
-        return Single.zip(
-            labelRepository.loadAll(),
-            labelRepository.loadRecentlyLabels(),
-            ::Result
-        )
+        return labelRepository.loadWithImages().map(::Result)
     }
 
 
     data class Result(
-        val recentlyLabels : List<LabelEntity>,
-        val labels : List<LabelEntity>
+        val labels: List<Pair<LabelEntity, Int>>,
     )
 }

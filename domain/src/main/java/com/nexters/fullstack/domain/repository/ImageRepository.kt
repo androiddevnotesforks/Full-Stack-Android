@@ -17,5 +17,9 @@ interface ImageRepository {
 
     fun load(): Single<List<ImageEntity>>
 
+    fun loadByBookmark(bookmark : Boolean): Single<List<ImageEntity>>
+
     fun searchByLabels(labels : List<LabelEntity>): Single<List<ImageEntity>>
+
+    fun find(id: String): Single<ImageEntity>
 }

@@ -31,4 +31,8 @@ interface ImageDAO {
 
     @Delete
     fun delete(image: ImageModel): Completable
+
+    @Transaction
+    @Query("select * from userImage where imageId == :id")
+    fun find(id: String): Single<ImageWithLabels>
 }
