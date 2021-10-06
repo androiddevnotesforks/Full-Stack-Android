@@ -4,12 +4,13 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Junction
 import androidx.room.Relation
+import com.nexters.fullstack.data.db.TableName
 import com.nexters.fullstack.domain.entity.ImageEntity
 
-@Entity(primaryKeys = ["imageId", "labelId"])
+@Entity(tableName = TableName.LABEL_IMAGE_REF, primaryKeys = ["imageId", "labelId"])
 data class LabelingRelationRef(
-    val imageId : String,
-    val labelId : Long
+    val imageId: String,
+    val labelId: Long
 )
 
 data class LabelWithImages(

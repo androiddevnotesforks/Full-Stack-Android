@@ -3,8 +3,11 @@ package com.nexters.fullstack.data.repository
 import com.nexters.fullstack.domain.local.LabelaryLocalDataSource
 import com.nexters.fullstack.domain.repository.ImageRepository
 import com.nexters.fullstack.domain.entity.ImageEntity
+import com.nexters.fullstack.domain.entity.LabelEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
+import io.reactivex.SingleSource
 
 class ImageRepositoryImpl(private val labelaryLocalDataSource: LabelaryLocalDataSource.Image) :
     ImageRepository {
@@ -12,11 +15,30 @@ class ImageRepositoryImpl(private val labelaryLocalDataSource: LabelaryLocalData
         return labelaryLocalDataSource.insertOrUpdate(data)
     }
 
+    override fun insertOrUpdate(data: List<ImageEntity>): Completable {
+        return labelaryLocalDataSource.insertOrUpdate(data)
+    }
+
     override fun delete(data: ImageEntity): Completable {
         return labelaryLocalDataSource.delete(data)
     }
 
-    override fun load(): Maybe<List<ImageEntity>> {
+    override fun delete(data: List<ImageEntity>): Completable =
+        Completable.concat(data.map(::delete))
+
+    override fun load(): Single<List<ImageEntity>> {
         return labelaryLocalDataSource.imageLoad()
+    }
+
+    override fun find(id: String): Single<ImageEntity> {
+        return labelaryLocalDataSource.find(id)
+    }
+
+    override fun loadByBookmark(bookmark: Boolean): Single<List<ImageEntity>> {
+        return labelaryLocalDataSource.loadByBookMark(bookmark)
+    }
+
+    override fun searchByLabels(labels: List<LabelEntity>): Single<List<ImageEntity>> {
+        return labelaryLocalDataSource.searchByLabels(labels)
     }
 }

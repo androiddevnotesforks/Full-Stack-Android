@@ -16,9 +16,9 @@ val useCaseModule = module {
 
     single { GetLabels(get()) }
 
-    single { RequestLabeling(get(), get()) }
+    single { RequestLabeling(get()) }
 
-    single { RequestUnLabeling(get()) }
+    single { RejctLabeling(get()) }
 
     single {
         LoadImageUseCase(
