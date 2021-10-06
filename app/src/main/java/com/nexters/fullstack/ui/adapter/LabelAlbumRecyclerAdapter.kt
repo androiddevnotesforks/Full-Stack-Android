@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nexters.feature.BR
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.LabelAlbumItemBinding
-import com.nexters.fullstack.domain.entity.LocalImageDomain
+import com.nexters.fullstack.domain.entity.FileImageEntity
 
-class LabelAlbumRecyclerAdapter(private val onClickItem: (LocalImageDomain) -> Unit) :
-    BaseAdapter<LocalImageDomain>() {
+class LabelAlbumRecyclerAdapter(private val onClickItem: (FileImageEntity) -> Unit) :
+    BaseAdapter<FileImageEntity>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LabelAlbumViewHolder(
@@ -34,7 +34,7 @@ class LabelAlbumRecyclerAdapter(private val onClickItem: (LocalImageDomain) -> U
             binding.album.setOnClickListener { onClickItem.invoke(items[adapterPosition]) }
         }
 
-        fun onBind(item: LocalImageDomain) {
+        fun onBind(item: FileImageEntity) {
             binding.run {
                 setVariable(BR.data, item)
                 executePendingBindings()

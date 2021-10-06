@@ -9,7 +9,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivitySearchLabelBinding
 import com.nexters.fullstack.model.ActivityResultData
-import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -87,13 +87,13 @@ class SearchLabelActivity : BaseActivity<ActivitySearchLabelBinding, LabelingVie
                 adapter = MyLabelAdapter(true).apply {
                     addItems(
                         listOf(
-                            LabelSource(name = "강아지", color = "Yellow"),
-                            LabelSource(name = "충무로", color = "Red"),
-                            LabelSource(name = "홍대입구", color = "Purple Blue"),
-                            LabelSource(name = "넥스터즈", color = "Green"),
-                            LabelSource(name = "안드로이드", color = "Pink"),
-                            LabelSource(name = "개발", color = "Orange"),
-                            LabelSource(name = "관악구", color = "Violet")
+                            LabelViewData(-1L,name = "강아지", color = "Yellow"),
+                            LabelViewData(-1L,name = "충무로", color = "Red"),
+                            LabelViewData(-1L,name = "홍대입구", color = "Purple Blue"),
+                            LabelViewData(-1L,name = "넥스터즈", color = "Green"),
+                            LabelViewData(-1L,name = "안드로이드", color = "Pink"),
+                            LabelViewData(-1L,name = "개발", color = "Orange"),
+                            LabelViewData(-1L,name = "관악구", color = "Violet")
                         )
                     )
                     finish = {}

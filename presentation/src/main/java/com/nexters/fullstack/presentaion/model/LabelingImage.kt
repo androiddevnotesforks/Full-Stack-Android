@@ -1,9 +1,9 @@
 package com.nexters.fullstack.presentaion.model
 
-import com.nexters.fullstack.domain.entity.LocalImageDomain
-import com.nexters.fullstack.domain.entity.DomainUserLabel
+import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.domain.entity.LabelEntity
 
 data class LabelingImage(
-    val domainLabel: DomainUserLabel,
-    val localImages: List<LocalImageDomain>
+    val domainLabel: LabelEntity,
+    val localImages: List<FileImageEntity>
 )

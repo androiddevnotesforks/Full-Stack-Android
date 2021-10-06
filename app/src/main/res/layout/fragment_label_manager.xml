@@ -58,7 +58,7 @@
                     android:gravity="center"
                     android:paddingStart="@dimen/spacing_8"
                     android:paddingEnd="@dimen/spacing_8"
-                    android:text="@{String.format(@string/label_size, vm.output.localImageCount)}"
+                    android:text="@{String.format(@string/label_size, vm.output.state().images.size())}"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/textView10"
                     app:layout_constraintHorizontal_chainStyle="packed"
@@ -77,7 +77,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginVertical="24dp"
                 android:clipToPadding="true"
-                app:setStackItems="@{vm.output.labelList}" />
+                app:setStackItems="@{vm.output.state().images}" />
 
             <RelativeLayout
                 android:id="@+id/fab_layout"

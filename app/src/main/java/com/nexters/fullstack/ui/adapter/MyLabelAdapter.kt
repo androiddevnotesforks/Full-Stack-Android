@@ -9,16 +9,16 @@ import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemListLabelBinding
 import com.nexters.fullstack.databinding.ItemLocalSearchViewBinding
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
-import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.fullstack.ui.holder.*
 
-class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdapter<LabelSource>() {
-    private val _selectedLabel = mutableListOf<LabelSource>()
-    val selectedLabel: List<LabelSource>
+class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdapter<LabelViewData>() {
+    private val _selectedLabel = mutableListOf<LabelViewData>()
+    val selectedLabel: List<LabelViewData>
         get() = _selectedLabel
-    lateinit var finish: (LabelSource) -> Unit
+    lateinit var finish: (LabelViewData) -> Unit
 
-    lateinit var callback: (MutableList<LabelSource>) -> Unit
+    lateinit var callback: (MutableList<LabelViewData>) -> Unit
 
     private val onLabelClickListener = { position: Int ->
         val getLabelSource = getItem(position)
@@ -39,14 +39,14 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            LabelSource.RECOMMEND -> RecommendLabelViewHolder(
+            LabelViewData.RECOMMEND -> RecommendLabelViewHolder(
                 ItemLabelBinding.inflate(
                     LayoutInflater.from(
                         parent.context
                     )
                 )
             )
-            LabelSource.LIST ->
+            LabelViewData.LIST ->
                 if (isSearchViewHolder) {
                     SearchLocalListViewHolder(
                         onSearchLabelClickListener,
@@ -59,7 +59,7 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
                     )
                 }
 
-            LabelSource.SELECTED -> {
+            LabelViewData.SELECTED -> {
                 LabelingSelectedViewHolder(
                     ItemSelectedLabelBinding.inflate(
                         LayoutInflater.from(
@@ -89,7 +89,7 @@ class MyLabelAdapter(private val isSearchViewHolder: Boolean = false) : BaseAdap
         _selectedLabel.clear()
     }
 
-    fun addSelectedItem(item: LabelSource) {
+    fun addSelectedItem(item: LabelViewData) {
         if (_selectedLabel.contains(item)) {
             _selectedLabel.remove(item)
         } else {

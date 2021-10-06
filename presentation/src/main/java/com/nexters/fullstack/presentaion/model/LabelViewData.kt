@@ -4,7 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class LabelSource(
+data class LabelViewData(
+    val id : Long,
     var type: Int = LIST,
     val color: String,
     val name: String,

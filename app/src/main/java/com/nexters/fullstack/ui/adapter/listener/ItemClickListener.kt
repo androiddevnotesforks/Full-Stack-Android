@@ -1,7 +1,7 @@
 package com.nexters.fullstack.ui.adapter.listener
 
-import com.nexters.fullstack.domain.entity.DomainUserLabel
+import com.nexters.fullstack.domain.entity.LabelEntity
 
 interface ItemClickListener {
-    fun onClick(item: DomainUserLabel)
+    fun onClick(item: LabelEntity)
 }

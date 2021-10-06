@@ -12,12 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.nexters.fullstack.R
-import com.nexters.fullstack.domain.entity.DomainUserLabel
-import com.nexters.fullstack.domain.entity.LocalImageDomain
-import com.nexters.fullstack.presentaion.model.LabelSource
-import com.nexters.fullstack.presentaion.model.LabelingImage
-import com.nexters.fullstack.presentaion.model.MainLabel
-import com.nexters.fullstack.presentaion.model.MainLabelState
+import com.nexters.fullstack.domain.entity.LabelEntity
+import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.presentaion.model.*
 import com.nexters.fullstack.presentaion.model.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.presentaion.viewmodel.MainViewModel
 import com.nexters.fullstack.ui.adapter.*
@@ -84,18 +81,18 @@ object BindingAdapters {
 }
 
 @BindingAdapter("app:setStackItems")
-fun RecyclerView.setStackBinding(items: MainLabel?) {
+fun RecyclerView.setStackBinding(items: List<FileImageViewData>?) {
     val stackAdapter = adapter as? MainStackAdapter
 
-    items?.let { presenterList ->
-        stackAdapter?.addItems(presenterList.images)
+    items?.let {
+        stackAdapter?.addItems(it)
     }
 
     stackAdapter?.notifyDataSetChanged()
 }
 
 @BindingAdapter("app:localLabels")
-fun RecyclerView.setLocalLabel(items: List<LabelSource>?) {
+fun RecyclerView.setLocalLabel(items: List<LabelViewData>?) {
     val localAdapter = adapter as? MyLabelAdapter
 
     items?.let {
@@ -107,7 +104,7 @@ fun RecyclerView.setLocalLabel(items: List<LabelSource>?) {
 
 @BindingAdapter("app:localImages", "app:eventAction", "app:onClickDelegate")
 fun RecyclerView.setLocalImage(
-    items: List<Map<DomainUserLabel, List<LocalImageDomain>>>?,
+    items: List<Map<LabelEntity, List<FileImageEntity>>>?,
     event: Any?,
     onClickItemDelegate: Any?
 ) {
@@ -151,7 +148,7 @@ fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent:
 }
 
 @BindingAdapter(requireAll = false, value = ["app:labelAlbumItems", "app:onClickLabelItemEvent"])
-fun RecyclerView.setLabelAlbumItems(items: List<LocalImageDomain>?, event: LabelAlbumDelegate?) {
+fun RecyclerView.setLabelAlbumItems(items: List<FileImageEntity>?, event: LabelAlbumDelegate?) {
     adapter?.let { labelAdapter ->
         Log.e("adapter", "call")
         if (labelAdapter is LabelAlbumRecyclerAdapter) {
@@ -189,19 +186,17 @@ fun ImageView.setOnApproveButtonClickListener(
         if (data != false) {
             return@setOnClickListener
         }
-        cardStackView?.swipe()
-        emit?.onClickedButton(MainLabelState.Approve)
     }
 }
 
 @BindingAdapter("app:onRejectButtonClickListener")
 fun ImageView.setOnRejectButtonClickListener(emit: MainViewModel.MainInput?) {
     setOnClickListener {
-        emit?.onClickedButton(MainLabelState.Reject)
+        emit?.clickButton(MainLabelState.Reject)
     }
 }
 
 
 interface LabelAlbumDelegate {
-    fun onClick(item: LocalImageDomain)
+    fun onClick(item: FileImageEntity)
 }

@@ -1,25 +1,25 @@
 package com.nexters.fullstack.domain.local
 
-import com.nexters.fullstack.domain.entity.DomainUserImage
-import com.nexters.fullstack.domain.entity.DomainUserLabel
+import com.nexters.fullstack.domain.entity.ImageEntity
+import com.nexters.fullstack.domain.entity.LabelEntity
 import io.reactivex.Completable
 import io.reactivex.Maybe
 
 
 interface LabelaryLocalDataSource {
     interface Label {
-        fun insertOrUpdate(label: DomainUserLabel): Completable
+        fun insertOrUpdate(label: LabelEntity): Completable
 
-        fun delete(label: DomainUserLabel): Completable
+        fun delete(label: LabelEntity): Completable
 
-        fun labelLoad(): Maybe<List<DomainUserLabel>>
+        fun labelLoad(): Maybe<List<LabelEntity>>
     }
 
     interface Image {
-        fun insertOrUpdate(image: DomainUserImage): Completable
+        fun insertOrUpdate(image: ImageEntity): Completable
 
-        fun delete(image: DomainUserImage): Completable
+        fun delete(image: ImageEntity): Completable
 
-        fun imageLoad(): Maybe<List<DomainUserImage>>
+        fun imageLoad(): Maybe<List<ImageEntity>>
     }
 }

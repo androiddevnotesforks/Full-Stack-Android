@@ -3,7 +3,7 @@ package com.nexters.fullstack.ui.holder
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemListLabelBinding
-import com.nexters.fullstack.presentaion.model.LabelSource
+import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.feature.util.ColorUtils
 
 class LabelListViewHolder(
@@ -17,7 +17,7 @@ class LabelListViewHolder(
         }
     }
 
-    fun bind(selectedList: List<LabelSource>, item: LabelSource) {
+    fun bind(selectedList: List<LabelViewData>, item: LabelViewData) {
         binding.label.text = item.name
         binding.hintColor.setBackgroundColor(
             ColorUtils(
