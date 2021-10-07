@@ -13,8 +13,7 @@
         android:paddingRight="@dimen/spacing_normal"
         android:paddingLeft="@dimen/spacing_normal"
         android:background="@drawable/bg_label_middle"
-        android:padding="@dimen/spacing_elevation"
-        android:layout_marginLeft="10dp">
+        android:padding="@dimen/spacing_elevation">
 
         <TextView
             android:id="@+id/tv_label"

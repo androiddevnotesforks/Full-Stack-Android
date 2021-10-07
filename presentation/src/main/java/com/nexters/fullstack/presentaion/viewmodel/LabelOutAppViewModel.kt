@@ -82,13 +82,13 @@ class LabelOutAppViewModel(
     init {
 
         // TODO init my label list using usecase
-//        myLabelList.add(Label("label1", "Yellow"))
-//        myLabelList.add(Label("label2", "Red"))
-//        myLabelList.add(Label("label3", "Pink"))
-//        myLabelList.add(Label("label4", "Purple Blue"))
-//        myLabelList.add(Label("label5", "Green"))
-//        myLabelList.add(Label("label6", "Gray"))
-//        myLabelList.add(Label("label7", "Orange"))
+        myLabelList.add(Label("labe233232l1", "Yellow"))
+        myLabelList.add(Label("label2", "Red"))
+        myLabelList.add(Label("lab232el3", "Pink"))
+        myLabelList.add(Label("label4", "Purple Blue"))
+        myLabelList.add(Label("label2235", "Green"))
+        myLabelList.add(Label("label6", "Gray"))
+        myLabelList.add(Label("label7", "Orange"))
 
         recentlySearchList.add(Label("label1", "Yellow"))
         recentlySearchList.add(Label("label2", "Red"))

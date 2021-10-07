@@ -89,6 +89,9 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
             }
             is EmptyLabelViewHolder -> {
                 holder.bind()
+                holder._binding.tvAddLabel.setOnClickListener {
+                    getItemClickListener()?.invoke(it, -1, null)
+                }
             }
         }
     }

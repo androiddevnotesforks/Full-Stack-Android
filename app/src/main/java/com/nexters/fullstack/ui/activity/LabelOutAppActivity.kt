@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.inputmethod.EditorInfo
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -44,6 +45,11 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         initObserver()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initView()
+    }
+
     private fun initData(){
         when{
             intent?.action == Intent.ACTION_SEND
@@ -75,7 +81,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     flexWrap = FlexWrap.WRAP
                     flexDirection = FlexDirection.ROW
                 }
-                setHasFixedSize(true)
+                //setHasFixedSize(true)
             }
 
             selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
@@ -146,6 +152,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             intent.putExtra("title", labelSource?.name)
             startActivity(Intent(this, CreateLabelActivity::class.java))
         }
+        noLabelAdapter.setItemClickListener { _, _, _ ->
+            startActivity(Intent(this, CreateLabelActivity::class.java))
+        }
     }
 
     private fun initObserver(){
@@ -201,6 +210,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                         binding.rvLabel.adapter = addLabelAdapter
                     }
                     LabelOutAppViewModel.ViewState.NO_LABEL -> {
+                        binding.rvLabel.layoutManager = GridLayoutManager(this@LabelOutAppActivity, 1)
                         binding.rvLabel.adapter = noLabelAdapter
                     }
                     else -> throw NotFoundViewState
@@ -209,9 +219,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
     }
 
-
-
     companion object{
-        const val RV_SPACING_DP = 5
+        const val RV_SPACING_DP = 2
     }
 }
