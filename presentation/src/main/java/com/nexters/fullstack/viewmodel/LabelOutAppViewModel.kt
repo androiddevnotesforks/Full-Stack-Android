@@ -85,13 +85,13 @@ class LabelOutAppViewModel(
     init {
 
         // TODO init my label list using usecase
-        myLabelList.add(Label("label1", "Yellow"))
-        myLabelList.add(Label("label2", "Red"))
-        myLabelList.add(Label("label3", "Pink"))
-        myLabelList.add(Label("label4", "Purple Blue"))
-        myLabelList.add(Label("label5", "Green"))
-        myLabelList.add(Label("label6", "Gray"))
-        myLabelList.add(Label("label7", "Orange"))
+//        myLabelList.add(Label("label1", "Yellow"))
+//        myLabelList.add(Label("label2", "Red"))
+//        myLabelList.add(Label("label3", "Pink"))
+//        myLabelList.add(Label("label4", "Purple Blue"))
+//        myLabelList.add(Label("label5", "Green"))
+//        myLabelList.add(Label("label6", "Gray"))
+//        myLabelList.add(Label("label7", "Orange"))
 
         recentlySearchList.add(Label("label1", "Yellow"))
         recentlySearchList.add(Label("label2", "Red"))
@@ -114,6 +114,7 @@ class LabelOutAppViewModel(
     )
 
     enum class ViewState {
+        NO_LABEL,
         MY_LABEL,
         RECENT_LABEL,
         SEARCH_RESULT,

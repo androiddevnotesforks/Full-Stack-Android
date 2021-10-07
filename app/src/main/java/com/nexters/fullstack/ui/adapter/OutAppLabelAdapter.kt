@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.NotFoundViewType
 import com.nexters.fullstack.base.BaseAdapter
+import com.nexters.fullstack.databinding.ItemEmptyLabelBinding
 import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemSearchAddBinding
 import com.nexters.fullstack.databinding.ItemTitleCountBinding
 import com.nexters.fullstack.source.Label
 import com.nexters.fullstack.source.LabelSource
+import com.nexters.fullstack.ui.holder.EmptyLabelViewHolder
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
 import com.nexters.fullstack.ui.holder.SearchAddLabelViewHolder
 import com.nexters.fullstack.ui.holder.TitleViewHolder
@@ -29,10 +31,14 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
         LabelOutAppViewModel.ViewState.RECENT_LABEL -> false
         LabelOutAppViewModel.ViewState.SEARCH_RESULT -> true
         LabelOutAppViewModel.ViewState.NO_RESULT -> false
+        else -> false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when(viewType){
+            EMPTY -> EmptyLabelViewHolder(ItemEmptyLabelBinding.inflate(
+                LayoutInflater.from(parent.context)
+            ))
             ADD_LABEL -> SearchAddLabelViewHolder(
                 ItemSearchAddBinding.inflate(
                     LayoutInflater.from(
@@ -81,11 +87,15 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
                     )
                 }
             }
+            is EmptyLabelViewHolder -> {
+                holder.bind()
+            }
         }
     }
 
     override fun getItemViewType(position: Int) : Int {
         var viewType = LabelSource.DEFAULT
+        if(items.isNullOrEmpty()) return EMPTY
         if(position == 0) viewType = TITLE
         else{
             if(state == LabelOutAppViewModel.ViewState.NO_RESULT) viewType = ADD_LABEL
@@ -100,6 +110,7 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
     companion object{
         const val TITLE = 2000
         const val ADD_LABEL = 2001
+        const val EMPTY = 2002
 
         const val MY_LABEL_TITLE = "라벨 목록"
         const val RECENT_SEARCH_TITLE = "최근 검색한 라벨"

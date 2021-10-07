@@ -32,6 +32,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private val recentlyLabelAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.RECENT_LABEL)
     private val searchResultAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
     private val addLabelAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.NO_RESULT)
+    private val noLabelAdapter : OutAppLabelAdapter = OutAppLabelAdapter(LabelOutAppViewModel.ViewState.NO_LABEL)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -151,7 +152,13 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun initObserver(){
         with(viewModel.state()){
             myLabels.observe(this@LabelOutAppActivity, {
-                myLabelAdapter.calDiff(it as MutableList<Label>)
+                if(it.isNullOrEmpty()){
+                    viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_LABEL)
+                }
+                else {
+                    viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
+                    myLabelAdapter.calDiff(it as MutableList<Label>)
+                }
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
                 selectedLabelAdapter.calDiff(it as MutableList<Label>)
@@ -193,6 +200,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     }
                     LabelOutAppViewModel.ViewState.NO_RESULT -> {
                         binding.rvLabel.adapter = addLabelAdapter
+                    }
+                    LabelOutAppViewModel.ViewState.NO_LABEL -> {
+                        binding.rvLabel.adapter = noLabelAdapter
                     }
                     else -> throw NotFoundViewState
                 }
