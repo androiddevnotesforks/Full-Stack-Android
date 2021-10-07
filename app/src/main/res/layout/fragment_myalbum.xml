@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
+            type="com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel" />
 
         <variable
             name="event"
@@ -167,6 +167,7 @@
             android:background="@drawable/shape_corner8_key_color"
             android:paddingHorizontal="30dp"
             android:paddingVertical="14dp"
+            android:onClick="@{() -> vm.input.goToCreateLabel()}"
             android:text="@string/my_album_fragment_create_label_title"
             android:textColor="@color/white"
             android:textStyle="bold"

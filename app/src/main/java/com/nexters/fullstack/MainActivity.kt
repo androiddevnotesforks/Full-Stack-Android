@@ -7,15 +7,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.logEvent
-import com.nexters.fullstack.Constants.BOTTOM_SHEET_ITEM
-import com.nexters.fullstack.Constants.BOTTOM_SHEET_KEY
+import com.nexters.fullstack.util.Constants.BOTTOM_SHEET_ITEM
+import com.nexters.fullstack.util.Constants.BOTTOM_SHEET_KEY
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityMainBinding
-import com.nexters.fullstack.ext.loadFragment
 import com.nexters.fullstack.ui.fragment.LabelManagerFragment
 import com.nexters.fullstack.ui.fragment.MyAlbumFragment
 import com.nexters.fullstack.ui.fragment.home.HomeFragment
-import com.nexters.fullstack.viewmodel.MainViewModel
+import com.nexters.fullstack.presentaion.viewmodel.MainViewModel
+import com.nexters.fullstack.util.extension.replace
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
@@ -25,8 +25,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private val labelManagerFragment = LabelManagerFragment.getInstance()
     private val homeFragment = HomeFragment.getInstance()
     private val myAlbumFragment = MyAlbumFragment.getInstance()
-    private var mainFragment: Fragment = labelManagerFragment
-    private lateinit var activeFragment: Fragment
 
     private val firebaseAnalytics: FirebaseAnalytics by lazy {
         FirebaseAnalytics.getInstance(this)
@@ -39,16 +37,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun initView() {
-        supportFragmentManager.loadFragment(
+        supportFragmentManager.replace(
             binding.frameLayout.id,
-            homeFragment,
-            myAlbumFragment,
-            labelManagerFragment
+            labelManagerFragment,
         )
 
-        activeFragment = mainFragment
-
-        supportFragmentManager.beginTransaction().show(activeFragment).commit()
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             fetchBottomSheet(itemId = item.itemId)
             true
@@ -60,15 +53,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             param(FirebaseAnalytics.Param.ITEM_ID, bundleOf(BOTTOM_SHEET_ITEM to itemId))
         }
         when (itemId) {
-            R.id.label -> changeFragment(activeFragment, labelManagerFragment)
-            R.id.album -> changeFragment(activeFragment, myAlbumFragment)
-            R.id.search -> changeFragment(activeFragment, homeFragment)
+            R.id.label -> changeFragment(labelManagerFragment)
+            R.id.album -> changeFragment(myAlbumFragment)
+            R.id.search -> changeFragment(homeFragment)
         }
     }
 
-    private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {
-        supportFragmentManager.beginTransaction().hide(oldFragment).show(newFragment).commit()
-        activeFragment = newFragment
+    private fun changeFragment(newFragment: Fragment) {
+        supportFragmentManager.replace(binding.frameLayout.id, newFragment)
     }
 
     override fun onRequestPermissionsResult(

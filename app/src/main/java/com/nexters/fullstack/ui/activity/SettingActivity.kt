@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.nexters.fullstack.Constants.SETTING_KEY
+import com.nexters.fullstack.util.Constants.SETTING_KEY
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSettingBinding
-import com.nexters.fullstack.ext.setSettingEvents
+import com.nexters.fullstack.util.extension.setSettingEvents
 import com.nexters.fullstack.viewmodel.HomeSettingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

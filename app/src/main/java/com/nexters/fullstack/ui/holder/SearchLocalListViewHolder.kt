@@ -2,7 +2,7 @@ package com.nexters.fullstack.ui.holder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemLocalSearchViewBinding
-import com.nexters.fullstack.source.LabelSource
+import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.feature.util.ColorUtils
 
 class SearchLocalListViewHolder(
@@ -17,7 +17,7 @@ class SearchLocalListViewHolder(
         }
     }
 
-    fun bind(item: LabelSource) {
+    fun bind(item: LabelViewData) {
         binding.item.text = item.name
         binding.item.setTextColor(ColorUtils(item.color, binding.root.context).getText())
         binding.localCardView.setBackgroundColor(

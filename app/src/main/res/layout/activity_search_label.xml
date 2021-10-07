@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
+            type="com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -130,7 +130,7 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="@dimen/spacing_40"
             android:includeFontPadding="false"
-            android:text="@{String.valueOf(vm.output.localLabels.items.size())}"
+            android:text="@{String.valueOf(vm.output.localLabels.size())}"
             android:textColor="@color/key_active"
             android:textSize="@dimen/b2"
             app:layout_constraintEnd_toStartOf="@+id/right_guide_line"

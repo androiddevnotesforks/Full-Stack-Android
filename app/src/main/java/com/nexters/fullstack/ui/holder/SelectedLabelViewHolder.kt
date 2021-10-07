@@ -3,7 +3,7 @@ package com.nexters.fullstack.ui.holder
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
-import com.nexters.fullstack.source.Label
+import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.util.ColorUtil
 
 class SelectedLabelViewHolder(private val binding : ItemSelectedLabelBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -1,7 +1,6 @@
 package com.nexters.fullstack.ui.widget.bottomsheet
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,16 +12,12 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nexters.fullstack.BR
-import com.nexters.fullstack.Constants
+import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.LayoutLabelManagerBottomSheetBinding
-import com.nexters.fullstack.db.entity.UserLabel
-import com.nexters.fullstack.db.entity.UserLabelingImage
-import com.nexters.fullstack.mapper.UserLabelingImageMapper
-import com.nexters.fullstack.source.dialog.DeleteDialogItem
-import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.data.db.entity.LabelModel
+import com.nexters.fullstack.presentaion.model.dialog.DeleteDialogItem
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
-import com.nexters.fullstack.ui.adapter.BottomSheetAdapter
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
 import com.nexters.fullstack.ui.adapter.source.ItemType
 import com.nexters.fullstack.viewmodel.BottomSheetViewModel
@@ -30,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 class LabelManagerBottomSheetDialog(
-    private val data: UserLabel
+    private val data: LabelModel
 ) :
     BottomSheetDialogFragment(), KoinComponent, BottomSheetClickListener {
 
@@ -77,7 +72,7 @@ class LabelManagerBottomSheetDialog(
 
     companion object {
         fun getInstance(
-            data: UserLabel
+            data: LabelModel
         ): LabelManagerBottomSheetDialog {
             return LabelManagerBottomSheetDialog(data).apply {
                 arguments = Bundle().apply {
@@ -93,7 +88,7 @@ class LabelManagerBottomSheetDialog(
                 dialog
                     .setTitle(it.title)
                     .setMessage(it.message)
-                    .setNegativeButton(it.cancel) { dialogInterface, i ->
+                    .setNegativeButton(it.cancel) { _, _ ->
 
                         Log.e("negative", "click")
                     }

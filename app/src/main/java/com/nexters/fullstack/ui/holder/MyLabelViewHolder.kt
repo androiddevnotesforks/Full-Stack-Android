@@ -4,8 +4,7 @@ import android.util.Log
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.databinding.ItemLabelBinding
-import com.nexters.fullstack.source.Label
-import com.nexters.fullstack.source.LabelSource
+import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.util.ColorUtil
 
 class MyLabelViewHolder(private val binding: ItemLabelBinding): RecyclerView.ViewHolder(binding.root) {

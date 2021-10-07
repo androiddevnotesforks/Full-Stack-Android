@@ -2,11 +2,10 @@ package com.nexters.fullstack.ui.activity.home
 
 import android.content.Intent
 import android.os.Bundle
-import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeScreenshotBinding
-import com.nexters.fullstack.source.HomeList
+import com.nexters.fullstack.presentaion.model.HomeList
 import com.nexters.fullstack.ui.activity.ScreenshotDetailActivity
 import com.nexters.fullstack.ui.adapter.HomeScreenshotAdapter
 import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
@@ -71,8 +70,9 @@ class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeS
                 screenshotAdapter.addItems(it)
                 imagePickerAdapter.addItems(it)
             })
-            mode.observe(this@HomeScreenshotActivity, {
-                when(it){
+            mode.observe(this@HomeScreenshotActivity, { mode ->
+                mode ?: return@observe
+                when(mode){
                     HomeScreenshotViewModel.Mode.DEFAULT -> binding.rvImages.adapter = screenshotAdapter
                     HomeScreenshotViewModel.Mode.SELECTION -> binding.rvImages.adapter = imagePickerAdapter
                 }

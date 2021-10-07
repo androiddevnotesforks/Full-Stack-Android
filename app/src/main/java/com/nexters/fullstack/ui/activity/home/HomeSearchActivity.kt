@@ -2,7 +2,6 @@ package com.nexters.fullstack.ui.activity.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSearchBinding
@@ -45,8 +44,9 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
 
     private fun initObserver(){
         with(viewModel.state()){
-            mode.observe(this@HomeSearchActivity,{
-                currentFragment = when(it){
+            mode.observe(this@HomeSearchActivity,{ mode ->
+                mode ?: return@observe
+                currentFragment = when(mode){
                     HomeSearchViewModel.ViewMode.RECOMMEND -> HomeSearchRecommendFragment.getInstance()
                     HomeSearchViewModel.ViewMode.SEARCH -> HomeSearchResultFragment.getInstance()
                 }

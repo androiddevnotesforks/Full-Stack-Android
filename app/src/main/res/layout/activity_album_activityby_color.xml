@@ -11,7 +11,7 @@
 
         <variable
             name="onClickEvent"
-            type="com.nexters.fullstack.binding.LabelAlbumDelegate" />
+            type="com.nexters.fullstack.databinding.LabelAlbumDelegate" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

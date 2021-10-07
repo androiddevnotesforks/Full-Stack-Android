@@ -13,22 +13,21 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.nexters.feature.util.ColorUtils
-import com.nexters.fullstack.BR
-import com.nexters.fullstack.Constants
+import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentLabelSelectBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.ext.toPx
-import com.nexters.fullstack.mapper.LocalFileMapper
-import com.nexters.fullstack.source.ActivityResultData
-import com.nexters.fullstack.source.LabelSource
-import com.nexters.fullstack.source.LocalFile
-import com.nexters.fullstack.source.ViewState
+import com.nexters.fullstack.util.extension.toPx
+import com.nexters.fullstack.model.ActivityResultData
+import com.nexters.fullstack.presentaion.model.LabelViewData
+import com.nexters.fullstack.presentaion.model.ViewState
 import com.nexters.fullstack.ui.adapter.MyLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
+import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
+import com.nexters.fullstack.BR
+import com.nexters.fullstack.presentaion.model.FileImageViewData
 import com.nexters.fullstack.util.fadeInAnimation
 import com.nexters.fullstack.util.fadeOutAnimation
-import com.nexters.fullstack.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingViewModel>() {
@@ -56,12 +55,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     override fun onResume() {
         super.onResume()
         viewModel.output.getLocalLabels().observe(this.viewLifecycleOwner) {
-
-            val mapper = it.items.map { domainUserLabel ->
-                LabelSource(color = domainUserLabel.color ?: "", name = domainUserLabel.text)
-            }
-
-            labelAdapter.addItems(mapper)
+            labelAdapter.addItems(it)
             labelAdapter.notifyDataSetChanged()
         }
     }
@@ -79,15 +73,13 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
             binding.saveButton.setOnClickListener {
                 clickLabelingButton(
                     labelAdapter.selectedLabel,
-                    LocalFileMapper.toData(
-                        arguments?.getParcelable(Constants.LABEL_BUNDLE_KEY) ?: LocalFile("")
-                    )
+                    arguments?.getParcelable(Constants.LABEL_BUNDLE_KEY) ?: FileImageViewData("")
                 )
             }
         }
     }
 
-    private fun updateView(labels: MutableList<LabelSource>) {
+    private fun updateView(labels: MutableList<LabelViewData>) {
         val visibility = if (labels.isEmpty()) View.GONE else View.VISIBLE
 
 
@@ -108,7 +100,12 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
             val spanColor = ForegroundColorSpan(Color.parseColor("#66387CFF"))
 
-            spannableString.setSpan(spanColor, binding.tvSelectedTitle.text.lastIndex, binding.tvSelectedTitle.text.lastIndex + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannableString.setSpan(
+                spanColor,
+                binding.tvSelectedTitle.text.lastIndex,
+                binding.tvSelectedTitle.text.lastIndex + 1,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
 
             binding.tvSelectedTitle.text = spannableString
 
@@ -157,7 +154,7 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
 
     companion object {
 
-        fun getInstance(localFileData: LocalFile? = null): LabelSelectFragment {
+        fun getInstance(localFileData: FileImageViewData? = null): LabelSelectFragment {
             val fragment = LabelSelectFragment()
             val bundle = Bundle().apply {
                 putParcelable(Constants.LABEL_BUNDLE_KEY, localFileData)
@@ -170,8 +167,8 @@ class LabelSelectFragment : BaseFragment<FragmentLabelSelectBinding, LabelingVie
     override fun onActivityResult(activityResultData: ActivityResultData) {
         if (activityResultData.resultCode == Activity.RESULT_OK) {
             labelAdapter.notifyDataSetChanged()
-        } else if (activityResultData.result != null && activityResultData.result is LabelSource) {
-            val labelSource = activityResultData.result as LabelSource
+        } else if (activityResultData.result != null && activityResultData.result is LabelViewData) {
+            val labelSource = activityResultData.result
             labelAdapter.addSelectedItem(labelSource)
             labelAdapter.notifyDataSetChanged()
         }

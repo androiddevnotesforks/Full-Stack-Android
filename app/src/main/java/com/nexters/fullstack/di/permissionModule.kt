@@ -1,4 +1,4 @@
-package com.nexters.fullstack.di
+package com.nexters.fullstack.domain.di
 
 import com.nexters.fullstack.helper.PermissionHelper
 import com.nexters.fullstack.helper.PermissionHelperImpl

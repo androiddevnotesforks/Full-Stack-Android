@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemSelectedLabelBinding
-import com.nexters.fullstack.source.Label
-import com.nexters.fullstack.source.LabelSource
+import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.ui.holder.SelectedLabelViewHolder
 
 class SelectedLabelAdapter : BaseAdapter<Label>() {

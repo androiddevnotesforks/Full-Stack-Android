@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.nexters.fullstack.source.data.LocalImageDomain" />
+            type="com.nexters.fullstack.domain.entity.FileImageEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

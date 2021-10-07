@@ -7,11 +7,9 @@
 
         <variable
             name="vm"
-            type="com.nexters.fullstack.viewmodel.LabelingViewModel" />
+            type="com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel" />
 
         <import type="android.view.View" />
-
-        <import type="com.nexters.fullstack.source.ViewState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

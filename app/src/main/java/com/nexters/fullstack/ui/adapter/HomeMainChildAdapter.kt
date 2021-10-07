@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.nexters.fullstack.NotFoundViewType
+import com.nexters.fullstack.util.NotFoundViewType
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.source.HomeListType
-import com.nexters.fullstack.source.Screenshot
+import com.nexters.fullstack.presentaion.model.HomeListType
+import com.nexters.fullstack.presentaion.model.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyFavoriteViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyRecentViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder

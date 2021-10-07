@@ -2,30 +2,30 @@ package com.nexters.fullstack.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.nexters.fullstack.BR
-import com.nexters.fullstack.Constants
+import com.nexters.fullstack.util.Constants
+import androidx.core.os.bundleOf
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentMyalbumBinding
 import com.nexters.fullstack.R
-import com.nexters.fullstack.mapper.LocalImageMapper
-import com.nexters.fullstack.mapper.LocalMainLabelMapper
-import com.nexters.fullstack.mapper.local.LocalLabelMapper
-import com.nexters.fullstack.source.LabelingImage
-import com.nexters.fullstack.source.local.DomainUserLabel
+import com.nexters.fullstack.data.mapper.FileImageMapper
+import com.nexters.fullstack.presentaion.mapper.LocalMainLabelMapper
+import com.nexters.fullstack.data.mapper.LabelModelMapper
+import com.nexters.fullstack.presentaion.model.LabelingImage
+import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.ui.activity.AlbumActivityByColor
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.listener.ItemClickListener
 import com.nexters.fullstack.ui.adapter.listener.OnClickItemDelegate
 import com.nexters.fullstack.ui.widget.bottomsheet.LabelManagerBottomSheetDialog
 import com.nexters.fullstack.ui.widget.bottomsheet.recyclerview.GridLayoutRecyclerOnScrollListener
-import com.nexters.fullstack.viewmodel.LabelingViewModel
+import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.concurrent.TimeUnit
+import com.nexters.fullstack.BR
 
 class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(),
     ItemClickListener, OnClickItemDelegate {
@@ -84,12 +84,26 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
             getToastMessage().observe(this@MyAlbumFragment.viewLifecycleOwner) { message ->
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
             }
+            goToCreateLabel().observe(viewLifecycleOwner) {
+                requireContext().startActivity(
+                    Intent(
+                        this@MyAlbumFragment.requireContext(),
+                        CreateLabelActivity::class.java
+                    )
+                )
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchImages()
     }
 
     companion object {
         fun getInstance(): MyAlbumFragment {
-            return MyAlbumFragment()
+            val fragment = MyAlbumFragment().apply { bundleOf("tag" to "myAlbumFragment") }
+            return fragment
         }
     }
 
@@ -101,17 +115,16 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
     /**
      * Album Lead More Click Event
      **/
-    override fun onClick(item: DomainUserLabel) {
+    override fun onClick(item: LabelEntity) {
         LabelManagerBottomSheetDialog.getInstance(
-            LocalLabelMapper.toDomain(item)
+            LabelModelMapper.toData(item)
         ).show(requireActivity().supportFragmentManager, this.tag)
     }
 
     override fun onClickItem(item: LabelingImage) {
         val intent = Intent(context, AlbumActivityByColor::class.java)
-        val imageMapper = item.localImages.map(LocalImageMapper::toDomain)
-        val labelMapper = LocalMainLabelMapper.toData(item.domainLabel)
-        Log.e("pass Images", imageMapper.toString())
+        val imageMapper = item.localImages.map(FileImageMapper::toData)
+        val labelMapper = LocalMainLabelMapper.fromData(item.domainLabel)
         intent.putParcelableArrayListExtra(Constants.KEY_IMAGES, ArrayList(imageMapper))
         intent.putExtra(Constants.LABEL, labelMapper)
         startActivity(intent)

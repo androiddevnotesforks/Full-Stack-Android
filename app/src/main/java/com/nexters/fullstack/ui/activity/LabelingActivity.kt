@@ -4,17 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.nexters.fullstack.Constants
+import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.R
 import com.nexters.fullstack.databinding.ActivityLabelingBinding
-import com.nexters.fullstack.viewmodel.LabelingViewModel
+import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.nexters.fullstack.ext.loadFragment
-import com.nexters.fullstack.ext.removeFragment
-import com.nexters.fullstack.source.ViewState
-import com.nexters.fullstack.widget.RequestExitDialog
+import com.nexters.fullstack.util.extension.removeFragment
+import com.nexters.fullstack.presentaion.model.ViewState
+import com.nexters.fullstack.ui.widget.RequestExitDialog
 import com.nexters.fullstack.ui.fragment.LabelSelectFragment
+import com.nexters.fullstack.util.extension.replace
 
 class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel>() {
     override val layoutRes: Int = R.layout.activity_labeling
@@ -67,7 +67,7 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
          *      ...
          *   }
          **/
-        supportFragmentManager.loadFragment(
+        supportFragmentManager.replace(
             binding.frame.id,
             labelSelectFragment
         )
@@ -108,6 +108,11 @@ class LabelingActivity : BaseActivity<ActivityLabelingBinding, LabelingViewModel
             labelSelectFragment
         )
         super.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchLabels()
     }
 
     private fun changeFragment(oldFragment: Fragment, newFragment: Fragment) {

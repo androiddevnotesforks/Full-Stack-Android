@@ -1,13 +1,12 @@
 package com.nexters.fullstack.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
-import com.nexters.fullstack.source.Screenshot
+import com.nexters.fullstack.presentaion.model.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
 import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
 
