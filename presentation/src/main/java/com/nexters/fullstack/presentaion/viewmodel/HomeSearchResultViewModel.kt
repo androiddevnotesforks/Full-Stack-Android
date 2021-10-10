@@ -1,6 +1,6 @@
-package com.nexters.fullstack.viewmodel
+package com.nexters.fullstack.presentaion.viewmodel
 
-import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.presentaion.BaseViewModel
 
 class HomeSearchResultViewModel : BaseViewModel() {
 }

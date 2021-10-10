@@ -12,7 +12,7 @@ import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityOnboardingBinding
 import com.nexters.fullstack.ui.fragment.OnBoardingFragment
 import com.nexters.fullstack.util.PrefDataStoreManager
-import com.nexters.fullstack.viewmodel.OnBoardingViewModel
+import com.nexters.fullstack.presentaion.viewmodel.OnBoardingViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

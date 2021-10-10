@@ -2,11 +2,10 @@ package com.nexters.fullstack.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.addTextChangedListener
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSearchBinding
-import com.nexters.fullstack.viewmodel.HomeSearchViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchViewModel>() {
@@ -29,16 +28,16 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
         binding.ivCancel.setOnClickListener {
             finish()
         }
-        binding.etSearch.addTextChangedListener {
-            if(it != null) {
-                if(it.toString().isEmpty()) {
-                    binding.ivClear.visibility = View.GONE
-                } else {
-                    binding.ivClear.visibility = View.VISIBLE
-                }
-            } else {
-                binding.ivClear.visibility = View.GONE
-            }
-        }
+//        binding.etSearch.addTextChangedListener {
+//            if(it != null) {
+//                if(it.toString().isEmpty()) {
+//                    binding.ivClear.visibility = View.GONE
+//                } else {
+//                    binding.ivClear.visibility = View.VISIBLE
+//                }
+//            } else {
+//                binding.ivClear.visibility = View.GONE
+//            }
+//        }
     }
 }

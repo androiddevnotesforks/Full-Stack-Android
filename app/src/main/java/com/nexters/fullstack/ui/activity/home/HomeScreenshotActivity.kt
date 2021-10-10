@@ -8,7 +8,7 @@ import com.nexters.fullstack.databinding.ActivityHomeScreenshotBinding
 import com.nexters.fullstack.presentaion.model.HomeList
 import com.nexters.fullstack.ui.activity.ScreenshotDetailActivity
 import com.nexters.fullstack.ui.adapter.HomeScreenshotAdapter
-import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeScreenshotViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeScreenshotActivity : BaseActivity<ActivityHomeScreenshotBinding, HomeScreenshotViewModel>() {

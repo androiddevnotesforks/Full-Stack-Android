@@ -13,7 +13,7 @@ import com.nexters.fullstack.ui.activity.home.HomeSearchActivity
 import com.nexters.fullstack.ui.activity.SettingActivity
 import com.nexters.fullstack.ui.adapter.HomeMainParentAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
-import com.nexters.fullstack.viewmodel.HomeMainViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeMainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeMainViewModel>() {

@@ -6,7 +6,7 @@ import com.airbnb.lottie.LottieDrawable
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentOnboardingBinding
-import com.nexters.fullstack.viewmodel.OnBoardingViewModel
+import com.nexters.fullstack.presentaion.viewmodel.OnBoardingViewModel
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.coroutines.CoroutineContext

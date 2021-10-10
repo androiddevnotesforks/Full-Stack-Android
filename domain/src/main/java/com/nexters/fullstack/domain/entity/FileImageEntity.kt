@@ -5,4 +5,10 @@ import java.io.Serializable
 data class FileImageEntity(
     val id: String,
     val originUrl: String
-) : Serializable
+) : Serializable {
+    companion object {
+        fun empty(): FileImageEntity {
+            return FileImageEntity("", "")
+        }
+    }
+}

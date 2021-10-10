@@ -3,7 +3,7 @@ package com.nexters.fullstack.presentaion.viewmodel
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.presentaion.BaseViewModel
 import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.domain.usecase.GetLabels
 import kotlinx.coroutines.launch

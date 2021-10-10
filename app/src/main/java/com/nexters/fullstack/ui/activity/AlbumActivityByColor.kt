@@ -14,7 +14,7 @@ import com.nexters.fullstack.data.model.FileImage
 import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.ui.activity.detail.DetailAlbumActivity
 import com.nexters.fullstack.util.ColorUtil
-import com.nexters.fullstack.viewmodel.AlbumViewModel
+import com.nexters.fullstack.presentaion.viewmodel.AlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.IllegalStateException
 
