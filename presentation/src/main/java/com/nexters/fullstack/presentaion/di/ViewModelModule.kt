@@ -7,6 +7,7 @@ import com.nexters.fullstack.presentaion.mapper.LocalToPresentMapper
 import com.nexters.fullstack.presentaion.viewmodel.*
 import com.nexters.fullstack.presentaion.viewmodel.detail.DetailAlbumViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
@@ -26,5 +27,5 @@ val viewModelModule = module {
     viewModel { HomeScreenshotViewModel() }
     viewModel { ScreenshotDetailViewModel() }
     viewModel { HomeSearchResultViewModel() }
-    viewModel { DetailAlbumViewModel(get()) }
+    viewModel { DetailAlbumViewModel(get(), get(), get()) }
 }

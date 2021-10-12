@@ -45,7 +45,6 @@ class AlbumActivityByColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
             it.executePendingBindings()
         }
 
-        setInitData()
         setObserve()
     }
 
@@ -71,5 +70,10 @@ class AlbumActivityByColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
                 finish()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setInitData()
     }
 }

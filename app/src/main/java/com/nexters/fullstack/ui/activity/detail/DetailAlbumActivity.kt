@@ -7,6 +7,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityDetailAlbumBinding
 import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.presentaion.viewmodel.detail.DetailAlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -14,12 +15,11 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
 
     override val layoutRes: Int = R.layout.activity_detail_album
     override val viewModel: DetailAlbumViewModel by viewModel<DetailAlbumViewModel>()
-    var localImage: FileImageEntity? = null
+    private val localImage: FileImageEntity?
+        get() = intent.getSerializableExtra(Constants.DETAIL_IMAGE) as? FileImageEntity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        localImage = intent.getSerializableExtra(Constants.DETAIL_IMAGE) as? FileImageEntity
 
         bind {
             it.localImageData = localImage
@@ -54,10 +54,5 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
         binding.frameFavorite.setOnClickListener {
             viewModel.input.favorite(localImage?.id ?: throw IllegalAccessException("not found id"))
         }
-    }
-
-    override fun onDestroy() {
-        localImage = null
-        super.onDestroy()
     }
 }

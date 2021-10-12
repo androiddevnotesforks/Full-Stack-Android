@@ -20,24 +20,13 @@ class HomeSearchActivity : BaseActivity<ActivityHomeSearchBinding, HomeSearchVie
         initListener()
     }
 
-    private fun initView(){
+    private fun initView() {
 
     }
 
-    private fun initListener(){
+    private fun initListener() {
         binding.ivCancel.setOnClickListener {
             finish()
         }
-//        binding.etSearch.addTextChangedListener {
-//            if(it != null) {
-//                if(it.toString().isEmpty()) {
-//                    binding.ivClear.visibility = View.GONE
-//                } else {
-//                    binding.ivClear.visibility = View.VISIBLE
-//                }
-//            } else {
-//                binding.ivClear.visibility = View.GONE
-//            }
-//        }
     }
 }
