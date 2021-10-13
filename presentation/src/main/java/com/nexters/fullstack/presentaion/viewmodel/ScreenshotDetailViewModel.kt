@@ -1,7 +1,7 @@
-package com.nexters.fullstack.viewmodel
+package com.nexters.fullstack.presentaion.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.presentaion.BaseViewModel
 import com.nexters.fullstack.presentaion.model.Screenshot
 
 class ScreenshotDetailViewModel : BaseViewModel() {

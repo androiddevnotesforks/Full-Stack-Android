@@ -1,8 +1,8 @@
-package com.nexters.fullstack.viewmodel
+package com.nexters.fullstack.presentaion.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.presentaion.BaseViewModel
 import com.nexters.fullstack.presentaion.model.HomeList
 import com.nexters.fullstack.presentaion.model.HomeListType
 import com.nexters.fullstack.presentaion.model.Screenshot

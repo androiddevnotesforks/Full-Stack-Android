@@ -9,7 +9,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSettingBinding
 import com.nexters.fullstack.util.extension.setSettingEvents
-import com.nexters.fullstack.viewmodel.HomeSettingViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeSettingViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingActivity : BaseActivity<ActivityHomeSettingBinding, HomeSettingViewModel>() {

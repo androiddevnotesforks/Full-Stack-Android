@@ -1,4 +1,4 @@
-package com.nexters.fullstack
+package com.nexters.fullstack.presentaion
 
 import androidx.lifecycle.ViewModel
 

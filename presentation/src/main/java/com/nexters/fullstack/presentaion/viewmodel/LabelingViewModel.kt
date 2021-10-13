@@ -3,9 +3,9 @@ package com.nexters.fullstack.presentaion.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.Input
-import com.nexters.fullstack.Output
+import com.nexters.fullstack.presentaion.BaseViewModel
+import com.nexters.fullstack.presentaion.Input
+import com.nexters.fullstack.presentaion.Output
 import com.nexters.fullstack.presentaion.mapper.LabelSourceMapper
 import com.nexters.fullstack.presentaion.mapper.PresenterLocalFileMapper
 import com.nexters.fullstack.presentaion.model.*

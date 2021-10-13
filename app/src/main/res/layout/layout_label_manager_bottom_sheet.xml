@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.nexters.fullstack.viewmodel.BottomSheetViewModel" />
+            type="com.nexters.fullstack.presentaion.viewmodel.BottomSheetViewModel" />
 
         <variable
             name="event"

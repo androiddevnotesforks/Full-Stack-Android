@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityHomeSearchResultBinding
-import com.nexters.fullstack.viewmodel.HomeSearchResultViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeSearchResultViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeSearchResultActivity : BaseActivity<ActivityHomeSearchResultBinding, HomeSearchResultViewModel>() {

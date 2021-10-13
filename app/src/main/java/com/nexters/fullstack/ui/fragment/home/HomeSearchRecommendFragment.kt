@@ -12,7 +12,7 @@ import com.nexters.fullstack.databinding.FragmentHomeSearchRecommendBinding
 import com.nexters.fullstack.ui.adapter.HomeSearchAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
-import com.nexters.fullstack.viewmodel.HomeSearchViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeSearchRecommendFragment : BaseFragment<FragmentHomeSearchRecommendBinding, HomeSearchViewModel>() {
