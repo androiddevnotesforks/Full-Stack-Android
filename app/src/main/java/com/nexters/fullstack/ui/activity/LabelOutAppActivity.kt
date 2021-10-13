@@ -72,6 +72,8 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
         with(binding){
 
+            ivScreenshot.clipToOutline = true
+
             val spaceDecoration = SpaceBetweenRecyclerDecoration(RV_SPACING_DP, RV_SPACING_DP)
             rvLabel.run {
                 myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
@@ -81,7 +83,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     flexWrap = FlexWrap.WRAP
                     flexDirection = FlexDirection.ROW
                 }
-                //setHasFixedSize(true)
+                setHasFixedSize(true)
             }
 
             selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())

@@ -107,16 +107,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/iv_screenshot"
-                            android:layout_width="@dimen/ss_small_width"
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/container_image"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/padding_default"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:padding="0.5dp"
+                            android:background="@drawable/bg_image_border">
 
-                        </ImageView>
+                            <ImageView
+                                android:id="@+id/iv_screenshot"
+                                android:layout_width="@dimen/ss_small_width"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_image_border">
+                            </ImageView>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/container_input_search"
@@ -126,7 +135,7 @@
                             android:background="@drawable/bg_search_bar"
                             android:paddingLeft="@dimen/spacing_10"
                             android:paddingRight="@dimen/spacing_10"
-                            app:layout_constraintTop_toBottomOf="@id/iv_screenshot">
+                            app:layout_constraintTop_toBottomOf="@id/container_image">
 
                             <ImageView
                                 android:id="@+id/iv_search"
