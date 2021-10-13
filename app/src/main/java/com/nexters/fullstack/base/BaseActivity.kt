@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.presentaion.BaseViewModel
 import com.nexters.fullstack.helper.PermissionHelper
 import com.nexters.fullstack.model.ActivityResultData
 import io.reactivex.processors.PublishProcessor

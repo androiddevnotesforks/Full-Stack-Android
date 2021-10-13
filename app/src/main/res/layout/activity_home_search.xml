@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.nexters.fullstack.viewmodel.HomeSearchViewModel" />
+            type="com.nexters.fullstack.presentaion.viewmodel.HomeSearchViewModel" />
         <import type="android.text.TextUtils" />
         <import type="android.view.View" />
 

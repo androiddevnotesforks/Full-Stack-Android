@@ -10,7 +10,7 @@ import com.nexters.fullstack.domain.entity.FileImageEntity
 internal class AlbumRepositoryImpl(private val fileSystemImages: FileSystemImages) : AlbumRepository {
 
     override fun getUnLabeling(pathFilter: String): List<FileImageEntity> {
-        return fileSystemImages.fetch(DOWNLOAD_POSTFIX).map { filePath ->
+        return fileSystemImages.fetch(SCREENSHOT_POSTFIX).map { filePath ->
             FileImageMapper.fromData(
                 FileImage(id = filePath, originUrl = filePath)
             )
@@ -18,7 +18,7 @@ internal class AlbumRepositoryImpl(private val fileSystemImages: FileSystemImage
     }
 
     override fun getAll(pathFilter: String): List<FileImageEntity> {
-        return fileSystemImages.fetch(DOWNLOAD_POSTFIX).map { filePath ->
+        return fileSystemImages.fetch(SCREENSHOT_POSTFIX).map { filePath ->
             FileImageMapper.fromData(
                 FileImage(id = filePath, originUrl = filePath)
             )
@@ -26,7 +26,7 @@ internal class AlbumRepositoryImpl(private val fileSystemImages: FileSystemImage
     }
 
     companion object {
-        private const val SCREENSHOT_POSTFIX = "Screenshot"
+        private const val SCREENSHOT_POSTFIX = "Screenshots"
         private const val DOWNLOAD_POSTFIX = "Download"
     }
 }

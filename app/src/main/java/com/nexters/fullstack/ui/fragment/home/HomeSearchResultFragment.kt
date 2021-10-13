@@ -5,13 +5,12 @@ import android.view.View
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.nexters.fullstack.BR
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseFragment
 import com.nexters.fullstack.databinding.FragmentHomeSearchSearchBinding
 import com.nexters.fullstack.ui.adapter.HomeSearchAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
-import com.nexters.fullstack.viewmodel.HomeSearchViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeSearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeSearchResultFragment : BaseFragment<FragmentHomeSearchSearchBinding, HomeSearchViewModel>(){
@@ -23,7 +22,7 @@ class HomeSearchResultFragment : BaseFragment<FragmentHomeSearchSearchBinding, H
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind {
-            setVariable(BR.vm, viewModel)
+            this.vm = viewModel
         }
         initView()
         initObserver()

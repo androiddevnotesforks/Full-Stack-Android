@@ -110,6 +110,8 @@ fun RecyclerView.setLocalImage(
 ) {
     val item = mutableListOf<LabelingImage>()
     adapter?.run {
+        item.clear()
+
         if (this is LocalImageAdapter) {
             eventAction = event
             delegate = onClickItemDelegate
@@ -151,10 +153,14 @@ fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent:
 fun RecyclerView.setLabelAlbumItems(items: List<FileImageEntity>?, event: LabelAlbumDelegate?) {
     adapter?.let { labelAdapter ->
         Log.e("adapter", "call")
+
         if (labelAdapter is LabelAlbumRecyclerAdapter) {
             items?.let {
+                labelAdapter.clearItems()
                 labelAdapter.addItems(it)
                 labelAdapter.notifyDataSetChanged()
+            } ?: run {
+                labelAdapter.clearItems()
             }
         }
     } ?: run {

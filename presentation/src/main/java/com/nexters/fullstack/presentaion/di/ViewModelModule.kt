@@ -4,12 +4,10 @@ import com.nexters.fullstack.domain.Mapper
 import com.nexters.fullstack.presentaion.model.FileImageViewData
 import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.presentaion.mapper.LocalToPresentMapper
-import com.nexters.fullstack.presentaion.viewmodel.LabelOutAppViewModel
-import com.nexters.fullstack.presentaion.viewmodel.LabelingViewModel
-import com.nexters.fullstack.presentaion.viewmodel.MainViewModel
-import com.nexters.fullstack.viewmodel.*
-import com.nexters.fullstack.viewmodel.detail.DetailAlbumViewModel
+import com.nexters.fullstack.presentaion.viewmodel.*
+import com.nexters.fullstack.presentaion.viewmodel.detail.DetailAlbumViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
@@ -29,5 +27,5 @@ val viewModelModule = module {
     viewModel { HomeScreenshotViewModel() }
     viewModel { ScreenshotDetailViewModel() }
     viewModel { HomeSearchResultViewModel() }
-    viewModel { DetailAlbumViewModel() }
+    viewModel { DetailAlbumViewModel(get(), get(), get()) }
 }

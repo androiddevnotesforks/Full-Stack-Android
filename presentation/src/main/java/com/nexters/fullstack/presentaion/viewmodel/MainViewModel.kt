@@ -2,9 +2,9 @@ package com.nexters.fullstack.presentaion.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.nexters.fullstack.BaseViewModel
-import com.nexters.fullstack.Input
-import com.nexters.fullstack.Output
+import com.nexters.fullstack.presentaion.BaseViewModel
+import com.nexters.fullstack.presentaion.Input
+import com.nexters.fullstack.presentaion.Output
 import com.nexters.fullstack.domain.Mapper
 import com.nexters.fullstack.domain.entity.LabelSwipeState
 import com.nexters.fullstack.presentaion.model.*
