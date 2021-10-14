@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
+import com.nexters.fullstack.data.db.entity.ImageModel
 import com.nexters.fullstack.databinding.ActivityDetailAlbumBinding
 import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.viewmodel.detail.DetailAlbumViewModel
@@ -17,7 +18,7 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val localImage = intent.getSerializableExtra(Constants.DETAIL_IMAGE) as? FileImageEntity
+        val localImage = intent.getParcelableExtra(Constants.DETAIL_IMAGE) as? ImageModel
 
         bind {
             it.localImageData = localImage

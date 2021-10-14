@@ -7,9 +7,10 @@ import com.nexters.feature.BR
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.LabelAlbumItemBinding
 import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.domain.entity.ImageEntity
 
-class LabelAlbumRecyclerAdapter(private val onClickItem: (FileImageEntity) -> Unit) :
-    BaseAdapter<FileImageEntity>() {
+class LabelAlbumRecyclerAdapter(private val onClickItem: (ImageEntity) -> Unit) :
+    BaseAdapter<ImageEntity>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LabelAlbumViewHolder(
@@ -34,7 +35,7 @@ class LabelAlbumRecyclerAdapter(private val onClickItem: (FileImageEntity) -> Un
             binding.album.setOnClickListener { onClickItem.invoke(items[adapterPosition]) }
         }
 
-        fun onBind(item: FileImageEntity) {
+        fun onBind(item: ImageEntity) {
             binding.run {
                 setVariable(BR.data, item)
                 executePendingBindings()

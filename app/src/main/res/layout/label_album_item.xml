@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.nexters.fullstack.domain.entity.FileImageEntity" />
+            type="com.nexters.fullstack.domain.entity.ImageEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
                 android:id="@+id/album"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:labelAlbumImage="@{data.originUrl}"
+                app:labelAlbumImage="@{data.image.originUrl}"
                 android:adjustViewBounds="true"
                 tools:src="@mipmap/ic_launcher" />
 

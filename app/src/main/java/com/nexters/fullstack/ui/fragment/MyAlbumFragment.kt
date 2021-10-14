@@ -123,9 +123,7 @@ class MyAlbumFragment : BaseFragment<FragmentMyalbumBinding, LabelingViewModel>(
 
     override fun onClickItem(item: LabelingImage) {
         val intent = Intent(context, AlbumActivityByColor::class.java)
-        val imageMapper = item.localImages.map(FileImageMapper::toData)
         val labelMapper = LocalMainLabelMapper.fromData(item.domainLabel)
-        intent.putParcelableArrayListExtra(Constants.KEY_IMAGES, ArrayList(imageMapper))
         intent.putExtra(Constants.LABEL, labelMapper)
         startActivity(intent)
     }

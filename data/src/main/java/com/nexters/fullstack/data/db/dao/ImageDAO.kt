@@ -22,6 +22,10 @@ interface ImageDAO {
     fun searchByLabels(labelIds: List<Long>): Single<List<ImageWithLabels>>
 
     @Transaction
+    @Query("select * from userImage WHERE imageId in (SELECT imageId FROM labelImageRef where labelId == :labelId)")
+    fun searchByLabel(labelId: Long): Single<List<ImageWithLabels>>
+
+    @Transaction
     @Query("select * from userImage where liked == 1")
     fun loadLikes(): Single<List<ImageWithLabels>>
 

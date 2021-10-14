@@ -25,4 +25,8 @@ val useCaseModule = module {
             get()
         )
     }
+
+    single { SearchImagesByLabel(get()) }
+
+    single { SearchImagesBySingleLabel(get()) }
 }
