@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.fullstack.databinding.ItemScreenshotBinding
 import com.nexters.fullstack.presentaion.model.Screenshot
-import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeScreenshotViewModel
 
 class HomeMainChildViewHolder(private val binding : ItemScreenshotBinding, private val mode : HomeScreenshotViewModel.Mode) : RecyclerView.ViewHolder(binding.root){
     fun bind(item : Screenshot){

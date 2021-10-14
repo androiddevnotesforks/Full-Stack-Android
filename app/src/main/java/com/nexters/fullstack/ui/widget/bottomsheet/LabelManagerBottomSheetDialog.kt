@@ -20,7 +20,7 @@ import com.nexters.fullstack.presentaion.model.dialog.DeleteDialogItem
 import com.nexters.fullstack.ui.activity.CreateLabelActivity
 import com.nexters.fullstack.ui.adapter.listener.BottomSheetClickListener
 import com.nexters.fullstack.ui.adapter.source.ItemType
-import com.nexters.fullstack.viewmodel.BottomSheetViewModel
+import com.nexters.fullstack.presentaion.viewmodel.BottomSheetViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 

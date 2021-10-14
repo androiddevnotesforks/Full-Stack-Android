@@ -14,8 +14,8 @@ import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.presentaion.mapper.LocalMainLabelMapper
 import com.nexters.fullstack.ui.activity.detail.DetailAlbumActivity
-import com.nexters.fullstack.presentaion.viewmodel.AlbumViewModel
 import com.nexters.fullstack.util.ColorUtil
+import com.nexters.fullstack.presentaion.viewmodel.AlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.IllegalStateException
 
@@ -41,7 +41,6 @@ class AlbumActivityByColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
             it.executePendingBindings()
         }
 
-        setInitData()
         setObserve()
     }
 
@@ -63,5 +62,10 @@ class AlbumActivityByColor : BaseActivity<ActivityAlbumActivitybyColorBinding, A
                 binding.tvSelectImage.setTextColor(ColorUtil(it).getActive())
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setInitData()
     }
 }

@@ -8,7 +8,7 @@ import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.presentaion.model.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
-import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeScreenshotViewModel
 
 class HomeScreenshotAdapter(private val mode : HomeScreenshotViewModel.Mode) : BaseAdapter<Screenshot>() {
     private val selectedIndex : ArrayList<Int> = ArrayList()

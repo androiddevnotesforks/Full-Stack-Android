@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
-            type="com.nexters.fullstack.viewmodel.HomeScreenshotViewModel" />
+            type="com.nexters.fullstack.presentaion.viewmodel.HomeScreenshotViewModel" />
 
         <import type="android.view.View" />
-        <import type="com.nexters.fullstack.viewmodel.HomeScreenshotViewModel.Mode" />
 
+        <import type="com.nexters.fullstack.presentaion.viewmodel.HomeScreenshotViewModel" />
+
+        <import type="com.nexters.fullstack.presentaion.viewmodel.HomeScreenshotViewModel.Mode" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,10 +38,10 @@
                     android:id="@+id/iv_cancel"
                     android:layout_width="@dimen/icon_size"
                     android:layout_height="@dimen/icon_size"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_baseline_close_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:src="@drawable/ic_baseline_close_24">
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </ImageView>
 
@@ -46,15 +49,14 @@
                     android:id="@+id/tv_selected_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/b1"
-                    android:textStyle="bold"
-                    android:textColor="@color/def_primary"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/iv_cancel"
                     android:layout_marginLeft="@dimen/spacing_10"
                     android:text="@{vm.state().selectedTitle}"
-                    >
+                    android:textColor="@color/def_primary"
+                    android:textSize="@dimen/b1"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/iv_cancel"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
 
@@ -62,12 +64,11 @@
                     android:id="@+id/iv_delete"
                     android:layout_width="@dimen/icon_size"
                     android:layout_height="@dimen/icon_size"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
                     android:background="@drawable/btn_delete"
                     android:focusable="@{vm.state().selectedImages.size() != 0 || vm.state().selectedImages != null}"
-                    >
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </Button>
 
@@ -83,10 +84,10 @@
                     android:id="@+id/iv_back"
                     android:layout_width="@dimen/icon_size"
                     android:layout_height="@dimen/icon_size"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:src="@drawable/ic_back">
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </ImageView>
 
@@ -94,15 +95,14 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/b1"
-                    android:textStyle="bold"
-                    android:textColor="@color/def_primary"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/iv_back"
                     android:layout_marginLeft="@dimen/spacing_10"
                     android:text="@{vm.state().title}"
-                    >
+                    android:textColor="@color/def_primary"
+                    android:textSize="@dimen/b1"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/iv_back"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
 
@@ -110,12 +110,12 @@
                     android:id="@+id/tv_selection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/selection"
+                    android:textColor="@color/key_active"
+                    android:textSize="@dimen/b1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:textSize="@dimen/b1"
-                    android:textColor="@color/key_active"
-                    android:text="@string/selection">
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
 
@@ -127,10 +127,10 @@
             android:id="@+id/rv_images"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:spanCount="3">
 
         </androidx.recyclerview.widget.RecyclerView>

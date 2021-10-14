@@ -12,7 +12,7 @@ import com.nexters.fullstack.presentaion.model.Screenshot
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyFavoriteViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildEmptyRecentViewHolder
 import com.nexters.fullstack.ui.holder.HomeMainChildViewHolder
-import com.nexters.fullstack.viewmodel.HomeScreenshotViewModel
+import com.nexters.fullstack.presentaion.viewmodel.HomeScreenshotViewModel
 
 class HomeMainChildAdapter(private val type : HomeListType) : BaseAdapter<Screenshot>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =

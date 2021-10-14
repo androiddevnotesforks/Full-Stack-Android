@@ -5,7 +5,7 @@ import com.bumptech.glide.Glide
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityScreenshotDetailBinding
-import com.nexters.fullstack.viewmodel.ScreenshotDetailViewModel
+import com.nexters.fullstack.presentaion.viewmodel.ScreenshotDetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ScreenshotDetailActivity : BaseActivity<ActivityScreenshotDetailBinding, ScreenshotDetailViewModel>() {

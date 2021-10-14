@@ -2,7 +2,7 @@ package com.nexters.fullstack.presentaion.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.nexters.fullstack.BaseViewModel
+import com.nexters.fullstack.presentaion.BaseViewModel
 import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.domain.entity.LabelEntity

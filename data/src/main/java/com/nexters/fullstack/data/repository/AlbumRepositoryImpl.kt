@@ -26,7 +26,7 @@ internal class AlbumRepositoryImpl(private val fileSystemImages: FileSystemImage
     }
 
     companion object {
-        private const val SCREENSHOT_POSTFIX = "Screenshot"
+        private const val SCREENSHOT_POSTFIX = "Screenshots"
         private const val DOWNLOAD_POSTFIX = "Download"
     }
 }
