@@ -93,4 +93,10 @@ class LabelaryLocalDataSourceImpl(
             userImages.map { ImageModelMapper.toData(it) }
         }
     }
+
+    override fun searchByLabel(label: LabelEntity): Single<List<ImageEntity>> {
+        return imageDAO.searchByLabel(label.id).map { userImages ->
+            userImages.map(ImageModelMapper::toData)
+        }
+    }
 }

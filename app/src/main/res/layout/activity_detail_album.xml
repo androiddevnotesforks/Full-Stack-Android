@@ -7,7 +7,7 @@
 
         <variable
             name="localImageData"
-            type="com.nexters.fullstack.domain.entity.FileImageEntity" />
+            type="com.nexters.fullstack.data.db.entity.ImageModel" />
 
         <variable
             name="viewModels"
@@ -27,8 +27,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:localImage="@{localImageData.image.originUrl}"
             app:layout_constraintTop_toTopOf="parent"
-            app:localImage="@{localImageData.originUrl}"
             tools:src="@mipmap/ic_launcher" />
 
         <RelativeLayout
@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                app:textUtil="@{localImageData.originUrl}"
+                app:textUtil="@{localImageData.image.originUrl}"
                 tools:text="@string/detail_album_activity_title" />
         </RelativeLayout>
 
