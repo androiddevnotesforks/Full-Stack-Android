@@ -4,7 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_detail_album.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_home_search.xml" value="0.13802083333333334" />
+        <entry key="app/src/main/res/layout/fragment_home_search_recommend.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_home_search_search.xml" value="0.13802083333333334" />
         <entry key="app/src/main/res/layout/item_album_with_label.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_label.xml" value="0.12291666666666666" />
         <entry key="app/src/main/res/layout/label_album_item.xml" value="0.10277777777777777" />
       </map>
     </option>

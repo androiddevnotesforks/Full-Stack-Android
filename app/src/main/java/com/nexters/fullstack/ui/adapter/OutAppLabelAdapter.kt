@@ -8,6 +8,7 @@ import com.nexters.fullstack.base.BaseAdapter
 import com.nexters.fullstack.databinding.ItemLabelBinding
 import com.nexters.fullstack.databinding.ItemSearchAddBinding
 import com.nexters.fullstack.databinding.ItemTitleCountBinding
+import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.presentaion.model.LabelViewData
 import com.nexters.fullstack.ui.holder.MyLabelViewHolder
@@ -15,7 +16,7 @@ import com.nexters.fullstack.ui.holder.SearchAddLabelViewHolder
 import com.nexters.fullstack.ui.holder.TitleViewHolder
 import com.nexters.fullstack.presentaion.viewmodel.LabelOutAppViewModel
 
-class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<Label>() {
+class OutAppLabelAdapter(state : LabelOutAppViewModel.ViewState) : BaseAdapter<LabelEntity>() {
     var text = when (state){
         LabelOutAppViewModel.ViewState.MY_LABEL -> MY_LABEL_TITLE
         LabelOutAppViewModel.ViewState.RECENT_LABEL -> RECENT_SEARCH_TITLE
