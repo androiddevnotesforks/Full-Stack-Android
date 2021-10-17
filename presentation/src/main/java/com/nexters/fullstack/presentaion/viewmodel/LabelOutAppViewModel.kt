@@ -3,6 +3,7 @@ package com.nexters.fullstack.presentaion.viewmodel
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.presentaion.BaseViewModel
 import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.domain.usecase.GetLabels
@@ -12,10 +13,10 @@ class LabelOutAppViewModel(
     private val loadLabelUseCase: GetLabels
 ) : BaseViewModel() {
     private val state: State = State()
-    private val myLabelList = mutableListOf<Label>()
-    private val selectedLabelList = mutableListOf<Label>()
-    private val recentlySearchList = mutableListOf<Label>()
-    private val searchResultList = mutableListOf<Label>()
+    private val myLabelList = mutableListOf<LabelEntity>()
+    private val selectedLabelList = mutableListOf<LabelEntity>()
+    private val recentlySearchList = mutableListOf<LabelEntity>()
+    private val searchResultList = mutableListOf<LabelEntity>()
 
     fun state(): State = state
 
@@ -25,7 +26,7 @@ class LabelOutAppViewModel(
 
     fun selectLabel(name: String) {
         for (label in myLabelList) {
-            if (label.name == name) {
+            if (label.text == name) {
                 myLabelList.remove(label)
                 selectedLabelList.add(0, label)
                 break
@@ -70,7 +71,7 @@ class LabelOutAppViewModel(
     fun search(): Boolean {
         searchResultList.clear()
         for (label in myLabelList) {
-            if (label.name.contains(state.searchKeyword.value!!)) {
+            if (label.text.contains(state.searchKeyword.value!!)) {
                 searchResultList.add(label)
             }
         }
@@ -82,19 +83,19 @@ class LabelOutAppViewModel(
     init {
 
         // TODO init my label list using usecase
-        myLabelList.add(Label("label1", "Yellow"))
-        myLabelList.add(Label("label2", "Red"))
-        myLabelList.add(Label("label3", "Pink"))
-        myLabelList.add(Label("label4", "Purple Blue"))
-        myLabelList.add(Label("label5", "Green"))
-        myLabelList.add(Label("label6", "Gray"))
-        myLabelList.add(Label("label7", "Orange"))
+        myLabelList.add(LabelEntity(1,"label1", "Yellow"))
+        myLabelList.add(LabelEntity(2,"label2", "Red"))
+        myLabelList.add(LabelEntity(3,"label3", "Pink"))
+        myLabelList.add(LabelEntity(4,"label4", "Purple Blue"))
+        myLabelList.add(LabelEntity(5,"label5", "Green"))
+        myLabelList.add(LabelEntity(6,"label6", "Gray"))
+        myLabelList.add(LabelEntity(7,"label7", "Orange"))
 
-        recentlySearchList.add(Label("label1", "Yellow"))
-        recentlySearchList.add(Label("label2", "Red"))
-        recentlySearchList.add(Label("label3", "Pink"))
-        recentlySearchList.add(Label("label4", "Purple Blue"))
-        recentlySearchList.add(Label("label5", "Green"))
+        recentlySearchList.add(LabelEntity(1,"label1", "Yellow"))
+        recentlySearchList.add(LabelEntity(2,"label2", "Red"))
+        recentlySearchList.add(LabelEntity(3,"label3", "Pink"))
+        recentlySearchList.add(LabelEntity(4,"label4", "Purple Blue"))
+        recentlySearchList.add(LabelEntity(5,"label5", "Green"))
 
         state.myLabels.value = myLabelList
         state.recentlySearch.value = recentlySearchList
@@ -110,11 +111,11 @@ class LabelOutAppViewModel(
 
     data class State(
         val imageUri: MutableLiveData<Uri> = MutableLiveData(),
-        val myLabels: MutableLiveData<List<Label>> = MutableLiveData(),
-        val selectedLabels: MutableLiveData<List<Label>> = MutableLiveData(),
+        val myLabels: MutableLiveData<List<LabelEntity>> = MutableLiveData(),
+        val selectedLabels: MutableLiveData<List<LabelEntity>> = MutableLiveData(),
         val searchKeyword: MutableLiveData<String> = MutableLiveData(),
-        val searchResult: MutableLiveData<List<Label>> = MutableLiveData(),
-        val recentlySearch: MutableLiveData<List<Label>> = MutableLiveData(),
+        val searchResult: MutableLiveData<List<LabelEntity>> = MutableLiveData(),
+        val recentlySearch: MutableLiveData<List<LabelEntity>> = MutableLiveData(),
         val viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.MY_LABEL)
     )
 
