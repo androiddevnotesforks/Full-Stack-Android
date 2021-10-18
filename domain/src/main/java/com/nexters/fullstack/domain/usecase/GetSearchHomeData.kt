@@ -7,9 +7,9 @@ import io.reactivex.Single
 
 class GetSearchHomeData(
     private val labelRepository: LabelRepository
-) : BaseUseCase<String, Single<GetSearchHomeData.Result>> {
+) : BaseUseCase<Unit, Single<GetSearchHomeData.Result>> {
 
-    override fun buildUseCase(params: String): Single<Result> {
+    override fun buildUseCase(params: Unit): Single<Result> {
         return Single.zip(
             labelRepository.loadAll(),
             labelRepository.loadRecentlyLabels(),
@@ -19,7 +19,7 @@ class GetSearchHomeData(
 
 
     data class Result(
-        val recentlyLabels : List<LabelEntity>,
-        val labels : List<LabelEntity>
+        val labels : List<LabelEntity>,
+        val recentlyLabels : List<LabelEntity>
     )
 }

@@ -97,13 +97,12 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
     }
 
     override fun getItemViewType(position: Int) : Int {
-        var viewType = LabelViewData.DEFAULT
-        if(items.isNullOrEmpty()) return EMPTY
-        if(position == 0) viewType = TITLE
+        return if(state == LabelOutAppViewModel.ViewState.NO_LABEL) EMPTY
+        else if(position == 0) TITLE
         else{
-            if(state == LabelOutAppViewModel.ViewState.NO_RESULT) viewType = ADD_LABEL
+            if(state == LabelOutAppViewModel.ViewState.NO_RESULT) ADD_LABEL
+            else LabelViewData.DEFAULT
         }
-        return viewType
     }
 
     override fun getItemCount(): Int {

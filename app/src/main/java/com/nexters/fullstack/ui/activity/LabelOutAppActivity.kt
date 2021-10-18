@@ -17,7 +17,6 @@ import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
 import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.util.extension.hideKeyboard
-import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.ui.adapter.OutAppLabelAdapter
 import com.nexters.fullstack.ui.adapter.SelectedLabelAdapter
 import com.nexters.fullstack.ui.decoration.SpaceBetweenRecyclerDecoration
@@ -48,7 +47,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
     override fun onResume() {
         super.onResume()
-        initView()
+        viewModel.loadData()
     }
 
     private fun initData(){
@@ -72,25 +71,15 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
 
         with(binding){
-
             ivScreenshot.clipToOutline = true
 
             val spaceDecoration = SpaceBetweenRecyclerDecoration(RV_SPACING_DP, RV_SPACING_DP)
-            rvLabel.run {
-                myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
-                adapter = myLabelAdapter
-                rvLabel.addItemDecoration(spaceDecoration)
-                layoutManager = FlexboxLayoutManager(this@LabelOutAppActivity).apply {
-                    flexWrap = FlexWrap.WRAP
-                    flexDirection = FlexDirection.ROW
-                }
-                setHasFixedSize(true)
-            }
-
             selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
             rvSelectedLabel.adapter = selectedLabelAdapter
             rvSelectedLabel.addItemDecoration(spaceDecoration)
 
+            rvLabel.addItemDecoration(spaceDecoration)
+            myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
             recentlyLabelAdapter.addItems(viewModel.state().recentlySearch.value ?: ArrayList())
             searchResultAdapter.addItems(viewModel.state().searchResult.value ?: ArrayList())
             addLabelAdapter.addItems(ArrayList())
@@ -136,7 +125,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
         recentlyLabelAdapter.setItemClickListener { _, _, labelSource ->
             labelSource?.let {
-                viewModel.selectLabel(it.name)
+                viewModel.selectLabel(it.text)
             }
             viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
         }
@@ -148,12 +137,13 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
         selectedLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.deselectLabel(i)
+            selectedLabelAdapter.notifyDataSetChanged()
             myLabelAdapter.notifyDataSetChanged()
         }
         addLabelAdapter.setItemClickListener { _, _, labelSource ->
             val intent = Intent(this, CreateLabelActivity::class.java)
-            intent.putExtra("title", labelSource?.name)
-            startActivity(Intent(this, CreateLabelActivity::class.java))
+            intent.putExtra("title", labelSource?.text)
+            startActivity(intent)
         }
         noLabelAdapter.setItemClickListener { _, _, _ ->
             startActivity(Intent(this, CreateLabelActivity::class.java))
@@ -162,18 +152,11 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
     private fun initObserver(){
         with(viewModel.state()){
+            recentlySearch.observe(this@LabelOutAppActivity, {
+                recentlyLabelAdapter.calDiff(it as MutableList<LabelEntity>)
+            })
             myLabels.observe(this@LabelOutAppActivity, {
-<<<<<<< HEAD
-                if(it.isNullOrEmpty()){
-                    viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_LABEL)
-                }
-                else {
-                    viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
-                    myLabelAdapter.calDiff(it as MutableList<Label>)
-                }
-=======
                 myLabelAdapter.calDiff(it as MutableList<LabelEntity>)
->>>>>>> develop
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
                 selectedLabelAdapter.calDiff(it as MutableList<LabelEntity>)
@@ -181,30 +164,34 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             })
             searchResult.observe(this@LabelOutAppActivity, {
                 searchResultAdapter.calDiff(it as MutableList<LabelEntity>)
+                if(it.isNullOrEmpty()){
+                    viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_RESULT)
+                    addLabelAdapter.clearItems()
+                    addLabelAdapter.addItems(listOf(LabelEntity(-1, "ignored", viewModel.state().searchKeyword.value ?: "")))
+                }else{
+                    viewModel.setViewState(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
+                }
             })
             searchKeyword.observe(this@LabelOutAppActivity, {
-                if(it == "" || it == null){
+                if(it.isNullOrBlank()){
                     if(viewModel.state().viewState.value != LabelOutAppViewModel.ViewState.MY_LABEL){
                         viewModel.setViewState(LabelOutAppViewModel.ViewState.RECENT_LABEL)
                     }
                 }
                 else{
-                    if(viewModel.search()){
-                        viewModel.setViewState(LabelOutAppViewModel.ViewState.SEARCH_RESULT)
-                    }
-                    else {
-                        viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_RESULT)
-                        addLabelAdapter.clearItems()
-                        addLabelAdapter.addItems(listOf(Label(it, "ignored")))
-                    }
+                    viewModel.search()
                 }
             })
             viewState.observe(this@LabelOutAppActivity, {
                 when(it){
                     LabelOutAppViewModel.ViewState.MY_LABEL -> {
-                        binding.rvLabel.adapter = myLabelAdapter
-                        binding.containerAppbar.setExpanded(true)
+                        binding.rvLabel.layoutManager = FlexboxLayoutManager(this@LabelOutAppActivity).apply {
+                                flexWrap = FlexWrap.WRAP
+                                flexDirection = FlexDirection.ROW
+                            }
                         binding.etSearch.clearFocus()
+                        binding.containerAppbar.setExpanded(true)
+                        binding.rvLabel.adapter = myLabelAdapter
                         viewModel.clearSearchKeyword()
                     }
                     LabelOutAppViewModel.ViewState.RECENT_LABEL -> {
