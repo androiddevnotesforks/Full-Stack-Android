@@ -41,4 +41,8 @@ class ImageRepositoryImpl(private val labelaryLocalDataSource: LabelaryLocalData
     override fun searchByLabels(labels: List<LabelEntity>): Single<List<ImageEntity>> {
         return labelaryLocalDataSource.searchByLabels(labels)
     }
+
+    override fun searchByLabel(labels: LabelEntity): Single<List<ImageEntity>> {
+        return labelaryLocalDataSource.searchByLabel(labels)
+    }
 }

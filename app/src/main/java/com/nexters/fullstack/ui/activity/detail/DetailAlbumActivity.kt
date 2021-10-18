@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
+import com.nexters.fullstack.data.db.entity.ImageModel
 import com.nexters.fullstack.databinding.ActivityDetailAlbumBinding
 import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.domain.entity.ImageEntity
@@ -21,6 +22,8 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val localImage = intent.getParcelableExtra(Constants.DETAIL_IMAGE) as? ImageModel
+
         bind {
             it.localImageData = localImage
             it.viewModels = viewModel
@@ -31,7 +34,7 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
 
         setOnClickListener()
 
-        viewModel.fetchImage(localImage?.id ?: throw IllegalAccessException("not found id"))
+        viewModel.fetchImage(localImage?.imageId ?: throw IllegalAccessException("not found id"))
     }
 
     private fun setObserve() {

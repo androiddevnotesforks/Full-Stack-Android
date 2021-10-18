@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.nexters.fullstack.R
 import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.domain.entity.FileImageEntity
+import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.presentaion.model.*
 import com.nexters.fullstack.presentaion.model.bottomsheet.BottomSheetItem
 import com.nexters.fullstack.presentaion.viewmodel.MainViewModel
@@ -150,7 +151,7 @@ fun RecyclerView.setBottomSheetItem(items: List<BottomSheetItem>?, onClickEvent:
 }
 
 @BindingAdapter(requireAll = false, value = ["app:labelAlbumItems", "app:onClickLabelItemEvent"])
-fun RecyclerView.setLabelAlbumItems(items: List<FileImageEntity>?, event: LabelAlbumDelegate?) {
+fun RecyclerView.setLabelAlbumItems(items: List<ImageEntity>?, event: LabelAlbumDelegate?) {
     adapter?.let { labelAdapter ->
         Log.e("adapter", "call")
 
@@ -204,5 +205,5 @@ fun ImageView.setOnRejectButtonClickListener(emit: MainViewModel.MainInput?) {
 
 
 interface LabelAlbumDelegate {
-    fun onClick(item: FileImageEntity)
+    fun onClick(item: ImageEntity)
 }

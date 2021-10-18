@@ -15,6 +15,7 @@ import com.nexters.fullstack.util.NotFoundViewState
 import com.nexters.fullstack.R
 import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.databinding.ActivityLabelOutappBinding
+import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.util.extension.hideKeyboard
 import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.ui.adapter.OutAppLabelAdapter
@@ -141,7 +142,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
         searchResultAdapter.setItemClickListener { _, _, labelSource ->
             labelSource?.let {
-                viewModel.selectLabel(it.name)
+                viewModel.selectLabel(it.text)
             }
             viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
         }
@@ -162,6 +163,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
     private fun initObserver(){
         with(viewModel.state()){
             myLabels.observe(this@LabelOutAppActivity, {
+<<<<<<< HEAD
                 if(it.isNullOrEmpty()){
                     viewModel.setViewState(LabelOutAppViewModel.ViewState.NO_LABEL)
                 }
@@ -169,13 +171,16 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                     viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
                     myLabelAdapter.calDiff(it as MutableList<Label>)
                 }
+=======
+                myLabelAdapter.calDiff(it as MutableList<LabelEntity>)
+>>>>>>> develop
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
-                selectedLabelAdapter.calDiff(it as MutableList<Label>)
+                selectedLabelAdapter.calDiff(it as MutableList<LabelEntity>)
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
             searchResult.observe(this@LabelOutAppActivity, {
-                searchResultAdapter.calDiff(it as MutableList<Label>)
+                searchResultAdapter.calDiff(it as MutableList<LabelEntity>)
             })
             searchKeyword.observe(this@LabelOutAppActivity, {
                 if(it == "" || it == null){

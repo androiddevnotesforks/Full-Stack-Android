@@ -21,5 +21,7 @@ interface ImageRepository {
 
     fun searchByLabels(labels : List<LabelEntity>): Single<List<ImageEntity>>
 
+    fun searchByLabel(labels: LabelEntity): Single<List<ImageEntity>>
+
     fun find(id: String): Single<ImageEntity>
 }

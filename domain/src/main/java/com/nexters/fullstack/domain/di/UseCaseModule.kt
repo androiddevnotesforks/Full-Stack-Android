@@ -31,7 +31,11 @@ val useCaseModule = module {
         )
     }
 
+    single { SearchImagesByLabel(get()) }
+
+    single { SearchImagesBySingleLabel(get()) }
     single { PostBookmarkingImageUseCase(get()) }
     single { DeleteImageUseCase(get()) }
     single { GetDetailImage(get(), get()) }
+    single { SearchLabelUseCase(get()) }
 }
