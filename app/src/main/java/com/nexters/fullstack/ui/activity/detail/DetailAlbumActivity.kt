@@ -1,7 +1,6 @@
 package com.nexters.fullstack.ui.activity.detail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.core.content.ContextCompat
 import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
@@ -9,7 +8,6 @@ import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.data.db.entity.ImageModel
 import com.nexters.fullstack.databinding.ActivityDetailAlbumBinding
 import com.nexters.fullstack.domain.entity.FileImageEntity
-import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.presentaion.viewmodel.detail.DetailAlbumViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,7 +22,6 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
         super.onCreate(savedInstanceState)
 
         val localImage = intent.getParcelableExtra(Constants.DETAIL_IMAGE) as? ImageModel
-        Log.e("detail", localImage!!.imageId)
 
         bind {
             it.localImageData = localImage
