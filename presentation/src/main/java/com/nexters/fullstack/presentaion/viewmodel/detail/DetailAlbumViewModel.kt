@@ -30,6 +30,7 @@ class DetailAlbumViewModel constructor(
     private val progressBarState = SingleLiveData<ProgressState>()
 
     private val imageEntity = MutableLiveData<ImageEntity>()
+    private val showDeleteDialog = SingleLiveData<DeleteDialogEntity>()
 
     val input = object : Input {
         override fun setIsContainImage(value: Boolean) {
@@ -71,18 +72,27 @@ class DetailAlbumViewModel constructor(
         }
 
         override fun delete(imageEntity: ImageEntity) {
-            showProgressBar()
+            showDeleteDialog.value = DeleteDialogEntity(
+                title = "해당 사진을 삭제하시겠습니까?",
+                positive = "삭제",
+                onPositiveClickListener = {
+                    showProgressBar()
 
-            disposable.add(
-                deleteLocalImageUseCase.buildUseCase(imageEntity)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doAfterTerminate { dismissProgressBar() }
-                    .subscribe(
-                        (::finish),
-                        (::printSt)
+                    disposable.add(
+                        deleteLocalImageUseCase.buildUseCase(imageEntity)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doAfterTerminate { dismissProgressBar() }
+                            .subscribe(
+                                (::finish),
+                                (::printSt)
+                            )
                     )
+                },
+                negative = "취소",
+                imageUrl = imageEntity.image.originUrl
             )
+
         }
 
         override fun finish() = finish.call()
@@ -92,6 +102,7 @@ class DetailAlbumViewModel constructor(
         override fun finish(): LiveData<Unit> = finish
         override fun getIsLocalContain(): LiveData<Boolean> = isContainImage
         override fun getImageEntity(): LiveData<ImageEntity> = imageEntity
+        override fun showDeleteDialog(): LiveData<DeleteDialogEntity> = showDeleteDialog
     }
 
     interface Input {
@@ -108,6 +119,7 @@ class DetailAlbumViewModel constructor(
         fun finish(): LiveData<Unit>
         fun getIsLocalContain(): LiveData<Boolean>
         fun getImageEntity(): LiveData<ImageEntity>
+        fun showDeleteDialog(): LiveData<DeleteDialogEntity>
     }
 
     private fun showProgressBar() {
@@ -150,4 +162,12 @@ class DetailAlbumViewModel constructor(
     enum class ProgressState {
         SHOW, DISMISS
     }
+
+    data class DeleteDialogEntity(
+        val title: String,
+        val positive: String,
+        val onPositiveClickListener: () -> Unit,
+        val negative: String,
+        val imageUrl: String
+    )
 }

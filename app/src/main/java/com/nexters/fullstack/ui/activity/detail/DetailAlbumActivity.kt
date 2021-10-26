@@ -1,6 +1,7 @@
 package com.nexters.fullstack.ui.activity.detail
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.nexters.fullstack.util.Constants
 import com.nexters.fullstack.R
@@ -10,6 +11,8 @@ import com.nexters.fullstack.databinding.ActivityDetailAlbumBinding
 import com.nexters.fullstack.domain.entity.FileImageEntity
 import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.presentaion.viewmodel.detail.DetailAlbumViewModel
+import com.nexters.fullstack.ui.widget.ImageDialog
+import com.nexters.fullstack.ui.widget.RequestExitDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbumViewModel>() {
@@ -18,6 +21,7 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
     override val viewModel: DetailAlbumViewModel by viewModel<DetailAlbumViewModel>()
     private val localImage: FileImageEntity?
         get() = intent.getSerializableExtra(Constants.DETAIL_IMAGE) as? FileImageEntity
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,15 @@ class DetailAlbumActivity : BaseActivity<ActivityDetailAlbumBinding, DetailAlbum
                 )
 
                 binding.ivFavorite.setImageDrawable(drawable)
+            }
+            showDeleteDialog().observe(this@DetailAlbumActivity) {
+                ImageDialog.setTitle(it.title)
+                    .setImageUrl(it.imageUrl)
+                    .setPositiveClickListener(it.onPositiveClickListener)
+                    .setNegative(it.negative)
+                    .setPositive(it.positive)
+                    .build()
+                    .show(supportFragmentManager, "deleteDialog")
             }
         }
     }
