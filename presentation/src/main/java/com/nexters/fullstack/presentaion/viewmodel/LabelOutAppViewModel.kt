@@ -22,11 +22,11 @@ class LabelOutAppViewModel(
 
     fun state(): State = state
 
-    fun loadImage(uri: Uri) {
+    fun fetchScreenshot(uri: Uri) {
         state.imageUri.value = uri
     }
 
-    fun loadData(){
+    fun fetchHomeData(){
         disposable.add(
             getSearchHomeData.buildUseCase(Unit).cache()
                 .subscribeOn(Schedulers.io())
@@ -56,6 +56,7 @@ class LabelOutAppViewModel(
         }
         state.myLabels.value = myLabelList
         state.selectedLabels.value = selectedLabelList
+        state.viewState.value = ViewState.MY_LABEL
     }
 
     fun selectLabel(position: Int) {
@@ -98,7 +99,7 @@ class LabelOutAppViewModel(
     }
 
     init {
-        loadData()
+        fetchHomeData()
     }
 
     override fun onCleared() {

@@ -26,7 +26,7 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
         else -> ""
     }
 
-    var isWithCount = when(state){
+    var isShowCount = when(state){
         LabelOutAppViewModel.ViewState.MY_LABEL -> true
         LabelOutAppViewModel.ViewState.RECENT_LABEL -> false
         LabelOutAppViewModel.ViewState.SEARCH_RESULT -> true
@@ -76,7 +76,7 @@ class OutAppLabelAdapter(private val state : LabelOutAppViewModel.ViewState) : B
                 }
             }
             is TitleViewHolder -> {
-                if(isWithCount) holder.bind(text, itemCount-1)
+                if(isShowCount) holder.bind(text, itemCount-1)
                 else holder.bind(text)
             }
             is SearchAddLabelViewHolder -> {

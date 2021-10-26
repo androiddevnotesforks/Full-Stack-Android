@@ -23,7 +23,7 @@ abstract class BaseAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerView.ViewH
         notifyDataSetChanged()
     }
 
-    open fun addItems(items: List<ITEM>) {
+    fun addItems(items: List<ITEM>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()

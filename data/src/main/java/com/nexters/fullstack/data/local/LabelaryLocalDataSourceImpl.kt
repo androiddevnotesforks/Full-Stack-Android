@@ -45,7 +45,7 @@ class LabelaryLocalDataSourceImpl(
     }
 
     override fun searchLabel(keyword: String): Single<List<LabelEntity>> {
-        return labelDAO.searchLabels("%$keyword%").map {
+        return labelDAO.searchLabels(keyword).map {
             it.map(LabelModelMapper::fromData)
         }
     }

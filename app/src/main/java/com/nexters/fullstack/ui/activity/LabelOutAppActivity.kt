@@ -47,7 +47,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadData()
+        viewModel.fetchHomeData()
     }
 
     private fun initData(){
@@ -55,7 +55,7 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             intent?.action == Intent.ACTION_SEND
                     && intent.type?.startsWith(Constants.IMAGE_PREFIX) == true -> {
                 (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let { uri: Uri ->
-                    viewModel.loadImage(uri)
+                    viewModel.fetchScreenshot(uri)
                 }
             }
         }
@@ -74,15 +74,9 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
             ivScreenshot.clipToOutline = true
 
             val spaceDecoration = SpaceBetweenRecyclerDecoration(RV_SPACING_DP, RV_SPACING_DP)
-            selectedLabelAdapter.addItems(viewModel.state().selectedLabels.value ?: ArrayList())
             rvSelectedLabel.adapter = selectedLabelAdapter
             rvSelectedLabel.addItemDecoration(spaceDecoration)
-
             rvLabel.addItemDecoration(spaceDecoration)
-            myLabelAdapter.addItems(viewModel.state().myLabels.value ?: ArrayList())
-            recentlyLabelAdapter.addItems(viewModel.state().recentlySearch.value ?: ArrayList())
-            searchResultAdapter.addItems(viewModel.state().searchResult.value ?: ArrayList())
-            addLabelAdapter.addItems(ArrayList())
         }
     }
 
@@ -121,28 +115,23 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
         }
         myLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.selectLabel(i)
-            myLabelAdapter.notifyDataSetChanged()
         }
         recentlyLabelAdapter.setItemClickListener { _, _, labelSource ->
             labelSource?.let {
                 viewModel.selectLabel(it.text)
             }
-            viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
         }
         searchResultAdapter.setItemClickListener { _, _, labelSource ->
             labelSource?.let {
                 viewModel.selectLabel(it.text)
             }
-            viewModel.setViewState(LabelOutAppViewModel.ViewState.MY_LABEL)
         }
         selectedLabelAdapter.setItemClickListener { _, i, _ ->
             viewModel.deselectLabel(i)
-            selectedLabelAdapter.notifyDataSetChanged()
-            myLabelAdapter.notifyDataSetChanged()
         }
         addLabelAdapter.setItemClickListener { _, _, labelSource ->
             val intent = Intent(this, CreateLabelActivity::class.java)
-            intent.putExtra("title", labelSource?.text)
+            intent.putExtra(Constants.LABEL_TITLE, labelSource?.text)
             startActivity(intent)
         }
         noLabelAdapter.setItemClickListener { _, _, _ ->
@@ -156,10 +145,10 @@ class LabelOutAppActivity : BaseActivity<ActivityLabelOutappBinding, LabelOutApp
                 recentlyLabelAdapter.calDiff(it as MutableList<LabelEntity>)
             })
             myLabels.observe(this@LabelOutAppActivity, {
-                myLabelAdapter.calDiff(it as MutableList<LabelEntity>)
+                myLabelAdapter.addItems(it)
             })
             selectedLabels.observe(this@LabelOutAppActivity, {
-                selectedLabelAdapter.calDiff(it as MutableList<LabelEntity>)
+                selectedLabelAdapter.addItems(it)
                 binding.rvSelectedLabel.scrollToPosition(0)
             })
             searchResult.observe(this@LabelOutAppActivity, {
