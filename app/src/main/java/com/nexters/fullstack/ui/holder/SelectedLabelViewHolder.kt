@@ -13,7 +13,6 @@ class SelectedLabelViewHolder(private val binding : ItemSelectedLabelBinding) : 
         binding.tvLabel.text = item.text
         DrawableCompat.setTint(binding.container.background, colorUtil.getInactive())
         binding.tvLabel.setTextColor(colorUtil.getActive())
-
-        // TODO : set color at each path color with vector resource
+        binding.ivDelete.setColorFilter(colorUtil.getActive())
     }
 }

@@ -65,6 +65,11 @@
     <string name="add_label_text">라벨을 추가하면 라벨 앨범이 생성됩니다.</string>
     <string name="add_label_finish">라벨 추가 완료</string>
 
+    <!--    labelling outside   -->
+    <string name="no_label_title">라벨이 없습니다.</string>
+    <string name="no_label_message">라벨을 생성하여 스크린샷에 \n라벨을 추가해 보세요.</string>
+    <string name="add_label_button">라벨 생성하기</string>
+
     <!--    BottomSheetDialog   -->
     <string name="delete">삭제</string>
     <string name="title">라벨을 삭제하시겠어요?</string>

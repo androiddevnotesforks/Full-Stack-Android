@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.nexters.fullstack.domain.entity.LabelEntity
 import com.nexters.fullstack.domain.usecase.SearchLabelUseCase
 import com.nexters.fullstack.presentaion.BaseViewModel
-import com.nexters.fullstack.presentaion.model.Label
 import com.nexters.fullstack.presentaion.printSt
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -35,19 +34,19 @@ class HomeSearchViewModel constructor(
 
     init {
         // TODO : change for using cache data
-        myLabelList.add(LabelEntity(1, "label1", "Yellow"))
-        myLabelList.add(LabelEntity(2, "label2", "Red"))
-        myLabelList.add(LabelEntity(3, "label3", "Pink"))
-        myLabelList.add(LabelEntity(4, "label4", "Purple Blue"))
-        myLabelList.add(LabelEntity(5, "label5", "Green"))
-        myLabelList.add(LabelEntity(6, "label6", "Gray"))
-        myLabelList.add(LabelEntity(7, "label7", "Orange"))
+        myLabelList.add(LabelEntity(1,  "Yellow", "test1"))
+        myLabelList.add(LabelEntity(2,  "Red", "test1"))
+        myLabelList.add(LabelEntity(3,  "Pink", "test1"))
+        myLabelList.add(LabelEntity(4, "Purple Blue", "test1"))
+        myLabelList.add(LabelEntity(5, "Green", "test1"))
+        myLabelList.add(LabelEntity(6,  "Gray", "test1"))
+        myLabelList.add(LabelEntity(7, "Orange", "test1"))
 
-        recentlySearchList.add(LabelEntity(1, "label1", "Yellow"))
-        recentlySearchList.add(LabelEntity(2, "label2", "Red"))
-        recentlySearchList.add(LabelEntity(3, "label3", "Pink"))
-        recentlySearchList.add(LabelEntity(4, "label4", "Purple Blue"))
-        recentlySearchList.add(LabelEntity(5, "label5", "Green"))
+        recentlySearchList.add(LabelEntity(1,  "Yellow", "test1"))
+        recentlySearchList.add(LabelEntity(2, "Red", "test1"))
+        recentlySearchList.add(LabelEntity(3,  "Pink", "test1"))
+        recentlySearchList.add(LabelEntity(4,  "Purple Blue", "test1"))
+        recentlySearchList.add(LabelEntity(5, "Green", "test1"))
 
         state.myLabel.value = myLabelList
         state.recentlySearchLabel.value = recentlySearchList

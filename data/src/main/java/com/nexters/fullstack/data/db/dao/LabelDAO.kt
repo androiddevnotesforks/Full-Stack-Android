@@ -21,7 +21,7 @@ interface LabelDAO {
     @Query("select * from userLabel")
     fun loadWithImages(): Single<List<LabelWithImages>>
 
-    @Query("select * from userLabel where text LIKE :query")
+    @Query("select * from userLabel where text LIKE '%' || :query || '%'")
     fun searchLabels(query: String): Single<List<LabelModel>>
 
     @Transaction

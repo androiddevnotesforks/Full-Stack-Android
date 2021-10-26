@@ -9,7 +9,6 @@ import com.nexters.fullstack.base.BaseActivity
 import com.nexters.fullstack.data.db.entity.ImageModel
 import com.nexters.fullstack.databinding.ActivityDetailAlbumBinding
 import com.nexters.fullstack.domain.entity.FileImageEntity
-import com.nexters.fullstack.domain.entity.ImageEntity
 import com.nexters.fullstack.presentaion.viewmodel.detail.DetailAlbumViewModel
 import com.nexters.fullstack.ui.widget.ImageDialog
 import com.nexters.fullstack.ui.widget.RequestExitDialog

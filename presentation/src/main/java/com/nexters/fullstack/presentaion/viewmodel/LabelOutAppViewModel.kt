@@ -2,26 +2,48 @@ package com.nexters.fullstack.presentaion.viewmodel
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.nexters.fullstack.domain.entity.LabelEntity
+import com.nexters.fullstack.domain.usecase.*
 import com.nexters.fullstack.presentaion.BaseViewModel
-import com.nexters.fullstack.presentaion.model.Label
-import com.nexters.fullstack.domain.usecase.GetLabels
-import kotlinx.coroutines.launch
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class LabelOutAppViewModel(
-    private val loadLabelUseCase: GetLabels
+    private val getSearchHomeData: GetSearchHomeData,
+    private val searchLabelUseCase: SearchLabelUseCase
 ) : BaseViewModel() {
     private val state: State = State()
     private val myLabelList = mutableListOf<LabelEntity>()
     private val selectedLabelList = mutableListOf<LabelEntity>()
     private val recentlySearchList = mutableListOf<LabelEntity>()
-    private val searchResultList = mutableListOf<LabelEntity>()
+
+    private val disposable = CompositeDisposable()
 
     fun state(): State = state
 
-    fun loadImage(uri: Uri) {
+    fun fetchScreenshot(uri: Uri) {
         state.imageUri.value = uri
+    }
+
+    fun fetchHomeData(){
+        disposable.add(
+            getSearchHomeData.buildUseCase(Unit).cache()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ data ->
+                    myLabelList.clear()
+                    myLabelList.addAll(data.labels)
+                    recentlySearchList.clear()
+                    recentlySearchList.addAll(data.recentlyLabels)
+                    if(myLabelList.isNullOrEmpty()) setViewState(ViewState.NO_LABEL)
+                    else{
+                        state.myLabels.value = myLabelList
+                        setViewState(ViewState.MY_LABEL)
+                    }
+                    state.recentlySearch.value = recentlySearchList
+                }, {it.printStackTrace()})
+        )
     }
 
     fun selectLabel(name: String) {
@@ -34,6 +56,7 @@ class LabelOutAppViewModel(
         }
         state.myLabels.value = myLabelList
         state.selectedLabels.value = selectedLabelList
+        state.viewState.value = ViewState.MY_LABEL
     }
 
     fun selectLabel(position: Int) {
@@ -53,10 +76,7 @@ class LabelOutAppViewModel(
     }
 
     fun completeLabeling() {
-        // TODO usecase 연결 > image selectLabels
-        viewModelScope.launch {
-
-        }
+        // TODO : 공유로 받아온 이미지 URI에서 absolute path 이용해서 GetDetailImage then RequestLabelling ?
     }
 
     fun setViewState(viewState: ViewState) {
@@ -67,46 +87,24 @@ class LabelOutAppViewModel(
         state.searchKeyword.value = ""
     }
 
-    // TODO modify to using usecase
-    fun search(): Boolean {
-        searchResultList.clear()
-        for (label in myLabelList) {
-            if (label.text.contains(state.searchKeyword.value!!)) {
-                searchResultList.add(label)
-            }
-        }
-        state.searchResult.value = searchResultList
-
-        return searchResultList.size != 0
+    fun search() {
+        disposable.add(
+            searchLabelUseCase.buildUseCase(state.searchKeyword.value ?: "").cache()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({ searchResult ->
+                    state.searchResult.value = searchResult
+                }, { it.printStackTrace() })
+        )
     }
 
     init {
+        fetchHomeData()
+    }
 
-        // TODO init my label list using usecase
-        myLabelList.add(LabelEntity(1,"label1", "Yellow"))
-        myLabelList.add(LabelEntity(2,"label2", "Red"))
-        myLabelList.add(LabelEntity(3,"label3", "Pink"))
-        myLabelList.add(LabelEntity(4,"label4", "Purple Blue"))
-        myLabelList.add(LabelEntity(5,"label5", "Green"))
-        myLabelList.add(LabelEntity(6,"label6", "Gray"))
-        myLabelList.add(LabelEntity(7,"label7", "Orange"))
-
-        recentlySearchList.add(LabelEntity(1,"label1", "Yellow"))
-        recentlySearchList.add(LabelEntity(2,"label2", "Red"))
-        recentlySearchList.add(LabelEntity(3,"label3", "Pink"))
-        recentlySearchList.add(LabelEntity(4,"label4", "Purple Blue"))
-        recentlySearchList.add(LabelEntity(5,"label5", "Green"))
-
-        state.myLabels.value = myLabelList
-        state.recentlySearch.value = recentlySearchList
-
-//        viewModelScope.launch {
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//            searchResultList.add(LabelSource(LabelSource.DEFAULT, "", "search_label1"))
-//        }
-//        state.searchResult.value = searchResultList
+    override fun onCleared() {
+        disposable.clear()
+        super.onCleared()
     }
 
     data class State(
@@ -116,11 +114,11 @@ class LabelOutAppViewModel(
         val searchKeyword: MutableLiveData<String> = MutableLiveData(),
         val searchResult: MutableLiveData<List<LabelEntity>> = MutableLiveData(),
         val recentlySearch: MutableLiveData<List<LabelEntity>> = MutableLiveData(),
-        val viewState: MutableLiveData<ViewState> = MutableLiveData(ViewState.MY_LABEL)
+        val viewState: MutableLiveData<ViewState> = MutableLiveData()
     )
 
-    // TODO refactor : state가 list를 가지고 있어서 activity에서 분기 처리 안하고 일괄적으로 처리해줄 수 있도록 ?
     enum class ViewState {
+        NO_LABEL,
         MY_LABEL,
         RECENT_LABEL,
         SEARCH_RESULT,

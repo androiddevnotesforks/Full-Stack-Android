@@ -38,4 +38,5 @@ val useCaseModule = module {
     single { DeleteImageUseCase(get()) }
     single { GetDetailImage(get(), get()) }
     single { SearchLabelUseCase(get()) }
+    single { GetSearchHomeData(get()) }
 }

@@ -10,6 +10,7 @@ class SearchAddLabelViewHolder(private val binding : ItemSearchAddBinding) : Rec
     fun bind(item : LabelViewData){
         binding.tvLabel.text = item.name
     }
+
     fun bind(item : LabelEntity){
         binding.tvLabel.text = item.text
     }

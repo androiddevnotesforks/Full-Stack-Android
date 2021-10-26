@@ -31,4 +31,7 @@ object Constants {
     const val BOTTOM_SHEET_ITEM = "item"
 
     const val SETTING_KEY = "settings"
+
+    // create label key
+    const val LABEL_TITLE = "title"
 }
